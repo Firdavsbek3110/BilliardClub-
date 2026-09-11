@@ -26,6 +26,144 @@ input{outline:none;font-family:inherit}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#35c9ff,#985cff);border-radius:10px}
 ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#5dd4ff,#a870ff)}
 
+/* ============ LOGIN PAGE ============ */
+.login-screen{
+  position:fixed;inset:0;z-index:100000;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(0,180,255,.18), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(180,0,255,.15), transparent 40%),
+    #040c17;
+  display:flex;justify-content:center;align-items:center;
+  padding:20px;
+  animation:fadeIn .4s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.login-screen.hidden{display:none}
+
+.login-box{
+  width:100%;max-width:420px;
+  padding:40px 34px;
+  border-radius:26px;
+  background:linear-gradient(155deg,rgba(20,42,67,.98),rgba(7,19,33,.99));
+  border:1px solid rgba(56,87,115,.8);
+  box-shadow:0 30px 100px rgba(0,0,0,.7),0 0 60px rgba(53,201,255,.15);
+  position:relative;overflow:hidden;
+  animation:loginIn .5s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes loginIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.login-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#ff55ad,#35c9ff);
+  background-size:200%;animation:titleShine 4s linear infinite;
+}
+.login-logo{text-align:center;margin-bottom:26px}
+.login-logo-icon{
+  font-size:64px;margin-bottom:10px;
+  filter:drop-shadow(0 0 25px rgba(53,201,255,.6));
+  animation:ballFloat 3s ease-in-out infinite;
+}
+@keyframes ballFloat{50%{transform:translateY(-8px) rotate(8deg)}}
+.login-logo-title{
+  font-size:24px;font-weight:900;letter-spacing:4px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#42e979);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:logoColor 6s linear infinite;
+}
+.login-logo-sub{font-size:11px;color:#5f7691;letter-spacing:3px;margin-top:5px}
+
+.login-field{margin-bottom:16px}
+.login-label{
+  display:block;font-size:11px;font-weight:800;
+  color:#7d93ab;letter-spacing:1.5px;
+  margin-bottom:8px;text-transform:uppercase;
+}
+.login-input{
+  width:100%;padding:15px 18px;
+  border-radius:14px;
+  border:1px solid rgba(48,73,102,.8);
+  background:rgba(7,17,31,.9);
+  color:#fff;font-size:15px;font-weight:600;
+  transition:.25s;
+}
+.login-input:focus{
+  border-color:#35c9ff;
+  box-shadow:0 0 0 4px rgba(53,201,255,.15);
+  background:rgba(7,17,31,1);
+}
+.login-input::placeholder{color:#3f5570}
+
+.login-remember{
+  display:flex;align-items:center;gap:10px;
+  margin:14px 0 20px;
+  color:#8a9eb5;font-size:13px;
+  cursor:pointer;user-select:none;
+}
+.login-remember input{
+  width:18px;height:18px;
+  min-height:auto;
+  accent-color:#35c9ff;
+  cursor:pointer;
+}
+
+.login-btn{
+  width:100%;padding:16px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#0a8ee8,#065a9f);
+  color:#fff;font-weight:900;font-size:15px;
+  letter-spacing:2px;
+  box-shadow:0 10px 30px rgba(8,123,210,.4);
+  transition:.3s;position:relative;overflow:hidden;
+}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(8,123,210,.55)}
+.login-btn:active{transform:translateY(0)}
+.login-btn::before{
+  content:'';position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
+  transition:.6s;
+}
+.login-btn:hover::before{left:100%}
+
+.login-error{
+  color:#ff6878;font-size:13px;font-weight:700;
+  text-align:center;margin-top:14px;
+  min-height:20px;letter-spacing:.5px;
+}
+.login-error.shake{animation:shake .4s}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  20%,60%{transform:translateX(-8px)}
+  40%,80%{transform:translateX(8px)}
+}
+
+.login-footer{
+  text-align:center;margin-top:24px;
+  padding-top:20px;
+  border-top:1px solid rgba(53,201,255,.12);
+  font-size:11px;color:#5f7691;
+  line-height:1.8;letter-spacing:.5px;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn{
+  width:100%;padding:12px;
+  margin-top:12px;
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15));
+  border:1px solid rgba(224,68,86,.4);
+  color:#ff6878;
+  font-weight:800;font-size:12px;
+  letter-spacing:1px;
+  transition:.25s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.logout-btn:hover{
+  background:linear-gradient(135deg,rgba(224,68,86,.3),rgba(169,35,53,.3));
+  border-color:#ff6878;
+  transform:translateY(-2px);
+}
+
 /* ============ LAYOUT: SIDEBAR + MAIN ============ */
 .app-layout{
   display:grid;
@@ -672,7 +810,7 @@ input:focus{
   font-family:Consolas,monospace;
 }
 
-/* RESPONSIVE — kichik ekranlar uchun */
+/* RESPONSIVE */
 @media (max-width:1100px){
   .app-layout{grid-template-columns:200px 1fr}
   .main-content{padding:20px 18px}
@@ -704,6 +842,7 @@ input:focus{
   .history-date-card{grid-template-columns:auto 1fr;gap:12px}
   .history-date-actions{grid-column:1/-1;justify-content:space-between}
   .clock{font-size:64px;letter-spacing:3px}
+  .login-box{padding:30px 22px}
 }
 
 /* SHORTCUT TOOLTIP */
@@ -722,6 +861,41 @@ input:focus{
 </style>
 </head>
 <body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-icon">🎱</div>
+      <div class="login-logo-title">BILLIARD CLUB</div>
+      <div class="login-logo-sub">WINDOWS EDITION</div>
+    </div>
+
+    <div class="login-field">
+      <label class="login-label">👤 Login</label>
+      <input type="text" id="loginUsername" class="login-input" placeholder="Loginni kiriting" autocomplete="username">
+    </div>
+
+    <div class="login-field">
+      <label class="login-label">🔒 Parol</label>
+      <input type="password" id="loginPassword" class="login-input" placeholder="Parolni kiriting" autocomplete="current-password">
+    </div>
+
+    <label class="login-remember">
+      <input type="checkbox" id="loginRemember">
+      <span>Meni eslab qol</span>
+    </label>
+
+    <button class="login-btn" onclick="checkLogin()">🔓 KIRISH</button>
+
+    <div id="loginError" class="login-error"></div>
+
+    <div class="login-footer">
+      📞 +998 97 757 31 10<br>
+      📍 Mindonobod Yangi Asr
+    </div>
+  </div>
+</div>
 
 <div class="app-layout">
 
@@ -759,6 +933,10 @@ input:focus{
     <div class="sidebar-footer">
       📞 +998 97 757 31 10<br>
       📍 Mindonobod Yangi Asr
+      <button class="logout-btn" onclick="logout()">
+        <span>🚪</span>
+        <span>CHIQISH</span>
+      </button>
     </div>
   </aside>
 
@@ -1000,6 +1178,17 @@ input:focus{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
+/* ================================================================
+   LOGIN TIZIMI
+   ================================================================ */
+const AUTH = {
+  login: "BilliardClub",
+  password: "123567"
+};
+
+// selectedHistoryDateValue — hoisting xatosi tuzatildi
+let selectedHistoryDateValue = "";
+
 /* ========== SOZLAMALAR ========== */
 const PRICE = 40000;
 const ADMIN_PATTERN = [2,4,5,3];
@@ -1032,13 +1221,18 @@ function fileDate(){
 }
 
 /* ========== OVOZ ========== */
+let audioCtx = null;
 function beep(type){
   try{
-    const ctx = new (window.AudioContext||window.webkitAudioContext)();
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.connect(g); g.connect(ctx.destination);
-    const now = ctx.currentTime;
+    if(!audioCtx){
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    }
+    if(audioCtx.state === "suspended") audioCtx.resume();
+
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.connect(g); g.connect(audioCtx.destination);
+    const now = audioCtx.currentTime;
     if(type==="start"){ o.frequency.setValueAtTime(660,now); o.frequency.setValueAtTime(880,now+.1); }
     else if(type==="end"){ o.frequency.setValueAtTime(880,now); o.frequency.setValueAtTime(660,now+.15); }
     else if(type==="money"){ o.frequency.setValueAtTime(523,now); o.frequency.setValueAtTime(659,now+.08); o.frequency.setValueAtTime(784,now+.16); }
@@ -1048,6 +1242,89 @@ function beep(type){
     g.gain.exponentialRampToValueAtTime(.001,now+.35);
     o.start(now); o.stop(now+.35);
   }catch(e){}
+}
+
+/* ================================================================
+   LOGIN FUNKSIYALARI
+   ================================================================ */
+(function initAuth(){
+  const saved = localStorage.getItem("billiardAuth");
+  const remember = localStorage.getItem("billiardRemember");
+  if(saved === "true" || remember === "true"){
+    const screen = document.getElementById("loginScreen");
+    if(screen) screen.classList.add("hidden");
+  }
+})();
+
+function checkLogin(){
+  const userInput = document.getElementById("loginUsername").value.trim();
+  const passInput = document.getElementById("loginPassword").value;
+  const remember = document.getElementById("loginRemember").checked;
+  const errorEl = document.getElementById("loginError");
+
+  if(!userInput || !passInput){
+    errorEl.innerText = "⚠️ Login va parolni to'ldiring!";
+    errorEl.style.color = "#ff6878";
+    errorEl.classList.remove("shake");
+    void errorEl.offsetWidth;
+    errorEl.classList.add("shake");
+    beep("error");
+    return;
+  }
+
+  if(userInput === AUTH.login && passInput === AUTH.password){
+    errorEl.innerText = "✅ Kirish muvaffaqiyatli!";
+    errorEl.style.color = "#42e979";
+    beep("money");
+
+    localStorage.setItem("billiardAuth", "true");
+    if(remember){
+      localStorage.setItem("billiardRemember", "true");
+    } else {
+      localStorage.removeItem("billiardRemember");
+    }
+
+    setTimeout(function(){
+      document.getElementById("loginScreen").classList.add("hidden");
+      document.getElementById("loginUsername").value = "";
+      document.getElementById("loginPassword").value = "";
+      errorEl.innerText = "";
+    }, 500);
+
+  } else {
+    errorEl.innerText = "❌ Login yoki parol noto'g'ri!";
+    errorEl.style.color = "#ff6878";
+    errorEl.classList.remove("shake");
+    void errorEl.offsetWidth;
+    errorEl.classList.add("shake");
+    beep("error");
+    document.getElementById("loginPassword").value = "";
+  }
+}
+
+function logout(){
+  document.getElementById("modalIcon").innerText = "🚪";
+  document.getElementById("modalTitle").innerText = "Tizimdan chiqish";
+  document.getElementById("modalText").innerText = "Rostdan ham tizimdan chiqmoqchimisiz?";
+  document.getElementById("modalButtons").innerHTML =
+    '<button class="modal-danger" onclick="confirmLogout()">🚪 HA, CHIQISH</button>' +
+    '<button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>';
+  document.getElementById("modalBg").style.display = "flex";
+}
+
+function confirmLogout(){
+  localStorage.removeItem("billiardAuth");
+  localStorage.removeItem("billiardRemember");
+  closeModal();
+  beep("end");
+  setTimeout(function(){
+    const screen = document.getElementById("loginScreen");
+    screen.classList.remove("hidden");
+    screen.style.animation = "none";
+    void screen.offsetWidth;
+    screen.style.animation = "fadeIn .4s ease";
+    document.getElementById("loginUsername").focus();
+  }, 300);
 }
 
 /* ========== SOAT ========== */
@@ -1099,12 +1376,10 @@ function openPage(page,button){
   const target=document.getElementById(page);
   if(target) target.classList.add("active");
 
-  // Sidebar active
   document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
   if(button){
     button.classList.add("active");
   } else {
-    // Sahifa nomi bo'yicha tugmani topamiz
     const navBtns = document.querySelectorAll(".sidebar-nav .nav-item");
     navBtns.forEach(b=>{
       const onclick = b.getAttribute("onclick")||"";
@@ -1112,7 +1387,6 @@ function openPage(page,button){
     });
   }
 
-  // Main scroll to top
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -1368,7 +1642,6 @@ function openHistoryDate(date){
   box.innerHTML=html;
   window.scrollTo({top:0,behavior:"smooth"});
 }
-let selectedHistoryDateValue="";
 
 function confirmClearSelectedHistory(){
   const date=selectedHistoryDateValue;
@@ -1423,15 +1696,6 @@ function convertDate(date){
     if(p.length===3) return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).getTime();
   }
   return 0;
-}
-function formatDate(date){
-  if(!date) return "";
-  if(date.includes(".")) return date;
-  if(date.includes("-")){
-    const p=date.split("-");
-    return p[2]+"."+p[1]+"."+p[0];
-  }
-  return date;
 }
 function escapeHTML(text){
   return String(text||"")
@@ -1953,7 +2217,6 @@ function openAdmin(){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   document.getElementById("admin").classList.add("active");
   document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
-  // Admin tugmasini active qilamiz
   const adminBtn = document.querySelector('.sidebar-nav .nav-item[data-key="A"]');
   if(adminBtn) adminBtn.classList.add("active");
   window.scrollTo({top:0,behavior:"smooth"});
@@ -1973,7 +2236,14 @@ function backToMain(){
    WINDOWS KEYBOARD SHORTCUTS
    ================================================================ */
 document.addEventListener("keydown", function(e){
-  // Ignore kiritish maydonlarida
+  // Login ochiq bo'lsa — Enter bilan kirish
+  const loginScreen = document.getElementById("loginScreen");
+  if(loginScreen && !loginScreen.classList.contains("hidden")){
+    if(e.key === "Enter"){ e.preventDefault(); checkLogin(); }
+    return;
+  }
+
+  // Kiritish maydonlarida shortcut ishlamasin
   const tag = (e.target.tagName||"").toLowerCase();
   if(tag === "input" || tag === "textarea") return;
 
@@ -1991,7 +2261,6 @@ document.addEventListener("keydown", function(e){
   // Ctrl + P — PDF
   if(e.ctrlKey && key === "p"){
     e.preventDefault();
-    // Joriy faol sahifaga qarab PDF
     if(document.getElementById("adminReports").classList.contains("active")){
       printReportChek();
     } else if(document.getElementById("adminDebtors").classList.contains("active")){
@@ -2014,11 +2283,9 @@ document.addEventListener("keydown", function(e){
   if(key === "1" || key === "2" || key === "3"){
     e.preventDefault();
     openPage('tables');
-    // Sidebar tugmasini active qilamiz
     document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
     const tablesBtn = document.querySelector('.sidebar-nav .nav-item[data-key="1"]');
     if(tablesBtn) tablesBtn.classList.add("active");
-    // Stol kartasini highlight qilamiz
     const stol = document.getElementById("tableWindow"+key);
     if(stol){
       stol.scrollIntoView({behavior:"smooth", block:"center"});
@@ -2082,6 +2349,14 @@ for(let id=1;id<=3;id++) updateTable(id);
 renderReports();
 renderAdminDebtors();
 renderAdminHistory();
+
+// Login maydoniga avtomatik focus
+setTimeout(function(){
+  const screen = document.getElementById("loginScreen");
+  if(screen && !screen.classList.contains("hidden")){
+    document.getElementById("loginUsername").focus();
+  }
+}, 200);
 
 window.addEventListener("beforeunload",function(){ saveGames(); });
 </script>
