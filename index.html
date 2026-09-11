@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#06101d">
+<title>🎱 BILLIARD CLUB — Windows</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;min-height:100%}
+body{
+  color:#fff;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(0,180,255,.15), transparent 35%),
+    radial-gradient(circle at 85% 80%, rgba(180,0,255,.12), transparent 35%),
+    radial-gradient(circle at 50% 50%, rgba(0,255,180,.05), transparent 50%),
+    #06101d;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+button{border:0;outline:0;cursor:pointer;color:#fff;font-family:inherit}
+input{outline:none;font-family:inherit}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:rgba(0,0,0,.2)}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#35c9ff,#985cff);border-radius:10px}
+::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#5dd4ff,#a870ff)}
+
+/* ============ LAYOUT: SIDEBAR + MAIN ============ */
+.app-layout{
+  display:grid;
+  grid-template-columns:240px 1fr;
+  min-height:100vh;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar{
+  background:linear-gradient(180deg,rgba(13,29,48,.98),rgba(5,15,27,.99));
+  border-right:1px solid rgba(53,201,255,.15);
+  padding:20px 14px;
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;
+  box-shadow:5px 0 30px rgba(0,0,0,.3);
+}
+.sidebar-logo{
+  text-align:center;padding:16px 8px 22px;
+  border-bottom:1px solid rgba(53,201,255,.15);
+  margin-bottom:18px;
+}
+.sidebar-logo-icon{font-size:42px;margin-bottom:6px}
+.sidebar-logo-text{
+  font-size:15px;font-weight:900;letter-spacing:2.5px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#42e979);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:logoColor 6s linear infinite;
+}
+@keyframes logoColor{0%{background-position:0}100%{background-position:200%}}
+.sidebar-logo-sub{font-size:9px;color:#5f7691;letter-spacing:1.5px;margin-top:3px}
+
+.sidebar-clock{
+  text-align:center;padding:14px 10px;
+  background:linear-gradient(135deg,rgba(53,201,255,.08),rgba(152,92,255,.08));
+  border:1px solid rgba(53,201,255,.2);
+  border-radius:14px;margin-bottom:18px;
+}
+.sidebar-clock-time{
+  font-size:26px;font-weight:900;letter-spacing:1.5px;
+  color:#35c9ff;font-variant-numeric:tabular-nums;
+  text-shadow:0 0 15px rgba(53,201,255,.4);
+}
+.sidebar-clock-date{
+  font-size:10px;color:#7d93ab;margin-top:4px;
+  text-transform:capitalize;letter-spacing:.5px;
+}
+
+.sidebar-nav{flex:1;display:flex;flex-direction:column;gap:6px}
+.nav-item{
+  width:100%;padding:13px 14px;
+  border-radius:12px;
+  background:transparent;color:#8a9eb5;
+  display:flex;align-items:center;gap:12px;
+  font-size:13px;font-weight:700;letter-spacing:.3px;
+  transition:.25s;text-align:left;
+  position:relative;
+}
+.nav-item:hover{
+  background:rgba(53,201,255,.08);
+  color:#fff;
+  transform:translateX(3px);
+}
+.nav-item.active{
+  background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
+  color:#fff;
+  border:1px solid rgba(53,201,255,.35);
+  box-shadow:0 0 20px rgba(53,201,255,.2);
+}
+.nav-item.active::before{
+  content:'';position:absolute;left:0;top:20%;bottom:20%;
+  width:3px;border-radius:0 3px 3px 0;
+  background:linear-gradient(180deg,#35c9ff,#985cff);
+}
+.nav-icon{font-size:20px;width:28px;text-align:center}
+.nav-badge{
+  margin-left:auto;
+  background:rgba(220,45,65,.2);
+  color:#ff6878;
+  font-size:10px;font-weight:900;
+  padding:2px 8px;border-radius:20px;
+  border:1px solid rgba(220,45,65,.4);
+}
+.nav-badge.hidden{display:none}
+
+.sidebar-footer{
+  padding:14px 10px 6px;
+  border-top:1px solid rgba(53,201,255,.15);
+  font-size:10px;color:#5f7691;text-align:center;
+  line-height:1.7;
+}
+
+/* ============ MAIN CONTENT ============ */
+.main-content{
+  padding:24px 28px;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+.page{display:none;animation:pageIn .35s cubic-bezier(.2,.9,.3,1)}
+.page.active{display:block}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.page-header{
+  margin-bottom:24px;
+  padding-bottom:18px;
+  border-bottom:1px solid rgba(53,201,255,.15);
+  display:flex;justify-content:space-between;align-items:flex-end;
+  flex-wrap:wrap;gap:12px;
+}
+.page-title{
+  font-size:clamp(22px,2vw,30px);font-weight:900;letter-spacing:1px;
+  background:linear-gradient(90deg,#fff,#54c8ff,#985cff,#fff);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:titleShine 5s linear infinite;
+}
+@keyframes titleShine{from{background-position:0}to{background-position:200%}}
+.page-subtitle{color:#7d93ab;font-size:13px;margin-top:6px;letter-spacing:.3px}
+.page-actions{display:flex;gap:10px;flex-wrap:wrap}
+
+/* ============ TABLES GRID (Windows) ============ */
+.tables-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+  margin-bottom:24px;
+}
+.table-window{
+  padding:22px;border-radius:24px;
+  background:linear-gradient(155deg,rgba(22,44,72,.95),rgba(9,24,42,.98));
+  border:1px solid rgba(53,201,255,.15);
+  box-shadow:0 15px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05);
+  position:relative;overflow:hidden;
+  transition:.35s;
+}
+.table-window:hover{
+  transform:translateY(-5px);
+  border-color:rgba(53,201,255,.4);
+  box-shadow:0 25px 70px rgba(0,0,0,.45);
+}
+.table-window::before{
+  content:'';position:absolute;top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:conic-gradient(from 0deg,transparent,rgba(53,201,255,.08),transparent 30%);
+  animation:rotate 12s linear infinite;pointer-events:none;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.table-title{
+  text-align:center;font-size:24px;margin-bottom:18px;
+  font-weight:900;letter-spacing:2px;position:relative;z-index:1;
+  background:linear-gradient(90deg,#fff,#54c8ff,#985cff,#fff);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:titleShine 5s linear infinite;
+}
+.status{
+  width:max-content;max-width:100%;margin:0 auto 16px;
+  padding:9px 22px;border-radius:50px;
+  font-size:12px;font-weight:900;letter-spacing:1.2px;
+  position:relative;z-index:1;transition:.4s;
+}
+.free{color:#50c9ff;background:rgba(0,140,255,.12);border:1px solid #087bd2;box-shadow:0 0 20px rgba(53,201,255,.15)}
+.busy{color:#ff6878;background:rgba(220,45,65,.13);border:1px solid #d93648;animation:busyPulse 1.6s infinite}
+@keyframes busyPulse{50%{box-shadow:0 0 28px rgba(220,40,60,.4)}}
+.timer{
+  text-align:center;background:linear-gradient(180deg,#050e1a,#0a1828);
+  border:1px solid rgba(53,201,255,.2);border-radius:18px;
+  padding:18px 6px;margin:14px 0;
+  font-size:34px;font-weight:900;letter-spacing:2px;
+  position:relative;z-index:1;
+  font-variant-numeric:tabular-nums;color:#e6f4ff;
+  text-shadow:0 0 15px rgba(53,201,255,.4);
+  box-shadow:inset 0 0 20px rgba(0,0,0,.5);
+}
+.price{
+  text-align:center;padding:12px;border-radius:14px;
+  background:rgba(7,17,30,.7);
+  border:1px solid rgba(53,201,255,.15);
+  color:#91a8c0;font-size:11px;font-weight:700;letter-spacing:1px;
+  position:relative;z-index:1;
+}
+.price b{
+  display:block;font-size:22px;margin-top:6px;
+  background:linear-gradient(90deg,#42e979,#35c9ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  font-weight:900;
+}
+.live-price{
+  text-align:center;margin-top:10px;padding:10px;
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(66,233,121,.08),rgba(53,201,255,.08));
+  border:1px dashed rgba(66,233,121,.4);
+  font-size:12px;color:#a8c0d8;position:relative;z-index:1;
+}
+.live-price b{color:#42e979;font-size:16px;font-weight:900;margin-left:5px}
+
+/* BUTTONS */
+.btn{
+  width:100%;padding:13px;margin-top:10px;
+  border-radius:12px;color:white;font-weight:800;font-size:13px;
+  letter-spacing:.5px;transition:.25s;
+  position:relative;z-index:1;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);
+  overflow:hidden;
+}
+.btn::before{
+  content:'';position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
+  transition:.6s;
+}
+.btn:hover::before{left:100%}
+.btn:hover{transform:translateY(-2px)}
+.start-btn{background:linear-gradient(135deg,#0a8ee8,#065a9f);box-shadow:0 6px 20px rgba(8,123,210,.35)}
+.start-btn:hover{box-shadow:0 10px 28px rgba(8,123,210,.5)}
+.finish-btn{display:none;background:linear-gradient(135deg,#e04456,#a92335);box-shadow:0 6px 20px rgba(224,68,86,.35)}
+.finish-btn:hover{box-shadow:0 10px 28px rgba(224,68,86,.5)}
+.paid-btn{background:linear-gradient(135deg,#0dbb85,#067858);box-shadow:0 6px 20px rgba(10,169,120,.35)}
+.paid-btn:hover{box-shadow:0 10px 28px rgba(10,169,120,.5)}
+.debt-btn{background:linear-gradient(135deg,#e8a826,#b97300);box-shadow:0 6px 20px rgba(227,161,30,.35)}
+.debt-btn:hover{box-shadow:0 10px 28px rgba(227,161,30,.5)}
+.save-btn{background:linear-gradient(135deg,#0a8ee8,#065a9f);box-shadow:0 6px 20px rgba(8,123,210,.35)}
+
+.payment{display:none;border-top:1px solid rgba(53,201,255,.15);margin-top:16px;padding-top:16px;position:relative;z-index:1}
+.total{
+  text-align:center;font-size:18px;font-weight:700;
+  padding:14px;border-radius:14px;margin-bottom:6px;
+  background:linear-gradient(135deg,rgba(53,201,255,.1),rgba(152,92,255,.1));
+  border:1px solid rgba(53,201,255,.25);
+}
+.total b{color:#55c3ff;font-size:22px;margin-left:5px}
+
+.debt-form{
+  display:none;
+  background:rgba(5,15,27,.6);
+  border:1px solid rgba(53,201,255,.15);
+  border-radius:14px;padding:14px;margin-top:10px;
+}
+.form-title{
+  color:#9fb1c7;font-size:10px;font-weight:800;letter-spacing:1.2px;
+  margin:10px 0 5px;text-transform:uppercase;
+}
+.form-title:first-child{margin-top:0}
+input{
+  width:100%;padding:12px;min-height:44px;
+  border-radius:11px;
+  border:1px solid rgba(48,73,102,.8);
+  background:rgba(7,17,31,.9);
+  color:white;font-size:14px;transition:.25s;
+}
+input:focus{
+  border-color:#35c9ff;
+  box-shadow:0 0 0 3px rgba(53,201,255,.15);
+}
+
+/* HOME */
+#home .home-center{
+  text-align:center;padding:60px 20px;
+  max-width:900px;margin:0 auto;
+}
+.clock{
+  margin-top:30px;
+  font-size:clamp(64px,10vw,140px);
+  font-weight:900;letter-spacing:6px;line-height:1;
+  text-shadow:0 0 30px currentColor,0 0 70px currentColor;
+  white-space:nowrap;
+  animation:clockFloat 3.5s ease-in-out infinite;
+  transition:color .8s;
+  font-variant-numeric:tabular-nums;
+}
+@keyframes clockFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.clock.color1{color:#35c8ff}
+.clock.color2{color:#ff4d66}
+.clock.color3{color:#42e979}
+.clock.color4{color:#ffd23f}
+.clock.color5{color:#ad66ff}
+.clock.color6{color:#ff64ca}
+.clock.color7{color:#00dfc0}
+.clock.color8{color:#ff8b40}
+.clock.color9{color:#88ff4d}
+.clock.color10{color:#5f7fff}
+.clock.color11{color:#ff4da8}
+.clock.color12{color:#ffffff}
+.date{
+  margin-top:24px;color:#91a8bd;
+  font-size:18px;letter-spacing:1px;
+  text-transform:capitalize;
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;margin-bottom:24px;
+}
+.stat{
+  padding:24px;border-radius:20px;
+  background:linear-gradient(155deg,rgba(18,36,59,.95),rgba(12,27,46,.98));
+  border:1px solid rgba(41,69,97,.7);
+  transition:.3s;position:relative;overflow:hidden;
+}
+.stat::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,transparent,rgba(53,201,255,.5),transparent);
+}
+.stat:hover{transform:translateY(-4px);border-color:rgba(53,201,255,.4)}
+.stat small{color:#91a7c0;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+.stat h2{margin-top:10px;font-size:26px;font-weight:900}
+.stat.green{border-top:4px solid #08a979}
+.stat.red{border-top:4px solid #d93648}
+.stat.orange{border-top:4px solid #dc971b}
+
+/* ADMIN CARDS */
+.admin-menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;margin-bottom:24px;
+}
+.admin-card{
+  min-height:160px;padding:24px;
+  border-radius:22px;color:white;
+  background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
+  border:1px solid rgba(53,201,255,.15);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;transition:.35s;position:relative;overflow:hidden;
+}
+.admin-card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(53,201,255,.5);
+  box-shadow:0 20px 45px rgba(53,201,255,.15);
+}
+.admin-card-icon{
+  width:65px;height:65px;border-radius:20px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;
+  background:linear-gradient(135deg,rgba(53,201,255,.15),rgba(152,92,255,.15));
+  border:1px solid rgba(53,201,255,.2);transition:.4s;
+}
+.admin-card:hover .admin-card-icon{transform:scale(1.1) rotate(-5deg)}
+.admin-card b{font-size:17px;font-weight:800}
+.admin-card small{color:#8298ae;font-size:11px}
+
+.back-btn{
+  padding:13px 24px;border-radius:12px;
+  background:linear-gradient(135deg,#0a8ee8,#065a9f);
+  color:white;font-weight:800;font-size:13px;
+  box-shadow:0 8px 24px rgba(8,123,210,.35);transition:.3s;
+  letter-spacing:.5px;
+}
+.back-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(8,123,210,.5)}
+
+.inner-back{
+  padding:11px 18px;border-radius:11px;
+  background:rgba(23,44,67,.9);
+  color:white;border:1px solid rgba(54,82,109,.8);
+  font-weight:800;font-size:12px;transition:.25s;
+  margin-bottom:20px;
+}
+.inner-back:hover{border-color:#35c9ff;transform:translateX(-3px)}
+
+/* HISTORY */
+.history-item{
+  background:linear-gradient(155deg,rgba(12,26,44,.95),rgba(8,20,35,.98));
+  border:1px solid rgba(38,63,90,.8);border-left:5px solid #08a979;
+  border-radius:14px;padding:16px;margin-bottom:12px;
+  line-height:1.8;overflow-wrap:anywhere;transition:.25s;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px;align-items:center;
+}
+.history-item:hover{transform:translateX(4px);border-left-color:#42e979}
+.history-item.debt{border-left-color:#dc971b}
+.history-item-info{min-width:0}
+.history-item-actions{
+  display:flex;gap:8px;flex-shrink:0;
+}
+.history-item-actions .paid-later,
+.history-item-actions .chek-btn{
+  width:auto;margin-top:0;padding:10px 14px;
+  white-space:nowrap;font-size:11px;
+}
+
+.paid-later{
+  padding:10px 16px;border-radius:10px;
+  background:linear-gradient(135deg,#0dbb85,#067d5c);
+  color:white;font-weight:800;font-size:11px;
+  box-shadow:0 5px 16px rgba(10,169,120,.35);transition:.25s;
+  letter-spacing:.3px;
+}
+.paid-later:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(10,169,120,.5)}
+.chek-btn{
+  padding:10px 16px;border-radius:10px;
+  background:linear-gradient(135deg,#7a3ff2,#5a2bbf);
+  color:white;font-weight:800;font-size:11px;
+  box-shadow:0 5px 16px rgba(122,63,242,.35);transition:.25s;
+  letter-spacing:.3px;
+}
+.chek-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(122,63,242,.5)}
+
+.history-date-card{
+  width:100%;padding:18px;margin-bottom:12px;
+  border-radius:16px;
+  background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
+  border:1px solid rgba(44,73,101,.7);
+  color:white;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:16px;align-items:center;text-align:left;
+  transition:.3s;cursor:pointer;
+}
+.history-date-card:hover{
+  transform:translateX(5px);
+  border-color:rgba(53,201,255,.5);
+  box-shadow:0 10px 30px rgba(53,201,255,.15);
+}
+.history-date-icon{
+  width:54px;height:54px;border-radius:14px;
+  display:flex;justify-content:center;align-items:center;
+  font-size:26px;
+  background:linear-gradient(135deg,#0a8ee8,#065a9f);
+  box-shadow:0 6px 20px rgba(8,123,210,.35);
+}
+.history-date-info b{display:block;font-size:17px;font-weight:800;margin-bottom:5px}
+.history-date-info small{display:block;color:#8198af;font-size:11px;line-height:1.6}
+.history-date-actions{display:flex;gap:10px;align-items:center}
+
+.date-chek-btn{
+  padding:9px 14px;border-radius:10px;
+  background:linear-gradient(135deg,#7a3ff2,#5a2bbf);
+  color:white;font-weight:800;font-size:11px;
+  box-shadow:0 4px 14px rgba(122,63,242,.35);
+  transition:.25s;white-space:nowrap;
+}
+.date-chek-btn:hover{transform:scale(1.05)}
+.history-date-arrow{font-size:24px;color:#5f88aa}
+
+.history-total-box{
+  margin:20px 0;padding:22px;border-radius:20px;
+  background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
+  border:1px solid rgba(53,201,255,.4);
+  text-align:center;
+  box-shadow:0 10px 35px rgba(53,201,255,.12);
+}
+.history-total-box small{
+  display:block;color:#8198af;font-size:11px;
+  font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+}
+.history-total-box b{
+  display:block;margin-top:10px;color:#4bc8ff;
+  font-size:28px;font-weight:900;
+  text-shadow:0 0 20px rgba(75,200,255,.5);
+}
+
+.history-summary{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin-bottom:18px;
+}
+.history-summary-card{
+  padding:16px 12px;border-radius:16px;
+  background:linear-gradient(155deg,rgba(13,29,49,.95),rgba(8,20,35,.98));
+  border:1px solid rgba(41,69,97,.7);text-align:center;
+}
+.history-summary-card small{
+  display:block;color:#8299b0;font-size:10px;
+  font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+}
+.history-summary-card b{display:block;margin-top:7px;font-size:16px;font-weight:900}
+.history-summary-card.green b{color:#42df9d}
+.history-summary-card.red b{color:#ff6273}
+.history-summary-card.blue b{color:#4bc8ff}
+
+.history-day-item{
+  background:linear-gradient(155deg,rgba(12,26,44,.95),rgba(8,20,35,.98));
+  border:1px solid rgba(38,63,90,.8);border-left:5px solid #42c8ff;
+  border-radius:14px;padding:16px;margin-bottom:12px;
+  line-height:1.8;overflow-wrap:anywhere;
+}
+.history-day-item.debt{border-left-color:#e1a329}
+.history-day-item .paid{color:#42df9d;font-weight:800}
+.history-day-item .unpaid{color:#ff6374;font-weight:800}
+
+.chek-actions-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-top:16px;
+}
+.chek-print-btn{
+  padding:16px;border-radius:14px;
+  background:linear-gradient(135deg,#7a3ff2,#5a2bbf);
+  color:white;font-weight:800;font-size:13px;letter-spacing:.8px;
+  box-shadow:0 8px 25px rgba(122,63,242,.35);transition:.25s;
+}
+.chek-print-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(122,63,242,.5)}
+.clear-btn{
+  padding:16px;border-radius:14px;
+  background:linear-gradient(135deg,#e04456,#8f1e2d);
+  color:white;font-weight:800;font-size:13px;letter-spacing:.8px;
+  box-shadow:0 8px 25px rgba(224,68,86,.3);transition:.25s;
+}
+.clear-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(224,68,86,.5)}
+
+.report-chek-btn{
+  padding:16px 24px;border-radius:14px;
+  background:linear-gradient(135deg,#7a3ff2,#5a2bbf);
+  color:white;font-weight:800;font-size:13px;letter-spacing:.8px;
+  box-shadow:0 8px 25px rgba(122,63,242,.35);transition:.25s;
+  margin-top:20px;
+}
+.report-chek-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(122,63,242,.5)}
+
+.empty{
+  text-align:center;color:#8195ae;padding:60px 20px;
+  font-size:14px;line-height:1.8;
+}
+.empty::before{
+  content:'📭';display:block;font-size:70px;
+  margin-bottom:16px;opacity:.4;
+  animation:emptyFloat 3s ease-in-out infinite;
+}
+@keyframes emptyFloat{50%{transform:translateY(-10px)}}
+
+/* MODAL */
+.modal-bg{
+  display:none;position:fixed;inset:0;z-index:30000;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(12px);
+  justify-content:center;align-items:center;padding:20px;
+}
+.modal{
+  width:100%;max-width:440px;padding:32px;
+  text-align:center;border-radius:24px;
+  background:linear-gradient(155deg,rgba(20,40,66,.98),rgba(11,25,43,.99));
+  border:1px solid rgba(66,97,126,.8);
+  box-shadow:0 30px 100px rgba(0,0,0,.7);
+  animation:centerModal .35s cubic-bezier(.2,.9,.3,1.2);
+  position:relative;overflow:hidden;
+}
+.modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#ff55ad,#35c9ff);
+  background-size:200%;animation:titleShine 4s linear infinite;
+}
+@keyframes centerModal{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-icon{font-size:56px;margin-bottom:12px}
+.modal h2{font-size:22px;font-weight:900}
+.modal p{color:#a9b9ca;line-height:1.7;margin-top:10px;font-size:14px;white-space:pre-line}
+.modal-btn,.modal-danger,.modal-cancel{
+  width:100%;padding:14px;border-radius:12px;
+  color:white;font-weight:800;font-size:14px;transition:.25s;
+}
+.modal-btn{margin-top:20px;background:linear-gradient(135deg,#0a8ee8,#065a9f)}
+.modal-btn:hover{transform:translateY(-2px)}
+.modal-danger{margin-top:20px;background:linear-gradient(135deg,#e04456,#a92335)}
+.modal-danger:hover{transform:translateY(-2px)}
+.modal-cancel{margin-top:10px;background:linear-gradient(135deg,#172c43,#0d1a29);border:1px solid rgba(54,82,109,.8)}
+.modal-cancel:hover{border-color:#35c9ff}
+
+/* PATTERN */
+.pattern-bg{
+  display:none;position:fixed;inset:0;z-index:50000;
+  background:rgba(2,8,16,.94);
+  backdrop-filter:blur(16px);
+  justify-content:center;align-items:center;padding:20px;
+}
+.pattern-box{
+  width:100%;max-width:440px;text-align:center;
+  padding:32px 24px;border-radius:26px;
+  background:linear-gradient(155deg,rgba(20,42,67,.98),rgba(7,19,33,.99));
+  border:1px solid rgba(56,87,115,.8);
+  box-shadow:0 30px 100px rgba(0,0,0,.7);
+  position:relative;overflow:hidden;
+}
+.pattern-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#ff55ad,#35c9ff);
+  background-size:200%;animation:titleShine 4s linear infinite;
+}
+.pattern-icon{font-size:56px}
+.pattern-box h2{margin-top:10px;font-size:22px;font-weight:900;letter-spacing:1px}
+.pattern-box p{color:#91a7bd;margin-top:8px;line-height:1.6;font-size:13px}
+#patternMessage{
+  margin:16px 0;color:#45c7ff;font-weight:800;
+  min-height:22px;font-size:13px;letter-spacing:.5px;
+}
+#patternCanvas{
+  width:320px;height:320px;max-width:100%;
+  background:radial-gradient(circle,rgba(30,80,120,.18),rgba(0,0,0,.08));
+  border-radius:24px;touch-action:none;display:block;margin:auto;
+  cursor:pointer;
+}
+.pattern-back{
+  width:100%;margin-top:16px;padding:14px;
+  border-radius:12px;color:white;font-weight:800;font-size:13px;
+  background:rgba(23,44,67,.9);
+  border:1px solid rgba(54,82,109,.8);transition:.25s;
+}
+.pattern-back:hover{border-color:#35c9ff}
+
+/* PDF LOADING */
+.pdf-loading{
+  display:none;position:fixed;inset:0;z-index:99999;
+  background:rgba(2,8,16,.94);
+  backdrop-filter:blur(16px);
+  justify-content:center;align-items:center;
+}
+.pdf-loading-box{
+  text-align:center;padding:40px 36px;
+  background:linear-gradient(155deg,rgba(20,42,67,.98),rgba(7,19,33,.99));
+  border-radius:26px;
+  border:1px solid rgba(53,201,255,.4);
+  box-shadow:0 30px 100px rgba(53,201,255,.2);
+  max-width:360px;width:100%;
+}
+.pdf-spinner{
+  width:80px;height:80px;margin:0 auto 22px;
+  border:6px solid rgba(53,201,255,.15);
+  border-top-color:#35c9ff;
+  border-right-color:#985cff;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pdf-loading-title{color:#35c9ff;font-weight:900;font-size:17px;letter-spacing:1px;margin-bottom:8px}
+.pdf-loading-sub{color:#8198af;font-size:13px}
+
+/* KEYBOARD HINTS */
+.keyboard-hints{
+  position:fixed;bottom:14px;right:14px;
+  display:flex;gap:6px;align-items:center;
+  background:rgba(13,29,48,.92);
+  border:1px solid rgba(53,201,255,.2);
+  border-radius:12px;padding:8px 14px;
+  font-size:11px;color:#7d93ab;
+  backdrop-filter:blur(10px);
+  z-index:100;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+.keyboard-hints b{
+  display:inline-block;
+  padding:2px 7px;margin:0 2px;
+  background:rgba(53,201,255,.15);
+  border:1px solid rgba(53,201,255,.35);
+  border-radius:5px;
+  color:#35c9ff;font-size:10px;font-weight:900;
+  font-family:Consolas,monospace;
+}
+
+/* RESPONSIVE — kichik ekranlar uchun */
+@media (max-width:1100px){
+  .app-layout{grid-template-columns:200px 1fr}
+  .main-content{padding:20px 18px}
+}
+@media (max-width:900px){
+  .app-layout{grid-template-columns:1fr}
+  .sidebar{
+    position:static;height:auto;
+    flex-direction:row;flex-wrap:wrap;
+    padding:12px;gap:8px;
+  }
+  .sidebar-logo{width:auto;padding:8px 12px;border:0;margin:0;text-align:left}
+  .sidebar-clock{padding:8px 14px;margin:0}
+  .sidebar-nav{flex-direction:row;flex-wrap:wrap;width:100%}
+  .nav-item{width:auto;padding:10px 14px}
+  .nav-item .nav-badge{display:none}
+  .sidebar-footer{display:none}
+  .tables-grid{grid-template-columns:1fr}
+  .keyboard-hints{display:none}
+}
+@media (max-width:600px){
+  .main-content{padding:14px}
+  .history-item{grid-template-columns:1fr}
+  .history-item-actions{width:100%}
+  .history-item-actions .paid-later,
+  .history-item-actions .chek-btn{flex:1}
+  .history-summary{grid-template-columns:1fr 1fr}
+  .chek-actions-grid{grid-template-columns:1fr}
+  .history-date-card{grid-template-columns:auto 1fr;gap:12px}
+  .history-date-actions{grid-column:1/-1;justify-content:space-between}
+  .clock{font-size:64px;letter-spacing:3px}
+}
+
+/* SHORTCUT TOOLTIP */
+.shortcut-tip{
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#0d1d30;
+  color:#35c9ff;
+  font-size:10px;font-weight:800;
+  padding:5px 10px;border-radius:8px;
+  border:1px solid rgba(53,201,255,.35);
+  white-space:nowrap;
+  opacity:0;pointer-events:none;transition:.25s;
+  z-index:1000;
+}
+.nav-item:hover .shortcut-tip{opacity:1;transform:translateX(-50%) translateY(-4px)}
+</style>
+</head>
+<body>
+
+<div class="app-layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">🎱</div>
+      <div class="sidebar-logo-text">BILLIARD CLUB</div>
+      <div class="sidebar-logo-sub">WINDOWS EDITION</div>
+    </div>
+
+    <div class="sidebar-clock">
+      <div class="sidebar-clock-time" id="sidebarClock">00:00:00</div>
+      <div class="sidebar-clock-date" id="sidebarDate">—</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="openPage('home',this)" data-key="H">
+        <span class="nav-icon">🏠</span>
+        <span>Asosiy</span>
+        <span class="shortcut-tip">H tugmasi</span>
+      </button>
+      <button class="nav-item" onclick="openPage('tables',this)" data-key="1">
+        <span class="nav-icon">🎱</span>
+        <span>Stollar</span>
+        <span class="shortcut-tip">1-3 tugmalari</span>
+      </button>
+      <button class="nav-item" onclick="openPattern()" data-key="A">
+        <span class="nav-icon">🔐</span>
+        <span>Admin panel</span>
+        <span class="shortcut-tip">A tugmasi</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      📞 +998 97 757 31 10<br>
+      📍 Mindonobod Yangi Asr
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main-content">
+
+    <!-- HOME -->
+    <div id="home" class="page active">
+      <div class="home-center">
+        <div class="page-title" style="font-size:clamp(28px,3vw,42px)">🎱 BILLIARD CLUB</div>
+        <div class="clock color1" id="clock">00:00:00</div>
+        <div class="date" id="date"></div>
+      </div>
+    </div>
+
+    <!-- TABLES -->
+    <div id="tables" class="page">
+      <div class="page-header">
+        <div>
+          <div class="page-title">🎱 STOLLAR</div>
+          <div class="page-subtitle">Barcha stollar bir ekranda • 1 soat = 40 000 so'm</div>
+        </div>
+      </div>
+
+      <div class="tables-grid">
+
+        <!-- STOL 1 -->
+        <div class="table-window" id="tableWindow1">
+          <div class="table-title">🎱 STOL 1</div>
+          <div id="status1" class="status free">🔵 BO'SH</div>
+          <div id="timer1" class="timer">00:00:00</div>
+          <div class="price">1 SOAT NARXI <b>40 000 so'm</b></div>
+          <div id="livePrice1" class="live-price" style="display:none">💰 Hozirgi hisob: <b id="liveSum1">0 so'm</b></div>
+          <button id="start1" class="btn start-btn" onclick="startGame(1)">▶️ O'YINNI BOSHLASH</button>
+          <button id="finish1" class="btn finish-btn" onclick="finishGame(1)">⏹️ O'YINNI TUGATISH</button>
+          <div id="payment1" class="payment">
+            <div class="total">💰 JAMI: <b id="sum1">0 so'm</b></div>
+            <button class="btn paid-btn" onclick="savePaid(1)">🟢 PUL OLINDI</button>
+            <button class="btn debt-btn" onclick="showDebt(1)">🔴 PUL OLINMADI</button>
+            <div id="debtForm1" class="debt-form">
+              <div class="form-title">👤 Ismi</div>
+              <input id="name1" placeholder="Ismini yozing">
+              <div class="form-title">📞 Telefon</div>
+              <input id="phone1" placeholder="Telefon raqami">
+              <button class="btn save-btn" onclick="saveDebt(1)">💾 QARZDORNI SAQLASH</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STOL 2 -->
+        <div class="table-window" id="tableWindow2">
+          <div class="table-title">🎱 STOL 2</div>
+          <div id="status2" class="status free">🔵 BO'SH</div>
+          <div id="timer2" class="timer">00:00:00</div>
+          <div class="price">1 SOAT NARXI <b>40 000 so'm</b></div>
+          <div id="livePrice2" class="live-price" style="display:none">💰 Hozirgi hisob: <b id="liveSum2">0 so'm</b></div>
+          <button id="start2" class="btn start-btn" onclick="startGame(2)">▶️ O'YINNI BOSHLASH</button>
+          <button id="finish2" class="btn finish-btn" onclick="finishGame(2)">⏹️ O'YINNI TUGATISH</button>
+          <div id="payment2" class="payment">
+            <div class="total">💰 JAMI: <b id="sum2">0 so'm</b></div>
+            <button class="btn paid-btn" onclick="savePaid(2)">🟢 PUL OLINDI</button>
+            <button class="btn debt-btn" onclick="showDebt(2)">🔴 PUL OLINMADI</button>
+            <div id="debtForm2" class="debt-form">
+              <div class="form-title">👤 Ismi</div>
+              <input id="name2" placeholder="Ismini yozing">
+              <div class="form-title">📞 Telefon</div>
+              <input id="phone2" placeholder="Telefon raqami">
+              <button class="btn save-btn" onclick="saveDebt(2)">💾 QARZDORNI SAQLASH</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STOL 3 -->
+        <div class="table-window" id="tableWindow3">
+          <div class="table-title">🎱 STOL 3</div>
+          <div id="status3" class="status free">🔵 BO'SH</div>
+          <div id="timer3" class="timer">00:00:00</div>
+          <div class="price">1 SOAT NARXI <b>40 000 so'm</b></div>
+          <div id="livePrice3" class="live-price" style="display:none">💰 Hozirgi hisob: <b id="liveSum3">0 so'm</b></div>
+          <button id="start3" class="btn start-btn" onclick="startGame(3)">▶️ O'YINNI BOSHLASH</button>
+          <button id="finish3" class="btn finish-btn" onclick="finishGame(3)">⏹️ O'YINNI TUGATISH</button>
+          <div id="payment3" class="payment">
+            <div class="total">💰 JAMI: <b id="sum3">0 so'm</b></div>
+            <button class="btn paid-btn" onclick="savePaid(3)">🟢 PUL OLINDI</button>
+            <button class="btn debt-btn" onclick="showDebt(3)">🔴 PUL OLINMADI</button>
+            <div id="debtForm3" class="debt-form">
+              <div class="form-title">👤 Ismi</div>
+              <input id="name3" placeholder="Ismini yozing">
+              <div class="form-title">📞 Telefon</div>
+              <input id="phone3" placeholder="Telefon raqami">
+              <button class="btn save-btn" onclick="saveDebt(3)">💾 QARZDORNI SAQLASH</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ADMIN -->
+    <div id="admin" class="page">
+      <div class="page-header">
+        <div>
+          <div class="page-title">🔐 ADMIN PANEL</div>
+          <div class="page-subtitle">Boshqaruv menyusi</div>
+        </div>
+        <div class="page-actions">
+          <button class="back-btn" onclick="backToMain()">🏠 ASOSIY MENYUGA</button>
+        </div>
+      </div>
+
+      <div class="admin-menu-grid">
+        <button class="admin-card" onclick="openAdminPage('reports')">
+          <div class="admin-card-icon">📊</div>
+          <div><b>Hisobot</b><br><small>Tushum va o'yinlar</small></div>
+        </button>
+        <button class="admin-card" onclick="openAdminPage('debtors')">
+          <div class="admin-card-icon">🔴</div>
+          <div><b>Qarzdor</b><br><small>Olinmagan pullar</small></div>
+        </button>
+        <button class="admin-card" onclick="openAdminPage('history')">
+          <div class="admin-card-icon">📋</div>
+          <div><b>Tarix</b><br><small>Barcha o'yinlar</small></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- REPORTS -->
+    <div id="adminReports" class="page">
+      <button class="inner-back" onclick="openAdmin()">← ADMIN MENYUSIGA QAYTISH</button>
+      <div class="page-header">
+        <div>
+          <div class="page-title">📊 HISOBOT</div>
+          <div class="page-subtitle">Bugungi tushum va statistika</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><small>🎱 Bugungi o'yinlar</small><h2 id="statGames">0</h2></div>
+        <div class="stat green"><small>🟢 Pul olingan</small><h2 id="statPaid">0 so'm</h2></div>
+        <div class="stat red"><small>🔴 Pul olinmagan</small><h2 id="statUnpaid">0 so'm</h2></div>
+        <div class="stat orange"><small>👥 Qarzdorlar</small><h2 id="statDebtors">0 ta</h2></div>
+      </div>
+      <button class="report-chek-btn" onclick="printReportChek()">📄 UMUMIY HISOBOTNI PDF YUKLASH</button>
+    </div>
+
+    <!-- DEBTORS -->
+    <div id="adminDebtors" class="page">
+      <button class="inner-back" onclick="openAdmin()">← ADMIN MENYUSIGA QAYTISH</button>
+      <div class="page-header">
+        <div>
+          <div class="page-title">🔴 QARZDORLAR</div>
+          <div class="page-subtitle">To'lanmagan o'yinlar ro'yxati</div>
+        </div>
+      </div>
+      <div id="adminDebtorList"></div>
+      <button class="report-chek-btn" onclick="printDebtorsChek()">📄 BARCHA QARZDORLAR PDF YUKLASH</button>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="adminHistory" class="page">
+      <div id="historyDatesPage">
+        <button class="inner-back" onclick="openAdmin()">← ADMIN MENYUSIGA QAYTISH</button>
+        <div class="page-header">
+          <div>
+            <div class="page-title">📋 TARIX</div>
+            <div class="page-subtitle">Sanalar bo'yicha o'yinlar</div>
+          </div>
+        </div>
+        <div id="historyDatesList"></div>
+        <div id="historyTotalBox" class="history-total-box">
+          <small>💰 BARCHA SANALARNING UMUMIY SUMMASI</small>
+          <b id="historyTotalAmount">0 so'm</b>
+        </div>
+        <button class="report-chek-btn" onclick="printAllHistoryChek()">📄 BARCHA TARIXNI PDF YUKLASH</button>
+      </div>
+      <div id="historyDayPage" style="display:none">
+        <button class="inner-back" onclick="backToHistoryDates()">← SANALARGA QAYTISH</button>
+        <div class="page-header">
+          <div>
+            <div class="page-title" id="selectedHistoryDate">📅 Sana</div>
+            <div class="page-subtitle">Kunlik o'yinlar</div>
+          </div>
+        </div>
+        <div id="selectedDayHistory"></div>
+        <div class="chek-actions-grid">
+          <button class="chek-print-btn" onclick="printDayChek()">📄 PDF YUKLASH</button>
+          <button class="clear-btn" onclick="confirmClearSelectedHistory()">🗑️ SANANI TOZALASH</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL -->
+<div id="modalBg" class="modal-bg">
+  <div class="modal">
+    <div id="modalIcon" class="modal-icon">⚠️</div>
+    <h2 id="modalTitle">Diqqat</h2>
+    <p id="modalText">...</p>
+    <div id="modalButtons">
+      <button class="modal-btn" onclick="closeModal()">TUSHUNDIM</button>
+    </div>
+  </div>
+</div>
+
+<!-- PATTERN -->
+<div id="patternBg" class="pattern-bg">
+  <div class="pattern-box">
+    <div class="pattern-icon">🔐</div>
+    <h2>ADMIN KIRISH</h2>
+    <p>Grafik parolni sichqoncha bilan chizing</p>
+    <div id="patternMessage">🔑 Grafik parolni chizing</div>
+    <canvas id="patternCanvas" width="320" height="320"></canvas>
+    <button class="pattern-back" onclick="closePattern()">← ORQAGA (ESC)</button>
+  </div>
+</div>
+
+<!-- PDF LOADING -->
+<div id="pdfLoading" class="pdf-loading">
+  <div class="pdf-loading-box">
+    <div class="pdf-spinner"></div>
+    <div class="pdf-loading-title">📄 PDF TAYYORLANMOQDA...</div>
+    <div class="pdf-loading-sub">Iltimos kuting, 1-2 soniya</div>
+  </div>
+</div>
+
+<!-- KEYBOARD HINTS -->
+<div class="keyboard-hints" id="keyboardHints">
+  <b>1</b><b>2</b><b>3</b> Stollar •
+  <b>H</b> Asosiy •
+  <b>A</b> Admin •
+  <b>R</b> Hisobot •
+  <b>D</b> Qarzdorlar •
+  <b>T</b> Tarix •
+  <b>Esc</b> Yopish
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+/* ========== SOZLAMALAR ========== */
+const PRICE = 40000;
+const ADMIN_PATTERN = [2,4,5,3];
+const CLUB_NAME = "BILLIARD CLUB";
+const CLUB_PHONE = "+998 97 757 31 10";
+const CLUB_ADDRESS = "Mindonobod Yangi Asr";
+
+/* ========== LOCAL STORAGE ========== */
+let games = JSON.parse(localStorage.getItem("billiardGames")) || {
+  1:{start:null,finished:false,minutes:0,amount:0},
+  2:{start:null,finished:false,minutes:0,amount:0},
+  3:{start:null,finished:false,minutes:0,amount:0}
+};
+function saveGames(){ localStorage.setItem("billiardGames",JSON.stringify(games)); }
+function getHistory(){ return JSON.parse(localStorage.getItem("billiardHistory")) || []; }
+function saveHistory(h){ localStorage.setItem("billiardHistory",JSON.stringify(h)); }
+
+function money(n){ return Math.round(Number(n)||0).toLocaleString("uz-UZ")+" so'm"; }
+function todayDate(){
+  const d=new Date();
+  return String(d.getDate()).padStart(2,"0")+"."+String(d.getMonth()+1).padStart(2,"0")+"."+d.getFullYear();
+}
+function fullDateTime(){
+  const d=new Date();
+  return todayDate()+" "+String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+}
+function fileDate(){
+  const d=new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+
+/* ========== OVOZ ========== */
+function beep(type){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    const now = ctx.currentTime;
+    if(type==="start"){ o.frequency.setValueAtTime(660,now); o.frequency.setValueAtTime(880,now+.1); }
+    else if(type==="end"){ o.frequency.setValueAtTime(880,now); o.frequency.setValueAtTime(660,now+.15); }
+    else if(type==="money"){ o.frequency.setValueAtTime(523,now); o.frequency.setValueAtTime(659,now+.08); o.frequency.setValueAtTime(784,now+.16); }
+    else if(type==="error"){ o.frequency.setValueAtTime(300,now); o.frequency.setValueAtTime(200,now+.15); }
+    o.type="sine";
+    g.gain.setValueAtTime(.12,now);
+    g.gain.exponentialRampToValueAtTime(.001,now+.35);
+    o.start(now); o.stop(now+.35);
+  }catch(e){}
+}
+
+/* ========== SOAT ========== */
+function updateClock(){
+  const now=new Date();
+  const h=String(now.getHours()).padStart(2,"0");
+  const m=String(now.getMinutes()).padStart(2,"0");
+  const s=String(now.getSeconds()).padStart(2,"0");
+  const timeStr=h+":"+m+":"+s;
+
+  const clock=document.getElementById("clock");
+  if(clock){
+    clock.innerText=timeStr;
+    clock.className="clock color"+((now.getMinutes()%12)+1);
+  }
+
+  const sidebarClock=document.getElementById("sidebarClock");
+  if(sidebarClock) sidebarClock.innerText=timeStr;
+
+  const dateStr=now.toLocaleDateString("uz-UZ",{
+    weekday:"long",year:"numeric",month:"long",day:"numeric"
+  });
+
+  const dateEl=document.getElementById("date");
+  if(dateEl) dateEl.innerText=dateStr;
+
+  const sidebarDate=document.getElementById("sidebarDate");
+  if(sidebarDate) sidebarDate.innerText=now.toLocaleDateString("uz-UZ",{
+    day:"2-digit",month:"2-digit",year:"numeric"
+  });
+}
+setInterval(updateClock,1000);
+updateClock();
+
+/* ========== MODAL ========== */
+function showModal(icon,title,text){
+  document.getElementById("modalIcon").innerText=icon;
+  document.getElementById("modalTitle").innerText=title;
+  document.getElementById("modalText").innerText=text;
+  document.getElementById("modalButtons").innerHTML=
+    '<button class="modal-btn" onclick="closeModal()">TUSHUNDIM</button>';
+  document.getElementById("modalBg").style.display="flex";
+}
+function closeModal(){ document.getElementById("modalBg").style.display="none"; }
+
+/* ========== PAGE NAVIGATION ========== */
+function openPage(page,button){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  const target=document.getElementById(page);
+  if(target) target.classList.add("active");
+
+  // Sidebar active
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
+  if(button){
+    button.classList.add("active");
+  } else {
+    // Sahifa nomi bo'yicha tugmani topamiz
+    const navBtns = document.querySelectorAll(".sidebar-nav .nav-item");
+    navBtns.forEach(b=>{
+      const onclick = b.getAttribute("onclick")||"";
+      if(onclick.includes("'"+page+"'")) b.classList.add("active");
+    });
+  }
+
+  // Main scroll to top
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* ========== O'YIN ========== */
+function startGame(id){
+  if(games[id].start && !games[id].finished){
+    beep("error");
+    showModal("🔴","Stol band","Bu stol hozir o'ynatilmoqda.");
+    return;
+  }
+  games[id]={start:Date.now(),finished:false,minutes:0,amount:0};
+  saveGames();
+  updateTable(id);
+  beep("start");
+  showModal("🎱","O'yin boshlandi","Stol "+id+" o'yini boshlandi. Yaxshi dam oling!");
+}
+function updateTimer(id){
+  if(!games[id].start) return;
+  const sec=Math.floor((Date.now()-games[id].start)/1000);
+  const h=Math.floor(sec/3600);
+  const m=Math.floor((sec%3600)/60);
+  const s=sec%60;
+  const el=document.getElementById("timer"+id);
+  if(el) el.innerText=
+    String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+  const minutes=Math.ceil(sec/60)||1;
+  const amount=(PRICE/60)*minutes;
+  const liveEl=document.getElementById("liveSum"+id);
+  if(liveEl) liveEl.innerText=money(amount);
+}
+function finishGame(id){
+  if(!games[id].start) return;
+  let minutes=Math.ceil((Date.now()-games[id].start)/60000);
+  if(minutes<1) minutes=1;
+  const amount=(PRICE/60)*minutes;
+  games[id].minutes=minutes;
+  games[id].amount=amount;
+  games[id].finished=true;
+  saveGames();
+  document.getElementById("sum"+id).innerText=money(amount);
+  document.getElementById("payment"+id).style.display="block";
+  document.getElementById("finish"+id).style.display="none";
+  document.getElementById("status"+id).innerText="⏸ TUGADI";
+  document.getElementById("status"+id).className="status busy";
+  document.getElementById("livePrice"+id).style.display="none";
+  beep("end");
+  showModal("⏹️","O'yin tugadi","Hisob: "+money(amount));
+}
+function showDebt(id){ document.getElementById("debtForm"+id).style.display="block"; }
+
+function savePaid(id){
+  const history=getHistory();
+  const date=todayDate();
+  history.unshift({
+    id:Date.now(),table:id,
+    minutes:games[id].minutes,amount:games[id].amount,
+    paid:true,name:"",phone:"",paymentDate:"",
+    gameDate:date,saveDate:date,savedAt:new Date().toISOString()
+  });
+  saveHistory(history);
+  const amount=games[id].amount;
+  resetTable(id);
+  renderReports(); renderAdminHistory(); renderAdminDebtors();
+  beep("money");
+  showModal("🟢","Pul olindi",money(amount)+" qabul qilindi.");
+}
+function saveDebt(id){
+  const name=document.getElementById("name"+id).value.trim();
+  const phone=document.getElementById("phone"+id).value.trim();
+  if(!name){ beep("error"); showModal("👤","Ism kiritilmagan","Iltimos, ismni yozing."); return; }
+  if(!phone){ beep("error"); showModal("📞","Telefon kiritilmagan","Iltimos, telefon raqamini yozing."); return; }
+  const history=getHistory();
+  const date=todayDate();
+  history.unshift({
+    id:Date.now(),table:id,
+    minutes:games[id].minutes,amount:games[id].amount,
+    paid:false,name:name,phone:phone,paymentDate:"",
+    gameDate:date,saveDate:date,savedAt:new Date().toISOString()
+  });
+  saveHistory(history);
+  const amount=games[id].amount;
+  resetTable(id);
+  renderReports(); renderAdminDebtors(); renderAdminHistory();
+  beep("error");
+  showModal("🔴","Qarzdor saqlandi",name+" — "+money(amount));
+}
+function resetTable(id){
+  games[id]={start:null,finished:false,minutes:0,amount:0};
+  saveGames();
+  document.getElementById("timer"+id).innerText="00:00:00";
+  document.getElementById("status"+id).innerText="🔵 BO'SH";
+  document.getElementById("status"+id).className="status free";
+  document.getElementById("start"+id).style.display="block";
+  document.getElementById("finish"+id).style.display="none";
+  document.getElementById("payment"+id).style.display="none";
+  document.getElementById("debtForm"+id).style.display="none";
+  document.getElementById("name"+id).value="";
+  document.getElementById("phone"+id).value="";
+  const lp=document.getElementById("livePrice"+id);
+  if(lp) lp.style.display="none";
+}
+function updateTable(id){
+  const g=games[id];
+  if(g.start && !g.finished){
+    document.getElementById("status"+id).innerText="🔴 BAND";
+    document.getElementById("status"+id).className="status busy";
+    document.getElementById("start"+id).style.display="none";
+    document.getElementById("finish"+id).style.display="block";
+    document.getElementById("livePrice"+id).style.display="block";
+    updateTimer(id);
+  } else if(g.finished){
+    document.getElementById("status"+id).innerText="⏸ TUGADI";
+    document.getElementById("status"+id).className="status busy";
+    document.getElementById("start"+id).style.display="none";
+    document.getElementById("payment"+id).style.display="block";
+    document.getElementById("sum"+id).innerText=money(g.amount);
+  }
+}
+
+/* ========== HISOBOT ========== */
+function renderReports(){
+  const history=getHistory();
+  const today=todayDate();
+  const todayData=history.filter(x=>x.saveDate===today || (!x.saveDate && x.gameDate===today));
+  const paid=todayData.filter(x=>x.paid).reduce((a,b)=>a+Number(b.amount||0),0);
+  const unpaid=todayData.filter(x=>!x.paid).reduce((a,b)=>a+Number(b.amount||0),0);
+  const debtors=history.filter(x=>!x.paid);
+  document.getElementById("statGames").innerText=todayData.length;
+  document.getElementById("statPaid").innerText=money(paid);
+  document.getElementById("statUnpaid").innerText=money(unpaid);
+  document.getElementById("statDebtors").innerText=debtors.length+" ta";
+}
+
+/* ========== QARZDORLAR ========== */
+function renderAdminDebtors(){
+  const history=getHistory().filter(x=>!x.paid);
+  const box=document.getElementById("adminDebtorList");
+  if(!history.length){
+    box.innerHTML='<div class="empty">🎉 Qarzdorlar yo\'q</div>';
+    return;
+  }
+  box.innerHTML="";
+  history.forEach(item=>{
+    const div=document.createElement("div");
+    div.className="history-item debt";
+    div.innerHTML=
+      '<div class="history-item-info">'+
+        '👤 <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 '+escapeHTML(item.phone)+'<br>'+
+        '🎱 Stol '+item.table+' &nbsp;•&nbsp; ⏱ '+item.minutes+' daq &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
+        '<span style="color:#ffc34e;font-weight:800">🔴 PUL OLINMAGAN</span>'+
+      '</div>'+
+      '<div class="history-item-actions">'+
+        '<button class="paid-later" onclick="markPaid('+item.id+')">🟢 PULNI OLDIM</button>'+
+        '<button class="chek-btn" onclick="printSingleDebtChek('+item.id+')">📄 PDF</button>'+
+      '</div>';
+    box.appendChild(div);
+  });
+}
+function markPaid(id){
+  const history=getHistory();
+  const item=history.find(x=>x.id===id);
+  if(!item) return;
+  item.paid=true;
+  item.paidDate=todayDate();
+  saveHistory(history);
+  renderReports(); renderAdminDebtors(); renderAdminHistory();
+  beep("money");
+  showModal("🟢","To'lov olindi",escapeHTML(item.name)+"ning "+money(item.amount)+" qarzi yopildi.");
+}
+
+/* ========== TARIX ========== */
+function renderAdminHistory(){
+  const history=getHistory();
+  document.getElementById("historyDatesPage").style.display="block";
+  document.getElementById("historyDayPage").style.display="none";
+  const box=document.getElementById("historyDatesList");
+  const totalBox=document.getElementById("historyTotalBox");
+
+  const dateGroups={};
+  history.forEach(item=>{
+    const date=item.saveDate||item.gameDate||"";
+    if(!date) return;
+    if(!dateGroups[date]) dateGroups[date]=[];
+    dateGroups[date].push(item);
+  });
+
+  const dates=Object.keys(dateGroups).sort((a,b)=>convertDate(b)-convertDate(a));
+  const allTotal=history.reduce((s,i)=>s+Number(i.amount||0),0);
+  document.getElementById("historyTotalAmount").innerText=money(allTotal);
+
+  if(!dates.length){
+    box.innerHTML='<div class="empty">📋 Hozircha saqlangan tarix yo\'q</div>';
+    totalBox.style.display="block";
+    return;
+  }
+
+  box.innerHTML="";
+  dates.forEach(date=>{
+    const items=dateGroups[date];
+    const total=items.reduce((s,i)=>s+Number(i.amount||0),0);
+    const paid=items.filter(i=>i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+    const unpaid=items.filter(i=>!i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+    const card=document.createElement("div");
+    card.className="history-date-card";
+    card.innerHTML=
+      '<div class="history-date-icon">📅</div>'+
+      '<div class="history-date-info" onclick="openHistoryDate(\''+date+'\')">'+
+        '<b>'+escapeHTML(date)+'</b>'+
+        '<small>🎱 '+items.length+' ta o\'yin • 💰 '+money(total)+'</small>'+
+        '<small>🟢 '+money(paid)+' &nbsp;&nbsp; 🔴 '+money(unpaid)+'</small>'+
+      '</div>'+
+      '<div class="history-date-actions">'+
+        '<button class="date-chek-btn" onclick="event.stopPropagation();printDateChek(\''+date+'\')">📄 PDF</button>'+
+        '<div class="history-date-arrow" onclick="openHistoryDate(\''+date+'\')" style="cursor:pointer">›</div>'+
+      '</div>';
+    box.appendChild(card);
+  });
+}
+function openHistoryDate(date){
+  const history=getHistory();
+  const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
+  document.getElementById("historyDatesPage").style.display="none";
+  document.getElementById("historyDayPage").style.display="block";
+  document.getElementById("selectedHistoryDate").innerText="📅 "+date;
+  selectedHistoryDateValue=date;
+  const box=document.getElementById("selectedDayHistory");
+  if(!items.length){
+    box.innerHTML='<div class="empty">Bu sanada saqlangan ma\'lumot yo\'q.</div>';
+    return;
+  }
+  const total=items.reduce((s,i)=>s+Number(i.amount||0),0);
+  const paid=items.filter(i=>i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+  const unpaid=items.filter(i=>!i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+
+  let html=
+    '<div class="history-summary">'+
+      '<div class="history-summary-card blue"><small>🎱 O\'YINLAR</small><b>'+items.length+' ta</b></div>'+
+      '<div class="history-summary-card green"><small>🟢 OLINAN</small><b>'+money(paid)+'</b></div>'+
+      '<div class="history-summary-card red"><small>🔴 OLINMAGAN</small><b>'+money(unpaid)+'</b></div>'+
+    '</div>'+
+    '<div class="history-total-box"><small>💰 SHU SANANING UMUMIY SUMMASI</small><b>'+money(total)+'</b></div>';
+
+  items.forEach(item=>{
+    html+='<div class="history-day-item '+(!item.paid?"debt":"")+'">'+
+      '🎱 <b>Stol '+item.table+'</b> &nbsp;•&nbsp; ⏱ <b>'+item.minutes+' daqiqa</b> &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
+      (item.paid
+        ? '<span class="paid">🟢 PUL OLINDI</span>'
+        : '👤 Ismi: <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 <b>'+escapeHTML(item.phone)+'</b> &nbsp;•&nbsp; <span class="unpaid">🔴 PUL OLINMAGAN</span>'
+      )+
+      (item.paidDate?' &nbsp;•&nbsp; ✅ Pul olingan: <b>'+escapeHTML(item.paidDate)+'</b>':'')+
+    '</div>';
+  });
+  box.innerHTML=html;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+let selectedHistoryDateValue="";
+
+function confirmClearSelectedHistory(){
+  const date=selectedHistoryDateValue;
+  if(!date){ showModal("📅","Sana tanlanmagan","O'chiriladigan sana aniqlanmadi."); return; }
+  const history=getHistory();
+  const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
+  if(!items.length){
+    showModal("📋","Tarix bo'sh","Bu sanada o'chiriladigan tarix mavjud emas.");
+    return;
+  }
+  const total=items.reduce((s,i)=>s+Number(i.amount||0),0);
+  document.getElementById("modalIcon").innerText="🗑️";
+  document.getElementById("modalTitle").innerText="Tarixni tozalash";
+  document.getElementById("modalText").innerText=
+    date+" sanasidagi "+items.length+" ta o'yin tarixini ("+money(total)+") o'chirishni xohlaysizmi?";
+  document.getElementById("modalButtons").innerHTML=
+    '<button class="modal-danger" onclick="clearSelectedHistory()">🗑️ HA, O\'CHIRISH</button>'+
+    '<button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>';
+  document.getElementById("modalBg").style.display="flex";
+}
+function clearSelectedHistory(){
+  const date=selectedHistoryDateValue;
+  if(!date){ closeModal(); return; }
+  const history=getHistory();
+  const newHistory=history.filter(item=>{
+    const d=item.saveDate||item.gameDate||"";
+    return d!==date;
+  });
+  saveHistory(newHistory);
+  selectedHistoryDateValue="";
+  renderReports(); renderAdminDebtors(); renderAdminHistory();
+  closeModal();
+  setTimeout(function(){
+    showModal("✅","Tarix o'chirildi",date+" sanasining tarixi o'chirildi.");
+  },200);
+}
+function backToHistoryDates(){
+  document.getElementById("historyDayPage").style.display="none";
+  document.getElementById("historyDatesPage").style.display="block";
+  selectedHistoryDateValue="";
+  renderAdminHistory();
+}
+
+function convertDate(date){
+  if(!date) return 0;
+  if(date.includes(".")){
+    const p=date.split(".");
+    if(p.length===3) return new Date(Number(p[2]),Number(p[1])-1,Number(p[0])).getTime();
+  }
+  if(date.includes("-")){
+    const p=date.split("-");
+    if(p.length===3) return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).getTime();
+  }
+  return 0;
+}
+function formatDate(date){
+  if(!date) return "";
+  if(date.includes(".")) return date;
+  if(date.includes("-")){
+    const p=date.split("-");
+    return p[2]+"."+p[1]+"."+p[0];
+  }
+  return date;
+}
+function escapeHTML(text){
+  return String(text||"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+/* ================================================================
+   PDF YUKLAB OLISH
+   ================================================================ */
+function showPdfLoading(show){
+  document.getElementById("pdfLoading").style.display = show ? "flex" : "none";
+}
+
+function buildChekElement(options){
+  const {
+    title = "KASSA CHEKI",
+    subtitle = "",
+    headerInfo = "",
+    items = [],
+    totals = [],
+    footer = "",
+    showSignature = true
+  } = options;
+
+  const chekNo = "CHK-" + Date.now().toString().slice(-8);
+  const now = fullDateTime();
+
+  let itemsHTML = "";
+  items.forEach((row, idx)=>{
+    const bg = idx % 2 === 0 ? "#ffffff" : "#f8fafc";
+    itemsHTML += `
+      <tr style="background:${bg}">
+        <td style="text-align:center;color:#555;padding:10px 8px;border-bottom:1px solid #eef2f7">${idx+1}</td>
+        <td style="padding:10px 8px;border-bottom:1px solid #eef2f7;color:#2a3648">${row.col1||""}</td>
+        <td style="padding:10px 8px;border-bottom:1px solid #eef2f7;color:#2a3648">${row.col2||""}</td>
+        <td style="padding:10px 8px;border-bottom:1px solid #eef2f7;color:#2a3648">${row.col3||""}</td>
+        <td style="text-align:right;font-weight:700;padding:10px 8px;border-bottom:1px solid #eef2f7;color:#2a3648">${row.col4||""}</td>
+      </tr>`;
+  });
+
+  let totalsHTML = "";
+  totals.forEach(t=>{
+    if(t.value === "" && t.label.includes("━")){
+      totalsHTML += '<div style="border-top:1px dashed #c8d4e0;margin:10px 0"></div>';
+      return;
+    }
+    const bg = t.highlight ? "#e8f8f0" : "#f4f7fb";
+    const border = t.highlight ? "#0aa978" : "#0a8ee8";
+    const fontSize = t.highlight ? "16px" : "14px";
+    const fontWeight = t.highlight ? "900" : "600";
+    const valColor = t.highlight ? "#0aa978" : "#0a5c9f";
+    const valSize = t.highlight ? "20px" : "15px";
+    totalsHTML += `
+      <div style="display:flex;justify-content:space-between;padding:12px 16px;margin-bottom:8px;background:${bg};border-radius:10px;border-left:4px solid ${border};font-size:${fontSize};font-weight:${fontWeight};color:#1a2433">
+        <span>${t.label}</span>
+        <span style="font-weight:900;color:${valColor};font-size:${valSize}">${t.value}</span>
+      </div>`;
+  });
+
+  let headerInfoHTML = "";
+  if(headerInfo){
+    const tmp = document.createElement("div");
+    tmp.innerHTML = headerInfo;
+    tmp.querySelectorAll("div").forEach(d=>{
+      const spans = d.querySelectorAll("span");
+      if(spans.length === 2){
+        headerInfoHTML += `
+          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px">
+            <span style="color:#5a6a7d">${spans[0].innerText}</span>
+            <span style="font-weight:700;color:#1a2433">${spans[1].innerText}</span>
+          </div>`;
+      }
+    });
+  }
+
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText = `
+    width:780px;
+    background:#ffffff;
+    color:#1a2433;
+    font-family:'Segoe UI',Arial,sans-serif;
+    padding:0;
+    margin:0;
+  `;
+
+  wrapper.innerHTML = `
+    <div style="background:#0a2540;color:#ffffff;padding:26px 30px;position:relative">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:40px">🎱</div>
+        <div>
+          <div style="font-size:26px;font-weight:900;letter-spacing:3px;color:#4dc8ff">${CLUB_NAME}</div>
+          <div style="font-size:11px;color:#7ea8c8;letter-spacing:2px;margin-top:2px">BILLIARD & SNOOKER</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:18px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.2)">
+        <h1 style="font-size:20px;letter-spacing:4px;font-weight:800;color:#ffffff;margin:0">${title}</h1>
+        ${subtitle?'<p style="font-size:12px;color:#9cb8d0;margin-top:6px">'+subtitle+'</p>':''}
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 30px;background:#f4f7fb;border-bottom:1px solid #e0e7f0;font-size:13px">
+      <div style="display:flex;justify-content:space-between;padding:6px 0">
+        <span style="color:#5a6a7d">Chek raqami:</span>
+        <span style="font-weight:700;color:#1a2433">${chekNo}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0">
+        <span style="color:#5a6a7d">Sana:</span>
+        <span style="font-weight:700;color:#1a2433">${now}</span>
+      </div>
+      ${headerInfoHTML}
+    </div>
+
+    <div style="padding:22px 30px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead>
+          <tr>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:center;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;width:40px">#</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;width:80px">Stol</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">Vaqt</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">Holat</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:right;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">Summa</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsHTML || '<tr><td colspan="5" style="text-align:center;padding:30px;color:#8896a8">Ma\'lumot yo\'q</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+
+    <div style="padding:0 30px 22px">${totalsHTML}</div>
+
+    ${showSignature ? `
+    <div style="padding:0 30px 22px">
+      <div style="display:flex;justify-content:space-between;margin:12px 0 8px;padding:0 8px">
+        <div style="text-align:center;flex:1">
+          <div style="border-bottom:1.5px solid #1a2433;height:40px;margin-bottom:6px"></div>
+          <div style="font-size:11px;color:#5a6a7d;font-weight:700;letter-spacing:1px">MIJOZ IMZOSI</div>
+        </div>
+        <div style="text-align:center;flex:1">
+          <div style="border-bottom:1.5px solid #1a2433;height:40px;margin-bottom:6px"></div>
+          <div style="font-size:11px;color:#5a6a7d;font-weight:700;letter-spacing:1px">KASSIR IMZOSI</div>
+        </div>
+      </div>
+    </div>
+    ` : ''}
+
+    <div style="padding:22px 30px;background:#f4f7fb;border-top:1px dashed #c8d4e0;text-align:center;font-size:11px;color:#5a6a7d">
+      <div style="font-weight:800;color:#1a2433;font-size:13px;margin-bottom:6px">XARIDINGIZ UCHUN RAHMAT! 🎱</div>
+      <div>📞 Tel: ${CLUB_PHONE} &nbsp;•&nbsp; 📍 Manzil: ${CLUB_ADDRESS}</div>
+      <div style="margin-top:8px;color:#8896a8">${footer}</div>
+    </div>
+  `;
+
+  return wrapper;
+}
+
+async function downloadPDF(element, filename){
+  showPdfLoading(true);
+  beep("money");
+
+  try {
+    const tempContainer = document.createElement("div");
+    tempContainer.style.cssText = "position:fixed;left:-99999px;top:0;background:#ffffff;padding:20px;z-index:-1";
+    tempContainer.appendChild(element);
+    document.body.appendChild(tempContainer);
+
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      logging: false,
+      windowWidth: 780,
+      width: 780
+    });
+
+    const imgData = canvas.toDataURL("image/jpeg", 0.95);
+    const imgWidth = 210;
+    const pageHeight = 297;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({
+      unit: "mm",
+      format: "a4",
+      orientation: "portrait",
+      compress: true
+    });
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    while(heightLeft > 0){
+      position = heightLeft - imgHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+    }
+
+    pdf.save(filename);
+
+    document.body.removeChild(tempContainer);
+    showPdfLoading(false);
+
+    setTimeout(function(){
+      showModal("✅","PDF yuklandi",
+        '📄 Fayl: "'+filename+'"\n\n📁 Papka: Yuklamalar (Downloads)\n\n💡 Windows: "Yuklamalar" papkasida');
+    }, 300);
+
+  } catch(err){
+    console.error(err);
+    showPdfLoading(false);
+    beep("error");
+    showModal("❌","Xatolik","PDF yaratishda xatolik yuz berdi.\n\nIltimos qayta urinib ko'ring.");
+  }
+}
+
+/* ========== PDF FUNKSIYALAR ========== */
+function printDateChek(date){
+  const history=getHistory();
+  const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
+  if(!items.length){
+    showModal("📋","Ma'lumot yo'q",date+" sanasida o'yinlar mavjud emas.");
+    return;
+  }
+  const total=items.reduce((s,i)=>s+Number(i.amount||0),0);
+  const paid=items.filter(i=>i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+  const unpaid=items.filter(i=>!i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+
+  const tableItems = items.map(it=>({
+    col1: "Stol " + it.table,
+    col2: it.minutes + " daqiqa",
+    col3: it.paid ? "✅ To'langan" : "🔴 Qarz (" + (it.name||"—") + ")",
+    col4: money(it.amount)
+  }));
+
+  const totals = [
+    { label: "Jami o'yinlar soni:", value: items.length + " ta" },
+    { label: "🟢 To'langan summa:", value: money(paid) },
+    { label: "🔴 Qarz summa:", value: money(unpaid) },
+    { label: "💰 UMUMIY SUMMA:", value: money(total), highlight: true }
+  ];
+
+  const el = buildChekElement({
+    title: "KUNLIK HISOBOT",
+    subtitle: date + " sanasi uchun",
+    headerInfo: '<div><span>Sana:</span><span>'+date+'</span></div><div><span>O\'yinlar:</span><span>'+items.length+' ta</span></div>',
+    items: tableItems,
+    totals: totals,
+    footer: "Bu chek avtomatik tarzda yaratilgan"
+  });
+  downloadPDF(el, "BILLIARD_KUNLIK_"+date.replace(/\./g,"-")+".pdf");
+}
+function printDayChek(){
+  const date = selectedHistoryDateValue;
+  if(!date){ showModal("📅","Sana tanlanmagan","Iltimos, sanani tanlang."); return; }
+  printDateChek(date);
+}
+function printAllHistoryChek(){
+  const history = getHistory();
+  if(!history.length){
+    showModal("📋","Tarix bo'sh","Hozircha hech qanday tarix yo'q.");
+    return;
+  }
+  const total=history.reduce((s,i)=>s+Number(i.amount||0),0);
+  const paid=history.filter(i=>i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+  const unpaid=history.filter(i=>!i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+
+  const tableItems = history.map(it=>({
+    col1: "Stol " + it.table,
+    col2: (it.saveDate||it.gameDate||"") + " • " + it.minutes + " daq",
+    col3: it.paid ? "✅ To'langan" : "🔴 Qarz",
+    col4: money(it.amount)
+  }));
+
+  const totals = [
+    { label: "Jami o'yinlar:", value: history.length + " ta" },
+    { label: "🟢 To'langan:", value: money(paid) },
+    { label: "🔴 Qarz:", value: money(unpaid) },
+    { label: "💰 UMUMIY SUMMA:", value: money(total), highlight: true }
+  ];
+
+  const el = buildChekElement({
+    title: "UMUMIY TARIX HISOBOTI",
+    subtitle: "Barcha o'yinlar ro'yxati",
+    headerInfo: '<div><span>Jami o\'yinlar:</span><span>'+history.length+' ta</span></div>',
+    items: tableItems,
+    totals: totals,
+    footer: "Barcha o'yinlar tarixi"
+  });
+  downloadPDF(el, "BILLIARD_TARIX_"+fileDate()+".pdf");
+}
+function printDebtorsChek(){
+  const history = getHistory().filter(x=>!x.paid);
+  if(!history.length){
+    showModal("🎉","Qarzdorlar yo'q","Barcha pullar to'langan!");
+    return;
+  }
+  const total = history.reduce((s,i)=>s+Number(i.amount||0),0);
+  const tableItems = history.map(it=>({
+    col1: escapeHTML(it.name||"—"),
+    col2: escapeHTML(it.phone||"—"),
+    col3: "Stol " + it.table + " • " + it.minutes + " daq",
+    col4: money(it.amount)
+  }));
+
+  const totals = [
+    { label: "Jami qarzdorlar:", value: history.length + " ta" },
+    { label: "💰 UMUMIY QARZ:", value: money(total), highlight: true }
+  ];
+
+  const el = buildChekElement({
+    title: "QARZDORLAR RO'YXATI",
+    subtitle: "To'lanmagan o'yinlar",
+    headerInfo: '<div><span>Qarzdorlar:</span><span>'+history.length+' ta</span></div>',
+    items: tableItems,
+    totals: totals,
+    footer: "Iltimos, qarzlarni o'z vaqtida to'lang"
+  });
+  downloadPDF(el, "BILLIARD_QARZDORLAR_"+fileDate()+".pdf");
+}
+function printSingleDebtChek(id){
+  const history = getHistory();
+  const item = history.find(x=>x.id===id);
+  if(!item){ showModal("❌","Topilmadi","Qarzdor topilmadi."); return; }
+
+  const tableItems = [{
+    col1: "Stol " + item.table,
+    col2: item.minutes + " daqiqa",
+    col3: "🔴 Qarz",
+    col4: money(item.amount)
+  }];
+
+  const totals = [
+    { label: "👤 Mijoz:", value: escapeHTML(item.name||"—") },
+    { label: "📞 Telefon:", value: escapeHTML(item.phone||"—") },
+    { label: "🎱 Stol:", value: "Stol " + item.table },
+    { label: "⏱ Vaqt:", value: item.minutes + " daqiqa" },
+    { label: "💰 QARZ SUMMA:", value: money(item.amount), highlight: true }
+  ];
+
+  const el = buildChekElement({
+    title: "QARZ CHEKI",
+    subtitle: escapeHTML(item.name||"") + " uchun",
+    headerInfo: '<div><span>O\'yin sanasi:</span><span>'+(item.saveDate||item.gameDate||"—")+'</span></div>',
+    items: tableItems,
+    totals: totals,
+    footer: "Qarzni to'lash uchun kassaga murojaat qiling"
+  });
+  downloadPDF(el, "BILLIARD_QARZ_"+escapeHTML(item.name||"mijoz").replace(/\s+/g,"_")+".pdf");
+}
+function printReportChek(){
+  const history = getHistory();
+  const today = todayDate();
+
+  const todayData = history.filter(x=>x.saveDate===today||(!x.saveDate&&x.gameDate===today));
+  const todayPaid = todayData.filter(x=>x.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+  const todayUnpaid = todayData.filter(x=>!x.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+  const todayTotal = todayPaid + todayUnpaid;
+  const allDebtors = history.filter(x=>!x.paid);
+  const allDebt = allDebtors.reduce((s,i)=>s+Number(i.amount||0),0);
+
+  const tableItems = todayData.map(it=>({
+    col1: "Stol " + it.table,
+    col2: it.minutes + " daqiqa",
+    col3: it.paid ? "✅ To'langan" : "🔴 Qarz",
+    col4: money(it.amount)
+  }));
+
+  const totals = [
+    { label: "🎱 Bugungi o'yinlar:", value: todayData.length + " ta" },
+    { label: "🟢 Bugun to'langan:", value: money(todayPaid) },
+    { label: "🔴 Bugun qarz:", value: money(todayUnpaid) },
+    { label: "💰 BUGUNGI JAMI:", value: money(todayTotal), highlight: true },
+    { label: "━━━━━━━━━━━━", value: "" },
+    { label: "👥 Umumiy qarzdorlar:", value: allDebtors.length + " ta" },
+    { label: "💸 Umumiy qarz:", value: money(allDebt) }
+  ];
+
+  const el = buildChekElement({
+    title: "KASSA HISOBOTI",
+    subtitle: today + " sanasi",
+    headerInfo: '<div><span>Bugun:</span><span>'+today+'</span></div><div><span>O\'yinlar:</span><span>'+todayData.length+' ta</span></div>',
+    items: tableItems,
+    totals: totals,
+    footer: "Kunlik kassa hisoboti"
+  });
+  downloadPDF(el, "BILLIARD_HISOBOT_"+fileDate()+".pdf");
+}
+
+/* ================================================================
+   GRAFIK PAROL (Windows — sichqoncha)
+   ================================================================ */
+const canvas=document.getElementById("patternCanvas");
+const ctx=canvas.getContext("2d");
+let points=[],selected=[],drawing=false;
+
+function createPoints(){
+  points=[];
+  const size=320;
+  const step=size/4;
+  const positions=[
+    [step,step],[step*2,step],[step*3,step],
+    [step,step*2],[step*2,step*2],[step*3,step*2],
+    [step,step*3],[step*2,step*3],[step*3,step*3]
+  ];
+  positions.forEach((p,i)=>points.push({id:i+1,x:p[0],y:p[1]}));
+}
+createPoints();
+
+function drawPattern(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(selected.length>1){
+    ctx.beginPath();
+    selected.forEach((id,index)=>{
+      const p=points.find(x=>x.id===id);
+      if(index===0) ctx.moveTo(p.x,p.y);
+      else ctx.lineTo(p.x,p.y);
+    });
+    ctx.lineWidth=8; ctx.lineCap="round"; ctx.lineJoin="round";
+    ctx.strokeStyle="#35c9ff"; ctx.shadowColor="#35c9ff"; ctx.shadowBlur=18;
+    ctx.stroke(); ctx.shadowBlur=0;
+  }
+  points.forEach(point=>{
+    ctx.beginPath();
+    ctx.arc(point.x,point.y,26,0,Math.PI*2);
+    ctx.fillStyle=selected.includes(point.id)?"#32c8ff":"#132a41";
+    ctx.fill();
+    ctx.lineWidth=3;
+    ctx.strokeStyle=selected.includes(point.id)?"#7de0ff":"#36546e";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(point.x,point.y,8,0,Math.PI*2);
+    ctx.fillStyle=selected.includes(point.id)?"#ffffff":"#6d8da9";
+    ctx.fill();
+  });
+}
+drawPattern();
+
+function findPoint(x,y){
+  return points.find(p=>{
+    const dx=x-p.x, dy=y-p.y;
+    return Math.sqrt(dx*dx+dy*dy)<38;
+  });
+}
+function getPosition(e){
+  const rect=canvas.getBoundingClientRect();
+  let cx,cy;
+  if(e.touches&&e.touches.length){ cx=e.touches[0].clientX; cy=e.touches[0].clientY; }
+  else{ cx=e.clientX; cy=e.clientY; }
+  return {
+    x:(cx-rect.left)*(canvas.width/rect.width),
+    y:(cy-rect.top)*(canvas.height/rect.height)
+  };
+}
+function startPattern(e){
+  e.preventDefault();
+  drawing=true; selected=[];
+  const pos=getPosition(e);
+  const point=findPoint(pos.x,pos.y);
+  if(point) selected.push(point.id);
+  drawPattern();
+}
+function movePattern(e){
+  if(!drawing) return;
+  e.preventDefault();
+  const pos=getPosition(e);
+  const point=findPoint(pos.x,pos.y);
+  if(point&&!selected.includes(point.id)){ selected.push(point.id); drawPattern(); }
+}
+function endPattern(){
+  if(!drawing) return;
+  drawing=false; checkPattern();
+}
+canvas.addEventListener("mousedown",startPattern);
+canvas.addEventListener("mousemove",movePattern);
+canvas.addEventListener("mouseup",endPattern);
+canvas.addEventListener("mouseleave",endPattern);
+canvas.addEventListener("touchstart",startPattern,{passive:false});
+canvas.addEventListener("touchmove",movePattern,{passive:false});
+canvas.addEventListener("touchend",endPattern);
+
+function checkPattern(){
+  const message=document.getElementById("patternMessage");
+  const correct=selected.length===ADMIN_PATTERN.length &&
+    selected.every((v,i)=>v===ADMIN_PATTERN[i]);
+  if(correct){
+    message.innerText="✅ Grafik parol to'g'ri!";
+    message.style.color="#42e879";
+    beep("money");
+    setTimeout(function(){ closePattern(); openAdmin(); },500);
+  } else {
+    message.innerText="❌ Grafik parol noto'g'ri!";
+    message.style.color="#ff5368";
+    beep("error");
+    setTimeout(function(){
+      selected=[];
+      message.innerText="🔑 Qaytadan chizing";
+      message.style.color="#45c7ff";
+      drawPattern();
+    },700);
+  }
+}
+function openPattern(){
+  selected=[]; drawPattern();
+  document.getElementById("patternMessage").innerText="🔑 Grafik parolni chizing";
+  document.getElementById("patternMessage").style.color="#45c7ff";
+  document.getElementById("patternBg").style.display="flex";
+}
+function closePattern(){
+  document.getElementById("patternBg").style.display="none";
+  selected=[]; drawPattern();
+}
+
+function openAdmin(){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("admin").classList.add("active");
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
+  // Admin tugmasini active qilamiz
+  const adminBtn = document.querySelector('.sidebar-nav .nav-item[data-key="A"]');
+  if(adminBtn) adminBtn.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function openAdminPage(page){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  if(page==="reports"){ document.getElementById("adminReports").classList.add("active"); renderReports(); }
+  if(page==="debtors"){ document.getElementById("adminDebtors").classList.add("active"); renderAdminDebtors(); }
+  if(page==="history"){ document.getElementById("adminHistory").classList.add("active"); renderAdminHistory(); }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function backToMain(){
+  openPage('home');
+}
+
+/* ================================================================
+   WINDOWS KEYBOARD SHORTCUTS
+   ================================================================ */
+document.addEventListener("keydown", function(e){
+  // Ignore kiritish maydonlarida
+  const tag = (e.target.tagName||"").toLowerCase();
+  if(tag === "input" || tag === "textarea") return;
+
+  const key = e.key.toLowerCase();
+
+  // ESC — yopish
+  if(e.key === "Escape"){
+    const modal = document.getElementById("modalBg");
+    const pattern = document.getElementById("patternBg");
+    if(modal.style.display === "flex"){ closeModal(); return; }
+    if(pattern.style.display === "flex"){ closePattern(); return; }
+    return;
+  }
+
+  // Ctrl + P — PDF
+  if(e.ctrlKey && key === "p"){
+    e.preventDefault();
+    // Joriy faol sahifaga qarab PDF
+    if(document.getElementById("adminReports").classList.contains("active")){
+      printReportChek();
+    } else if(document.getElementById("adminDebtors").classList.contains("active")){
+      printDebtorsChek();
+    } else if(document.getElementById("adminHistory").classList.contains("active")){
+      if(document.getElementById("historyDayPage").style.display === "block"){
+        printDayChek();
+      } else {
+        printAllHistoryChek();
+      }
+    }
+    return;
+  }
+
+  // Modallar ochiq bo'lsa boshqa shortcut ishlamasin
+  if(document.getElementById("modalBg").style.display === "flex") return;
+  if(document.getElementById("patternBg").style.display === "flex") return;
+
+  // Raqamlar — stollar sahifasiga
+  if(key === "1" || key === "2" || key === "3"){
+    e.preventDefault();
+    openPage('tables');
+    // Sidebar tugmasini active qilamiz
+    document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
+    const tablesBtn = document.querySelector('.sidebar-nav .nav-item[data-key="1"]');
+    if(tablesBtn) tablesBtn.classList.add("active");
+    // Stol kartasini highlight qilamiz
+    const stol = document.getElementById("tableWindow"+key);
+    if(stol){
+      stol.scrollIntoView({behavior:"smooth", block:"center"});
+      stol.style.boxShadow = "0 0 40px rgba(53,201,255,.6)";
+      setTimeout(()=>{ stol.style.boxShadow = ""; }, 1500);
+    }
+    return;
+  }
+
+  // H — Asosiy
+  if(key === "h"){
+    e.preventDefault();
+    openPage('home');
+    document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
+    const homeBtn = document.querySelector('.sidebar-nav .nav-item[data-key="H"]');
+    if(homeBtn) homeBtn.classList.add("active");
+    return;
+  }
+
+  // A — Admin
+  if(key === "a"){
+    e.preventDefault();
+    openPattern();
+    return;
+  }
+
+  // R — Hisobot
+  if(key === "r"){
+    e.preventDefault();
+    openAdmin();
+    setTimeout(()=>openAdminPage('reports'), 50);
+    return;
+  }
+
+  // D — Debtors
+  if(key === "d"){
+    e.preventDefault();
+    openAdmin();
+    setTimeout(()=>openAdminPage('debtors'), 50);
+    return;
+  }
+
+  // T — Tarix
+  if(key === "t"){
+    e.preventDefault();
+    openAdmin();
+    setTimeout(()=>openAdminPage('history'), 50);
+    return;
+  }
+});
+
+/* ========== TIMER ========== */
+setInterval(function(){
+  for(let id=1;id<=3;id++){
+    if(games[id].start && !games[id].finished) updateTimer(id);
+  }
+},1000);
+
+/* ========== BOSHLANG'ICH ========== */
+for(let id=1;id<=3;id++) updateTable(id);
+renderReports();
+renderAdminDebtors();
+renderAdminHistory();
+
+window.addEventListener("beforeunload",function(){ saveGames(); });
+</script>
+</body>
+</html>
