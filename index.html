@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" id="htmlRoot">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,6 +71,25 @@ input{outline:none;font-family:inherit}
   animation:logoColor 6s linear infinite;
 }
 .login-logo-sub{font-size:11px;color:#5f7691;letter-spacing:3px;margin-top:5px}
+
+.login-lang{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+  margin-bottom:20px;padding:6px;
+  background:rgba(7,17,31,.7);
+  border:1px solid rgba(53,201,255,.2);
+  border-radius:12px;
+}
+.login-lang .lang-btn{
+  padding:9px 6px;border-radius:9px;
+  background:transparent;color:#7d93ab;
+  font-size:11px;font-weight:900;letter-spacing:1px;transition:.25s;
+}
+.login-lang .lang-btn:hover{color:#fff;background:rgba(53,201,255,.1)}
+.login-lang .lang-btn.active{
+  background:linear-gradient(135deg,rgba(53,201,255,.25),rgba(152,92,255,.25));
+  color:#fff;border:1px solid rgba(53,201,255,.45);
+  box-shadow:0 0 15px rgba(53,201,255,.25);
+}
 
 .login-field{margin-bottom:16px}
 .login-label{
@@ -200,7 +219,7 @@ input{outline:none;font-family:inherit}
   text-align:center;padding:14px 10px;
   background:linear-gradient(135deg,rgba(53,201,255,.08),rgba(152,92,255,.08));
   border:1px solid rgba(53,201,255,.2);
-  border-radius:14px;margin-bottom:18px;
+  border-radius:14px;margin-bottom:14px;
 }
 .sidebar-clock-time{
   font-size:26px;font-weight:900;letter-spacing:1.5px;
@@ -210,6 +229,34 @@ input{outline:none;font-family:inherit}
 .sidebar-clock-date{
   font-size:10px;color:#7d93ab;margin-top:4px;
   text-transform:capitalize;letter-spacing:.5px;
+}
+
+/* ============ LANGUAGE SWITCHER ============ */
+.lang-switcher{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-bottom:18px;
+  padding:6px;
+  background:rgba(7,17,31,.7);
+  border:1px solid rgba(53,201,255,.2);
+  border-radius:12px;
+}
+.lang-btn{
+  padding:9px 6px;
+  border-radius:9px;
+  background:transparent;
+  color:#7d93ab;
+  font-size:11px;font-weight:900;
+  letter-spacing:1px;
+  transition:.25s;
+}
+.lang-btn:hover{color:#fff;background:rgba(53,201,255,.1)}
+.lang-btn.active{
+  background:linear-gradient(135deg,rgba(53,201,255,.25),rgba(152,92,255,.25));
+  color:#fff;
+  border:1px solid rgba(53,201,255,.45);
+  box-shadow:0 0 15px rgba(53,201,255,.25);
 }
 
 .sidebar-nav{flex:1;display:flex;flex-direction:column;gap:6px}
@@ -824,6 +871,8 @@ input:focus{
   }
   .sidebar-logo{width:auto;padding:8px 12px;border:0;margin:0;text-align:left}
   .sidebar-clock{padding:8px 14px;margin:0}
+  .lang-switcher{margin:0;grid-template-columns:auto auto;padding:4px}
+  .lang-btn{padding:8px 12px}
   .sidebar-nav{flex-direction:row;flex-wrap:wrap;width:100%}
   .nav-item{width:auto;padding:10px 14px}
   .nav-item .nav-badge{display:none}
@@ -868,25 +917,30 @@ input:focus{
     <div class="login-logo">
       <div class="login-logo-icon">🎱</div>
       <div class="login-logo-title">BILLIARD CLUB</div>
-      <div class="login-logo-sub">WINDOWS EDITION</div>
+      <div class="login-logo-sub" data-i18n="loginSub">WINDOWS EDITION</div>
+    </div>
+
+    <div class="login-lang">
+      <button class="lang-btn" data-lang="uz" onclick="setLanguage('uz')">🇺🇿 UZ</button>
+      <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
     </div>
 
     <div class="login-field">
-      <label class="login-label">👤 Login</label>
-      <input type="text" id="loginUsername" class="login-input" placeholder="Loginni kiriting" autocomplete="username">
+      <label class="login-label" data-i18n="loginLabel">👤 Login</label>
+      <input type="text" id="loginUsername" class="login-input" data-i18n-placeholder="loginPlaceholder" placeholder="Loginni kiriting" autocomplete="username">
     </div>
 
     <div class="login-field">
-      <label class="login-label">🔒 Parol</label>
-      <input type="password" id="loginPassword" class="login-input" placeholder="Parolni kiriting" autocomplete="current-password">
+      <label class="login-label" data-i18n="passwordLabel">🔒 Parol</label>
+      <input type="password" id="loginPassword" class="login-input" data-i18n-placeholder="passwordPlaceholder" placeholder="Parolni kiriting" autocomplete="current-password">
     </div>
 
     <label class="login-remember">
       <input type="checkbox" id="loginRemember">
-      <span>Meni eslab qol</span>
+      <span data-i18n="rememberMe">Meni eslab qol</span>
     </label>
 
-    <button class="login-btn" onclick="checkLogin()">🔓 KIRISH</button>
+    <button class="login-btn" onclick="checkLogin()" data-i18n="loginBtn">🔓 KIRISH</button>
 
     <div id="loginError" class="login-error"></div>
 
@@ -904,7 +958,7 @@ input:focus{
     <div class="sidebar-logo">
       <div class="sidebar-logo-icon">🎱</div>
       <div class="sidebar-logo-text">BILLIARD CLUB</div>
-      <div class="sidebar-logo-sub">WINDOWS EDITION</div>
+      <div class="sidebar-logo-sub" data-i18n="loginSub">WINDOWS EDITION</div>
     </div>
 
     <div class="sidebar-clock">
@@ -912,21 +966,26 @@ input:focus{
       <div class="sidebar-clock-date" id="sidebarDate">—</div>
     </div>
 
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="uz" onclick="setLanguage('uz')">🇺🇿 UZ</button>
+      <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
+    </div>
+
     <nav class="sidebar-nav">
       <button class="nav-item active" onclick="openPage('home',this)" data-key="H">
         <span class="nav-icon">🏠</span>
-        <span>Asosiy</span>
-        <span class="shortcut-tip">H tugmasi</span>
+        <span data-i18n="navHome">Asosiy</span>
+        <span class="shortcut-tip" data-i18n="tipHome">H tugmasi</span>
       </button>
       <button class="nav-item" onclick="openPage('tables',this)" data-key="1">
         <span class="nav-icon">🎱</span>
-        <span>Stollar</span>
-        <span class="shortcut-tip">1-3 tugmalari</span>
+        <span data-i18n="navTables">Stollar</span>
+        <span class="shortcut-tip" data-i18n="tipTables">1-3 tugmalari</span>
       </button>
       <button class="nav-item" onclick="openPattern()" data-key="A">
         <span class="nav-icon">🔐</span>
-        <span>Admin panel</span>
-        <span class="shortcut-tip">A tugmasi</span>
+        <span data-i18n="navAdmin">Admin panel</span>
+        <span class="shortcut-tip" data-i18n="tipAdmin">A tugmasi</span>
       </button>
     </nav>
 
@@ -935,7 +994,7 @@ input:focus{
       📍 Mindonobod Yangi Asr
       <button class="logout-btn" onclick="logout()">
         <span>🚪</span>
-        <span>CHIQISH</span>
+        <span data-i18n="logoutBtn">CHIQISH</span>
       </button>
     </div>
   </aside>
@@ -956,8 +1015,8 @@ input:focus{
     <div id="tables" class="page">
       <div class="page-header">
         <div>
-          <div class="page-title">🎱 STOLLAR</div>
-          <div class="page-subtitle">Barcha stollar bir ekranda • 1 soat = 40 000 so'm</div>
+          <div class="page-title" data-i18n="tablesTitle">🎱 STOLLAR</div>
+          <div class="page-subtitle" data-i18n="tablesSubtitle">Barcha stollar bir ekranda • 1 soat = 40 000 so'm</div>
         </div>
       </div>
 
@@ -965,69 +1024,69 @@ input:focus{
 
         <!-- STOL 1 -->
         <div class="table-window" id="tableWindow1">
-          <div class="table-title">🎱 STOL 1</div>
-          <div id="status1" class="status free">🔵 BO'SH</div>
+          <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> 1</div>
+          <div id="status1" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
           <div id="timer1" class="timer">00:00:00</div>
-          <div class="price">1 SOAT NARXI <b>40 000 so'm</b></div>
-          <div id="livePrice1" class="live-price" style="display:none">💰 Hozirgi hisob: <b id="liveSum1">0 so'm</b></div>
-          <button id="start1" class="btn start-btn" onclick="startGame(1)">▶️ O'YINNI BOSHLASH</button>
-          <button id="finish1" class="btn finish-btn" onclick="finishGame(1)">⏹️ O'YINNI TUGATISH</button>
+          <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText1">40 000 so'm</b></div>
+          <div id="livePrice1" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum1">0 so'm</b></div>
+          <button id="start1" class="btn start-btn" onclick="startGame(1)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
+          <button id="finish1" class="btn finish-btn" onclick="finishGame(1)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
           <div id="payment1" class="payment">
-            <div class="total">💰 JAMI: <b id="sum1">0 so'm</b></div>
-            <button class="btn paid-btn" onclick="savePaid(1)">🟢 PUL OLINDI</button>
-            <button class="btn debt-btn" onclick="showDebt(1)">🔴 PUL OLINMADI</button>
+            <div class="total"><span data-i18n="totalLabel">💰 JAMI:</span> <b id="sum1">0 so'm</b></div>
+            <button class="btn paid-btn" onclick="savePaid(1)" data-i18n="paidBtn">🟢 PUL OLINDI</button>
+            <button class="btn debt-btn" onclick="showDebt(1)" data-i18n="debtBtn">🔴 PUL OLINMADI</button>
             <div id="debtForm1" class="debt-form">
-              <div class="form-title">👤 Ismi</div>
-              <input id="name1" placeholder="Ismini yozing">
-              <div class="form-title">📞 Telefon</div>
-              <input id="phone1" placeholder="Telefon raqami">
-              <button class="btn save-btn" onclick="saveDebt(1)">💾 QARZDORNI SAQLASH</button>
+              <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
+              <input id="name1" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
+              <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
+              <input id="phone1" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
+              <button class="btn save-btn" onclick="saveDebt(1)" data-i18n="saveDebtBtn">💾 QARZDORNI SAQLASH</button>
             </div>
           </div>
         </div>
 
         <!-- STOL 2 -->
         <div class="table-window" id="tableWindow2">
-          <div class="table-title">🎱 STOL 2</div>
-          <div id="status2" class="status free">🔵 BO'SH</div>
+          <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> 2</div>
+          <div id="status2" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
           <div id="timer2" class="timer">00:00:00</div>
-          <div class="price">1 SOAT NARXI <b>40 000 so'm</b></div>
-          <div id="livePrice2" class="live-price" style="display:none">💰 Hozirgi hisob: <b id="liveSum2">0 so'm</b></div>
-          <button id="start2" class="btn start-btn" onclick="startGame(2)">▶️ O'YINNI BOSHLASH</button>
-          <button id="finish2" class="btn finish-btn" onclick="finishGame(2)">⏹️ O'YINNI TUGATISH</button>
+          <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText2">40 000 so'm</b></div>
+          <div id="livePrice2" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum2">0 so'm</b></div>
+          <button id="start2" class="btn start-btn" onclick="startGame(2)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
+          <button id="finish2" class="btn finish-btn" onclick="finishGame(2)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
           <div id="payment2" class="payment">
-            <div class="total">💰 JAMI: <b id="sum2">0 so'm</b></div>
-            <button class="btn paid-btn" onclick="savePaid(2)">🟢 PUL OLINDI</button>
-            <button class="btn debt-btn" onclick="showDebt(2)">🔴 PUL OLINMADI</button>
+            <div class="total"><span data-i18n="totalLabel">💰 JAMI:</span> <b id="sum2">0 so'm</b></div>
+            <button class="btn paid-btn" onclick="savePaid(2)" data-i18n="paidBtn">🟢 PUL OLINDI</button>
+            <button class="btn debt-btn" onclick="showDebt(2)" data-i18n="debtBtn">🔴 PUL OLINMADI</button>
             <div id="debtForm2" class="debt-form">
-              <div class="form-title">👤 Ismi</div>
-              <input id="name2" placeholder="Ismini yozing">
-              <div class="form-title">📞 Telefon</div>
-              <input id="phone2" placeholder="Telefon raqami">
-              <button class="btn save-btn" onclick="saveDebt(2)">💾 QARZDORNI SAQLASH</button>
+              <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
+              <input id="name2" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
+              <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
+              <input id="phone2" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
+              <button class="btn save-btn" onclick="saveDebt(2)" data-i18n="saveDebtBtn">💾 QARZDORNI SAQLASH</button>
             </div>
           </div>
         </div>
 
         <!-- STOL 3 -->
         <div class="table-window" id="tableWindow3">
-          <div class="table-title">🎱 STOL 3</div>
-          <div id="status3" class="status free">🔵 BO'SH</div>
+          <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> 3</div>
+          <div id="status3" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
           <div id="timer3" class="timer">00:00:00</div>
-          <div class="price">1 SOAT NARXI <b>40 000 so'm</b></div>
-          <div id="livePrice3" class="live-price" style="display:none">💰 Hozirgi hisob: <b id="liveSum3">0 so'm</b></div>
-          <button id="start3" class="btn start-btn" onclick="startGame(3)">▶️ O'YINNI BOSHLASH</button>
-          <button id="finish3" class="btn finish-btn" onclick="finishGame(3)">⏹️ O'YINNI TUGATISH</button>
+          <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText3">40 000 so'm</b></div>
+          <div id="livePrice3" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum3">0 so'm</b></div>
+          <button id="start3" class="btn start-btn" onclick="startGame(3)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
+          <button id="finish3" class="btn finish-btn" onclick="finishGame(3)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
           <div id="payment3" class="payment">
-            <div class="total">💰 JAMI: <b id="sum3">0 so'm</b></div>
-            <button class="btn paid-btn" onclick="savePaid(3)">🟢 PUL OLINDI</button>
-            <button class="btn debt-btn" onclick="showDebt(3)">🔴 PUL OLINMADI</button>
+            <div class="total"><span data-i18n="totalLabel">💰 JAMI:</span> <b id="sum3">0 so'm</b></div>
+            <button class="btn paid-btn" onclick="savePaid(3)" data-i18n="paidBtn">🟢 PUL OLINDI</button>
+            <button class="btn debt-btn" onclick="showDebt(3)" data-i18n="debtBtn">🔴 PUL OLINMADI</button>
             <div id="debtForm3" class="debt-form">
-              <div class="form-title">👤 Ismi</div>
-              <input id="name3" placeholder="Ismini yozing">
-              <div class="form-title">📞 Telefon</div>
-              <input id="phone3" placeholder="Telefon raqami">
-              <button class="btn save-btn" onclick="saveDebt(3)">💾 QARZDORNI SAQLASH</button>
+              <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
+              <input id="name3" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
+              <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
+              <input id="phone3" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
+              <button class="btn save-btn" onclick="saveDebt(3)" data-i18n="saveDebtBtn">💾 QARZDORNI SAQLASH</button>
             </div>
           </div>
         </div>
@@ -1039,90 +1098,90 @@ input:focus{
     <div id="admin" class="page">
       <div class="page-header">
         <div>
-          <div class="page-title">🔐 ADMIN PANEL</div>
-          <div class="page-subtitle">Boshqaruv menyusi</div>
+          <div class="page-title" data-i18n="adminTitle">🔐 ADMIN PANEL</div>
+          <div class="page-subtitle" data-i18n="adminSubtitle">Boshqaruv menyusi</div>
         </div>
         <div class="page-actions">
-          <button class="back-btn" onclick="backToMain()">🏠 ASOSIY MENYUGA</button>
+          <button class="back-btn" onclick="backToMain()" data-i18n="backToMain">🏠 ASOSIY MENYUGA</button>
         </div>
       </div>
 
       <div class="admin-menu-grid">
         <button class="admin-card" onclick="openAdminPage('reports')">
           <div class="admin-card-icon">📊</div>
-          <div><b>Hisobot</b><br><small>Tushum va o'yinlar</small></div>
+          <div><b data-i18n="reportsCard">Hisobot</b><br><small data-i18n="reportsCardSub">Tushum va o'yinlar</small></div>
         </button>
         <button class="admin-card" onclick="openAdminPage('debtors')">
           <div class="admin-card-icon">🔴</div>
-          <div><b>Qarzdor</b><br><small>Olinmagan pullar</small></div>
+          <div><b data-i18n="debtorsCard">Qarzdor</b><br><small data-i18n="debtorsCardSub">Olinmagan pullar</small></div>
         </button>
         <button class="admin-card" onclick="openAdminPage('history')">
           <div class="admin-card-icon">📋</div>
-          <div><b>Tarix</b><br><small>Barcha o'yinlar</small></div>
+          <div><b data-i18n="historyCard">Tarix</b><br><small data-i18n="historyCardSub">Barcha o'yinlar</small></div>
         </button>
       </div>
     </div>
 
     <!-- REPORTS -->
     <div id="adminReports" class="page">
-      <button class="inner-back" onclick="openAdmin()">← ADMIN MENYUSIGA QAYTISH</button>
+      <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
       <div class="page-header">
         <div>
-          <div class="page-title">📊 HISOBOT</div>
-          <div class="page-subtitle">Bugungi tushum va statistika</div>
+          <div class="page-title" data-i18n="reportsTitle">📊 HISOBOT</div>
+          <div class="page-subtitle" data-i18n="reportsSubtitle">Bugungi tushum va statistika</div>
         </div>
       </div>
       <div class="stats">
-        <div class="stat"><small>🎱 Bugungi o'yinlar</small><h2 id="statGames">0</h2></div>
-        <div class="stat green"><small>🟢 Pul olingan</small><h2 id="statPaid">0 so'm</h2></div>
-        <div class="stat red"><small>🔴 Pul olinmagan</small><h2 id="statUnpaid">0 so'm</h2></div>
-        <div class="stat orange"><small>👥 Qarzdorlar</small><h2 id="statDebtors">0 ta</h2></div>
+        <div class="stat"><small data-i18n="statGames">🎱 Bugungi o'yinlar</small><h2 id="statGames">0</h2></div>
+        <div class="stat green"><small data-i18n="statPaid">🟢 Pul olingan</small><h2 id="statPaid">0 so'm</h2></div>
+        <div class="stat red"><small data-i18n="statUnpaid">🔴 Pul olinmagan</small><h2 id="statUnpaid">0 so'm</h2></div>
+        <div class="stat orange"><small data-i18n="statDebtors">👥 Qarzdorlar</small><h2 id="statDebtors">0 ta</h2></div>
       </div>
-      <button class="report-chek-btn" onclick="printReportChek()">📄 UMUMIY HISOBOTNI PDF YUKLASH</button>
+      <button class="report-chek-btn" onclick="printReportChek()" data-i18n="downloadReportPdf">📄 UMUMIY HISOBOTNI PDF YUKLASH</button>
     </div>
 
     <!-- DEBTORS -->
     <div id="adminDebtors" class="page">
-      <button class="inner-back" onclick="openAdmin()">← ADMIN MENYUSIGA QAYTISH</button>
+      <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
       <div class="page-header">
         <div>
-          <div class="page-title">🔴 QARZDORLAR</div>
-          <div class="page-subtitle">To'lanmagan o'yinlar ro'yxati</div>
+          <div class="page-title" data-i18n="debtorsTitle">🔴 QARZDORLAR</div>
+          <div class="page-subtitle" data-i18n="debtorsSubtitle">To'lanmagan o'yinlar ro'yxati</div>
         </div>
       </div>
       <div id="adminDebtorList"></div>
-      <button class="report-chek-btn" onclick="printDebtorsChek()">📄 BARCHA QARZDORLAR PDF YUKLASH</button>
+      <button class="report-chek-btn" onclick="printDebtorsChek()" data-i18n="downloadAllDebtorsPdf">📄 BARCHA QARZDORLAR PDF YUKLASH</button>
     </div>
 
     <!-- HISTORY -->
     <div id="adminHistory" class="page">
       <div id="historyDatesPage">
-        <button class="inner-back" onclick="openAdmin()">← ADMIN MENYUSIGA QAYTISH</button>
+        <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
         <div class="page-header">
           <div>
-            <div class="page-title">📋 TARIX</div>
-            <div class="page-subtitle">Sanalar bo'yicha o'yinlar</div>
+            <div class="page-title" data-i18n="historyTitle">📋 TARIX</div>
+            <div class="page-subtitle" data-i18n="historySubtitle">Sanalar bo'yicha o'yinlar</div>
           </div>
         </div>
         <div id="historyDatesList"></div>
         <div id="historyTotalBox" class="history-total-box">
-          <small>💰 BARCHA SANALARNING UMUMIY SUMMASI</small>
+          <small data-i18n="allDatesTotal">💰 BARCHA SANALARNING UMUMIY SUMMASI</small>
           <b id="historyTotalAmount">0 so'm</b>
         </div>
-        <button class="report-chek-btn" onclick="printAllHistoryChek()">📄 BARCHA TARIXNI PDF YUKLASH</button>
+        <button class="report-chek-btn" onclick="printAllHistoryChek()" data-i18n="downloadAllHistoryPdf">📄 BARCHA TARIXNI PDF YUKLASH</button>
       </div>
       <div id="historyDayPage" style="display:none">
-        <button class="inner-back" onclick="backToHistoryDates()">← SANALARGA QAYTISH</button>
+        <button class="inner-back" onclick="backToHistoryDates()" data-i18n="backToDates">← SANALARGA QAYTISH</button>
         <div class="page-header">
           <div>
             <div class="page-title" id="selectedHistoryDate">📅 Sana</div>
-            <div class="page-subtitle">Kunlik o'yinlar</div>
+            <div class="page-subtitle" data-i18n="dailyGames">Kunlik o'yinlar</div>
           </div>
         </div>
         <div id="selectedDayHistory"></div>
         <div class="chek-actions-grid">
-          <button class="chek-print-btn" onclick="printDayChek()">📄 PDF YUKLASH</button>
-          <button class="clear-btn" onclick="confirmClearSelectedHistory()">🗑️ SANANI TOZALASH</button>
+          <button class="chek-print-btn" onclick="printDayChek()" data-i18n="downloadPdf">📄 PDF YUKLASH</button>
+          <button class="clear-btn" onclick="confirmClearSelectedHistory()" data-i18n="clearDate">🗑️ SANANI TOZALASH</button>
         </div>
       </div>
     </div>
@@ -1137,7 +1196,7 @@ input:focus{
     <h2 id="modalTitle">Diqqat</h2>
     <p id="modalText">...</p>
     <div id="modalButtons">
-      <button class="modal-btn" onclick="closeModal()">TUSHUNDIM</button>
+      <button class="modal-btn" onclick="closeModal()" data-i18n="modalOk">TUSHUNDIM</button>
     </div>
   </div>
 </div>
@@ -1146,11 +1205,11 @@ input:focus{
 <div id="patternBg" class="pattern-bg">
   <div class="pattern-box">
     <div class="pattern-icon">🔐</div>
-    <h2>ADMIN KIRISH</h2>
-    <p>Grafik parolni sichqoncha bilan chizing</p>
-    <div id="patternMessage">🔑 Grafik parolni chizing</div>
+    <h2 data-i18n="adminLogin">ADMIN KIRISH</h2>
+    <p data-i18n="drawPattern">Grafik parolni sichqoncha bilan chizing</p>
+    <div id="patternMessage" data-i18n="drawPatternMsg">🔑 Grafik parolni chizing</div>
     <canvas id="patternCanvas" width="320" height="320"></canvas>
-    <button class="pattern-back" onclick="closePattern()">← ORQAGA (ESC)</button>
+    <button class="pattern-back" onclick="closePattern()" data-i18n="backEsc">← ORQAGA (ESC)</button>
   </div>
 </div>
 
@@ -1158,26 +1217,489 @@ input:focus{
 <div id="pdfLoading" class="pdf-loading">
   <div class="pdf-loading-box">
     <div class="pdf-spinner"></div>
-    <div class="pdf-loading-title">📄 PDF TAYYORLANMOQDA...</div>
-    <div class="pdf-loading-sub">Iltimos kuting, 1-2 soniya</div>
+    <div class="pdf-loading-title" data-i18n="pdfLoading">📄 PDF TAYYORLANMOQDA...</div>
+    <div class="pdf-loading-sub" data-i18n="pdfLoadingSub">Iltimos kuting, 1-2 soniya</div>
   </div>
 </div>
 
 <!-- KEYBOARD HINTS -->
 <div class="keyboard-hints" id="keyboardHints">
-  <b>1</b><b>2</b><b>3</b> Stollar •
-  <b>H</b> Asosiy •
-  <b>A</b> Admin •
-  <b>R</b> Hisobot •
-  <b>D</b> Qarzdorlar •
-  <b>T</b> Tarix •
-  <b>Esc</b> Yopish
+  <b>1</b><b>2</b><b>3</b> <span data-i18n="hintTables">Stollar</span> •
+  <b>H</b> <span data-i18n="hintHome">Asosiy</span> •
+  <b>A</b> <span data-i18n="hintAdmin">Admin</span> •
+  <b>R</b> <span data-i18n="hintReports">Hisobot</span> •
+  <b>D</b> <span data-i18n="hintDebtors">Qarzdorlar</span> •
+  <b>T</b> <span data-i18n="hintHistory">Tarix</span> •
+  <b>Esc</b> <span data-i18n="hintClose">Yopish</span>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
+/* ================================================================
+   TIL TIZIMI (i18n) — UZ / RU
+   ================================================================ */
+const I18N = {
+  uz: {
+    loginSub: "WINDOWS EDITION",
+    loginLabel: "👤 Login",
+    loginPlaceholder: "Loginni kiriting",
+    passwordLabel: "🔒 Parol",
+    passwordPlaceholder: "Parolni kiriting",
+    rememberMe: "Meni eslab qol",
+    loginBtn: "🔓 KIRISH",
+    loginFillAll: "⚠️ Login va parolni to'ldiring!",
+    loginSuccess: "✅ Kirish muvaffaqiyatli!",
+    loginWrong: "❌ Login yoki parol noto'g'ri!",
+
+    navHome: "Asosiy",
+    navTables: "Stollar",
+    navAdmin: "Admin panel",
+    tipHome: "H tugmasi",
+    tipTables: "1-3 tugmalari",
+    tipAdmin: "A tugmasi",
+    logoutBtn: "CHIQISH",
+
+    logoutTitle: "Tizimdan chiqish",
+    logoutText: "Rostdan ham tizimdan chiqmoqchimisiz?",
+    logoutYes: "🚪 HA, CHIQISH",
+    logoutNo: "❌ BEKOR QILISH",
+    modalOk: "TUSHUNDIM",
+
+    tablesTitle: "🎱 STOLLAR",
+    tablesSubtitle: "Barcha stollar bir ekranda • 1 soat = 40 000 so'm",
+    tableLabel: "🎱 STOL",
+    statusFree: "🔵 BO'SH",
+    statusBusy: "🔴 BAND",
+    statusFinished: "⏸ TUGADI",
+    priceLabel: "1 SOAT NARXI",
+    currentBill: "💰 Hozirgi hisob:",
+    startBtn: "▶️ O'YINNI BOSHLASH",
+    finishBtn: "⏹️ O'YINNI TUGATISH",
+    totalLabel: "💰 JAMI:",
+    paidBtn: "🟢 PUL OLINDI",
+    debtBtn: "🔴 PUL OLINMADI",
+    nameLabel: "👤 Ismi",
+    namePlaceholder: "Ismini yozing",
+    phoneLabel: "📞 Telefon",
+    phonePlaceholder: "Telefon raqami",
+    saveDebtBtn: "💾 QARZDORNI SAQLASH",
+
+    tableBusyTitle: "Stol band",
+    tableBusyText: "Bu stol hozir o'ynatilmoqda.",
+    paidTitle: "Pul olindi",
+    paidText: "{amount} qabul qilindi.",
+    nameMissingTitle: "Ism kiritilmagan",
+    nameMissingText: "Iltimos, ismni yozing.",
+    phoneMissingTitle: "Telefon kiritilmagan",
+    phoneMissingText: "Iltimos, telefon raqamini yozing.",
+    debtSavedTitle: "Qarzdor saqlandi",
+    debtSavedText: "{name} — {amount}",
+    paidLaterTitle: "To'lov olindi",
+    paidLaterText: "{name}ning {amount} qarzi yopildi.",
+
+    adminTitle: "🔐 ADMIN PANEL",
+    adminSubtitle: "Boshqaruv menyusi",
+    backToMain: "🏠 ASOSIY MENYUGA",
+    reportsCard: "Hisobot",
+    reportsCardSub: "Tushum va o'yinlar",
+    debtorsCard: "Qarzdor",
+    debtorsCardSub: "Olinmagan pullar",
+    historyCard: "Tarix",
+    historyCardSub: "Barcha o'yinlar",
+    backToAdmin: "← ADMIN MENYUSIGA QAYTISH",
+
+    reportsTitle: "📊 HISOBOT",
+    reportsSubtitle: "Bugungi tushum va statistika",
+    statGames: "🎱 Bugungi o'yinlar",
+    statPaid: "🟢 Pul olingan",
+    statUnpaid: "🔴 Pul olinmagan",
+    statDebtors: "👥 Qarzdorlar",
+    downloadReportPdf: "📄 UMUMIY HISOBOTNI PDF YUKLASH",
+
+    debtorsTitle: "🔴 QARZDORLAR",
+    debtorsSubtitle: "To'lanmagan o'yinlar ro'yxati",
+    downloadAllDebtorsPdf: "📄 BARCHA QARZDORLAR PDF YUKLASH",
+    noDebtors: "🎉 Qarzdorlar yo'q",
+    noDebtorsPdf: "Barcha pullar to'langan!",
+    debtStatus: "🔴 PUL OLINMAGAN",
+    payNowBtn: "🟢 PULNI OLDIM",
+    pdfBtn: "📄 PDF",
+
+    historyTitle: "📋 TARIX",
+    historySubtitle: "Sanalar bo'yicha o'yinlar",
+    allDatesTotal: "💰 BARCHA SANALARNING UMUMIY SUMMASI",
+    downloadAllHistoryPdf: "📄 BARCHA TARIXNI PDF YUKLASH",
+    backToDates: "← SANALARGA QAYTISH",
+    dailyGames: "Kunlik o'yinlar",
+    downloadPdf: "📄 PDF YUKLASH",
+    clearDate: "🗑️ SANANI TOZALASH",
+    noHistory: "📋 Hozircha saqlangan tarix yo'q",
+    noHistoryDate: "Bu sanada saqlangan ma'lumot yo'q.",
+    gamesCount: "ta o'yin",
+    dateTotal: "💰 SHU SANANING UMUMIY SUMMASI",
+    gamesSmall: "🎱 O'YINLAR",
+    paidSmall: "🟢 OLINAN",
+    unpaidSmall: "🔴 OLINMAGAN",
+    paidStatus: "🟢 PUL OLINDI",
+    unpaidStatus: "🔴 PUL OLINMAGAN",
+    paidAt: "✅ Pul olingan:",
+    clearHistoryTitle: "Tarixni tozalash",
+    clearHistoryText: "{date} sanasidagi {count} ta o'yin tarixini ({amount}) o'chirishni xohlaysizmi?",
+    clearYes: "🗑️ HA, O'CHIRISH",
+    clearNo: "❌ BEKOR QILISH",
+    dateNotSelected: "Sana tanlanmagan",
+    dateNotSelectedText: "O'chiriladigan sana aniqlanmadi.",
+    historyEmptyTitle: "Tarix bo'sh",
+    historyEmptyText: "Bu sanada o'chiriladigan tarix mavjud emas.",
+    clearedTitle: "Tarix o'chirildi",
+    clearedText: "{date} sanasining tarixi o'chirildi.",
+
+    pdfLoading: "📄 PDF TAYYORLANMOQDA...",
+    pdfLoadingSub: "Iltimos kuting, 1-2 soniya",
+    pdfDoneTitle: "PDF yuklandi",
+    pdfDoneText: '📄 Fayl: "{filename}"\n\n📁 Papka: Yuklamalar (Downloads)\n\n💡 Windows: "Yuklamalar" papkasida',
+    pdfErrorTitle: "Xatolik",
+    pdfErrorText: "PDF yaratishda xatolik yuz berdi.\n\nIltimos qayta urinib ko'ring.",
+
+    chekKassa: "KASSA CHEKI",
+    chekDaily: "KUNLIK HISOBOT",
+    chekAllHistory: "UMUMIY TARIX HISOBOTI",
+    chekDebtors: "QARZDORLAR RO'YXATI",
+    chekDebt: "QARZ CHEKI",
+    chekReport: "KASSA HISOBOTI",
+    chekNo: "Chek raqami:",
+    chekDate: "Sana:",
+    colNum: "#",
+    colTable: "Stol",
+    colTime: "Vaqt",
+    colStatus: "Holat",
+    colAmount: "Summa",
+    noData: "Ma'lumot yo'q",
+    totalGames: "Jami o'yinlar soni:",
+    paidSum: "🟢 To'langan summa:",
+    unpaidSum: "🔴 Qarz summa:",
+    grandTotal: "💰 UMUMIY SUMMA:",
+    totalDebtors: "Jami qarzdorlar:",
+    grandDebt: "💰 UMUMIY QARZ:",
+    client: "👤 Mijoz:",
+    phone: "📞 Telefon:",
+    tableShort: "🎱 Stol:",
+    timeShort: "⏱ Vaqt:",
+    debtSum: "💰 QARZ SUMMA:",
+    todayGames: "🎱 Bugungi o'yinlar:",
+    todayPaid: "🟢 Bugun to'langan:",
+    todayUnpaid: "🔴 Bugun qarz:",
+    todayTotal: "💰 BUGUNGI JAMI:",
+    totalDebtorsSmall: "👥 Umumiy qarzdorlar:",
+    totalDebtSmall: "💸 Umumiy qarz:",
+    paidStatusPdf: "✅ To'langan",
+    debtStatusPdf: "🔴 Qarz",
+    debtStatusNamePdf: "🔴 Qarz ({name})",
+    signatureClient: "MIJOZ IMZOSI",
+    signatureCashier: "KASSIR IMZOSI",
+    thanks: "XARIDINGIZ UCHUN RAHMAT! 🎱",
+    autoGenerated: "Bu chek avtomatik tarzda yaratilgan",
+    dailyReportFor: "{date} sanasi uchun",
+    allGamesList: "Barcha o'yinlar ro'yxati",
+    unpaidList: "To'lanmagan o'yinlar",
+    debtFor: "{name} uchun",
+    reportFor: "{date} sanasi",
+    payOnTime: "Iltimos, qarzlarni o'z vaqtida to'lang",
+    payAtCashier: "Qarzni to'lash uchun kassaga murojaat qiling",
+    dailyCashReport: "Kunlik kassa hisoboti",
+    allHistory: "Barcha o'yinlar tarixi",
+
+    adminLogin: "ADMIN KIRISH",
+    drawPattern: "Grafik parolni sichqoncha bilan chizing",
+    drawPatternMsg: "🔑 Grafik parolni chizing",
+    patternCorrect: "✅ Grafik parol to'g'ri!",
+    patternWrong: "❌ Grafik parol noto'g'ri!",
+    patternRetry: "🔑 Qaytadan chizing",
+    backEsc: "← ORQAGA (ESC)",
+
+    hintTables: "Stollar",
+    hintHome: "Asosiy",
+    hintAdmin: "Admin",
+    hintReports: "Hisobot",
+    hintDebtors: "Qarzdorlar",
+    hintHistory: "Tarix",
+    hintClose: "Yopish",
+
+    som: "so'm",
+    table: "Stol",
+    minute: "daqiqa",
+    minutes: "daqiqa",
+    confirm: "TUSHUNDIM"
+  },
+
+  ru: {
+    loginSub: "WINDOWS EDITION",
+    loginLabel: "👤 Логин",
+    loginPlaceholder: "Введите логин",
+    passwordLabel: "🔒 Пароль",
+    passwordPlaceholder: "Введите пароль",
+    rememberMe: "Запомнить меня",
+    loginBtn: "🔓 ВОЙТИ",
+    loginFillAll: "⚠️ Заполните логин и пароль!",
+    loginSuccess: "✅ Вход выполнен!",
+    loginWrong: "❌ Неверный логин или пароль!",
+
+    navHome: "Главная",
+    navTables: "Столы",
+    navAdmin: "Админ панель",
+    tipHome: "Клавиша H",
+    tipTables: "Клавиши 1-3",
+    tipAdmin: "Клавиша A",
+    logoutBtn: "ВЫЙТИ",
+
+    logoutTitle: "Выход из системы",
+    logoutText: "Вы действительно хотите выйти?",
+    logoutYes: "🚪 ДА, ВЫЙТИ",
+    logoutNo: "❌ ОТМЕНА",
+    modalOk: "ПОНЯТНО",
+
+    tablesTitle: "🎱 СТОЛЫ",
+    tablesSubtitle: "Все столы на одном экране • 1 час = 40 000 сум",
+    tableLabel: "🎱 СТОЛ",
+    statusFree: "🔵 СВОБОДЕН",
+    statusBusy: "🔴 ЗАНЯТ",
+    statusFinished: "⏸ ЗАВЕРШЁН",
+    priceLabel: "ЦЕНА ЗА 1 ЧАС",
+    currentBill: "💰 Текущий счёт:",
+    startBtn: "▶️ НАЧАТЬ ИГРУ",
+    finishBtn: "⏹️ ЗАВЕРШИТЬ ИГРУ",
+    totalLabel: "💰 ИТОГО:",
+    paidBtn: "🟢 ДЕНЬГИ ПОЛУЧЕНЫ",
+    debtBtn: "🔴 ДЕНЬГИ НЕ ПОЛУЧЕНЫ",
+    nameLabel: "👤 Имя",
+    namePlaceholder: "Введите имя",
+    phoneLabel: "📞 Телефон",
+    phonePlaceholder: "Номер телефона",
+    saveDebtBtn: "💾 СОХРАНИТЬ ДОЛЖНИКА",
+
+    tableBusyTitle: "Стол занят",
+    tableBusyText: "Этот стол сейчас играет.",
+    paidTitle: "Деньги получены",
+    paidText: "{amount} принято.",
+    nameMissingTitle: "Имя не указано",
+    nameMissingText: "Пожалуйста, введите имя.",
+    phoneMissingTitle: "Телефон не указан",
+    phoneMissingText: "Пожалуйста, введите номер телефона.",
+    debtSavedTitle: "Должник сохранён",
+    debtSavedText: "{name} — {amount}",
+    paidLaterTitle: "Оплата получена",
+    paidLaterText: "Долг {name} на {amount} закрыт.",
+
+    adminTitle: "🔐 АДМИН ПАНЕЛЬ",
+    adminSubtitle: "Меню управления",
+    backToMain: "🏠 ГЛАВНОЕ МЕНЮ",
+    reportsCard: "Отчёт",
+    reportsCardSub: "Выручка и игры",
+    debtorsCard: "Должники",
+    debtorsCardSub: "Неоплаченные суммы",
+    historyCard: "История",
+    historyCardSub: "Все игры",
+    backToAdmin: "← НАЗАД В АДМИН МЕНЮ",
+
+    reportsTitle: "📊 ОТЧЁТ",
+    reportsSubtitle: "Сегодняшняя выручка и статистика",
+    statGames: "🎱 Игры за сегодня",
+    statPaid: "🟢 Оплачено",
+    statUnpaid: "🔴 Не оплачено",
+    statDebtors: "👥 Должники",
+    downloadReportPdf: "📄 СКАЧАТЬ ОБЩИЙ ОТЧЁТ PDF",
+
+    debtorsTitle: "🔴 ДОЛЖНИКИ",
+    debtorsSubtitle: "Список неоплаченных игр",
+    downloadAllDebtorsPdf: "📄 СКАЧАТЬ ВСЕХ ДОЛЖНИКОВ PDF",
+    noDebtors: "🎉 Должников нет",
+    noDebtorsPdf: "Все долги оплачены!",
+    debtStatus: "🔴 НЕ ОПЛАЧЕНО",
+    payNowBtn: "🟢 ОПЛАЧЕНО",
+    pdfBtn: "📄 PDF",
+
+    historyTitle: "📋 ИСТОРИЯ",
+    historySubtitle: "Игры по датам",
+    allDatesTotal: "💰 ОБЩАЯ СУММА ВСЕХ ДАТ",
+    downloadAllHistoryPdf: "📄 СКАЧАТЬ ВСЮ ИСТОРИЮ PDF",
+    backToDates: "← НАЗАД К ДАТАМ",
+    dailyGames: "Игры за день",
+    downloadPdf: "📄 СКАЧАТЬ PDF",
+    clearDate: "🗑️ ОЧИСТИТЬ ДАТУ",
+    noHistory: "📋 История пока пуста",
+    noHistoryDate: "На эту дату нет данных.",
+    gamesCount: "игр",
+    dateTotal: "💰 ОБЩАЯ СУММА ЗА ЭТУ ДАТУ",
+    gamesSmall: "🎱 ИГРЫ",
+    paidSmall: "🟢 ОПЛАЧЕНО",
+    unpaidSmall: "🔴 НЕ ОПЛАЧЕНО",
+    paidStatus: "🟢 ОПЛАЧЕНО",
+    unpaidStatus: "🔴 НЕ ОПЛАЧЕНО",
+    paidAt: "✅ Оплачено:",
+    clearHistoryTitle: "Очистка истории",
+    clearHistoryText: "Удалить {count} игр за {date} ({amount})?",
+    clearYes: "🗑️ ДА, УДАЛИТЬ",
+    clearNo: "❌ ОТМЕНА",
+    dateNotSelected: "Дата не выбрана",
+    dateNotSelectedText: "Дата для удаления не определена.",
+    historyEmptyTitle: "История пуста",
+    historyEmptyText: "На эту дату нет истории для удаления.",
+    clearedTitle: "История очищена",
+    clearedText: "История за {date} удалена.",
+
+    pdfLoading: "📄 PDF ГОТОВИТСЯ...",
+    pdfLoadingSub: "Пожалуйста, подождите 1-2 секунды",
+    pdfDoneTitle: "PDF загружен",
+    pdfDoneText: '📄 Файл: "{filename}"\n\n📁 Папка: Загрузки (Downloads)\n\n💡 Windows: папка "Загрузки"',
+    pdfErrorTitle: "Ошибка",
+    pdfErrorText: "Ошибка при создании PDF.\n\nПожалуйста, попробуйте снова.",
+
+    chekKassa: "КАССОВЫЙ ЧЕК",
+    chekDaily: "ДНЕВНОЙ ОТЧЁТ",
+    chekAllHistory: "ОБЩИЙ ОТЧЁТ ИСТОРИИ",
+    chekDebtors: "СПИСОК ДОЛЖНИКОВ",
+    chekDebt: "ЧЕК ДОЛГА",
+    chekReport: "КАССОВЫЙ ОТЧЁТ",
+    chekNo: "Номер чека:",
+    chekDate: "Дата:",
+    colNum: "#",
+    colTable: "Стол",
+    colTime: "Время",
+    colStatus: "Статус",
+    colAmount: "Сумма",
+    noData: "Нет данных",
+    totalGames: "Всего игр:",
+    paidSum: "🟢 Оплаченная сумма:",
+    unpaidSum: "🔴 Сумма долга:",
+    grandTotal: "💰 ОБЩАЯ СУММА:",
+    totalDebtors: "Всего должников:",
+    grandDebt: "💰 ОБЩИЙ ДОЛГ:",
+    client: "👤 Клиент:",
+    phone: "📞 Телефон:",
+    tableShort: "🎱 Стол:",
+    timeShort: "⏱ Время:",
+    debtSum: "💰 СУММА ДОЛГА:",
+    todayGames: "🎱 Игры за сегодня:",
+    todayPaid: "🟢 Оплачено сегодня:",
+    todayUnpaid: "🔴 Долг сегодня:",
+    todayTotal: "💰 ИТОГО ЗА СЕГОДНЯ:",
+    totalDebtorsSmall: "👥 Всего должников:",
+    totalDebtSmall: "💸 Общий долг:",
+    paidStatusPdf: "✅ Оплачено",
+    debtStatusPdf: "🔴 Долг",
+    debtStatusNamePdf: "🔴 Долг ({name})",
+    signatureClient: "ПОДПИСЬ КЛИЕНТА",
+    signatureCashier: "ПОДПИСЬ КАССИРА",
+    thanks: "СПАСИБО ЗА ВИЗИТ! 🎱",
+    autoGenerated: "Этот чек создан автоматически",
+    dailyReportFor: "за {date}",
+    allGamesList: "Список всех игр",
+    unpaidList: "Неоплаченные игры",
+    debtFor: "для {name}",
+    reportFor: "за {date}",
+    payOnTime: "Пожалуйста, оплачивайте долги вовремя",
+    payAtCashier: "Для оплаты долга обратитесь в кассу",
+    dailyCashReport: "Дневной кассовый отчёт",
+    allHistory: "История всех игр",
+
+    adminLogin: "ВХОД В АДМИН",
+    drawPattern: "Нарисуйте графический пароль мышью",
+    drawPatternMsg: "🔑 Нарисуйте графический пароль",
+    patternCorrect: "✅ Пароль верный!",
+    patternWrong: "❌ Неверный пароль!",
+    patternRetry: "🔑 Попробуйте снова",
+    backEsc: "← НАЗАД (ESC)",
+
+    hintTables: "Столы",
+    hintHome: "Главная",
+    hintAdmin: "Админ",
+    hintReports: "Отчёт",
+    hintDebtors: "Должники",
+    hintHistory: "История",
+    hintClose: "Закрыть",
+
+    som: "сум",
+    table: "Стол",
+    minute: "минута",
+    minutes: "минут",
+    confirm: "ПОНЯТНО"
+  }
+};
+
+let currentLang = localStorage.getItem("billiardLang") || "uz";
+
+function t(key, params){
+  let str = (I18N[currentLang] && I18N[currentLang][key]) || (I18N.uz[key]) || key;
+  if(params){
+    Object.keys(params).forEach(k=>{
+      str = str.replace(new RegExp("\\{"+k+"\\}","g"), params[k]);
+    });
+  }
+  return str;
+}
+
+function applyTranslations(){
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    el.innerText = t(key);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    const key = el.getAttribute("data-i18n-placeholder");
+    el.placeholder = t(key);
+  });
+  const root = document.getElementById("htmlRoot");
+  if(root) root.setAttribute("lang", currentLang);
+}
+
+function setLanguage(lang){
+  currentLang = lang;
+  localStorage.setItem("billiardLang", lang);
+  document.querySelectorAll(".lang-btn").forEach(b=>{
+    b.classList.toggle("active", b.getAttribute("data-lang") === lang);
+  });
+  applyTranslations();
+  refreshDynamicContent();
+  updatePriceTexts();
+  beep("money");
+}
+
+function updatePriceTexts(){
+  for(let id=1; id<=3; id++){
+    const el = document.getElementById("priceText"+id);
+    if(el) el.innerText = money(PRICE);
+  }
+}
+
+function refreshDynamicContent(){
+  for(let id=1; id<=3; id++){
+    const g = games[id];
+    const statusEl = document.getElementById("status"+id);
+    if(!statusEl) continue;
+    if(g.start && !g.finished){
+      statusEl.innerText = t("statusBusy");
+    } else if(g.finished){
+      statusEl.innerText = t("statusFinished");
+    } else {
+      statusEl.innerText = t("statusFree");
+    }
+    const sumEl = document.getElementById("sum"+id);
+    if(sumEl && g.amount){
+      sumEl.innerText = money(g.amount);
+    }
+    const liveSum = document.getElementById("liveSum"+id);
+    if(liveSum && g.start && !g.finished){
+      const sec = Math.floor((Date.now()-g.start)/1000);
+      const minutes = Math.ceil(sec/60)||1;
+      liveSum.innerText = money((PRICE/60)*minutes);
+    }
+  }
+  renderReports();
+  renderAdminDebtors();
+  renderAdminHistory();
+}
+
 /* ================================================================
    LOGIN TIZIMI
    ================================================================ */
@@ -1188,16 +1710,12 @@ const AUTH = {
 
 let selectedHistoryDateValue = "";
 
-/* ========== SOZLAMALAR ========== */
 const PRICE = 40000;
-/* ⚠️ ADMIN GRAFIK PAROLI: 2 → 4 → 5 → 3
-   (yuqori-o'rta → o'rta-chap → markaz → o'rta-o'ng) */
 const ADMIN_PATTERN = [2,4,5,3];
 const CLUB_NAME = "BILLIARD CLUB";
 const CLUB_PHONE = "+998 97 757 31 10";
 const CLUB_ADDRESS = "Mindonobod Yangi Asr";
 
-/* ========== LOCAL STORAGE ========== */
 let games = JSON.parse(localStorage.getItem("billiardGames")) || {
   1:{start:null,finished:false,minutes:0,amount:0},
   2:{start:null,finished:false,minutes:0,amount:0},
@@ -1207,7 +1725,11 @@ function saveGames(){ localStorage.setItem("billiardGames",JSON.stringify(games)
 function getHistory(){ return JSON.parse(localStorage.getItem("billiardHistory")) || []; }
 function saveHistory(h){ localStorage.setItem("billiardHistory",JSON.stringify(h)); }
 
-function money(n){ return Math.round(Number(n)||0).toLocaleString("uz-UZ")+" so'm"; }
+function money(n){
+  const num = Math.round(Number(n)||0).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
+  return num + " " + t("som");
+}
+
 function todayDate(){
   const d=new Date();
   return String(d.getDate()).padStart(2,"0")+"."+String(d.getMonth()+1).padStart(2,"0")+"."+d.getFullYear();
@@ -1219,6 +1741,12 @@ function fullDateTime(){
 function fileDate(){
   const d=new Date();
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+function safeFilename(name){
+  return String(name||"mijoz")
+    .replace(/[^\w\s\u0400-\u04FF-]/g,"")
+    .replace(/\s+/g,"_")
+    .slice(0,40) || "mijoz";
 }
 
 /* ========== OVOZ ========== */
@@ -1264,7 +1792,7 @@ function checkLogin(){
   const errorEl = document.getElementById("loginError");
 
   if(!userInput || !passInput){
-    errorEl.innerText = "⚠️ Login va parolni to'ldiring!";
+    errorEl.innerText = t("loginFillAll");
     errorEl.style.color = "#ff6878";
     errorEl.classList.remove("shake");
     void errorEl.offsetWidth;
@@ -1274,7 +1802,7 @@ function checkLogin(){
   }
 
   if(userInput === AUTH.login && passInput === AUTH.password){
-    errorEl.innerText = "✅ Kirish muvaffaqiyatli!";
+    errorEl.innerText = t("loginSuccess");
     errorEl.style.color = "#42e979";
     beep("money");
 
@@ -1293,7 +1821,7 @@ function checkLogin(){
     }, 500);
 
   } else {
-    errorEl.innerText = "❌ Login yoki parol noto'g'ri!";
+    errorEl.innerText = t("loginWrong");
     errorEl.style.color = "#ff6878";
     errorEl.classList.remove("shake");
     void errorEl.offsetWidth;
@@ -1305,11 +1833,11 @@ function checkLogin(){
 
 function logout(){
   document.getElementById("modalIcon").innerText = "🚪";
-  document.getElementById("modalTitle").innerText = "Tizimdan chiqish";
-  document.getElementById("modalText").innerText = "Rostdan ham tizimdan chiqmoqchimisiz?";
+  document.getElementById("modalTitle").innerText = t("logoutTitle");
+  document.getElementById("modalText").innerText = t("logoutText");
   document.getElementById("modalButtons").innerHTML =
-    '<button class="modal-danger" onclick="confirmLogout()">🚪 HA, CHIQISH</button>' +
-    '<button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>';
+    '<button class="modal-danger" onclick="confirmLogout()">' + t("logoutYes") + '</button>' +
+    '<button class="modal-cancel" onclick="closeModal()">' + t("logoutNo") + '</button>';
   document.getElementById("modalBg").style.display = "flex";
 }
 
@@ -1339,13 +1867,17 @@ function updateClock(){
   const clock=document.getElementById("clock");
   if(clock){
     clock.innerText=timeStr;
-    clock.className="clock color"+((now.getMinutes()%12)+1);
+    const colorClass="color"+((now.getMinutes()%12)+1);
+    if(clock.dataset.color !== colorClass){
+      clock.className="clock "+colorClass;
+      clock.dataset.color=colorClass;
+    }
   }
 
   const sidebarClock=document.getElementById("sidebarClock");
   if(sidebarClock) sidebarClock.innerText=timeStr;
 
-  const dateStr=now.toLocaleDateString("uz-UZ",{
+  const dateStr=now.toLocaleDateString(currentLang === "ru" ? "ru-RU" : "uz-UZ",{
     weekday:"long",year:"numeric",month:"long",day:"numeric"
   });
 
@@ -1353,7 +1885,7 @@ function updateClock(){
   if(dateEl) dateEl.innerText=dateStr;
 
   const sidebarDate=document.getElementById("sidebarDate");
-  if(sidebarDate) sidebarDate.innerText=now.toLocaleDateString("uz-UZ",{
+  if(sidebarDate) sidebarDate.innerText=now.toLocaleDateString(currentLang === "ru" ? "ru-RU" : "uz-UZ",{
     day:"2-digit",month:"2-digit",year:"numeric"
   });
 }
@@ -1366,7 +1898,7 @@ function showModal(icon,title,text){
   document.getElementById("modalTitle").innerText=title;
   document.getElementById("modalText").innerText=text;
   document.getElementById("modalButtons").innerHTML=
-    '<button class="modal-btn" onclick="closeModal()">TUSHUNDIM</button>';
+    '<button class="modal-btn" onclick="closeModal()">' + t("modalOk") + '</button>';
   document.getElementById("modalBg").style.display="flex";
 }
 function closeModal(){ document.getElementById("modalBg").style.display="none"; }
@@ -1392,12 +1924,12 @@ function openPage(page,button){
 }
 
 /* ================================================================
-   O'YIN BOSHLASH — MODAL OYNASIZ
+   O'YIN BOSHLASH
    ================================================================ */
 function startGame(id){
   if(games[id].start && !games[id].finished){
     beep("error");
-    showModal("🔴","Stol band","Bu stol hozir o'ynatilmoqda.");
+    showModal("🔴", t("tableBusyTitle"), t("tableBusyText"));
     return;
   }
   games[id]={start:Date.now(),finished:false,minutes:0,amount:0};
@@ -1405,7 +1937,6 @@ function startGame(id){
   updateTable(id);
   beep("start");
 
-  // ✨ Stol oynasiga qisqa yashil "flash" effekti
   const win = document.getElementById("tableWindow"+id);
   if(win){
     win.style.transition = "box-shadow .3s, border-color .3s";
@@ -1434,7 +1965,7 @@ function updateTimer(id){
 }
 
 /* ================================================================
-   O'YIN TUGATISH — MODAL OYNASIZ
+   O'YIN TUGATISH
    ================================================================ */
 function finishGame(id){
   if(!games[id].start) return;
@@ -1448,12 +1979,11 @@ function finishGame(id){
   document.getElementById("sum"+id).innerText=money(amount);
   document.getElementById("payment"+id).style.display="block";
   document.getElementById("finish"+id).style.display="none";
-  document.getElementById("status"+id).innerText="⏸ TUGADI";
+  document.getElementById("status"+id).innerText=t("statusFinished");
   document.getElementById("status"+id).className="status busy";
   document.getElementById("livePrice"+id).style.display="none";
   beep("end");
 
-  // ✨ Stol oynasiga qisqa qizil "flash" effekti
   const win = document.getElementById("tableWindow"+id);
   if(win){
     win.style.transition = "box-shadow .3s, border-color .3s";
@@ -1482,14 +2012,14 @@ function savePaid(id){
   resetTable(id);
   renderReports(); renderAdminHistory(); renderAdminDebtors();
   beep("money");
-  showModal("🟢","Pul olindi",money(amount)+" qabul qilindi.");
+  showModal("🟢", t("paidTitle"), t("paidText", {amount: money(amount)}));
 }
 
 function saveDebt(id){
   const name=document.getElementById("name"+id).value.trim();
   const phone=document.getElementById("phone"+id).value.trim();
-  if(!name){ beep("error"); showModal("👤","Ism kiritilmagan","Iltimos, ismni yozing."); return; }
-  if(!phone){ beep("error"); showModal("📞","Telefon kiritilmagan","Iltimos, telefon raqamini yozing."); return; }
+  if(!name){ beep("error"); showModal("👤", t("nameMissingTitle"), t("nameMissingText")); return; }
+  if(!phone){ beep("error"); showModal("📞", t("phoneMissingTitle"), t("phoneMissingText")); return; }
   const history=getHistory();
   const date=todayDate();
   history.unshift({
@@ -1503,15 +2033,16 @@ function saveDebt(id){
   resetTable(id);
   renderReports(); renderAdminDebtors(); renderAdminHistory();
   beep("error");
-  showModal("🔴","Qarzdor saqlandi",name+" — "+money(amount));
+  showModal("🔴", t("debtSavedTitle"), t("debtSavedText", {name: name, amount: money(amount)}));
 }
 
 function resetTable(id){
   games[id]={start:null,finished:false,minutes:0,amount:0};
   saveGames();
   document.getElementById("timer"+id).innerText="00:00:00";
-  document.getElementById("status"+id).innerText="🔵 BO'SH";
-  document.getElementById("status"+id).className="status free";
+  const statusEl=document.getElementById("status"+id);
+  statusEl.innerText=t("statusFree");
+  statusEl.className="status free";
   document.getElementById("start"+id).style.display="block";
   document.getElementById("finish"+id).style.display="none";
   document.getElementById("payment"+id).style.display="none";
@@ -1524,19 +2055,28 @@ function resetTable(id){
 
 function updateTable(id){
   const g=games[id];
+  const statusEl=document.getElementById("status"+id);
   if(g.start && !g.finished){
-    document.getElementById("status"+id).innerText="🔴 BAND";
-    document.getElementById("status"+id).className="status busy";
+    statusEl.innerText=t("statusBusy");
+    statusEl.className="status busy";
     document.getElementById("start"+id).style.display="none";
     document.getElementById("finish"+id).style.display="block";
     document.getElementById("livePrice"+id).style.display="block";
     updateTimer(id);
   } else if(g.finished){
-    document.getElementById("status"+id).innerText="⏸ TUGADI";
-    document.getElementById("status"+id).className="status busy";
+    statusEl.innerText=t("statusFinished");
+    statusEl.className="status busy";
     document.getElementById("start"+id).style.display="none";
     document.getElementById("payment"+id).style.display="block";
     document.getElementById("sum"+id).innerText=money(g.amount);
+  } else {
+    statusEl.innerText=t("statusFree");
+    statusEl.className="status free";
+    document.getElementById("start"+id).style.display="block";
+    document.getElementById("finish"+id).style.display="none";
+    document.getElementById("payment"+id).style.display="none";
+    const lp=document.getElementById("livePrice"+id);
+    if(lp) lp.style.display="none";
   }
 }
 
@@ -1559,7 +2099,7 @@ function renderAdminDebtors(){
   const history=getHistory().filter(x=>!x.paid);
   const box=document.getElementById("adminDebtorList");
   if(!history.length){
-    box.innerHTML='<div class="empty">🎉 Qarzdorlar yo\'q</div>';
+    box.innerHTML='<div class="empty">' + t("noDebtors") + '</div>';
     return;
   }
   box.innerHTML="";
@@ -1569,12 +2109,12 @@ function renderAdminDebtors(){
     div.innerHTML=
       '<div class="history-item-info">'+
         '👤 <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 '+escapeHTML(item.phone)+'<br>'+
-        '🎱 Stol '+item.table+' &nbsp;•&nbsp; ⏱ '+item.minutes+' daq &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
-        '<span style="color:#ffc34e;font-weight:800">🔴 PUL OLINMAGAN</span>'+
+        '🎱 '+t("table")+' '+item.table+' &nbsp;•&nbsp; ⏱ '+item.minutes+' '+t("minutes")+' &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
+        '<span style="color:#ffc34e;font-weight:800">'+t("debtStatus")+'</span>'+
       '</div>'+
       '<div class="history-item-actions">'+
-        '<button class="paid-later" onclick="markPaid('+item.id+')">🟢 PULNI OLDIM</button>'+
-        '<button class="chek-btn" onclick="printSingleDebtChek('+item.id+')">📄 PDF</button>'+
+        '<button class="paid-later" onclick="markPaid('+item.id+')">'+t("payNowBtn")+'</button>'+
+        '<button class="chek-btn" onclick="printSingleDebtChek('+item.id+')">'+t("pdfBtn")+'</button>'+
       '</div>';
     box.appendChild(div);
   });
@@ -1589,7 +2129,10 @@ function markPaid(id){
   saveHistory(history);
   renderReports(); renderAdminDebtors(); renderAdminHistory();
   beep("money");
-  showModal("🟢","To'lov olindi",escapeHTML(item.name)+"ning "+money(item.amount)+" qarzi yopildi.");
+  showModal("🟢", t("paidLaterTitle"), t("paidLaterText", {
+    name: escapeHTML(item.name),
+    amount: money(item.amount)
+  }));
 }
 
 /* ========== TARIX ========== */
@@ -1613,7 +2156,7 @@ function renderAdminHistory(){
   document.getElementById("historyTotalAmount").innerText=money(allTotal);
 
   if(!dates.length){
-    box.innerHTML='<div class="empty">📋 Hozircha saqlangan tarix yo\'q</div>';
+    box.innerHTML='<div class="empty">' + t("noHistory") + '</div>';
     totalBox.style.display="block";
     return;
   }
@@ -1630,11 +2173,11 @@ function renderAdminHistory(){
       '<div class="history-date-icon">📅</div>'+
       '<div class="history-date-info" onclick="openHistoryDate(\''+date+'\')">'+
         '<b>'+escapeHTML(date)+'</b>'+
-        '<small>🎱 '+items.length+' ta o\'yin • 💰 '+money(total)+'</small>'+
+        '<small>🎱 '+items.length+' '+t("gamesCount")+' • 💰 '+money(total)+'</small>'+
         '<small>🟢 '+money(paid)+' &nbsp;&nbsp; 🔴 '+money(unpaid)+'</small>'+
       '</div>'+
       '<div class="history-date-actions">'+
-        '<button class="date-chek-btn" onclick="event.stopPropagation();printDateChek(\''+date+'\')">📄 PDF</button>'+
+        '<button class="date-chek-btn" onclick="event.stopPropagation();printDateChek(\''+date+'\')">'+t("pdfBtn")+'</button>'+
         '<div class="history-date-arrow" onclick="openHistoryDate(\''+date+'\')" style="cursor:pointer">›</div>'+
       '</div>';
     box.appendChild(card);
@@ -1650,7 +2193,7 @@ function openHistoryDate(date){
   selectedHistoryDateValue=date;
   const box=document.getElementById("selectedDayHistory");
   if(!items.length){
-    box.innerHTML='<div class="empty">Bu sanada saqlangan ma\'lumot yo\'q.</div>';
+    box.innerHTML='<div class="empty">' + t("noHistoryDate") + '</div>';
     return;
   }
   const total=items.reduce((s,i)=>s+Number(i.amount||0),0);
@@ -1659,20 +2202,20 @@ function openHistoryDate(date){
 
   let html=
     '<div class="history-summary">'+
-      '<div class="history-summary-card blue"><small>🎱 O\'YINLAR</small><b>'+items.length+' ta</b></div>'+
-      '<div class="history-summary-card green"><small>🟢 OLINAN</small><b>'+money(paid)+'</b></div>'+
-      '<div class="history-summary-card red"><small>🔴 OLINMAGAN</small><b>'+money(unpaid)+'</b></div>'+
+      '<div class="history-summary-card blue"><small>'+t("gamesSmall")+'</small><b>'+items.length+' '+t("gamesCount")+'</b></div>'+
+      '<div class="history-summary-card green"><small>'+t("paidSmall")+'</small><b>'+money(paid)+'</b></div>'+
+      '<div class="history-summary-card red"><small>'+t("unpaidSmall")+'</small><b>'+money(unpaid)+'</b></div>'+
     '</div>'+
-    '<div class="history-total-box"><small>💰 SHU SANANING UMUMIY SUMMASI</small><b>'+money(total)+'</b></div>';
+    '<div class="history-total-box"><small>'+t("dateTotal")+'</small><b>'+money(total)+'</b></div>';
 
   items.forEach(item=>{
     html+='<div class="history-day-item '+(!item.paid?"debt":"")+'">'+
-      '🎱 <b>Stol '+item.table+'</b> &nbsp;•&nbsp; ⏱ <b>'+item.minutes+' daqiqa</b> &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
+      '🎱 <b>'+t("table")+' '+item.table+'</b> &nbsp;•&nbsp; ⏱ <b>'+item.minutes+' '+t("minutes")+'</b> &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
       (item.paid
-        ? '<span class="paid">🟢 PUL OLINDI</span>'
-        : '👤 Ismi: <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 <b>'+escapeHTML(item.phone)+'</b> &nbsp;•&nbsp; <span class="unpaid">🔴 PUL OLINMAGAN</span>'
+        ? '<span class="paid">'+t("paidStatus")+'</span>'
+        : '👤 '+t("colTable")+' — '+t("nameLabel")+': <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 <b>'+escapeHTML(item.phone)+'</b> &nbsp;•&nbsp; <span class="unpaid">'+t("unpaidStatus")+'</span>'
       )+
-      (item.paidDate?' &nbsp;•&nbsp; ✅ Pul olingan: <b>'+escapeHTML(item.paidDate)+'</b>':'')+
+      (item.paidDate?' &nbsp;•&nbsp; '+t("paidAt")+' <b>'+escapeHTML(item.paidDate)+'</b>':'')+
     '</div>';
   });
   box.innerHTML=html;
@@ -1681,21 +2224,22 @@ function openHistoryDate(date){
 
 function confirmClearSelectedHistory(){
   const date=selectedHistoryDateValue;
-  if(!date){ showModal("📅","Sana tanlanmagan","O'chiriladigan sana aniqlanmadi."); return; }
+  if(!date){ showModal("📅", t("dateNotSelected"), t("dateNotSelectedText")); return; }
   const history=getHistory();
   const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
   if(!items.length){
-    showModal("📋","Tarix bo'sh","Bu sanada o'chiriladigan tarix mavjud emas.");
+    showModal("📋", t("historyEmptyTitle"), t("historyEmptyText"));
     return;
   }
   const total=items.reduce((s,i)=>s+Number(i.amount||0),0);
   document.getElementById("modalIcon").innerText="🗑️";
-  document.getElementById("modalTitle").innerText="Tarixni tozalash";
-  document.getElementById("modalText").innerText=
-    date+" sanasidagi "+items.length+" ta o'yin tarixini ("+money(total)+") o'chirishni xohlaysizmi?";
+  document.getElementById("modalTitle").innerText=t("clearHistoryTitle");
+  document.getElementById("modalText").innerText=t("clearHistoryText", {
+    date: date, count: items.length, amount: money(total)
+  });
   document.getElementById("modalButtons").innerHTML=
-    '<button class="modal-danger" onclick="clearSelectedHistory()">🗑️ HA, O\'CHIRISH</button>'+
-    '<button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>';
+    '<button class="modal-danger" onclick="clearSelectedHistory()">'+t("clearYes")+'</button>'+
+    '<button class="modal-cancel" onclick="closeModal()">'+t("clearNo")+'</button>';
   document.getElementById("modalBg").style.display="flex";
 }
 
@@ -1712,7 +2256,7 @@ function clearSelectedHistory(){
   renderReports(); renderAdminDebtors(); renderAdminHistory();
   closeModal();
   setTimeout(function(){
-    showModal("✅","Tarix o'chirildi",date+" sanasining tarixi o'chirildi.");
+    showModal("✅", t("clearedTitle"), t("clearedText", {date: date}));
   },200);
 }
 
@@ -1724,7 +2268,7 @@ function backToHistoryDates(){
 }
 
 function convertDate(date){
-  if(!date) return 0;
+  if(!date || typeof date !== "string") return 0;
   if(date.includes(".")){
     const p=date.split(".");
     if(p.length===3) return new Date(Number(p[2]),Number(p[1])-1,Number(p[0])).getTime();
@@ -1751,7 +2295,7 @@ function showPdfLoading(show){
 
 function buildChekElement(options){
   const {
-    title = "KASSA CHEKI",
+    title = t("chekKassa"),
     subtitle = "",
     headerInfo = "",
     items = [],
@@ -1777,21 +2321,21 @@ function buildChekElement(options){
   });
 
   let totalsHTML = "";
-  totals.forEach(t=>{
-    if(t.value === "" && t.label.includes("━")){
+  totals.forEach(tObj=>{
+    if(tObj.value === "" && tObj.label.includes("━")){
       totalsHTML += '<div style="border-top:1px dashed #c8d4e0;margin:10px 0"></div>';
       return;
     }
-    const bg = t.highlight ? "#e8f8f0" : "#f4f7fb";
-    const border = t.highlight ? "#0aa978" : "#0a8ee8";
-    const fontSize = t.highlight ? "16px" : "14px";
-    const fontWeight = t.highlight ? "900" : "600";
-    const valColor = t.highlight ? "#0aa978" : "#0a5c9f";
-    const valSize = t.highlight ? "20px" : "15px";
+    const bg = tObj.highlight ? "#e8f8f0" : "#f4f7fb";
+    const border = tObj.highlight ? "#0aa978" : "#0a8ee8";
+    const fontSize = tObj.highlight ? "16px" : "14px";
+    const fontWeight = tObj.highlight ? "900" : "600";
+    const valColor = tObj.highlight ? "#0aa978" : "#0a5c9f";
+    const valSize = tObj.highlight ? "20px" : "15px";
     totalsHTML += `
       <div style="display:flex;justify-content:space-between;padding:12px 16px;margin-bottom:8px;background:${bg};border-radius:10px;border-left:4px solid ${border};font-size:${fontSize};font-weight:${fontWeight};color:#1a2433">
-        <span>${t.label}</span>
-        <span style="font-weight:900;color:${valColor};font-size:${valSize}">${t.value}</span>
+        <span>${tObj.label}</span>
+        <span style="font-weight:900;color:${valColor};font-size:${valSize}">${tObj.value}</span>
       </div>`;
   });
 
@@ -1838,11 +2382,11 @@ function buildChekElement(options){
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:18px 30px;background:#f4f7fb;border-bottom:1px solid #e0e7f0;font-size:13px">
       <div style="display:flex;justify-content:space-between;padding:6px 0">
-        <span style="color:#5a6a7d">Chek raqami:</span>
+        <span style="color:#5a6a7d">${t("chekNo")}</span>
         <span style="font-weight:700;color:#1a2433">${chekNo}</span>
       </div>
       <div style="display:flex;justify-content:space-between;padding:6px 0">
-        <span style="color:#5a6a7d">Sana:</span>
+        <span style="color:#5a6a7d">${t("chekDate")}</span>
         <span style="font-weight:700;color:#1a2433">${now}</span>
       </div>
       ${headerInfoHTML}
@@ -1852,15 +2396,15 @@ function buildChekElement(options){
       <table style="width:100%;border-collapse:collapse;font-size:13px">
         <thead>
           <tr>
-            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:center;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;width:40px">#</th>
-            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;width:80px">Stol</th>
-            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">Vaqt</th>
-            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">Holat</th>
-            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:right;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">Summa</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:center;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;width:40px">${t("colNum")}</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;width:80px">${t("colTable")}</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">${t("colTime")}</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:left;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">${t("colStatus")}</th>
+            <th style="background:#0d3a5c;color:#fff;padding:12px 8px;text-align:right;font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase">${t("colAmount")}</th>
           </tr>
         </thead>
         <tbody>
-          ${itemsHTML || '<tr><td colspan="5" style="text-align:center;padding:30px;color:#8896a8">Ma\'lumot yo\'q</td></tr>'}
+          ${itemsHTML || '<tr><td colspan="5" style="text-align:center;padding:30px;color:#8896a8">' + t("noData") + '</td></tr>'}
         </tbody>
       </table>
     </div>
@@ -1872,19 +2416,19 @@ function buildChekElement(options){
       <div style="display:flex;justify-content:space-between;margin:12px 0 8px;padding:0 8px">
         <div style="text-align:center;flex:1">
           <div style="border-bottom:1.5px solid #1a2433;height:40px;margin-bottom:6px"></div>
-          <div style="font-size:11px;color:#5a6a7d;font-weight:700;letter-spacing:1px">MIJOZ IMZOSI</div>
+          <div style="font-size:11px;color:#5a6a7d;font-weight:700;letter-spacing:1px">${t("signatureClient")}</div>
         </div>
         <div style="text-align:center;flex:1">
           <div style="border-bottom:1.5px solid #1a2433;height:40px;margin-bottom:6px"></div>
-          <div style="font-size:11px;color:#5a6a7d;font-weight:700;letter-spacing:1px">KASSIR IMZOSI</div>
+          <div style="font-size:11px;color:#5a6a7d;font-weight:700;letter-spacing:1px">${t("signatureCashier")}</div>
         </div>
       </div>
     </div>
     ` : ''}
 
     <div style="padding:22px 30px;background:#f4f7fb;border-top:1px dashed #c8d4e0;text-align:center;font-size:11px;color:#5a6a7d">
-      <div style="font-weight:800;color:#1a2433;font-size:13px;margin-bottom:6px">XARIDINGIZ UCHUN RAHMAT! 🎱</div>
-      <div>📞 Tel: ${CLUB_PHONE} &nbsp;•&nbsp; 📍 Manzil: ${CLUB_ADDRESS}</div>
+      <div style="font-weight:800;color:#1a2433;font-size:13px;margin-bottom:6px">${t("thanks")}</div>
+      <div>📞 Tel: ${CLUB_PHONE} &nbsp;•&nbsp; 📍 ${CLUB_ADDRESS}</div>
       <div style="margin-top:8px;color:#8896a8">${footer}</div>
     </div>
   `;
@@ -1895,9 +2439,10 @@ function buildChekElement(options){
 async function downloadPDF(element, filename){
   showPdfLoading(true);
   beep("money");
+  let tempContainer = null;
 
   try {
-    const tempContainer = document.createElement("div");
+    tempContainer = document.createElement("div");
     tempContainer.style.cssText = "position:fixed;left:-99999px;top:0;background:#ffffff;padding:20px;z-index:-1";
     tempContainer.appendChild(element);
     document.body.appendChild(tempContainer);
@@ -1938,20 +2483,21 @@ async function downloadPDF(element, filename){
     }
 
     pdf.save(filename);
-
-    document.body.removeChild(tempContainer);
     showPdfLoading(false);
 
     setTimeout(function(){
-      showModal("✅","PDF yuklandi",
-        '📄 Fayl: "'+filename+'"\n\n📁 Papka: Yuklamalar (Downloads)\n\n💡 Windows: "Yuklamalar" papkasida');
+      showModal("✅", t("pdfDoneTitle"), t("pdfDoneText", {filename: filename}));
     }, 300);
 
   } catch(err){
     console.error(err);
     showPdfLoading(false);
     beep("error");
-    showModal("❌","Xatolik","PDF yaratishda xatolik yuz berdi.\n\nIltimos qayta urinib ko'ring.");
+    showModal("❌", t("pdfErrorTitle"), t("pdfErrorText"));
+  } finally {
+    if(tempContainer && tempContainer.parentNode){
+      document.body.removeChild(tempContainer);
+    }
   }
 }
 
@@ -1960,7 +2506,7 @@ function printDateChek(date){
   const history=getHistory();
   const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
   if(!items.length){
-    showModal("📋","Ma'lumot yo'q",date+" sanasida o'yinlar mavjud emas.");
+    showModal("📋", t("historyEmptyTitle"), t("noHistoryDate"));
     return;
   }
   const total=items.reduce((s,i)=>s+Number(i.amount||0),0);
@@ -1968,40 +2514,40 @@ function printDateChek(date){
   const unpaid=items.filter(i=>!i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
 
   const tableItems = items.map(it=>({
-    col1: "Stol " + it.table,
-    col2: it.minutes + " daqiqa",
-    col3: it.paid ? "✅ To'langan" : "🔴 Qarz (" + (it.name||"—") + ")",
+    col1: t("table") + " " + it.table,
+    col2: it.minutes + " " + t("minutes"),
+    col3: it.paid ? t("paidStatusPdf") : t("debtStatusNamePdf", {name: it.name || "—"}),
     col4: money(it.amount)
   }));
 
   const totals = [
-    { label: "Jami o'yinlar soni:", value: items.length + " ta" },
-    { label: "🟢 To'langan summa:", value: money(paid) },
-    { label: "🔴 Qarz summa:", value: money(unpaid) },
-    { label: "💰 UMUMIY SUMMA:", value: money(total), highlight: true }
+    { label: t("totalGames"), value: items.length + " " + t("gamesCount") },
+    { label: t("paidSum"), value: money(paid) },
+    { label: t("unpaidSum"), value: money(unpaid) },
+    { label: t("grandTotal"), value: money(total), highlight: true }
   ];
 
   const el = buildChekElement({
-    title: "KUNLIK HISOBOT",
-    subtitle: date + " sanasi uchun",
-    headerInfo: '<div><span>Sana:</span><span>'+date+'</span></div><div><span>O\'yinlar:</span><span>'+items.length+' ta</span></div>',
+    title: t("chekDaily"),
+    subtitle: t("dailyReportFor", {date: date}),
+    headerInfo: '<div><span>' + t("chekDate") + '</span><span>' + date + '</span></div>',
     items: tableItems,
     totals: totals,
-    footer: "Bu chek avtomatik tarzda yaratilgan"
+    footer: t("autoGenerated")
   });
-  downloadPDF(el, "BILLIARD_KUNLIK_"+date.replace(/\./g,"-")+".pdf");
+  downloadPDF(el, "BILLIARD_KUNLIK_" + date.replace(/\./g,"-") + ".pdf");
 }
 
 function printDayChek(){
   const date = selectedHistoryDateValue;
-  if(!date){ showModal("📅","Sana tanlanmagan","Iltimos, sanani tanlang."); return; }
+  if(!date){ showModal("📅", t("dateNotSelected"), t("dateNotSelectedText")); return; }
   printDateChek(date);
 }
 
 function printAllHistoryChek(){
   const history = getHistory();
   if(!history.length){
-    showModal("📋","Tarix bo'sh","Hozircha hech qanday tarix yo'q.");
+    showModal("📋", t("historyEmptyTitle"), t("noHistory"));
     return;
   }
   const total=history.reduce((s,i)=>s+Number(i.amount||0),0);
@@ -2009,89 +2555,89 @@ function printAllHistoryChek(){
   const unpaid=history.filter(i=>!i.paid).reduce((s,i)=>s+Number(i.amount||0),0);
 
   const tableItems = history.map(it=>({
-    col1: "Stol " + it.table,
-    col2: (it.saveDate||it.gameDate||"") + " • " + it.minutes + " daq",
-    col3: it.paid ? "✅ To'langan" : "🔴 Qarz",
+    col1: t("table") + " " + it.table,
+    col2: (it.saveDate||it.gameDate||"") + " • " + it.minutes + " " + t("minutes"),
+    col3: it.paid ? t("paidStatusPdf") : t("debtStatusPdf"),
     col4: money(it.amount)
   }));
 
   const totals = [
-    { label: "Jami o'yinlar:", value: history.length + " ta" },
-    { label: "🟢 To'langan:", value: money(paid) },
-    { label: "🔴 Qarz:", value: money(unpaid) },
-    { label: "💰 UMUMIY SUMMA:", value: money(total), highlight: true }
+    { label: t("totalGames"), value: history.length + " " + t("gamesCount") },
+    { label: t("paidSum"), value: money(paid) },
+    { label: t("unpaidSum"), value: money(unpaid) },
+    { label: t("grandTotal"), value: money(total), highlight: true }
   ];
 
   const el = buildChekElement({
-    title: "UMUMIY TARIX HISOBOTI",
-    subtitle: "Barcha o'yinlar ro'yxati",
-    headerInfo: '<div><span>Jami o\'yinlar:</span><span>'+history.length+' ta</span></div>',
+    title: t("chekAllHistory"),
+    subtitle: t("allGamesList"),
+    headerInfo: '<div><span>' + t("totalGames") + '</span><span>' + history.length + ' ' + t("gamesCount") + '</span></div>',
     items: tableItems,
     totals: totals,
-    footer: "Barcha o'yinlar tarixi"
+    footer: t("allHistory")
   });
-  downloadPDF(el, "BILLIARD_TARIX_"+fileDate()+".pdf");
+  downloadPDF(el, "BILLIARD_TARIX_" + fileDate() + ".pdf");
 }
 
 function printDebtorsChek(){
   const history = getHistory().filter(x=>!x.paid);
   if(!history.length){
-    showModal("🎉","Qarzdorlar yo'q","Barcha pullar to'langan!");
+    showModal("🎉", t("noDebtors"), t("noDebtorsPdf"));
     return;
   }
   const total = history.reduce((s,i)=>s+Number(i.amount||0),0);
   const tableItems = history.map(it=>({
     col1: escapeHTML(it.name||"—"),
     col2: escapeHTML(it.phone||"—"),
-    col3: "Stol " + it.table + " • " + it.minutes + " daq",
+    col3: t("table") + " " + it.table + " • " + it.minutes + " " + t("minutes"),
     col4: money(it.amount)
   }));
 
   const totals = [
-    { label: "Jami qarzdorlar:", value: history.length + " ta" },
-    { label: "💰 UMUMIY QARZ:", value: money(total), highlight: true }
+    { label: t("totalDebtors"), value: history.length + " ta" },
+    { label: t("grandDebt"), value: money(total), highlight: true }
   ];
 
   const el = buildChekElement({
-    title: "QARZDORLAR RO'YXATI",
-    subtitle: "To'lanmagan o'yinlar",
-    headerInfo: '<div><span>Qarzdorlar:</span><span>'+history.length+' ta</span></div>',
+    title: t("chekDebtors"),
+    subtitle: t("unpaidList"),
+    headerInfo: '<div><span>' + t("totalDebtors") + '</span><span>' + history.length + ' ta</span></div>',
     items: tableItems,
     totals: totals,
-    footer: "Iltimos, qarzlarni o'z vaqtida to'lang"
+    footer: t("payOnTime")
   });
-  downloadPDF(el, "BILLIARD_QARZDORLAR_"+fileDate()+".pdf");
+  downloadPDF(el, "BILLIARD_QARZDORLAR_" + fileDate() + ".pdf");
 }
 
 function printSingleDebtChek(id){
   const history = getHistory();
   const item = history.find(x=>x.id===id);
-  if(!item){ showModal("❌","Topilmadi","Qarzdor topilmadi."); return; }
+  if(!item){ showModal("❌", t("pdfErrorTitle"), t("noData")); return; }
 
   const tableItems = [{
-    col1: "Stol " + item.table,
-    col2: item.minutes + " daqiqa",
-    col3: "🔴 Qarz",
+    col1: t("table") + " " + item.table,
+    col2: item.minutes + " " + t("minutes"),
+    col3: t("debtStatusPdf"),
     col4: money(item.amount)
   }];
 
   const totals = [
-    { label: "👤 Mijoz:", value: escapeHTML(item.name||"—") },
-    { label: "📞 Telefon:", value: escapeHTML(item.phone||"—") },
-    { label: "🎱 Stol:", value: "Stol " + item.table },
-    { label: "⏱ Vaqt:", value: item.minutes + " daqiqa" },
-    { label: "💰 QARZ SUMMA:", value: money(item.amount), highlight: true }
+    { label: t("client"), value: escapeHTML(item.name||"—") },
+    { label: t("phone"), value: escapeHTML(item.phone||"—") },
+    { label: t("tableShort"), value: t("table") + " " + item.table },
+    { label: t("timeShort"), value: item.minutes + " " + t("minutes") },
+    { label: t("debtSum"), value: money(item.amount), highlight: true }
   ];
 
   const el = buildChekElement({
-    title: "QARZ CHEKI",
-    subtitle: escapeHTML(item.name||"") + " uchun",
-    headerInfo: '<div><span>O\'yin sanasi:</span><span>'+(item.saveDate||item.gameDate||"—")+'</span></div>',
+    title: t("chekDebt"),
+    subtitle: t("debtFor", {name: escapeHTML(item.name||"")}),
+    headerInfo: '<div><span>' + t("chekDate") + '</span><span>' + (item.saveDate||item.gameDate||"—") + '</span></div>',
     items: tableItems,
     totals: totals,
-    footer: "Qarzni to'lash uchun kassaga murojaat qiling"
+    footer: t("payAtCashier")
   });
-  downloadPDF(el, "BILLIARD_QARZ_"+escapeHTML(item.name||"mijoz").replace(/\s+/g,"_")+".pdf");
+  downloadPDF(el, "BILLIARD_QARZ_" + safeFilename(item.name) + ".pdf");
 }
 
 function printReportChek(){
@@ -2106,35 +2652,35 @@ function printReportChek(){
   const allDebt = allDebtors.reduce((s,i)=>s+Number(i.amount||0),0);
 
   const tableItems = todayData.map(it=>({
-    col1: "Stol " + it.table,
-    col2: it.minutes + " daqiqa",
-    col3: it.paid ? "✅ To'langan" : "🔴 Qarz",
+    col1: t("table") + " " + it.table,
+    col2: it.minutes + " " + t("minutes"),
+    col3: it.paid ? t("paidStatusPdf") : t("debtStatusPdf"),
     col4: money(it.amount)
   }));
 
   const totals = [
-    { label: "🎱 Bugungi o'yinlar:", value: todayData.length + " ta" },
-    { label: "🟢 Bugun to'langan:", value: money(todayPaid) },
-    { label: "🔴 Bugun qarz:", value: money(todayUnpaid) },
-    { label: "💰 BUGUNGI JAMI:", value: money(todayTotal), highlight: true },
+    { label: t("todayGames"), value: todayData.length + " " + t("gamesCount") },
+    { label: t("todayPaid"), value: money(todayPaid) },
+    { label: t("todayUnpaid"), value: money(todayUnpaid) },
+    { label: t("todayTotal"), value: money(todayTotal), highlight: true },
     { label: "━━━━━━━━━━━━", value: "" },
-    { label: "👥 Umumiy qarzdorlar:", value: allDebtors.length + " ta" },
-    { label: "💸 Umumiy qarz:", value: money(allDebt) }
+    { label: t("totalDebtorsSmall"), value: allDebtors.length + " ta" },
+    { label: t("totalDebtSmall"), value: money(allDebt) }
   ];
 
   const el = buildChekElement({
-    title: "KASSA HISOBOTI",
-    subtitle: today + " sanasi",
-    headerInfo: '<div><span>Bugun:</span><span>'+today+'</span></div><div><span>O\'yinlar:</span><span>'+todayData.length+' ta</span></div>',
+    title: t("chekReport"),
+    subtitle: t("reportFor", {date: today}),
+    headerInfo: '<div><span>' + t("chekDate") + '</span><span>' + today + '</span></div>',
     items: tableItems,
     totals: totals,
-    footer: "Kunlik kassa hisoboti"
+    footer: t("dailyCashReport")
   });
-  downloadPDF(el, "BILLIARD_HISOBOT_"+fileDate()+".pdf");
+  downloadPDF(el, "BILLIARD_HISOBOT_" + fileDate() + ".pdf");
 }
 
 /* ================================================================
-   GRAFIK PAROL (Windows — sichqoncha)
+   GRAFIK PAROL
    ================================================================ */
 const canvas=document.getElementById("patternCanvas");
 const ctx=canvas.getContext("2d");
@@ -2235,17 +2781,17 @@ function checkPattern(){
   const correct=selected.length===ADMIN_PATTERN.length &&
     selected.every((v,i)=>v===ADMIN_PATTERN[i]);
   if(correct){
-    message.innerText="✅ Grafik parol to'g'ri!";
+    message.innerText=t("patternCorrect");
     message.style.color="#42e879";
     beep("money");
     setTimeout(function(){ closePattern(); openAdmin(); },500);
   } else {
-    message.innerText="❌ Grafik parol noto'g'ri!";
+    message.innerText=t("patternWrong");
     message.style.color="#ff5368";
     beep("error");
     setTimeout(function(){
       selected=[];
-      message.innerText="🔑 Qaytadan chizing";
+      message.innerText=t("patternRetry");
       message.style.color="#45c7ff";
       drawPattern();
     },700);
@@ -2254,7 +2800,7 @@ function checkPattern(){
 
 function openPattern(){
   selected=[]; drawPattern();
-  document.getElementById("patternMessage").innerText="🔑 Grafik parolni chizing";
+  document.getElementById("patternMessage").innerText=t("drawPatternMsg");
   document.getElementById("patternMessage").style.color="#45c7ff";
   document.getElementById("patternBg").style.display="flex";
 }
@@ -2286,7 +2832,7 @@ function backToMain(){
 }
 
 /* ================================================================
-   WINDOWS KEYBOARD SHORTCUTS
+   KEYBOARD SHORTCUTS
    ================================================================ */
 document.addEventListener("keydown", function(e){
   const loginScreen = document.getElementById("loginScreen");
@@ -2387,6 +2933,11 @@ setInterval(function(){
 },1000);
 
 /* ========== BOSHLANG'ICH ========== */
+document.querySelectorAll(".lang-btn").forEach(b=>{
+  b.classList.toggle("active", b.getAttribute("data-lang") === currentLang);
+});
+applyTranslations();
+updatePriceTexts();
 for(let id=1;id<=3;id++) updateTable(id);
 renderReports();
 renderAdminDebtors();
