@@ -20,7 +20,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 button{border:0;outline:0;cursor:pointer;color:#fff;font-family:inherit}
-input{outline:none;font-family:inherit}
+input,select{outline:none;font-family:inherit}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:rgba(0,0,0,.2)}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#35c9ff,#985cff);border-radius:10px}
@@ -295,6 +295,11 @@ input{outline:none;font-family:inherit}
   border:1px solid rgba(220,45,65,.4);
 }
 .nav-badge.hidden{display:none}
+.nav-badge.green{
+  background:rgba(66,233,121,.2);
+  color:#42e979;
+  border-color:rgba(66,233,121,.4);
+}
 
 .sidebar-footer{
   padding:14px 10px 6px;
@@ -406,6 +411,18 @@ input{outline:none;font-family:inherit}
   font-size:12px;color:#a8c0d8;position:relative;z-index:1;
 }
 .live-price b{color:#42e979;font-size:16px;font-weight:900;margin-left:5px}
+
+/* BOOKING INDICATOR ON TABLE */
+.booking-indicator{
+  margin-top:12px;padding:10px 14px;
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(255,210,63,.1),rgba(53,201,255,.1));
+  border:1px dashed rgba(255,210,63,.5);
+  font-size:11px;color:#ffd23f;
+  text-align:center;font-weight:700;
+  position:relative;z-index:1;
+}
+.booking-indicator b{color:#fff}
 
 /* BUTTONS */
 .btn{
@@ -522,6 +539,7 @@ input:focus{
 .stat.green{border-top:4px solid #08a979}
 .stat.red{border-top:4px solid #d93648}
 .stat.orange{border-top:4px solid #dc971b}
+.stat.blue{border-top:4px solid #0a8ee8}
 
 /* ADMIN CARDS */
 .admin-menu-grid{
@@ -731,6 +749,76 @@ input:focus{
 }
 @keyframes emptyFloat{50%{transform:translateY(-10px)}}
 
+/* ============ BOOKING ============ */
+.booking-form-card{
+  padding:22px;border-radius:20px;
+  background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
+  border:1px solid rgba(53,201,255,.2);
+  box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+.booking-form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:14px;
+}
+.booking-form-grid .form-title{margin-top:0}
+.booking-form-grid select{
+  width:100%;padding:12px;min-height:44px;
+  border-radius:11px;border:1px solid rgba(48,73,102,.8);
+  background:rgba(7,17,31,.9);color:white;font-size:14px;
+  cursor:pointer;transition:.25s;
+}
+.booking-form-grid select:focus{border-color:#35c9ff;box-shadow:0 0 0 3px rgba(53,201,255,.15)}
+.booking-form-grid select option{background:#0a1a2c;color:#fff}
+
+.booking-item{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:14px;align-items:center;
+  padding:16px;margin-bottom:12px;
+  border-radius:16px;
+  background:linear-gradient(155deg,rgba(12,26,44,.95),rgba(8,20,35,.98));
+  border:1px solid rgba(38,63,90,.8);
+  border-left:5px solid #35c9ff;
+  transition:.25s;
+}
+.booking-item:hover{transform:translateX(4px);border-left-color:#42e979}
+.booking-item.soon{border-left-color:#ffd23f;animation:soonPulse 2s infinite}
+.booking-item.active-now{border-left-color:#42e979;box-shadow:0 0 25px rgba(66,233,121,.3)}
+.booking-item.expired{border-left-color:#8898a8;opacity:.6}
+@keyframes soonPulse{50%{box-shadow:0 0 25px rgba(255,210,63,.4)}}
+
+.booking-time-badge{
+  min-width:80px;padding:12px 10px;
+  border-radius:14px;text-align:center;
+  background:linear-gradient(135deg,rgba(53,201,255,.15),rgba(152,92,255,.15));
+  border:1px solid rgba(53,201,255,.35);
+}
+.booking-time-badge .time{font-size:18px;font-weight:900;color:#35c9ff;display:block}
+.booking-time-badge .date{font-size:10px;color:#8aa0b8;margin-top:2px;letter-spacing:.5px}
+
+.booking-info{min-width:0;line-height:1.7;font-size:13px;color:#c0d0e0}
+.booking-info b{color:#fff}
+.booking-info .status-badge{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:10px;font-weight:900;letter-spacing:.8px;margin-top:4px;
+}
+.booking-info .status-badge.active{background:rgba(66,233,121,.15);color:#42e979;border:1px solid rgba(66,233,121,.4)}
+.booking-info .status-badge.soon{background:rgba(255,210,63,.15);color:#ffd23f;border:1px solid rgba(255,210,63,.4)}
+.booking-info .status-badge.future{background:rgba(53,201,255,.15);color:#35c9ff;border:1px solid rgba(53,201,255,.4)}
+.booking-info .status-badge.expired{background:rgba(136,152,168,.15);color:#8898a8;border:1px solid rgba(136,152,168,.4)}
+
+.booking-actions{display:flex;flex-direction:column;gap:6px}
+.booking-actions button{
+  padding:8px 14px;border-radius:9px;
+  font-size:11px;font-weight:800;letter-spacing:.5px;
+  transition:.25s;white-space:nowrap;
+}
+.booking-start-btn{background:linear-gradient(135deg,#0dbb85,#067858);color:#fff}
+.booking-start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(10,169,120,.5)}
+.booking-cancel-btn{background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border:1px solid rgba(224,68,86,.4)}
+.booking-cancel-btn:hover{background:linear-gradient(135deg,#e04456,#a92335);color:#fff}
+
 /* MODAL */
 .modal-bg{
   display:none;position:fixed;inset:0;z-index:30000;
@@ -846,6 +934,8 @@ input:focus{
   backdrop-filter:blur(10px);
   z-index:100;
   box-shadow:0 8px 24px rgba(0,0,0,.4);
+  flex-wrap:wrap;
+  max-width:90vw;
 }
 .keyboard-hints b{
   display:inline-block;
@@ -892,6 +982,10 @@ input:focus{
   .history-date-actions{grid-column:1/-1;justify-content:space-between}
   .clock{font-size:64px;letter-spacing:3px}
   .login-box{padding:30px 22px}
+  .booking-item{grid-template-columns:1fr}
+  .booking-time-badge{min-width:auto}
+  .booking-actions{flex-direction:row}
+  .booking-actions button{flex:1}
 }
 
 /* SHORTCUT TOOLTIP */
@@ -980,6 +1074,7 @@ input:focus{
       <button class="nav-item" onclick="openPage('tables',this)" data-key="1">
         <span class="nav-icon">🎱</span>
         <span data-i18n="navTables">Stollar</span>
+        <span class="nav-badge hidden" id="activeTablesBadge">0</span>
         <span class="shortcut-tip" data-i18n="tipTables">1-3 tugmalari</span>
       </button>
       <button class="nav-item" onclick="openPattern()" data-key="A">
@@ -1029,6 +1124,7 @@ input:focus{
           <div id="timer1" class="timer">00:00:00</div>
           <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText1">40 000 so'm</b></div>
           <div id="livePrice1" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum1">0 so'm</b></div>
+          <div id="bookingIndicator1" class="booking-indicator" style="display:none"></div>
           <button id="start1" class="btn start-btn" onclick="startGame(1)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
           <button id="finish1" class="btn finish-btn" onclick="finishGame(1)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
           <div id="payment1" class="payment">
@@ -1052,6 +1148,7 @@ input:focus{
           <div id="timer2" class="timer">00:00:00</div>
           <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText2">40 000 so'm</b></div>
           <div id="livePrice2" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum2">0 so'm</b></div>
+          <div id="bookingIndicator2" class="booking-indicator" style="display:none"></div>
           <button id="start2" class="btn start-btn" onclick="startGame(2)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
           <button id="finish2" class="btn finish-btn" onclick="finishGame(2)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
           <div id="payment2" class="payment">
@@ -1075,6 +1172,7 @@ input:focus{
           <div id="timer3" class="timer">00:00:00</div>
           <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText3">40 000 so'm</b></div>
           <div id="livePrice3" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum3">0 so'm</b></div>
+          <div id="bookingIndicator3" class="booking-indicator" style="display:none"></div>
           <button id="start3" class="btn start-btn" onclick="startGame(3)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
           <button id="finish3" class="btn finish-btn" onclick="finishGame(3)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
           <div id="payment3" class="payment">
@@ -1119,6 +1217,10 @@ input:focus{
           <div class="admin-card-icon">📋</div>
           <div><b data-i18n="historyCard">Tarix</b><br><small data-i18n="historyCardSub">Barcha o'yinlar</small></div>
         </button>
+        <button class="admin-card" onclick="openAdminPage('booking')">
+          <div class="admin-card-icon">📅</div>
+          <div><b data-i18n="bookingCard">Bron qilish</b><br><small data-i18n="bookingCardSub">Stol band qilish</small></div>
+        </button>
       </div>
     </div>
 
@@ -1136,6 +1238,7 @@ input:focus{
         <div class="stat green"><small data-i18n="statPaid">🟢 Pul olingan</small><h2 id="statPaid">0 so'm</h2></div>
         <div class="stat red"><small data-i18n="statUnpaid">🔴 Pul olinmagan</small><h2 id="statUnpaid">0 so'm</h2></div>
         <div class="stat orange"><small data-i18n="statDebtors">👥 Qarzdorlar</small><h2 id="statDebtors">0 ta</h2></div>
+        <div class="stat blue"><small data-i18n="statBookings">📅 Faol bronlar</small><h2 id="statBookings">0 ta</h2></div>
       </div>
       <button class="report-chek-btn" onclick="printReportChek()" data-i18n="downloadReportPdf">📄 UMUMIY HISOBOTNI PDF YUKLASH</button>
     </div>
@@ -1186,6 +1289,61 @@ input:focus{
       </div>
     </div>
 
+    <!-- BOOKING -->
+    <div id="adminBooking" class="page">
+      <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
+      <div class="page-header">
+        <div>
+          <div class="page-title" data-i18n="bookingTitle">📅 BRON QILISH</div>
+          <div class="page-subtitle" data-i18n="bookingSubtitle">Stolni oldindan band qilish</div>
+        </div>
+      </div>
+
+      <!-- BRON FORMASI -->
+      <div class="booking-form-card">
+        <div class="booking-form-grid">
+          <div>
+            <div class="form-title" data-i18n="bookingTableLabel">🎱 Stol raqami</div>
+            <select id="bookingTable" class="login-input">
+              <option value="1">Stol 1</option>
+              <option value="2">Stol 2</option>
+              <option value="3">Stol 3</option>
+            </select>
+          </div>
+          <div>
+            <div class="form-title" data-i18n="bookingNameLabel">👤 Mijoz ismi</div>
+            <input id="bookingName" class="login-input" data-i18n-placeholder="bookingNamePlaceholder" placeholder="Ismini yozing">
+          </div>
+          <div>
+            <div class="form-title" data-i18n="bookingPhoneLabel">📞 Telefon</div>
+            <input id="bookingPhone" class="login-input" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
+          </div>
+          <div>
+            <div class="form-title" data-i18n="bookingDateLabel">📅 Sana</div>
+            <input type="date" id="bookingDate" class="login-input">
+          </div>
+          <div>
+            <div class="form-title" data-i18n="bookingTimeLabel">⏰ Vaqt</div>
+            <input type="time" id="bookingTime" class="login-input">
+          </div>
+          <div>
+            <div class="form-title" data-i18n="bookingDurationLabel">⏱ Davomiyligi (daqiqa)</div>
+            <input type="number" id="bookingDuration" class="login-input" value="60" min="15" step="15">
+          </div>
+        </div>
+        <button class="btn save-btn" onclick="saveBooking()" style="margin-top:14px" data-i18n="saveBookingBtn">💾 BRONNI SAQLASH</button>
+      </div>
+
+      <!-- BRONLAR RO'YXATI -->
+      <div class="page-header" style="margin-top:30px">
+        <div>
+          <div class="page-title" style="font-size:20px" data-i18n="activeBookingsTitle">🔔 Faol bronlar</div>
+        </div>
+        <button class="inner-back" onclick="toggleBookingFilter()" id="bookingFilterBtn" style="margin:0">📆 Bugun</button>
+      </div>
+      <div id="bookingList"></div>
+    </div>
+
   </main>
 </div>
 
@@ -1230,6 +1388,7 @@ input:focus{
   <b>R</b> <span data-i18n="hintReports">Hisobot</span> •
   <b>D</b> <span data-i18n="hintDebtors">Qarzdorlar</span> •
   <b>T</b> <span data-i18n="hintHistory">Tarix</span> •
+  <b>B</b> <span data-i18n="hintBooking">Bron</span> •
   <b>Esc</b> <span data-i18n="hintClose">Yopish</span>
 </div>
 
@@ -1308,6 +1467,8 @@ const I18N = {
     debtorsCardSub: "Olinmagan pullar",
     historyCard: "Tarix",
     historyCardSub: "Barcha o'yinlar",
+    bookingCard: "Bron qilish",
+    bookingCardSub: "Stol band qilish",
     backToAdmin: "← ADMIN MENYUSIGA QAYTISH",
 
     reportsTitle: "📊 HISOBOT",
@@ -1316,6 +1477,7 @@ const I18N = {
     statPaid: "🟢 Pul olingan",
     statUnpaid: "🔴 Pul olinmagan",
     statDebtors: "👥 Qarzdorlar",
+    statBookings: "📅 Faol bronlar",
     downloadReportPdf: "📄 UMUMIY HISOBOTNI PDF YUKLASH",
 
     debtorsTitle: "🔴 QARZDORLAR",
@@ -1425,7 +1587,45 @@ const I18N = {
     hintReports: "Hisobot",
     hintDebtors: "Qarzdorlar",
     hintHistory: "Tarix",
+    hintBooking: "Bron",
     hintClose: "Yopish",
+
+    /* ========== BOOKING ========== */
+    bookingTitle: "📅 BRON QILISH",
+    bookingSubtitle: "Stolni oldindan band qilish",
+    bookingTableLabel: "🎱 Stol raqami",
+    bookingNameLabel: "👤 Mijoz ismi",
+    bookingNamePlaceholder: "Ismini yozing",
+    bookingPhoneLabel: "📞 Telefon",
+    bookingDateLabel: "📅 Sana",
+    bookingTimeLabel: "⏰ Vaqt",
+    bookingDurationLabel: "⏱ Davomiyligi (daqiqa)",
+    saveBookingBtn: "💾 BRONNI SAQLASH",
+    activeBookingsTitle: "🔔 Faol bronlar",
+    filterToday: "📆 Bugun",
+    filterAll: "📋 Barchasi",
+    bookingDateMissingTitle: "Sana/vaqt kiritilmagan",
+    bookingDateMissingText: "Iltimos, sanani va vaqtni tanlang.",
+    bookingPastTitle: "O'tgan vaqt",
+    bookingPastText: "O'tgan vaqtga bron qilish mumkin emas.",
+    bookingConflictTitle: "Vaqt band",
+    bookingConflictText: "Bu vaqtda {time} da {name} tomonidan bron qilingan.",
+    bookingSavedTitle: "Bron saqlandi",
+    bookingSavedText: "Stol {table} • {name} • {time}",
+    bookingStatusActive: "🟢 FAOL",
+    bookingStatusSoon: "🟡 YAQINLASHDI",
+    bookingStatusFuture: "🔵 KUTILMOQDA",
+    bookingStatusExpired: "⚪ O'TGAN",
+    bookingStartBtn: "BOSHLASH",
+    bookingCancelBtn: "BEKOR",
+    bookingCancelTitle: "Bronni bekor qilish",
+    bookingCancelText: "{name}ning {time} dagi {table}-stol bronini bekor qilasizmi?",
+    bookingCancelYes: "🗑️ HA, BEKOR QILISH",
+    bookingCancelNo: "❌ YO'Q",
+    bookingStartedTitle: "O'yin boshlandi",
+    bookingStartedText: "Stol {table} • {name}",
+    bookingReminder: "⏰ Eslatma: {name} • Stol {table} • {time}",
+    noBookings: "📅 Hozircha bron qilinmagan",
 
     som: "so'm",
     table: "Stol",
@@ -1501,6 +1701,8 @@ const I18N = {
     debtorsCardSub: "Неоплаченные суммы",
     historyCard: "История",
     historyCardSub: "Все игры",
+    bookingCard: "Бронирование",
+    bookingCardSub: "Забронировать стол",
     backToAdmin: "← НАЗАД В АДМИН МЕНЮ",
 
     reportsTitle: "📊 ОТЧЁТ",
@@ -1509,6 +1711,7 @@ const I18N = {
     statPaid: "🟢 Оплачено",
     statUnpaid: "🔴 Не оплачено",
     statDebtors: "👥 Должники",
+    statBookings: "📅 Активные брони",
     downloadReportPdf: "📄 СКАЧАТЬ ОБЩИЙ ОТЧЁТ PDF",
 
     debtorsTitle: "🔴 ДОЛЖНИКИ",
@@ -1618,7 +1821,45 @@ const I18N = {
     hintReports: "Отчёт",
     hintDebtors: "Должники",
     hintHistory: "История",
+    hintBooking: "Бронь",
     hintClose: "Закрыть",
+
+    /* ========== BOOKING ========== */
+    bookingTitle: "📅 БРОНИРОВАНИЕ",
+    bookingSubtitle: "Забронировать стол заранее",
+    bookingTableLabel: "🎱 Номер стола",
+    bookingNameLabel: "👤 Имя клиента",
+    bookingNamePlaceholder: "Введите имя",
+    bookingPhoneLabel: "📞 Телефон",
+    bookingDateLabel: "📅 Дата",
+    bookingTimeLabel: "⏰ Время",
+    bookingDurationLabel: "⏱ Длительность (минут)",
+    saveBookingBtn: "💾 СОХРАНИТЬ БРОНЬ",
+    activeBookingsTitle: "🔔 Активные брони",
+    filterToday: "📆 Сегодня",
+    filterAll: "📋 Все",
+    bookingDateMissingTitle: "Дата/время не указаны",
+    bookingDateMissingText: "Пожалуйста, выберите дату и время.",
+    bookingPastTitle: "Прошедшее время",
+    bookingPastText: "Нельзя бронировать на прошедшее время.",
+    bookingConflictTitle: "Время занято",
+    bookingConflictText: "В это время уже забронировано в {time} клиентом {name}.",
+    bookingSavedTitle: "Бронь сохранена",
+    bookingSavedText: "Стол {table} • {name} • {time}",
+    bookingStatusActive: "🟢 АКТИВНО",
+    bookingStatusSoon: "🟡 СКОРО",
+    bookingStatusFuture: "🔵 ОЖИДАЕТСЯ",
+    bookingStatusExpired: "⚪ ПРОШЛО",
+    bookingStartBtn: "НАЧАТЬ",
+    bookingCancelBtn: "ОТМЕНА",
+    bookingCancelTitle: "Отмена брони",
+    bookingCancelText: "Отменить бронь стола {table} на {time} для {name}?",
+    bookingCancelYes: "🗑️ ДА, ОТМЕНИТЬ",
+    bookingCancelNo: "❌ НЕТ",
+    bookingStartedTitle: "Игра началась",
+    bookingStartedText: "Стол {table} • {name}",
+    bookingReminder: "⏰ Напоминание: {name} • Стол {table} • {time}",
+    noBookings: "📅 Пока нет бронирований",
 
     som: "сум",
     table: "Стол",
@@ -1651,6 +1892,12 @@ function applyTranslations(){
   });
   const root = document.getElementById("htmlRoot");
   if(root) root.setAttribute("lang", currentLang);
+
+  // Filter button
+  const filterBtn = document.getElementById("bookingFilterBtn");
+  if(filterBtn){
+    filterBtn.innerText = bookingFilterToday ? "📆 " + t("filterToday") : "📋 " + t("filterAll");
+  }
 }
 
 function setLanguage(lang){
@@ -1662,6 +1909,7 @@ function setLanguage(lang){
   applyTranslations();
   refreshDynamicContent();
   updatePriceTexts();
+  renderBookings();
   beep("money");
 }
 
@@ -1698,6 +1946,9 @@ function refreshDynamicContent(){
   renderReports();
   renderAdminDebtors();
   renderAdminHistory();
+  renderBookings();
+  updateAllBookingIndicators();
+  updateActiveTablesBadge();
 }
 
 /* ================================================================
@@ -1709,6 +1960,7 @@ const AUTH = {
 };
 
 let selectedHistoryDateValue = "";
+let bookingFilterToday = true;
 
 const PRICE = 40000;
 const ADMIN_PATTERN = [2,4,5,3];
@@ -1724,6 +1976,14 @@ let games = JSON.parse(localStorage.getItem("billiardGames")) || {
 function saveGames(){ localStorage.setItem("billiardGames",JSON.stringify(games)); }
 function getHistory(){ return JSON.parse(localStorage.getItem("billiardHistory")) || []; }
 function saveHistory(h){ localStorage.setItem("billiardHistory",JSON.stringify(h)); }
+
+function getBookings(){
+  return JSON.parse(localStorage.getItem("billiardBookings")) || [];
+}
+function saveBookings(arr){
+  localStorage.setItem("billiardBookings", JSON.stringify(arr));
+  updateAllBookingIndicators();
+}
 
 function money(n){
   const num = Math.round(Number(n)||0).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
@@ -1999,27 +2259,44 @@ function finishGame(id){
 function showDebt(id){ document.getElementById("debtForm"+id).style.display="block"; }
 
 function savePaid(id){
+  // Agar bron bilan bog'langan bo'lsa — bronni completed qilish
+  if(games[id].bookingId){
+    const bookings = getBookings();
+    const b = bookings.find(x => x.id === games[id].bookingId);
+    if(b){ b.status = "completed"; saveBookings(bookings); }
+  }
+
   const history=getHistory();
   const date=todayDate();
+  const bookingName = games[id].clientName || "";
+  const bookingPhone = games[id].clientPhone || "";
   history.unshift({
     id:Date.now(),table:id,
     minutes:games[id].minutes,amount:games[id].amount,
-    paid:true,name:"",phone:"",paymentDate:"",
+    paid:true,name:bookingName,phone:bookingPhone,paymentDate:"",
     gameDate:date,saveDate:date,savedAt:new Date().toISOString()
   });
   saveHistory(history);
   const amount=games[id].amount;
   resetTable(id);
-  renderReports(); renderAdminHistory(); renderAdminDebtors();
+  renderReports(); renderAdminHistory(); renderAdminDebtors(); renderBookings();
   beep("money");
   showModal("🟢", t("paidTitle"), t("paidText", {amount: money(amount)}));
 }
 
 function saveDebt(id){
-  const name=document.getElementById("name"+id).value.trim();
-  const phone=document.getElementById("phone"+id).value.trim();
+  const name=document.getElementById("name"+id).value.trim() || games[id].clientName || "";
+  const phone=document.getElementById("phone"+id).value.trim() || games[id].clientPhone || "";
   if(!name){ beep("error"); showModal("👤", t("nameMissingTitle"), t("nameMissingText")); return; }
   if(!phone){ beep("error"); showModal("📞", t("phoneMissingTitle"), t("phoneMissingText")); return; }
+
+  // Bron bilan bog'langan bo'lsa — completed
+  if(games[id].bookingId){
+    const bookings = getBookings();
+    const b = bookings.find(x => x.id === games[id].bookingId);
+    if(b){ b.status = "completed"; saveBookings(bookings); }
+  }
+
   const history=getHistory();
   const date=todayDate();
   history.unshift({
@@ -2031,7 +2308,7 @@ function saveDebt(id){
   saveHistory(history);
   const amount=games[id].amount;
   resetTable(id);
-  renderReports(); renderAdminDebtors(); renderAdminHistory();
+  renderReports(); renderAdminDebtors(); renderAdminHistory(); renderBookings();
   beep("error");
   showModal("🔴", t("debtSavedTitle"), t("debtSavedText", {name: name, amount: money(amount)}));
 }
@@ -2088,10 +2365,18 @@ function renderReports(){
   const paid=todayData.filter(x=>x.paid).reduce((a,b)=>a+Number(b.amount||0),0);
   const unpaid=todayData.filter(x=>!x.paid).reduce((a,b)=>a+Number(b.amount||0),0);
   const debtors=history.filter(x=>!x.paid);
+
+  const now = Date.now();
+  const activeBookings = getBookings().filter(b => 
+    b.status !== "cancelled" && b.status !== "completed" && b.endTime >= now
+  );
+
   document.getElementById("statGames").innerText=todayData.length;
   document.getElementById("statPaid").innerText=money(paid);
   document.getElementById("statUnpaid").innerText=money(unpaid);
   document.getElementById("statDebtors").innerText=debtors.length+" ta";
+  const sb = document.getElementById("statBookings");
+  if(sb) sb.innerText = activeBookings.length + " ta";
 }
 
 /* ========== QARZDORLAR ========== */
@@ -2130,7 +2415,7 @@ function markPaid(id){
   renderReports(); renderAdminDebtors(); renderAdminHistory();
   beep("money");
   showModal("🟢", t("paidLaterTitle"), t("paidLaterText", {
-    name: escapeHTML(item.name),
+    name: item.name,
     amount: money(item.amount)
   }));
 }
@@ -2284,6 +2569,288 @@ function escapeHTML(text){
   return String(text||"")
     .replace(/&/g,"&amp;").replace(/</g,"&lt;")
     .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+/* ================================================================
+   BRON QILISH TIZIMI
+   ================================================================ */
+function toggleBookingFilter(){
+  bookingFilterToday = !bookingFilterToday;
+  const btn = document.getElementById("bookingFilterBtn");
+  btn.innerText = bookingFilterToday ? "📆 " + t("filterToday") : "📋 " + t("filterAll");
+  renderBookings();
+}
+
+function saveBooking(){
+  const table = Number(document.getElementById("bookingTable").value);
+  const name = document.getElementById("bookingName").value.trim();
+  const phone = document.getElementById("bookingPhone").value.trim();
+  const date = document.getElementById("bookingDate").value;
+  const time = document.getElementById("bookingTime").value;
+  const duration = Number(document.getElementById("bookingDuration").value) || 60;
+
+  if(!name){ beep("error"); showModal("👤", t("nameMissingTitle"), t("nameMissingText")); return; }
+  if(!phone){ beep("error"); showModal("📞", t("phoneMissingTitle"), t("phoneMissingText")); return; }
+  if(!date || !time){
+    beep("error");
+    showModal("📅", t("bookingDateMissingTitle"), t("bookingDateMissingText"));
+    return;
+  }
+
+  const bookingStart = new Date(date + "T" + time).getTime();
+  const bookingEnd = bookingStart + duration * 60 * 1000;
+  const now = Date.now();
+
+  if(bookingStart < now - 60000){
+    beep("error");
+    showModal("⏰", t("bookingPastTitle"), t("bookingPastText"));
+    return;
+  }
+
+  const bookings = getBookings();
+  const conflict = bookings.find(b=>{
+    if(b.table !== table) return false;
+    if(b.status === "cancelled" || b.status === "completed") return false;
+    return !(bookingEnd <= b.startTime || bookingStart >= b.endTime);
+  });
+
+  if(conflict){
+    beep("error");
+    showModal("⚠️", t("bookingConflictTitle"),
+      t("bookingConflictText", {
+        time: formatTime(conflict.startTime),
+        name: conflict.name
+      }));
+    return;
+  }
+
+  const booking = {
+    id: Date.now(),
+    table: table,
+    name: name,
+    phone: phone,
+    startTime: bookingStart,
+    endTime: bookingEnd,
+    duration: duration,
+    status: "pending",
+    createdAt: new Date().toISOString(),
+    date: date
+  };
+
+  bookings.push(booking);
+  saveBookings(bookings);
+  renderBookings();
+  updateAllBookingIndicators();
+  renderReports();
+  beep("money");
+
+  document.getElementById("bookingName").value = "";
+  document.getElementById("bookingPhone").value = "";
+
+  showModal("✅", t("bookingSavedTitle"),
+    t("bookingSavedText", {
+      table: table,
+      name: name,
+      time: formatTime(bookingStart)
+    }));
+}
+
+function formatTime(timestamp){
+  const d = new Date(timestamp);
+  return String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0");
+}
+function formatDate(timestamp){
+  const d = new Date(timestamp);
+  return String(d.getDate()).padStart(2,"0") + "." + String(d.getMonth()+1).padStart(2,"0") + "." + d.getFullYear();
+}
+
+function getBookingStatus(booking){
+  const now = Date.now();
+  if(booking.status === "cancelled") return "cancelled";
+  if(booking.status === "completed") return "completed";
+
+  if(now >= booking.startTime && now < booking.endTime) return "active";
+  if(now < booking.startTime){
+    const diffMin = (booking.startTime - now) / 60000;
+    return diffMin <= 30 ? "soon" : "future";
+  }
+  return "expired";
+}
+
+function renderBookings(){
+  const box = document.getElementById("bookingList");
+  if(!box) return;
+
+  let bookings = getBookings();
+  const today = todayDate();
+
+  if(bookingFilterToday){
+    bookings = bookings.filter(b => {
+      const d = new Date(b.startTime);
+      const bDate = String(d.getDate()).padStart(2,"0")+"."+String(d.getMonth()+1).padStart(2,"0")+"."+d.getFullYear();
+      return bDate === today;
+    });
+  }
+
+  bookings = bookings.filter(b => b.status !== "cancelled" && b.status !== "completed");
+  bookings.sort((a,b) => a.startTime - b.startTime);
+
+  if(!bookings.length){
+    box.innerHTML = '<div class="empty">' + t("noBookings") + '</div>';
+    return;
+  }
+
+  box.innerHTML = "";
+  bookings.forEach(b=>{
+    const status = getBookingStatus(b);
+    const statusInfo = {
+      active:  { label: t("bookingStatusActive"),  cls: "active"  },
+      soon:    { label: t("bookingStatusSoon"),    cls: "soon"    },
+      future:  { label: t("bookingStatusFuture"),  cls: "future"  },
+      expired: { label: t("bookingStatusExpired"), cls: "expired" }
+    }[status] || { label: "—", cls: "future" };
+
+    const item = document.createElement("div");
+    item.className = "booking-item " + (status === "soon" ? "soon" : status === "active" ? "active-now" : status === "expired" ? "expired" : "");
+
+    item.innerHTML =
+      '<div class="booking-time-badge">' +
+        '<span class="time">' + formatTime(b.startTime) + '</span>' +
+        '<div class="date">' + formatDate(b.startTime).slice(0,5) + '</div>' +
+      '</div>' +
+      '<div class="booking-info">' +
+        '🎱 <b>' + t("table") + ' ' + b.table + '</b> &nbsp;•&nbsp; ⏱ <b>' + b.duration + ' ' + t("minutes") + '</b><br>' +
+        '👤 <b>' + escapeHTML(b.name) + '</b> &nbsp;•&nbsp; 📞 ' + escapeHTML(b.phone) + '<br>' +
+        '<span class="status-badge ' + statusInfo.cls + '">' + statusInfo.label + '</span>' +
+      '</div>' +
+      '<div class="booking-actions">' +
+        (status !== "expired"
+          ? '<button class="booking-start-btn" onclick="startFromBooking(' + b.id + ')">▶️ ' + t("bookingStartBtn") + '</button>'
+          : '') +
+        '<button class="booking-cancel-btn" onclick="cancelBooking(' + b.id + ')">🗑️ ' + t("bookingCancelBtn") + '</button>' +
+      '</div>';
+
+    box.appendChild(item);
+  });
+}
+
+function startFromBooking(id){
+  const bookings = getBookings();
+  const b = bookings.find(x => x.id === id);
+  if(!b) return;
+
+  if(games[b.table].start && !games[b.table].finished){
+    beep("error");
+    showModal("🔴", t("tableBusyTitle"), t("tableBusyText"));
+    return;
+  }
+
+  games[b.table] = {
+    start: Date.now(),
+    finished: false,
+    minutes: 0,
+    amount: 0,
+    bookingId: b.id,
+    clientName: b.name,
+    clientPhone: b.phone
+  };
+  saveGames();
+  updateTable(b.table);
+
+  b.status = "active";
+  saveBookings(bookings);
+  renderBookings();
+  updateAllBookingIndicators();
+  renderReports();
+  beep("start");
+
+  showModal("🎱", t("bookingStartedTitle"),
+    t("bookingStartedText", { table: b.table, name: b.name }));
+
+  setTimeout(()=>{
+    openPage('tables');
+    document.querySelectorAll(".sidebar-nav .nav-item").forEach(el=>el.classList.remove("active"));
+    const tbl = document.querySelector('.sidebar-nav .nav-item[data-key="1"]');
+    if(tbl) tbl.classList.add("active");
+    const stol = document.getElementById("tableWindow" + b.table);
+    if(stol) stol.scrollIntoView({behavior:"smooth", block:"center"});
+  }, 600);
+}
+
+function cancelBooking(id){
+  const bookings = getBookings();
+  const b = bookings.find(x => x.id === id);
+  if(!b) return;
+
+  document.getElementById("modalIcon").innerText = "🗑️";
+  document.getElementById("modalTitle").innerText = t("bookingCancelTitle");
+  document.getElementById("modalText").innerText = t("bookingCancelText", {
+    name: b.name,
+    time: formatTime(b.startTime),
+    table: b.table
+  });
+  document.getElementById("modalButtons").innerHTML =
+    '<button class="modal-danger" onclick="confirmCancelBooking(' + id + ')">' + t("bookingCancelYes") + '</button>' +
+    '<button class="modal-cancel" onclick="closeModal()">' + t("bookingCancelNo") + '</button>';
+  document.getElementById("modalBg").style.display = "flex";
+}
+
+function confirmCancelBooking(id){
+  const bookings = getBookings();
+  const b = bookings.find(x => x.id === id);
+  if(!b){ closeModal(); return; }
+
+  b.status = "cancelled";
+  b.cancelledAt = new Date().toISOString();
+  saveBookings(bookings);
+  closeModal();
+  renderBookings();
+  updateAllBookingIndicators();
+  renderReports();
+  beep("end");
+}
+
+/* ========== STOL KARTOCHKASIDA BRON KO'RSATKICHI ========== */
+function updateAllBookingIndicators(){
+  for(let id = 1; id <= 3; id++){
+    const indicator = document.getElementById("bookingIndicator" + id);
+    if(!indicator) continue;
+
+    const bookings = getBookings().filter(b =>
+      b.table === id && b.status !== "cancelled" && b.status !== "completed"
+    );
+    const now = Date.now();
+
+    let current = bookings.find(b => now >= b.startTime && now < b.endTime);
+    let upcoming = bookings
+      .filter(b => b.startTime > now)
+      .sort((a,b) => a.startTime - b.startTime)[0];
+
+    if(current){
+      indicator.style.display = "block";
+      indicator.innerHTML = "🟢 <b>" + escapeHTML(current.name) + "</b> hozir kutmoqda • " + formatTime(current.endTime) + " gacha";
+    } else if(upcoming){
+      const diffMin = Math.round((upcoming.startTime - now) / 60000);
+      if(diffMin <= 120){
+        indicator.style.display = "block";
+        indicator.innerHTML = "🔔 <b>" + escapeHTML(upcoming.name) + "</b> • " + formatTime(upcoming.startTime) + " (" + diffMin + " " + t("minutes") + "dan keyin)";
+      } else {
+        indicator.style.display = "none";
+      }
+    } else {
+      indicator.style.display = "none";
+    }
+  }
+}
+
+/* ========== FAOL STOLLAR BADGE ========== */
+function updateActiveTablesBadge(){
+  const active = [1,2,3].filter(id => games[id].start && !games[id].finished).length;
+  const badge = document.getElementById("activeTablesBadge");
+  if(!badge) return;
+  badge.innerText = active;
+  badge.classList.toggle("hidden", active === 0);
+  badge.classList.toggle("green", active > 0);
 }
 
 /* ================================================================
@@ -2823,7 +3390,23 @@ function openAdminPage(page){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   if(page==="reports"){ document.getElementById("adminReports").classList.add("active"); renderReports(); }
   if(page==="debtors"){ document.getElementById("adminDebtors").classList.add("active"); renderAdminDebtors(); }
-  if(page==="history"){ document.getElementById("adminHistory").classList.add("active"); renderAdminHistory(); }
+  if(page==="history"){
+    document.getElementById("historyDayPage").style.display = "none";
+    document.getElementById("historyDatesPage").style.display = "block";
+    selectedHistoryDateValue = "";
+    document.getElementById("adminHistory").classList.add("active");
+    renderAdminHistory();
+  }
+  if(page==="booking"){
+    document.getElementById("adminBooking").classList.add("active");
+    const today = new Date().toISOString().split("T")[0];
+    const dateInput = document.getElementById("bookingDate");
+    if(dateInput && !dateInput.value){
+      dateInput.value = today;
+      dateInput.min = today;
+    }
+    renderBookings();
+  }
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
@@ -2842,7 +3425,7 @@ document.addEventListener("keydown", function(e){
   }
 
   const tag = (e.target.tagName||"").toLowerCase();
-  if(tag === "input" || tag === "textarea") return;
+  if(tag === "input" || tag === "textarea" || tag === "select") return;
 
   const key = e.key.toLowerCase();
 
@@ -2923,6 +3506,13 @@ document.addEventListener("keydown", function(e){
     setTimeout(()=>openAdminPage('history'), 50);
     return;
   }
+
+  if(key === "b"){
+    e.preventDefault();
+    openAdmin();
+    setTimeout(()=>openAdminPage('booking'), 50);
+    return;
+  }
 });
 
 /* ========== TIMER ========== */
@@ -2930,7 +3520,43 @@ setInterval(function(){
   for(let id=1;id<=3;id++){
     if(games[id].start && !games[id].finished) updateTimer(id);
   }
+  updateActiveTablesBadge();
 },1000);
+
+/* ========== BRON TEKSHIRISH (har 30 sekundda) ========== */
+setInterval(function(){
+  renderBookings();
+  updateAllBookingIndicators();
+
+  const bookings = getBookings();
+  const now = Date.now();
+  let changed = false;
+
+  bookings.forEach(b => {
+    if(b.status === "pending"){
+      const diffMin = (b.startTime - now) / 60000;
+      if(diffMin > 0 && diffMin <= 5 && !b.notified){
+        b.notified = true;
+        changed = true;
+        beep("start");
+        if("Notification" in window && Notification.permission === "granted"){
+          try {
+            new Notification("🎱 Billiard Club", {
+              body: t("bookingReminder", { name: b.name, table: b.table, time: formatTime(b.startTime) })
+            });
+          } catch(err){}
+        }
+      }
+    }
+  });
+
+  if(changed) saveBookings(bookings);
+}, 30000);
+
+/* Notification ruxsati */
+if("Notification" in window && Notification.permission === "default"){
+  try { Notification.requestPermission(); } catch(e){}
+}
 
 /* ========== BOSHLANG'ICH ========== */
 document.querySelectorAll(".lang-btn").forEach(b=>{
@@ -2942,6 +3568,9 @@ for(let id=1;id<=3;id++) updateTable(id);
 renderReports();
 renderAdminDebtors();
 renderAdminHistory();
+renderBookings();
+updateAllBookingIndicators();
+updateActiveTablesBadge();
 
 setTimeout(function(){
   const screen = document.getElementById("loginScreen");
@@ -2951,6 +3580,7 @@ setTimeout(function(){
 }, 200);
 
 window.addEventListener("beforeunload",function(){ saveGames(); });
+setInterval(saveGames, 5000);
 </script>
 </body>
 </html>
