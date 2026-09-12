@@ -1186,11 +1186,12 @@ const AUTH = {
   password: "123567"
 };
 
-// selectedHistoryDateValue — hoisting xatosi tuzatildi
 let selectedHistoryDateValue = "";
 
 /* ========== SOZLAMALAR ========== */
 const PRICE = 40000;
+/* ⚠️ ADMIN GRAFIK PAROLI: 2 → 4 → 5 → 3
+   (yuqori-o'rta → o'rta-chap → markaz → o'rta-o'ng) */
 const ADMIN_PATTERN = [2,4,5,3];
 const CLUB_NAME = "BILLIARD CLUB";
 const CLUB_PHONE = "+998 97 757 31 10";
@@ -1390,7 +1391,9 @@ function openPage(page,button){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* ========== O'YIN ========== */
+/* ================================================================
+   O'YIN BOSHLASH — MODAL OYNASIZ
+   ================================================================ */
 function startGame(id){
   if(games[id].start && !games[id].finished){
     beep("error");
@@ -1401,8 +1404,20 @@ function startGame(id){
   saveGames();
   updateTable(id);
   beep("start");
-  showModal("🎱","O'yin boshlandi","Stol "+id+" o'yini boshlandi. Yaxshi dam oling!");
+
+  // ✨ Stol oynasiga qisqa yashil "flash" effekti
+  const win = document.getElementById("tableWindow"+id);
+  if(win){
+    win.style.transition = "box-shadow .3s, border-color .3s";
+    win.style.boxShadow = "0 0 50px rgba(66,233,121,.7)";
+    win.style.borderColor = "#42e979";
+    setTimeout(()=>{
+      win.style.boxShadow = "";
+      win.style.borderColor = "";
+    }, 800);
+  }
 }
+
 function updateTimer(id){
   if(!games[id].start) return;
   const sec=Math.floor((Date.now()-games[id].start)/1000);
@@ -1417,6 +1432,10 @@ function updateTimer(id){
   const liveEl=document.getElementById("liveSum"+id);
   if(liveEl) liveEl.innerText=money(amount);
 }
+
+/* ================================================================
+   O'YIN TUGATISH — MODAL OYNASIZ
+   ================================================================ */
 function finishGame(id){
   if(!games[id].start) return;
   let minutes=Math.ceil((Date.now()-games[id].start)/60000);
@@ -1433,8 +1452,20 @@ function finishGame(id){
   document.getElementById("status"+id).className="status busy";
   document.getElementById("livePrice"+id).style.display="none";
   beep("end");
-  showModal("⏹️","O'yin tugadi","Hisob: "+money(amount));
+
+  // ✨ Stol oynasiga qisqa qizil "flash" effekti
+  const win = document.getElementById("tableWindow"+id);
+  if(win){
+    win.style.transition = "box-shadow .3s, border-color .3s";
+    win.style.boxShadow = "0 0 50px rgba(224,68,86,.7)";
+    win.style.borderColor = "#e04456";
+    setTimeout(()=>{
+      win.style.boxShadow = "";
+      win.style.borderColor = "";
+    }, 800);
+  }
 }
+
 function showDebt(id){ document.getElementById("debtForm"+id).style.display="block"; }
 
 function savePaid(id){
@@ -1453,6 +1484,7 @@ function savePaid(id){
   beep("money");
   showModal("🟢","Pul olindi",money(amount)+" qabul qilindi.");
 }
+
 function saveDebt(id){
   const name=document.getElementById("name"+id).value.trim();
   const phone=document.getElementById("phone"+id).value.trim();
@@ -1473,6 +1505,7 @@ function saveDebt(id){
   beep("error");
   showModal("🔴","Qarzdor saqlandi",name+" — "+money(amount));
 }
+
 function resetTable(id){
   games[id]={start:null,finished:false,minutes:0,amount:0};
   saveGames();
@@ -1488,6 +1521,7 @@ function resetTable(id){
   const lp=document.getElementById("livePrice"+id);
   if(lp) lp.style.display="none";
 }
+
 function updateTable(id){
   const g=games[id];
   if(g.start && !g.finished){
@@ -1545,6 +1579,7 @@ function renderAdminDebtors(){
     box.appendChild(div);
   });
 }
+
 function markPaid(id){
   const history=getHistory();
   const item=history.find(x=>x.id===id);
@@ -1605,6 +1640,7 @@ function renderAdminHistory(){
     box.appendChild(card);
   });
 }
+
 function openHistoryDate(date){
   const history=getHistory();
   const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
@@ -1662,6 +1698,7 @@ function confirmClearSelectedHistory(){
     '<button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>';
   document.getElementById("modalBg").style.display="flex";
 }
+
 function clearSelectedHistory(){
   const date=selectedHistoryDateValue;
   if(!date){ closeModal(); return; }
@@ -1678,6 +1715,7 @@ function clearSelectedHistory(){
     showModal("✅","Tarix o'chirildi",date+" sanasining tarixi o'chirildi.");
   },200);
 }
+
 function backToHistoryDates(){
   document.getElementById("historyDayPage").style.display="none";
   document.getElementById("historyDatesPage").style.display="block";
@@ -1697,6 +1735,7 @@ function convertDate(date){
   }
   return 0;
 }
+
 function escapeHTML(text){
   return String(text||"")
     .replace(/&/g,"&amp;").replace(/</g,"&lt;")
@@ -1952,11 +1991,13 @@ function printDateChek(date){
   });
   downloadPDF(el, "BILLIARD_KUNLIK_"+date.replace(/\./g,"-")+".pdf");
 }
+
 function printDayChek(){
   const date = selectedHistoryDateValue;
   if(!date){ showModal("📅","Sana tanlanmagan","Iltimos, sanani tanlang."); return; }
   printDateChek(date);
 }
+
 function printAllHistoryChek(){
   const history = getHistory();
   if(!history.length){
@@ -1991,6 +2032,7 @@ function printAllHistoryChek(){
   });
   downloadPDF(el, "BILLIARD_TARIX_"+fileDate()+".pdf");
 }
+
 function printDebtorsChek(){
   const history = getHistory().filter(x=>!x.paid);
   if(!history.length){
@@ -2020,6 +2062,7 @@ function printDebtorsChek(){
   });
   downloadPDF(el, "BILLIARD_QARZDORLAR_"+fileDate()+".pdf");
 }
+
 function printSingleDebtChek(id){
   const history = getHistory();
   const item = history.find(x=>x.id===id);
@@ -2050,6 +2093,7 @@ function printSingleDebtChek(id){
   });
   downloadPDF(el, "BILLIARD_QARZ_"+escapeHTML(item.name||"mijoz").replace(/\s+/g,"_")+".pdf");
 }
+
 function printReportChek(){
   const history = getHistory();
   const today = todayDate();
@@ -2144,6 +2188,7 @@ function findPoint(x,y){
     return Math.sqrt(dx*dx+dy*dy)<38;
   });
 }
+
 function getPosition(e){
   const rect=canvas.getBoundingClientRect();
   let cx,cy;
@@ -2154,6 +2199,7 @@ function getPosition(e){
     y:(cy-rect.top)*(canvas.height/rect.height)
   };
 }
+
 function startPattern(e){
   e.preventDefault();
   drawing=true; selected=[];
@@ -2162,6 +2208,7 @@ function startPattern(e){
   if(point) selected.push(point.id);
   drawPattern();
 }
+
 function movePattern(e){
   if(!drawing) return;
   e.preventDefault();
@@ -2169,10 +2216,12 @@ function movePattern(e){
   const point=findPoint(pos.x,pos.y);
   if(point&&!selected.includes(point.id)){ selected.push(point.id); drawPattern(); }
 }
+
 function endPattern(){
   if(!drawing) return;
   drawing=false; checkPattern();
 }
+
 canvas.addEventListener("mousedown",startPattern);
 canvas.addEventListener("mousemove",movePattern);
 canvas.addEventListener("mouseup",endPattern);
@@ -2202,12 +2251,14 @@ function checkPattern(){
     },700);
   }
 }
+
 function openPattern(){
   selected=[]; drawPattern();
   document.getElementById("patternMessage").innerText="🔑 Grafik parolni chizing";
   document.getElementById("patternMessage").style.color="#45c7ff";
   document.getElementById("patternBg").style.display="flex";
 }
+
 function closePattern(){
   document.getElementById("patternBg").style.display="none";
   selected=[]; drawPattern();
@@ -2221,6 +2272,7 @@ function openAdmin(){
   if(adminBtn) adminBtn.classList.add("active");
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function openAdminPage(page){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   if(page==="reports"){ document.getElementById("adminReports").classList.add("active"); renderReports(); }
@@ -2228,6 +2280,7 @@ function openAdminPage(page){
   if(page==="history"){ document.getElementById("adminHistory").classList.add("active"); renderAdminHistory(); }
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function backToMain(){
   openPage('home');
 }
@@ -2236,20 +2289,17 @@ function backToMain(){
    WINDOWS KEYBOARD SHORTCUTS
    ================================================================ */
 document.addEventListener("keydown", function(e){
-  // Login ochiq bo'lsa — Enter bilan kirish
   const loginScreen = document.getElementById("loginScreen");
   if(loginScreen && !loginScreen.classList.contains("hidden")){
     if(e.key === "Enter"){ e.preventDefault(); checkLogin(); }
     return;
   }
 
-  // Kiritish maydonlarida shortcut ishlamasin
   const tag = (e.target.tagName||"").toLowerCase();
   if(tag === "input" || tag === "textarea") return;
 
   const key = e.key.toLowerCase();
 
-  // ESC — yopish
   if(e.key === "Escape"){
     const modal = document.getElementById("modalBg");
     const pattern = document.getElementById("patternBg");
@@ -2258,7 +2308,6 @@ document.addEventListener("keydown", function(e){
     return;
   }
 
-  // Ctrl + P — PDF
   if(e.ctrlKey && key === "p"){
     e.preventDefault();
     if(document.getElementById("adminReports").classList.contains("active")){
@@ -2275,11 +2324,9 @@ document.addEventListener("keydown", function(e){
     return;
   }
 
-  // Modallar ochiq bo'lsa boshqa shortcut ishlamasin
   if(document.getElementById("modalBg").style.display === "flex") return;
   if(document.getElementById("patternBg").style.display === "flex") return;
 
-  // Raqamlar — stollar sahifasiga
   if(key === "1" || key === "2" || key === "3"){
     e.preventDefault();
     openPage('tables');
@@ -2295,7 +2342,6 @@ document.addEventListener("keydown", function(e){
     return;
   }
 
-  // H — Asosiy
   if(key === "h"){
     e.preventDefault();
     openPage('home');
@@ -2305,14 +2351,12 @@ document.addEventListener("keydown", function(e){
     return;
   }
 
-  // A — Admin
   if(key === "a"){
     e.preventDefault();
     openPattern();
     return;
   }
 
-  // R — Hisobot
   if(key === "r"){
     e.preventDefault();
     openAdmin();
@@ -2320,7 +2364,6 @@ document.addEventListener("keydown", function(e){
     return;
   }
 
-  // D — Debtors
   if(key === "d"){
     e.preventDefault();
     openAdmin();
@@ -2328,7 +2371,6 @@ document.addEventListener("keydown", function(e){
     return;
   }
 
-  // T — Tarix
   if(key === "t"){
     e.preventDefault();
     openAdmin();
@@ -2350,7 +2392,6 @@ renderReports();
 renderAdminDebtors();
 renderAdminHistory();
 
-// Login maydoniga avtomatik focus
 setTimeout(function(){
   const screen = document.getElementById("loginScreen");
   if(screen && !screen.classList.contains("hidden")){
