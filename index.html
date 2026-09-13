@@ -1334,7 +1334,7 @@ input:focus{
       </div>
     </div>
 
-    <!-- TABLES (dinamik) -->
+    <!-- TABLES -->
     <div id="tables" class="page">
       <div class="page-header">
         <div>
@@ -1498,7 +1498,7 @@ input:focus{
       <div id="bookingList"></div>
     </div>
 
-    <!-- USERS (faqat bosh admin) -->
+    <!-- USERS -->
     <div id="adminUsers" class="page">
       <div class="page-header">
         <div>
@@ -1533,7 +1533,6 @@ input:focus{
           </div>
         </div>
 
-        <!-- STOLLAR SOZLAMALARI -->
         <div style="margin-top:22px;padding-top:22px;border-top:1px solid rgba(53,201,255,.2)">
           <div style="font-size:14px;font-weight:900;color:#42e979;margin-bottom:14px;letter-spacing:1px">
             🎱 STOLLAR VA NARXLAR SOZLAMASI
@@ -1564,7 +1563,6 @@ input:focus{
           </div>
 
           <div id="tablePriceInputsContainer" class="table-price-inputs">
-            <!-- JS orqali to'ldiriladi -->
           </div>
         </div>
 
@@ -1583,7 +1581,7 @@ input:focus{
       <div class="page-header" style="margin-top:30px">
         <div>
           <div class="page-title" style="font-size:20px">📊 Foydalanuvchilar faoliyati (oxirgi 200 ta)</div>
-          <div class="page-subtitle">Kim, qachon, nima qilgan</div>
+          <div class="page-subtitle">Kim, qachon, nima qilgan — Telegramga ham yuboriladi</div>
         </div>
         <button class="inner-back" onclick="clearUserLogs()" style="margin:0;background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border-color:rgba(224,68,86,.4)">
           🗑️ LOGNI TOZALASH
@@ -1735,6 +1733,33 @@ input:focus{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
+/* ================================================================
+   TELEGRAM BOT SOZLAMALARI — ENG YUQORIDA
+   ================================================================ */
+const TELEGRAM_BOT_TOKEN = "8977154075:AAGXq9oo7y-S2wd-8J-XYgHgx8UPvjzzWHQ";
+const TELEGRAM_ADMIN_CHAT_ID = "6120377805";
+
+// Telegramga xabar yuborish
+async function sendTelegramLog(htmlMessage){
+  if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
+  try{
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_ADMIN_CHAT_ID,
+        text: htmlMessage,
+        parse_mode: "HTML",
+        disable_web_page_preview: true
+      })
+    });
+    const data = await res.json();
+    if(!data.ok) console.warn("Telegram xato:", data.description);
+  }catch(e){
+    console.warn("Telegram yuborishda xatolik:", e);
+  }
+}
+
 /* ================================================================
    i18n
    ================================================================ */
@@ -2429,7 +2454,7 @@ function toggleUserActive(id){
 }
 
 /* ================================================================
-   USER LOGS
+   USER LOGS — TELEGRAM BILAN
    ================================================================ */
 function getUserLogs(){
   return JSON.parse(localStorage.getItem("billiardUserLogs")) || [];
@@ -2438,12 +2463,14 @@ function saveUserLogs(arr){
   if(arr.length > 2000) arr = arr.slice(0, 2000);
   localStorage.setItem("billiardUserLogs", JSON.stringify(arr));
 }
+
 function logUserAction(userId, type, description, extra){
   const users = getUsers();
   const u = users.find(x => x.id === userId);
   const logs = getUserLogs();
   const now = new Date();
-  logs.unshift({
+  
+  const logEntry = {
     id: Date.now() + Math.random(),
     userId: userId,
     username: u ? u.username : "?",
@@ -2454,8 +2481,61 @@ function logUserAction(userId, type, description, extra){
     timestamp: now.toISOString(),
     date: todayDate(),
     time: String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0")+":"+String(now.getSeconds()).padStart(2,"0")
-  });
+  };
+  
+  logs.unshift(logEntry);
   saveUserLogs(logs);
+
+  /* ============ TELEGRAMGA XABAR YUBORISH ============ */
+  const icons = {
+    login: "🚪", logout: "👋",
+    start_game: "▶️", finish_game: "⏹️",
+    paid: "💰", debt: "🔴", debt_paid: "💵",
+    booking: "📅", booking_start: "🎱", booking_cancel: "❌",
+    user_create: "➕", user_delete: "🗑️", user_toggle: "🔁",
+    user_password_change: "🔒", user_tables_edit: "🎱"
+  };
+
+  const titles = {
+    login: "TIZIMGA KIRISH",
+    logout: "TIZIMDAN CHIQISH",
+    start_game: "O'YIN BOSHLANDI",
+    finish_game: "O'YIN TUGADI",
+    paid: "PUL OLINDI",
+    debt: "QARZGA YOZILDI",
+    debt_paid: "QARZ YOPILDI",
+    booking: "YANGI BRON",
+    booking_start: "BRON BOSHLANDI",
+    booking_cancel: "BRON BEKOR QILINDI",
+    user_create: "YANGI FOYDALANUVCHI",
+    user_delete: "FOYDALANUVCHI O'CHIRILDI",
+    user_toggle: "HOLAT O'ZGARDI",
+    user_password_change: "PAROL/LOGIN O'ZGARDI",
+    user_tables_edit: "STOLLAR TAHRIRLANDI"
+  };
+
+  const icon = icons[type] || "📌";
+  const title = titles[type] || "HARAKAT";
+  const roleLabel = u 
+    ? (u.role === "main_admin" ? "👑 BOSH ADMIN" 
+       : u.role === "admin" ? "🛡️ ADMIN" 
+       : "👤 FOYDALANUVCHI")
+    : "❓ NOMA'LUM";
+
+  const tgMessage = 
+    `${icon} <b>BILLIARD CLUB</b>\n` +
+    `━━━━━━━━━━━━━━━━━━━━━\n` +
+    `<b>${title}</b>\n` +
+    `━━━━━━━━━━━━━━━━━━━━━\n` +
+    `👤 <b>${escapeHTML(logEntry.fullName)}</b>\n` +
+    `🔑 <code>@${escapeHTML(logEntry.username)}</code>\n` +
+    `🎭 ${roleLabel}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━\n` +
+    `📝 ${escapeHTML(logEntry.description)}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━\n` +
+    `🕐 <code>${logEntry.date}  ${logEntry.time}</code>`;
+
+  sendTelegramLog(tgMessage);
 }
 
 /* ================================================================
@@ -2509,9 +2589,6 @@ function safeFilename(name){
     .slice(0,40) || "mijoz";
 }
 
-/* ================================================================
-   STOL NARXI - FOYDALANUVCHIGA MOS
-   ================================================================ */
 function getTablePrice(tableId){
   const user = getCurrentUser();
   if(!user || !user.tablePrices) return 40000;
@@ -2739,9 +2816,6 @@ function applyRoleUI(){
   }
 }
 
-/* ================================================================
-   BOSH ADMIN UCHUN FOYDALANUVCHILAR SAHIFASI
-   ================================================================ */
 function openAdminUsersDirect(){
   if(!isMainAdmin()){
     beep("error");
@@ -2864,7 +2938,7 @@ function openPage(page,button){
 }
 
 /* ================================================================
-   GAMES - DINAMIK
+   GAMES
    ================================================================ */
 function initGamesForUser(){
   const user = getCurrentUser();
@@ -3008,9 +3082,6 @@ function updateTimer(id){
   if(liveEl) liveEl.innerText=money(amount);
 }
 
-/* ================================================================
-   O'YIN TUGATISH
-   ================================================================ */
 function finishGame(id){
   if(!games[id] || !games[id].start) return;
   const price = getTablePrice(id);
@@ -3681,9 +3752,6 @@ function confirmCancelBooking(id){
   if(u) logUserAction(u.id, "booking_cancel", `Bron bekor: ${b.name} — Stol ${b.table}`);
 }
 
-/* ================================================================
-   STOL KARTOCHKASIDA BRON KO'RSATKICHI
-   ================================================================ */
 function updateAllBookingIndicators(){
   const user = getCurrentUser();
   if(!user || !user.tablesCount) return;
@@ -3718,9 +3786,6 @@ function updateAllBookingIndicators(){
   }
 }
 
-/* ================================================================
-   FAOL STOLLAR BADGE
-   ================================================================ */
 function updateActiveTablesBadge(){
   const user = getCurrentUser();
   if(!user || !user.tablesCount){
@@ -3852,9 +3917,6 @@ function handleCreateUser(){
   renderUsers();
 }
 
-/* ================================================================
-   YANGILANGAN renderUsers() - MOLIYAVIY STATISTIKA BILAN
-   ================================================================ */
 function renderUsers(){
   const box = document.getElementById("usersList");
   if(!box) return;
@@ -3880,17 +3942,14 @@ function renderUsers(){
       ? '<span style="color:#ff6878;font-weight:900">🚫 BLOKLANGAN</span>'
       : '<span style="color:#42e979;font-weight:900">✅ FAOL</span>';
 
-    // ====== SHU FOYDALANUVCHINING MOLIYAVIY STATISTIKASI ======
     const userHistory = allHistory.filter(h => h.userId === u.id);
     
-    // Bugungi tushum
     const todayItems = userHistory.filter(h => (h.saveDate || h.gameDate) === today);
     const todayPaid = todayItems.filter(h => h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const todayUnpaid = todayItems.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const todayTotal = todayPaid + todayUnpaid;
     const todayGames = todayItems.length;
     
-    // Haftalik tushum (oxirgi 7 kun)
     const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
     const weekItems = userHistory.filter(h => {
       const d = h.savedAt ? new Date(h.savedAt).getTime() : convertDate(h.saveDate || h.gameDate);
@@ -3898,13 +3957,11 @@ function renderUsers(){
     });
     const weekTotal = weekItems.reduce((s,i)=>s+Number(i.amount||0),0);
     
-    // Umumiy tushum
     const totalPaid = userHistory.filter(h => h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const totalUnpaid = userHistory.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const totalAll = totalPaid + totalUnpaid;
     const totalGames = userHistory.length;
     
-    // Faoliyat loglari
     const logs = getUserLogs().filter(l => l.userId === u.id);
     const loginCount = logs.filter(l => l.type === "login").length;
     const gamesStarted = logs.filter(l => l.type === "start_game").length;
@@ -3930,7 +3987,6 @@ function renderUsers(){
       `;
     }
 
-    // ====== MOLIYAVIY BLOK ======
     const financeBlock = `
       <div style="margin-top:10px;padding:12px;border-radius:12px;
                   background:linear-gradient(135deg,rgba(13,187,133,.08),rgba(53,201,255,.08));
