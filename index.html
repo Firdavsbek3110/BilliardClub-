@@ -198,6 +198,7 @@ input,select{outline:none;font-family:inherit}
   position:sticky;top:0;height:100vh;
   display:flex;flex-direction:column;
   box-shadow:5px 0 30px rgba(0,0,0,.3);
+  overflow-y:auto;
 }
 .sidebar-logo{
   text-align:center;padding:16px 8px 22px;
@@ -336,7 +337,7 @@ input,select{outline:none;font-family:inherit}
 .page-subtitle{color:#7d93ab;font-size:13px;margin-top:6px;letter-spacing:.3px}
 .page-actions{display:flex;gap:10px;flex-wrap:wrap}
 
-/* ============ TABLES GRID (Windows) ============ */
+/* ============ TABLES GRID ============ */
 .tables-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
@@ -412,7 +413,6 @@ input,select{outline:none;font-family:inherit}
 }
 .live-price b{color:#42e979;font-size:16px;font-weight:900;margin-left:5px}
 
-/* BOOKING INDICATOR ON TABLE */
 .booking-indicator{
   margin-top:12px;padding:10px 14px;
   border-radius:12px;
@@ -947,6 +947,248 @@ input:focus{
   font-family:Consolas,monospace;
 }
 
+/* SHORTCUT TOOLTIP */
+.shortcut-tip{
+  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#0d1d30;
+  color:#35c9ff;
+  font-size:10px;font-weight:800;
+  padding:5px 10px;border-radius:8px;
+  border:1px solid rgba(53,201,255,.35);
+  white-space:nowrap;
+  opacity:0;pointer-events:none;transition:.25s;
+  z-index:1000;
+}
+.nav-item:hover .shortcut-tip{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+/* USER BOX */
+#currentUserBox{
+  margin: 0 0 14px;
+  padding: 12px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(53,201,255,.12), rgba(152,92,255,.12));
+  border: 1px solid rgba(53,201,255,.3);
+  font-size: 12px;
+  color: #c0d8ec;
+  line-height: 1.5;
+}
+
+/* PASSWORD MODAL */
+.pwd-modal-bg{
+  display:none;position:fixed;inset:0;z-index:40000;
+  background:rgba(2,8,16,.92);
+  backdrop-filter:blur(14px);
+  justify-content:center;align-items:center;padding:20px;
+}
+.pwd-modal-bg.active{display:flex}
+.pwd-modal{
+  width:100%;max-width:460px;
+  padding:32px 30px;border-radius:26px;
+  background:linear-gradient(155deg,rgba(20,42,67,.99),rgba(7,19,33,.99));
+  border:1px solid rgba(56,87,115,.9);
+  box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 60px rgba(53,201,255,.2);
+  position:relative;overflow:hidden;
+  animation:centerModal .4s cubic-bezier(.2,.9,.3,1.2);
+}
+.pwd-modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#ff55ad,#35c9ff);
+  background-size:200%;animation:titleShine 4s linear infinite;
+}
+.pwd-modal-header{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:22px;padding-bottom:18px;
+  border-bottom:1px solid rgba(53,201,255,.18);
+}
+.pwd-modal-icon{
+  width:56px;height:56px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
+  border:1px solid rgba(53,201,255,.4);
+  box-shadow:0 0 25px rgba(53,201,255,.25);
+  flex-shrink:0;
+}
+.pwd-modal-title{
+  font-size:19px;font-weight:900;letter-spacing:1px;
+  background:linear-gradient(90deg,#fff,#54c8ff,#985cff,#fff);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  animation:titleShine 5s linear infinite;
+}
+.pwd-modal-sub{
+  font-size:11px;color:#7d93ab;margin-top:4px;
+  letter-spacing:.5px;
+}
+.pwd-modal-user{
+  padding:14px 16px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(53,201,255,.1),rgba(152,92,255,.1));
+  border:1px solid rgba(53,201,255,.25);
+  margin-bottom:18px;font-size:13px;line-height:1.7;
+}
+.pwd-modal-user b{color:#fff;font-weight:900}
+.pwd-modal-user .role-tag{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:10px;font-weight:900;letter-spacing:1px;
+  margin-top:6px;
+}
+.pwd-field{margin-bottom:14px}
+.pwd-field-label{
+  display:block;font-size:11px;font-weight:800;
+  color:#7d93ab;letter-spacing:1.5px;
+  margin-bottom:7px;text-transform:uppercase;
+}
+.pwd-field-input{
+  width:100%;padding:14px 16px;
+  border-radius:13px;
+  border:1px solid rgba(48,73,102,.9);
+  background:rgba(7,17,31,.95);
+  color:#fff;font-size:14px;font-weight:600;
+  transition:.25s;
+}
+.pwd-field-input:focus{
+  border-color:#35c9ff;
+  box-shadow:0 0 0 4px rgba(53,201,255,.15);
+  background:rgba(7,17,31,1);
+}
+.pwd-modal-actions{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:10px;margin-top:22px;
+}
+.pwd-save-btn{
+  padding:15px;border-radius:13px;
+  background:linear-gradient(135deg,#0a8ee8,#065a9f);
+  color:#fff;font-weight:900;font-size:13px;
+  letter-spacing:1px;
+  box-shadow:0 8px 25px rgba(8,123,210,.4);
+  transition:.25s;position:relative;overflow:hidden;
+}
+.pwd-save-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(8,123,210,.55)}
+.pwd-cancel-btn{
+  padding:15px;border-radius:13px;
+  background:linear-gradient(135deg,rgba(23,44,67,.9),rgba(13,26,41,.9));
+  color:#c0d0e0;font-weight:900;font-size:13px;
+  letter-spacing:1px;border:1px solid rgba(54,82,109,.8);
+  transition:.25s;
+}
+.pwd-cancel-btn:hover{
+  border-color:#ff6878;color:#ff6878;
+  background:linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15));
+}
+
+/* CLEAR MODAL */
+.clear-modal-bg{
+  display:none;position:fixed;inset:0;z-index:40000;
+  background:rgba(2,8,16,.92);
+  backdrop-filter:blur(14px);
+  justify-content:center;align-items:center;padding:20px;
+}
+.clear-modal-bg.active{display:flex}
+.clear-modal{
+  width:100%;max-width:440px;
+  padding:34px 30px;border-radius:26px;
+  background:linear-gradient(155deg,rgba(40,20,26,.99),rgba(20,8,12,.99));
+  border:1px solid rgba(224,68,86,.5);
+  box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 60px rgba(224,68,86,.2);
+  position:relative;overflow:hidden;
+  text-align:center;
+  animation:centerModal .4s cubic-bezier(.2,.9,.3,1.2);
+}
+.clear-modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#e04456,#ff6878,#e04456);
+  background-size:200%;animation:titleShine 3s linear infinite;
+}
+.clear-modal-icon{
+  font-size:64px;margin-bottom:14px;
+  filter:drop-shadow(0 0 20px rgba(224,68,86,.6));
+  animation:ballFloat 3s ease-in-out infinite;
+}
+.clear-modal-title{
+  font-size:22px;font-weight:900;letter-spacing:1px;
+  color:#ff6878;margin-bottom:12px;
+  text-shadow:0 0 20px rgba(224,68,86,.5);
+}
+.clear-modal-text{
+  color:#c0a8ae;font-size:14px;line-height:1.7;
+  margin-bottom:10px;white-space:pre-line;
+}
+.clear-modal-count{
+  display:inline-block;
+  padding:8px 20px;border-radius:30px;
+  background:rgba(224,68,86,.15);
+  border:1px solid rgba(224,68,86,.5);
+  color:#ff6878;font-weight:900;font-size:13px;
+  margin:14px 0;
+  letter-spacing:.5px;
+}
+.clear-modal-warning{
+  padding:12px;border-radius:12px;
+  background:rgba(255,210,63,.08);
+  border:1px dashed rgba(255,210,63,.5);
+  color:#ffd23f;font-size:12px;font-weight:700;
+  margin:16px 0 0;
+}
+.clear-modal-actions{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:10px;margin-top:24px;
+}
+.clear-confirm-btn{
+  padding:15px;border-radius:13px;
+  background:linear-gradient(135deg,#e04456,#8f1e2d);
+  color:#fff;font-weight:900;font-size:13px;
+  letter-spacing:1px;
+  box-shadow:0 8px 25px rgba(224,68,86,.4);
+  transition:.25s;
+}
+.clear-confirm-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(224,68,86,.6)}
+.clear-cancel-btn{
+  padding:15px;border-radius:13px;
+  background:linear-gradient(135deg,#172c43,#0d1a29);
+  color:#c0d0e0;font-weight:900;font-size:13px;
+  letter-spacing:1px;border:1px solid rgba(54,82,109,.8);
+  transition:.25s;
+}
+.clear-cancel-btn:hover{border-color:#35c9ff;color:#fff}
+
+/* TABLES EDIT MODAL */
+.tables-edit-bg{
+  display:none;position:fixed;inset:0;z-index:40000;
+  background:rgba(2,8,16,.92);
+  backdrop-filter:blur(14px);
+  justify-content:center;align-items:center;padding:20px;
+  overflow-y:auto;
+}
+.tables-edit-bg.active{display:flex}
+.tables-edit-modal{
+  width:100%;max-width:640px;
+  padding:32px 30px;border-radius:26px;
+  background:linear-gradient(155deg,rgba(20,42,67,.99),rgba(7,19,33,.99));
+  border:1px solid rgba(56,87,115,.9);
+  box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 60px rgba(53,201,255,.2);
+  position:relative;overflow:hidden;
+  animation:centerModal .4s cubic-bezier(.2,.9,.3,1.2);
+  max-height:90vh;
+  overflow-y:auto;
+}
+.tables-edit-modal::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#ff55ad,#35c9ff);
+  background-size:200%;animation:titleShine 4s linear infinite;
+}
+
+/* STOL NARX INPUTLARI */
+.table-price-inputs{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  padding:14px;
+  background:rgba(7,17,31,.5);
+  border:1px dashed rgba(53,201,255,.3);
+  border-radius:14px;
+  margin-top:12px;
+}
+
 /* RESPONSIVE */
 @media (max-width:1100px){
   .app-layout{grid-template-columns:200px 1fr}
@@ -987,25 +1229,11 @@ input:focus{
   .booking-actions{flex-direction:row}
   .booking-actions button{flex:1}
 }
-
-/* SHORTCUT TOOLTIP */
-.shortcut-tip{
-  position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
-  background:#0d1d30;
-  color:#35c9ff;
-  font-size:10px;font-weight:800;
-  padding:5px 10px;border-radius:8px;
-  border:1px solid rgba(53,201,255,.35);
-  white-space:nowrap;
-  opacity:0;pointer-events:none;transition:.25s;
-  z-index:1000;
-}
-.nav-item:hover .shortcut-tip{opacity:1;transform:translateX(-50%) translateY(-4px)}
 </style>
 </head>
 <body>
 
-<!-- ============ LOGIN SCREEN ============ -->
+<!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
   <div class="login-box">
     <div class="login-logo">
@@ -1047,7 +1275,7 @@ input:focus{
 
 <div class="app-layout">
 
-  <!-- ============ SIDEBAR ============ -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-icon">🎱</div>
@@ -1066,18 +1294,18 @@ input:focus{
     </div>
 
     <nav class="sidebar-nav">
-      <button class="nav-item active" onclick="openPage('home',this)" data-key="H">
+      <button class="nav-item active" id="navHomeBtn" onclick="openPage('home',this)" data-key="H">
         <span class="nav-icon">🏠</span>
         <span data-i18n="navHome">Asosiy</span>
         <span class="shortcut-tip" data-i18n="tipHome">H tugmasi</span>
       </button>
-      <button class="nav-item" onclick="openPage('tables',this)" data-key="1">
+      <button class="nav-item" id="navTablesBtn" onclick="openPage('tables',this)" data-key="1">
         <span class="nav-icon">🎱</span>
         <span data-i18n="navTables">Stollar</span>
         <span class="nav-badge hidden" id="activeTablesBadge">0</span>
-        <span class="shortcut-tip" data-i18n="tipTables">1-3 tugmalari</span>
+        <span class="shortcut-tip" data-i18n="tipTables">1-9 tugmalari</span>
       </button>
-      <button class="nav-item" onclick="openPattern()" data-key="A">
+      <button class="nav-item" id="navAdminBtn" onclick="openPattern()" data-key="A">
         <span class="nav-icon">🔐</span>
         <span data-i18n="navAdmin">Admin panel</span>
         <span class="shortcut-tip" data-i18n="tipAdmin">A tugmasi</span>
@@ -1094,7 +1322,7 @@ input:focus{
     </div>
   </aside>
 
-  <!-- ============ MAIN ============ -->
+  <!-- MAIN -->
   <main class="main-content">
 
     <!-- HOME -->
@@ -1106,90 +1334,18 @@ input:focus{
       </div>
     </div>
 
-    <!-- TABLES -->
+    <!-- TABLES (dinamik) -->
     <div id="tables" class="page">
       <div class="page-header">
         <div>
           <div class="page-title" data-i18n="tablesTitle">🎱 STOLLAR</div>
-          <div class="page-subtitle" data-i18n="tablesSubtitle">Barcha stollar bir ekranda • 1 soat = 40 000 so'm</div>
+          <div class="page-subtitle" id="tablesSubtitle" data-i18n="tablesSubtitle">
+            Barcha stollar bir ekranda
+          </div>
         </div>
       </div>
 
-      <div class="tables-grid">
-
-        <!-- STOL 1 -->
-        <div class="table-window" id="tableWindow1">
-          <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> 1</div>
-          <div id="status1" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
-          <div id="timer1" class="timer">00:00:00</div>
-          <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText1">40 000 so'm</b></div>
-          <div id="livePrice1" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum1">0 so'm</b></div>
-          <div id="bookingIndicator1" class="booking-indicator" style="display:none"></div>
-          <button id="start1" class="btn start-btn" onclick="startGame(1)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
-          <button id="finish1" class="btn finish-btn" onclick="finishGame(1)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
-          <div id="payment1" class="payment">
-            <div class="total"><span data-i18n="totalLabel">💰 JAMI:</span> <b id="sum1">0 so'm</b></div>
-            <button class="btn paid-btn" onclick="savePaid(1)" data-i18n="paidBtn">🟢 PUL OLINDI</button>
-            <button class="btn debt-btn" onclick="showDebt(1)" data-i18n="debtBtn">🔴 PUL OLINMADI</button>
-            <div id="debtForm1" class="debt-form">
-              <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
-              <input id="name1" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
-              <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
-              <input id="phone1" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
-              <button class="btn save-btn" onclick="saveDebt(1)" data-i18n="saveDebtBtn">💾 QARZDORNI SAQLASH</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- STOL 2 -->
-        <div class="table-window" id="tableWindow2">
-          <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> 2</div>
-          <div id="status2" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
-          <div id="timer2" class="timer">00:00:00</div>
-          <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText2">40 000 so'm</b></div>
-          <div id="livePrice2" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum2">0 so'm</b></div>
-          <div id="bookingIndicator2" class="booking-indicator" style="display:none"></div>
-          <button id="start2" class="btn start-btn" onclick="startGame(2)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
-          <button id="finish2" class="btn finish-btn" onclick="finishGame(2)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
-          <div id="payment2" class="payment">
-            <div class="total"><span data-i18n="totalLabel">💰 JAMI:</span> <b id="sum2">0 so'm</b></div>
-            <button class="btn paid-btn" onclick="savePaid(2)" data-i18n="paidBtn">🟢 PUL OLINDI</button>
-            <button class="btn debt-btn" onclick="showDebt(2)" data-i18n="debtBtn">🔴 PUL OLINMADI</button>
-            <div id="debtForm2" class="debt-form">
-              <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
-              <input id="name2" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
-              <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
-              <input id="phone2" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
-              <button class="btn save-btn" onclick="saveDebt(2)" data-i18n="saveDebtBtn">💾 QARZDORNI SAQLASH</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- STOL 3 -->
-        <div class="table-window" id="tableWindow3">
-          <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> 3</div>
-          <div id="status3" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
-          <div id="timer3" class="timer">00:00:00</div>
-          <div class="price"><span data-i18n="priceLabel">1 SOAT NARXI</span> <b id="priceText3">40 000 so'm</b></div>
-          <div id="livePrice3" class="live-price" style="display:none"><span data-i18n="currentBill">💰 Hozirgi hisob:</span> <b id="liveSum3">0 so'm</b></div>
-          <div id="bookingIndicator3" class="booking-indicator" style="display:none"></div>
-          <button id="start3" class="btn start-btn" onclick="startGame(3)" data-i18n="startBtn">▶️ O'YINNI BOSHLASH</button>
-          <button id="finish3" class="btn finish-btn" onclick="finishGame(3)" data-i18n="finishBtn">⏹️ O'YINNI TUGATISH</button>
-          <div id="payment3" class="payment">
-            <div class="total"><span data-i18n="totalLabel">💰 JAMI:</span> <b id="sum3">0 so'm</b></div>
-            <button class="btn paid-btn" onclick="savePaid(3)" data-i18n="paidBtn">🟢 PUL OLINDI</button>
-            <button class="btn debt-btn" onclick="showDebt(3)" data-i18n="debtBtn">🔴 PUL OLINMADI</button>
-            <div id="debtForm3" class="debt-form">
-              <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
-              <input id="name3" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
-              <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
-              <input id="phone3" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
-              <button class="btn save-btn" onclick="saveDebt(3)" data-i18n="saveDebtBtn">💾 QARZDORNI SAQLASH</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <div class="tables-grid" id="tablesGrid"></div>
     </div>
 
     <!-- ADMIN -->
@@ -1220,6 +1376,10 @@ input:focus{
         <button class="admin-card" onclick="openAdminPage('booking')">
           <div class="admin-card-icon">📅</div>
           <div><b data-i18n="bookingCard">Bron qilish</b><br><small data-i18n="bookingCardSub">Stol band qilish</small></div>
+        </button>
+        <button class="admin-card" id="usersAdminCard" onclick="openAdminPage('users')" style="display:none">
+          <div class="admin-card-icon">👥</div>
+          <div><b>Foydalanuvchilar</b><br><small>Login/parol va stollar</small></div>
         </button>
       </div>
     </div>
@@ -1299,16 +1459,11 @@ input:focus{
         </div>
       </div>
 
-      <!-- BRON FORMASI -->
       <div class="booking-form-card">
         <div class="booking-form-grid">
           <div>
             <div class="form-title" data-i18n="bookingTableLabel">🎱 Stol raqami</div>
-            <select id="bookingTable" class="login-input">
-              <option value="1">Stol 1</option>
-              <option value="2">Stol 2</option>
-              <option value="3">Stol 3</option>
-            </select>
+            <select id="bookingTable" class="login-input"></select>
           </div>
           <div>
             <div class="form-title" data-i18n="bookingNameLabel">👤 Mijoz ismi</div>
@@ -1334,7 +1489,6 @@ input:focus{
         <button class="btn save-btn" onclick="saveBooking()" style="margin-top:14px" data-i18n="saveBookingBtn">💾 BRONNI SAQLASH</button>
       </div>
 
-      <!-- BRONLAR RO'YXATI -->
       <div class="page-header" style="margin-top:30px">
         <div>
           <div class="page-title" style="font-size:20px" data-i18n="activeBookingsTitle">🔔 Faol bronlar</div>
@@ -1342,6 +1496,100 @@ input:focus{
         <button class="inner-back" onclick="toggleBookingFilter()" id="bookingFilterBtn" style="margin:0">📆 Bugun</button>
       </div>
       <div id="bookingList"></div>
+    </div>
+
+    <!-- USERS (faqat bosh admin) -->
+    <div id="adminUsers" class="page">
+      <div class="page-header">
+        <div>
+          <div class="page-title">👥 FOYDALANUVCHILAR</div>
+          <div class="page-subtitle">Login/parollar, stollar va faoliyat</div>
+        </div>
+      </div>
+
+      <div class="booking-form-card" style="margin-bottom:20px">
+        <div style="font-size:14px;font-weight:900;color:#35c9ff;margin-bottom:14px;letter-spacing:1px">
+          ➕ YANGI FOYDALANUVCHI YARATISH
+        </div>
+        <div class="booking-form-grid">
+          <div>
+            <div class="form-title">👤 To'liq ism</div>
+            <input id="newUserFullName" class="login-input" placeholder="Masalan: Ali Valiyev">
+          </div>
+          <div>
+            <div class="form-title">🔑 Login</div>
+            <input id="newUserUsername" class="login-input" placeholder="Login (kamida 3 belgi)">
+          </div>
+          <div>
+            <div class="form-title">🔒 Parol</div>
+            <input id="newUserPassword" class="login-input" placeholder="Parol (kamida 3 belgi)">
+          </div>
+          <div>
+            <div class="form-title">🎭 Rol</div>
+            <select id="newUserRole" class="login-input">
+              <option value="user">👤 Foydalanuvchi</option>
+              <option value="admin">🛡️ Admin</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- STOLLAR SOZLAMALARI -->
+        <div style="margin-top:22px;padding-top:22px;border-top:1px solid rgba(53,201,255,.2)">
+          <div style="font-size:14px;font-weight:900;color:#42e979;margin-bottom:14px;letter-spacing:1px">
+            🎱 STOLLAR VA NARXLAR SOZLAMASI
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
+            <label style="font-weight:800;color:#c0d0e0;font-size:13px">
+              Nechta stol?
+            </label>
+            <input type="number" id="newUserTablesCount" class="login-input"
+                   value="3" min="1" max="20"
+                   style="width:110px;text-align:center;font-weight:900;font-size:18px;color:#42e979"
+                   onchange="generateTablePriceInputs()"
+                   oninput="generateTablePriceInputs()">
+            <span style="color:#8aa0b8;font-size:12px">ta stol (1-20)</span>
+            <button onclick="setAllPrices(40000)" 
+                    style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
+                           background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
+                           border:1px solid rgba(53,201,255,.4);color:#35c9ff">
+              💰 Hammasi 40k
+            </button>
+            <button onclick="setAllPrices(50000)" 
+                    style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
+                           background:linear-gradient(135deg,rgba(66,233,121,.2),rgba(13,187,133,.2));
+                           border:1px solid rgba(66,233,121,.4);color:#42e979">
+              💰 Hammasi 50k
+            </button>
+          </div>
+
+          <div id="tablePriceInputsContainer" class="table-price-inputs">
+            <!-- JS orqali to'ldiriladi -->
+          </div>
+        </div>
+
+        <button class="btn save-btn" onclick="handleCreateUser()" style="margin-top:20px">
+          💾 FOYDALANUVCHI QO'SHISH
+        </button>
+      </div>
+
+      <div class="page-header" style="margin-top:20px">
+        <div>
+          <div class="page-title" style="font-size:20px">📋 Mavjud foydalanuvchilar</div>
+        </div>
+      </div>
+      <div id="usersList"></div>
+
+      <div class="page-header" style="margin-top:30px">
+        <div>
+          <div class="page-title" style="font-size:20px">📊 Foydalanuvchilar faoliyati (oxirgi 200 ta)</div>
+          <div class="page-subtitle">Kim, qachon, nima qilgan</div>
+        </div>
+        <button class="inner-back" onclick="clearUserLogs()" style="margin:0;background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border-color:rgba(224,68,86,.4)">
+          🗑️ LOGNI TOZALASH
+        </button>
+      </div>
+      <div id="userLogsList"></div>
     </div>
 
   </main>
@@ -1355,6 +1603,98 @@ input:focus{
     <p id="modalText">...</p>
     <div id="modalButtons">
       <button class="modal-btn" onclick="closeModal()" data-i18n="modalOk">TUSHUNDIM</button>
+    </div>
+  </div>
+</div>
+
+<!-- PASSWORD CHANGE MODAL -->
+<div id="pwdModalBg" class="pwd-modal-bg">
+  <div class="pwd-modal">
+    <div class="pwd-modal-header">
+      <div class="pwd-modal-icon">🔒</div>
+      <div>
+        <div class="pwd-modal-title">Login va Parolni yangilash</div>
+        <div class="pwd-modal-sub">Foydalanuvchi ma'lumotlarini o'zgartirish</div>
+      </div>
+    </div>
+
+    <div class="pwd-modal-user" id="pwdModalUserInfo"></div>
+
+    <div class="pwd-field">
+      <label class="pwd-field-label">🔑 Login</label>
+      <input type="text" id="pwdModalLogin" class="pwd-field-input" placeholder="Yangi login (kamida 3 belgi)">
+    </div>
+
+    <div class="pwd-field">
+      <label class="pwd-field-label">🔒 Yangi Parol</label>
+      <input type="text" id="pwdModalPassword" class="pwd-field-input" placeholder="Yangi parol (kamida 3 belgi)">
+    </div>
+
+    <div class="pwd-modal-actions">
+      <button class="pwd-save-btn" onclick="saveUserCredentials()">💾 SAQLASH</button>
+      <button class="pwd-cancel-btn" onclick="closePwdModal()">❌ BEKOR QILISH</button>
+    </div>
+  </div>
+</div>
+
+<!-- TABLES EDIT MODAL -->
+<div id="tablesEditBg" class="tables-edit-bg">
+  <div class="tables-edit-modal">
+    <div class="pwd-modal-header">
+      <div class="pwd-modal-icon">🎱</div>
+      <div>
+        <div class="pwd-modal-title">Stollarni tahrirlash</div>
+        <div class="pwd-modal-sub" id="tablesEditSub">—</div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:14px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+      <label style="font-weight:800;color:#c0d0e0;font-size:13px">Nechta stol?</label>
+      <input type="number" id="editTablesCount" class="pwd-field-input"
+             min="1" max="20"
+             style="width:110px;text-align:center;font-weight:900;font-size:18px;color:#42e979"
+             onchange="regenerateEditPrices()"
+             oninput="regenerateEditPrices()">
+      <button onclick="setAllEditPrices(40000)" 
+              style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
+                     background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
+                     border:1px solid rgba(53,201,255,.4);color:#35c9ff">
+        💰 Hammasi 40k
+      </button>
+      <button onclick="setAllEditPrices(50000)" 
+              style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
+                     background:linear-gradient(135deg,rgba(66,233,121,.2),rgba(13,187,133,.2));
+                     border:1px solid rgba(66,233,121,.4);color:#42e979">
+        💰 Hammasi 50k
+      </button>
+    </div>
+
+    <div id="editTablePricesContainer" class="table-price-inputs" style="max-height:400px;overflow-y:auto">
+    </div>
+
+    <div class="pwd-modal-actions" style="margin-top:22px">
+      <button class="pwd-save-btn" onclick="saveUserTables()">💾 SAQLASH</button>
+      <button class="pwd-cancel-btn" onclick="closeEditTablesModal()">❌ BEKOR QILISH</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLEAR LOG CONFIRM MODAL -->
+<div id="clearModalBg" class="clear-modal-bg">
+  <div class="clear-modal">
+    <div class="clear-modal-icon">🗑️</div>
+    <div class="clear-modal-title">Loglarni tozalash</div>
+    <div class="clear-modal-text">
+      Barcha foydalanuvchi harakatlari tarixini
+      o'chirishni xohlaysizmi?
+    </div>
+    <div class="clear-modal-count" id="clearModalCount">— ta yozuv</div>
+    <div class="clear-modal-warning">
+      ⚠️ Bu amalni qaytarib bo'lmaydi!
+    </div>
+    <div class="clear-modal-actions">
+      <button class="clear-confirm-btn" onclick="doClearUserLogs()">🗑️ HA, TOZALASH</button>
+      <button class="clear-cancel-btn" onclick="closeClearModal()">❌ BEKOR QILISH</button>
     </div>
   </div>
 </div>
@@ -1382,7 +1722,7 @@ input:focus{
 
 <!-- KEYBOARD HINTS -->
 <div class="keyboard-hints" id="keyboardHints">
-  <b>1</b><b>2</b><b>3</b> <span data-i18n="hintTables">Stollar</span> •
+  <b>1..9</b> <span data-i18n="hintTables">Stollar</span> •
   <b>H</b> <span data-i18n="hintHome">Asosiy</span> •
   <b>A</b> <span data-i18n="hintAdmin">Admin</span> •
   <b>R</b> <span data-i18n="hintReports">Hisobot</span> •
@@ -1391,13 +1731,12 @@ input:focus{
   <b>B</b> <span data-i18n="hintBooking">Bron</span> •
   <b>Esc</b> <span data-i18n="hintClose">Yopish</span>
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 /* ================================================================
-   TIL TIZIMI (i18n) — UZ / RU
+   i18n
    ================================================================ */
 const I18N = {
   uz: {
@@ -1416,10 +1755,9 @@ const I18N = {
     navTables: "Stollar",
     navAdmin: "Admin panel",
     tipHome: "H tugmasi",
-    tipTables: "1-3 tugmalari",
+    tipTables: "1-9 tugmalari",
     tipAdmin: "A tugmasi",
     logoutBtn: "CHIQISH",
-
     logoutTitle: "Tizimdan chiqish",
     logoutText: "Rostdan ham tizimdan chiqmoqchimisiz?",
     logoutYes: "🚪 HA, CHIQISH",
@@ -1427,7 +1765,7 @@ const I18N = {
     modalOk: "TUSHUNDIM",
 
     tablesTitle: "🎱 STOLLAR",
-    tablesSubtitle: "Barcha stollar bir ekranda • 1 soat = 40 000 so'm",
+    tablesSubtitle: "Barcha stollar bir ekranda",
     tableLabel: "🎱 STOL",
     statusFree: "🔵 BO'SH",
     statusBusy: "🔴 BAND",
@@ -1590,7 +1928,6 @@ const I18N = {
     hintBooking: "Bron",
     hintClose: "Yopish",
 
-    /* ========== BOOKING ========== */
     bookingTitle: "📅 BRON QILISH",
     bookingSubtitle: "Stolni oldindan band qilish",
     bookingTableLabel: "🎱 Stol raqami",
@@ -1631,9 +1968,21 @@ const I18N = {
     table: "Stol",
     minute: "daqiqa",
     minutes: "daqiqa",
-    confirm: "TUSHUNDIM"
-  },
+    confirm: "TUSHUNDIM",
 
+    noTablesConfigured: "Stollar sozlanmagan",
+    tablesEditTitle: "Stollarni tahrirlash",
+    tablesEditSub: "Foydalanuvchi uchun stollar va narxlar",
+    tablesSavedTitle: "Stollar saqlandi",
+    tablesSavedText: "{name} uchun {count} ta stol belgilandi.",
+    tablePriceError: "Stol {n} uchun to'g'ri narx kiriting!",
+    tablesCountError: "Stol soni 1-20 orasida bo'lishi kerak!",
+    tablesCountRequired: "Kamida 1 ta stol belgilanishi kerak",
+    pricesRequired: "Har bir stol uchun narx kiritilishi kerak",
+    userTablesLabel: "Stollar",
+    userPricesLabel: "Narxlar",
+    editTablesBtn: "🎱 STOLLAR"
+  },
   ru: {
     loginSub: "WINDOWS EDITION",
     loginLabel: "👤 Логин",
@@ -1650,10 +1999,9 @@ const I18N = {
     navTables: "Столы",
     navAdmin: "Админ панель",
     tipHome: "Клавиша H",
-    tipTables: "Клавиши 1-3",
+    tipTables: "Клавиши 1-9",
     tipAdmin: "Клавиша A",
     logoutBtn: "ВЫЙТИ",
-
     logoutTitle: "Выход из системы",
     logoutText: "Вы действительно хотите выйти?",
     logoutYes: "🚪 ДА, ВЫЙТИ",
@@ -1661,7 +2009,7 @@ const I18N = {
     modalOk: "ПОНЯТНО",
 
     tablesTitle: "🎱 СТОЛЫ",
-    tablesSubtitle: "Все столы на одном экране • 1 час = 40 000 сум",
+    tablesSubtitle: "Все столы на одном экране",
     tableLabel: "🎱 СТОЛ",
     statusFree: "🔵 СВОБОДЕН",
     statusBusy: "🔴 ЗАНЯТ",
@@ -1824,7 +2172,6 @@ const I18N = {
     hintBooking: "Бронь",
     hintClose: "Закрыть",
 
-    /* ========== BOOKING ========== */
     bookingTitle: "📅 БРОНИРОВАНИЕ",
     bookingSubtitle: "Забронировать стол заранее",
     bookingTableLabel: "🎱 Номер стола",
@@ -1865,7 +2212,20 @@ const I18N = {
     table: "Стол",
     minute: "минута",
     minutes: "минут",
-    confirm: "ПОНЯТНО"
+    confirm: "ПОНЯТНО",
+
+    noTablesConfigured: "Столы не настроены",
+    tablesEditTitle: "Редактировать столы",
+    tablesEditSub: "Столы и цены для пользователя",
+    tablesSavedTitle: "Столы сохранены",
+    tablesSavedText: "Для {name} установлено {count} столов.",
+    tablePriceError: "Введите корректную цену для стола {n}!",
+    tablesCountError: "Количество столов должно быть от 1 до 20!",
+    tablesCountRequired: "Нужно указать минимум 1 стол",
+    pricesRequired: "Нужно указать цену для каждого стола",
+    userTablesLabel: "Столы",
+    userPricesLabel: "Цены",
+    editTablesBtn: "🎱 СТОЛЫ"
   }
 };
 
@@ -1893,7 +2253,6 @@ function applyTranslations(){
   const root = document.getElementById("htmlRoot");
   if(root) root.setAttribute("lang", currentLang);
 
-  // Filter button
   const filterBtn = document.getElementById("bookingFilterBtn");
   if(filterBtn){
     filterBtn.innerText = bookingFilterToday ? "📆 " + t("filterToday") : "📋 " + t("filterAll");
@@ -1910,37 +2269,36 @@ function setLanguage(lang){
   refreshDynamicContent();
   updatePriceTexts();
   renderBookings();
+  renderTables();
   beep("money");
 }
 
 function updatePriceTexts(){
-  for(let id=1; id<=3; id++){
-    const el = document.getElementById("priceText"+id);
-    if(el) el.innerText = money(PRICE);
+  const user = getCurrentUser();
+  if(!user || !user.tablesCount) return;
+  for(let id = 1; id <= user.tablesCount; id++){
+    const el = document.getElementById("priceText" + id);
+    if(el) el.innerText = money(getTablePrice(id));
   }
 }
 
 function refreshDynamicContent(){
-  for(let id=1; id<=3; id++){
+  const user = getCurrentUser();
+  if(!user || !user.tablesCount) return;
+  for(let id = 1; id <= user.tablesCount; id++){
     const g = games[id];
     const statusEl = document.getElementById("status"+id);
     if(!statusEl) continue;
-    if(g.start && !g.finished){
+    if(g && g.start && !g.finished){
       statusEl.innerText = t("statusBusy");
-    } else if(g.finished){
+    } else if(g && g.finished){
       statusEl.innerText = t("statusFinished");
     } else {
       statusEl.innerText = t("statusFree");
     }
     const sumEl = document.getElementById("sum"+id);
-    if(sumEl && g.amount){
+    if(sumEl && g && g.amount){
       sumEl.innerText = money(g.amount);
-    }
-    const liveSum = document.getElementById("liveSum"+id);
-    if(liveSum && g.start && !g.finished){
-      const sec = Math.floor((Date.now()-g.start)/1000);
-      const minutes = Math.ceil(sec/60)||1;
-      liveSum.innerText = money((PRICE/60)*minutes);
     }
   }
   renderReports();
@@ -1952,27 +2310,166 @@ function refreshDynamicContent(){
 }
 
 /* ================================================================
-   LOGIN TIZIMI
+   USERS
    ================================================================ */
-const AUTH = {
-  login: "BilliardClub",
-  password: "123567"
+const MAIN_ADMIN = {
+  id: "main_admin_001",
+  username: "Firdavsbek",
+  password: "3110",
+  fullName: "Firdavsbek",
+  role: "main_admin",
+  createdAt: new Date().toISOString(),
+  active: true,
+  tablesCount: 3,
+  tablePrices: [40000, 40000, 40000]
 };
 
+function getUsers(){
+  let users = JSON.parse(localStorage.getItem("billiardUsers"));
+  if(!users || !Array.isArray(users) || !users.length){
+    users = [MAIN_ADMIN];
+    localStorage.setItem("billiardUsers", JSON.stringify(users));
+  } else {
+    if(!users.find(u => u.id === MAIN_ADMIN.id)){
+      users.unshift({...MAIN_ADMIN});
+      localStorage.setItem("billiardUsers", JSON.stringify(users));
+    }
+  }
+  return users;
+}
+function saveUsers(arr){ localStorage.setItem("billiardUsers", JSON.stringify(arr)); }
+
+function findUser(username){
+  return getUsers().find(u => u.username.toLowerCase() === String(username).toLowerCase());
+}
+function findUserById(id){
+  return getUsers().find(u => u.id === id);
+}
+
+function getCurrentUser(){
+  const id = localStorage.getItem("billiardCurrentUserId");
+  if(!id) return null;
+  return findUserById(id) || null;
+}
+function setCurrentUser(user){
+  if(!user){
+    localStorage.removeItem("billiardCurrentUserId");
+    return;
+  }
+  localStorage.setItem("billiardCurrentUserId", user.id);
+}
+function isMainAdmin(){
+  const u = getCurrentUser();
+  return u && u.role === "main_admin";
+}
+
+function createUser(username, password, fullName, role, tablesConfig){
+  username = String(username||"").trim();
+  password = String(password||"").trim();
+  fullName = String(fullName||"").trim() || username;
+  role = role || "user";
+
+  if(!username || username.length < 3) return { ok:false, error:"Username kamida 3 ta belgi" };
+  if(!password || password.length < 3) return { ok:false, error:"Parol kamida 3 ta belgi" };
+  if(findUser(username)) return { ok:false, error:"Bu login allaqachon mavjud" };
+
+  let tablesCount = 3;
+  let tablePrices = [40000, 40000, 40000];
+
+  if(tablesConfig){
+    if(!tablesConfig.count || tablesConfig.count < 1){
+      return { ok:false, error: t("tablesCountRequired") };
+    }
+    if(tablesConfig.count > 20){
+      return { ok:false, error: t("tablesCountError") };
+    }
+    if(!tablesConfig.prices || tablesConfig.prices.length !== tablesConfig.count){
+      return { ok:false, error: t("pricesRequired") };
+    }
+    tablesCount = tablesConfig.count;
+    tablePrices = tablesConfig.prices;
+  }
+
+  const users = getUsers();
+  const me = getCurrentUser();
+  const user = {
+    id: "u_" + Date.now() + "_" + Math.random().toString(36).slice(2,7),
+    username: username,
+    password: password,
+    fullName: fullName,
+    role: role,
+    createdAt: new Date().toISOString(),
+    active: true,
+    createdBy: me ? me.username : "system",
+    tablesCount: tablesCount,
+    tablePrices: tablePrices
+  };
+  users.push(user);
+  saveUsers(users);
+  return { ok:true, user:user };
+}
+
+function deleteUser(id){
+  const u = findUserById(id);
+  if(!u) return false;
+  if(u.role === "main_admin") return false;
+  const users = getUsers().filter(x => x.id !== id);
+  saveUsers(users);
+  return true;
+}
+
+function toggleUserActive(id){
+  const users = getUsers();
+  const u = users.find(x => x.id === id);
+  if(!u) return false;
+  if(u.role === "main_admin") return false;
+  u.active = !u.active;
+  saveUsers(users);
+  return true;
+}
+
+/* ================================================================
+   USER LOGS
+   ================================================================ */
+function getUserLogs(){
+  return JSON.parse(localStorage.getItem("billiardUserLogs")) || [];
+}
+function saveUserLogs(arr){
+  if(arr.length > 2000) arr = arr.slice(0, 2000);
+  localStorage.setItem("billiardUserLogs", JSON.stringify(arr));
+}
+function logUserAction(userId, type, description, extra){
+  const users = getUsers();
+  const u = users.find(x => x.id === userId);
+  const logs = getUserLogs();
+  const now = new Date();
+  logs.unshift({
+    id: Date.now() + Math.random(),
+    userId: userId,
+    username: u ? u.username : "?",
+    fullName: u ? u.fullName : "?",
+    type: type,
+    description: description || "",
+    extra: extra || null,
+    timestamp: now.toISOString(),
+    date: todayDate(),
+    time: String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0")+":"+String(now.getSeconds()).padStart(2,"0")
+  });
+  saveUserLogs(logs);
+}
+
+/* ================================================================
+   GLOBAL STATE
+   ================================================================ */
 let selectedHistoryDateValue = "";
 let bookingFilterToday = true;
 
-const PRICE = 40000;
 const ADMIN_PATTERN = [2,4,5,3];
 const CLUB_NAME = "BILLIARD CLUB";
 const CLUB_PHONE = "+998 97 757 31 10";
 const CLUB_ADDRESS = "Mindonobod Yangi Asr";
 
-let games = JSON.parse(localStorage.getItem("billiardGames")) || {
-  1:{start:null,finished:false,minutes:0,amount:0},
-  2:{start:null,finished:false,minutes:0,amount:0},
-  3:{start:null,finished:false,minutes:0,amount:0}
-};
+let games = JSON.parse(localStorage.getItem("billiardGames")) || {};
 function saveGames(){ localStorage.setItem("billiardGames",JSON.stringify(games)); }
 function getHistory(){ return JSON.parse(localStorage.getItem("billiardHistory")) || []; }
 function saveHistory(h){ localStorage.setItem("billiardHistory",JSON.stringify(h)); }
@@ -1985,6 +2482,9 @@ function saveBookings(arr){
   updateAllBookingIndicators();
 }
 
+/* ================================================================
+   YORDAMCHI FUNKSIYALAR
+   ================================================================ */
 function money(n){
   const num = Math.round(Number(n)||0).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
   return num + " " + t("som");
@@ -2009,7 +2509,18 @@ function safeFilename(name){
     .slice(0,40) || "mijoz";
 }
 
-/* ========== OVOZ ========== */
+/* ================================================================
+   STOL NARXI - FOYDALANUVCHIGA MOS
+   ================================================================ */
+function getTablePrice(tableId){
+  const user = getCurrentUser();
+  if(!user || !user.tablePrices) return 40000;
+  return Number(user.tablePrices[tableId - 1]) || 40000;
+}
+
+/* ================================================================
+   OVOZ
+   ================================================================ */
 let audioCtx = null;
 function beep(type){
   try{
@@ -2034,14 +2545,21 @@ function beep(type){
 }
 
 /* ================================================================
-   LOGIN FUNKSIYALARI
+   LOGIN
    ================================================================ */
 (function initAuth(){
   const saved = localStorage.getItem("billiardAuth");
   const remember = localStorage.getItem("billiardRemember");
-  if(saved === "true" || remember === "true"){
+  const currentId = localStorage.getItem("billiardCurrentUserId");
+  if((saved === "true" || remember === "true") && currentId && findUserById(currentId)){
     const screen = document.getElementById("loginScreen");
     if(screen) screen.classList.add("hidden");
+    setTimeout(()=>{
+      applyRoleUI();
+      initGamesForUser();
+      renderTables();
+      updatePriceTexts();
+    }, 100);
   }
 })();
 
@@ -2061,26 +2579,9 @@ function checkLogin(){
     return;
   }
 
-  if(userInput === AUTH.login && passInput === AUTH.password){
-    errorEl.innerText = t("loginSuccess");
-    errorEl.style.color = "#42e979";
-    beep("money");
+  const user = findUser(userInput);
 
-    localStorage.setItem("billiardAuth", "true");
-    if(remember){
-      localStorage.setItem("billiardRemember", "true");
-    } else {
-      localStorage.removeItem("billiardRemember");
-    }
-
-    setTimeout(function(){
-      document.getElementById("loginScreen").classList.add("hidden");
-      document.getElementById("loginUsername").value = "";
-      document.getElementById("loginPassword").value = "";
-      errorEl.innerText = "";
-    }, 500);
-
-  } else {
+  if(!user || user.password !== passInput){
     errorEl.innerText = t("loginWrong");
     errorEl.style.color = "#ff6878";
     errorEl.classList.remove("shake");
@@ -2088,7 +2589,44 @@ function checkLogin(){
     errorEl.classList.add("shake");
     beep("error");
     document.getElementById("loginPassword").value = "";
+    return;
   }
+
+  if(user.active === false){
+    errorEl.innerText = "🚫 Sizning hisobingiz bloklangan!";
+    errorEl.style.color = "#ff6878";
+    beep("error");
+    return;
+  }
+
+  errorEl.innerText = t("loginSuccess");
+  errorEl.style.color = "#42e979";
+  beep("money");
+
+  setCurrentUser(user);
+  localStorage.setItem("billiardAuth", "true");
+  if(remember){
+    localStorage.setItem("billiardRemember", "true");
+  } else {
+    localStorage.removeItem("billiardRemember");
+  }
+
+  logUserAction(user.id, "login", "Tizimga kirdi");
+
+  setTimeout(function(){
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("loginUsername").value = "";
+    document.getElementById("loginPassword").value = "";
+    errorEl.innerText = "";
+    applyRoleUI();
+    initGamesForUser();
+    renderTables();
+    updatePriceTexts();
+    showWelcomeToast(user);
+    if(user.role === "main_admin"){
+      setTimeout(()=>openAdminUsersDirect(), 300);
+    }
+  }, 500);
 }
 
 function logout(){
@@ -2102,8 +2640,13 @@ function logout(){
 }
 
 function confirmLogout(){
+  const u = getCurrentUser();
+  if(u) logUserAction(u.id, "logout", "Tizimdan chiqdi");
+
   localStorage.removeItem("billiardAuth");
   localStorage.removeItem("billiardRemember");
+  setCurrentUser(null);
+
   closeModal();
   beep("end");
   setTimeout(function(){
@@ -2112,11 +2655,144 @@ function confirmLogout(){
     screen.style.animation = "none";
     void screen.offsetWidth;
     screen.style.animation = "fadeIn .4s ease";
+    document.getElementById("loginUsername").value = "";
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("loginError").innerText = "";
     document.getElementById("loginUsername").focus();
   }, 300);
 }
 
-/* ========== SOAT ========== */
+/* ================================================================
+   ROL BO'YICHA UI
+   ================================================================ */
+function applyRoleUI(){
+  const u = getCurrentUser();
+  if(!u) return;
+
+  let infoBox = document.getElementById("currentUserBox");
+  if(!infoBox){
+    infoBox = document.createElement("div");
+    infoBox.id = "currentUserBox";
+    const nav = document.querySelector(".sidebar-nav");
+    if(nav) nav.parentNode.insertBefore(infoBox, nav);
+  }
+  const roleLabel = u.role === "main_admin" ? "👑 BOSH ADMIN"
+                  : u.role === "admin" ? "🛡️ ADMIN"
+                  : "👤 FOYDALANUVCHI";
+  const roleColor = u.role === "main_admin" ? "#ffd23f"
+                  : u.role === "admin" ? "#42e979"
+                  : "#35c9ff";
+
+  const tablesInfo = u.tablesCount 
+    ? `<div style="font-size:10px;color:#8aa0b8;margin-top:6px">🎱 ${u.tablesCount} ta stol</div>`
+    : '';
+
+  infoBox.innerHTML = `
+    <div style="font-weight:800;color:#fff;font-size:13px">👋 ${escapeHTML(u.fullName)}</div>
+    <div style="font-weight:900;color:${roleColor};margin-top:4px;letter-spacing:1px;font-size:10px">${roleLabel}</div>
+    ${tablesInfo}
+  `;
+
+  const usersCard = document.getElementById("usersAdminCard");
+  if(usersCard){
+    usersCard.style.display = (u.role === "main_admin") ? "flex" : "none";
+  }
+
+  const isMain = u.role === "main_admin";
+  const homeBtn = document.getElementById("navHomeBtn");
+  const tablesBtn = document.getElementById("navTablesBtn");
+  const adminBtn = document.getElementById("navAdminBtn");
+  const keyboardHints = document.getElementById("keyboardHints");
+
+  if(isMain){
+    if(homeBtn) homeBtn.style.display = "none";
+    if(tablesBtn) tablesBtn.style.display = "none";
+    if(adminBtn){
+      adminBtn.style.display = "flex";
+      const icon = adminBtn.querySelector(".nav-icon");
+      const label = adminBtn.querySelector("[data-i18n='navAdmin']");
+      if(icon) icon.innerText = "👥";
+      if(label){
+        label.innerText = "FOYDALANUVCHILAR";
+        label.removeAttribute("data-i18n");
+      }
+      adminBtn.setAttribute("onclick", "openAdminUsersDirect()");
+      adminBtn.setAttribute("data-key", "U");
+    }
+    if(keyboardHints) keyboardHints.style.display = "none";
+  } else {
+    if(homeBtn) homeBtn.style.display = "flex";
+    if(tablesBtn) tablesBtn.style.display = "flex";
+    if(adminBtn){
+      adminBtn.style.display = "flex";
+      const icon = adminBtn.querySelector(".nav-icon");
+      const label = adminBtn.querySelector("[data-i18n='navAdmin']");
+      if(icon) icon.innerText = "🔐";
+      if(label){
+        label.innerText = "Admin panel";
+        label.setAttribute("data-i18n", "navAdmin");
+      }
+      adminBtn.setAttribute("onclick", "openPattern()");
+      adminBtn.setAttribute("data-key", "A");
+    }
+    if(keyboardHints) keyboardHints.style.display = "flex";
+  }
+}
+
+/* ================================================================
+   BOSH ADMIN UCHUN FOYDALANUVCHILAR SAHIFASI
+   ================================================================ */
+function openAdminUsersDirect(){
+  if(!isMainAdmin()){
+    beep("error");
+    showModal("🚫", "Ruxsat yo'q", "Bu bo'limga faqat Bosh admin kira oladi.");
+    return;
+  }
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  const usersPage = document.getElementById("adminUsers");
+  if(usersPage) usersPage.classList.add("active");
+
+  document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
+  const adminBtn = document.getElementById("navAdminBtn");
+  if(adminBtn) adminBtn.classList.add("active");
+
+  renderUsers();
+  setTimeout(()=>{
+    generateTablePriceInputs();
+    if(document.getElementById("newUserTablesCount").value === ""){
+      document.getElementById("newUserTablesCount").value = 3;
+    }
+  }, 50);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showWelcomeToast(user){
+  const roleLabel = user.role === "main_admin" ? "👑 Bosh admin"
+                  : user.role === "admin" ? "🛡️ Admin"
+                  : "👤 Foydalanuvchi";
+  const toast = document.createElement("div");
+  toast.style.cssText = `
+    position: fixed; top: 20px; right: 20px; z-index: 99999;
+    padding: 16px 22px; border-radius: 16px;
+    background: linear-gradient(135deg, rgba(13,187,133,.95), rgba(6,120,88,.95));
+    color: #fff; font-weight: 800; font-size: 14px;
+    box-shadow: 0 15px 40px rgba(10,169,120,.5);
+    animation: pageIn .4s cubic-bezier(.2,.9,.3,1.2);
+  `;
+  toast.innerHTML = `✅ Xush kelibsiz, <b>${escapeHTML(user.fullName)}</b>!<br>
+    <span style="font-size:11px;opacity:.85">${roleLabel}</span>`;
+  document.body.appendChild(toast);
+  setTimeout(()=>{
+    toast.style.transition = "opacity .4s, transform .4s";
+    toast.style.opacity = "0";
+    toast.style.transform = "translateX(30px)";
+    setTimeout(()=>toast.remove(), 400);
+  }, 3000);
+}
+
+/* ================================================================
+   SOAT
+   ================================================================ */
 function updateClock(){
   const now=new Date();
   const h=String(now.getHours()).padStart(2,"0");
@@ -2152,7 +2828,9 @@ function updateClock(){
 setInterval(updateClock,1000);
 updateClock();
 
-/* ========== MODAL ========== */
+/* ================================================================
+   MODAL
+   ================================================================ */
 function showModal(icon,title,text){
   document.getElementById("modalIcon").innerText=icon;
   document.getElementById("modalTitle").innerText=title;
@@ -2163,7 +2841,9 @@ function showModal(icon,title,text){
 }
 function closeModal(){ document.getElementById("modalBg").style.display="none"; }
 
-/* ========== PAGE NAVIGATION ========== */
+/* ================================================================
+   PAGE NAVIGATION
+   ================================================================ */
 function openPage(page,button){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   const target=document.getElementById(page);
@@ -2184,10 +2864,109 @@ function openPage(page,button){
 }
 
 /* ================================================================
+   GAMES - DINAMIK
+   ================================================================ */
+function initGamesForUser(){
+  const user = getCurrentUser();
+  if(!user || !user.tablesCount) return;
+
+  const count = Number(user.tablesCount);
+  for(let i = 1; i <= count; i++){
+    if(!games[i]){
+      games[i] = { start:null, finished:false, minutes:0, amount:0 };
+    }
+  }
+  Object.keys(games).forEach(key => {
+    if(Number(key) > count) delete games[key];
+  });
+  saveGames();
+}
+
+/* ================================================================
+   STOLLARNI CHIZISH
+   ================================================================ */
+function renderTables(){
+  const user = getCurrentUser();
+  const grid = document.getElementById("tablesGrid");
+  if(!grid) return;
+
+  if(!user || !user.tablesCount){
+    grid.innerHTML = '<div class="empty">' + t("noTablesConfigured") + '</div>';
+    return;
+  }
+
+  const count = Number(user.tablesCount);
+  grid.innerHTML = "";
+
+  const subtitle = document.getElementById("tablesSubtitle");
+  if(subtitle){
+    const prices = (user.tablePrices||[]).map((p,i)=>`S${i+1}: ${money(p)}`).join(" • ");
+    subtitle.innerText = `${count} ta stol • ${prices}`;
+  }
+
+  for(let id = 1; id <= count; id++){
+    const price = getTablePrice(id);
+    const tableHTML = `
+      <div class="table-window" id="tableWindow${id}">
+        <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> ${id}</div>
+        <div id="status${id}" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
+        <div id="timer${id}" class="timer">00:00:00</div>
+        <div class="price">
+          <span data-i18n="priceLabel">1 SOAT NARXI</span> 
+          <b id="priceText${id}">${money(price)}</b>
+        </div>
+        <div id="livePrice${id}" class="live-price" style="display:none">
+          <span data-i18n="currentBill">💰 Hozirgi hisob:</span> 
+          <b id="liveSum${id}">0 so'm</b>
+        </div>
+        <div id="bookingIndicator${id}" class="booking-indicator" style="display:none"></div>
+        <button id="start${id}" class="btn start-btn" onclick="startGame(${id})" data-i18n="startBtn">
+          ▶️ O'YINNI BOSHLASH
+        </button>
+        <button id="finish${id}" class="btn finish-btn" onclick="finishGame(${id})" data-i18n="finishBtn">
+          ⏹️ O'YINNI TUGATISH
+        </button>
+        <div id="payment${id}" class="payment">
+          <div class="total">
+            <span data-i18n="totalLabel">💰 JAMI:</span> 
+            <b id="sum${id}">0 so'm</b>
+          </div>
+          <button class="btn paid-btn" onclick="savePaid(${id})" data-i18n="paidBtn">
+            🟢 PUL OLINDI
+          </button>
+          <button class="btn debt-btn" onclick="showDebt(${id})" data-i18n="debtBtn">
+            🔴 PUL OLINMADI
+          </button>
+          <div id="debtForm${id}" class="debt-form">
+            <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
+            <input id="name${id}" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
+            <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
+            <input id="phone${id}" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
+            <button class="btn save-btn" onclick="saveDebt(${id})" data-i18n="saveDebtBtn">
+              💾 QARZDORNI SAQLASH
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    grid.insertAdjacentHTML("beforeend", tableHTML);
+  }
+
+  applyTranslations();
+  
+  for(let id = 1; id <= count; id++){
+    updateTable(id);
+  }
+
+  updateAllBookingIndicators();
+  updateActiveTablesBadge();
+}
+
+/* ================================================================
    O'YIN BOSHLASH
    ================================================================ */
 function startGame(id){
-  if(games[id].start && !games[id].finished){
+  if(games[id] && games[id].start && !games[id].finished){
     beep("error");
     showModal("🔴", t("tableBusyTitle"), t("tableBusyText"));
     return;
@@ -2195,7 +2974,11 @@ function startGame(id){
   games[id]={start:Date.now(),finished:false,minutes:0,amount:0};
   saveGames();
   updateTable(id);
+  updateActiveTablesBadge();
   beep("start");
+
+  const u = getCurrentUser();
+  if(u) logUserAction(u.id, "start_game", `Stol ${id} boshlandi`);
 
   const win = document.getElementById("tableWindow"+id);
   if(win){
@@ -2210,7 +2993,8 @@ function startGame(id){
 }
 
 function updateTimer(id){
-  if(!games[id].start) return;
+  if(!games[id] || !games[id].start) return;
+  const price = getTablePrice(id);
   const sec=Math.floor((Date.now()-games[id].start)/1000);
   const h=Math.floor(sec/3600);
   const m=Math.floor((sec%3600)/60);
@@ -2219,7 +3003,7 @@ function updateTimer(id){
   if(el) el.innerText=
     String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
   const minutes=Math.ceil(sec/60)||1;
-  const amount=(PRICE/60)*minutes;
+  const amount=(price/60)*minutes;
   const liveEl=document.getElementById("liveSum"+id);
   if(liveEl) liveEl.innerText=money(amount);
 }
@@ -2228,10 +3012,11 @@ function updateTimer(id){
    O'YIN TUGATISH
    ================================================================ */
 function finishGame(id){
-  if(!games[id].start) return;
+  if(!games[id] || !games[id].start) return;
+  const price = getTablePrice(id);
   let minutes=Math.ceil((Date.now()-games[id].start)/60000);
   if(minutes<1) minutes=1;
-  const amount=(PRICE/60)*minutes;
+  const amount=(price/60)*minutes;
   games[id].minutes=minutes;
   games[id].amount=amount;
   games[id].finished=true;
@@ -2243,6 +3028,10 @@ function finishGame(id){
   document.getElementById("status"+id).className="status busy";
   document.getElementById("livePrice"+id).style.display="none";
   beep("end");
+  updateActiveTablesBadge();
+
+  const u = getCurrentUser();
+  if(u) logUserAction(u.id, "finish_game", `Stol ${id} tugatildi (${minutes} daq, ${money(amount)})`);
 
   const win = document.getElementById("tableWindow"+id);
   if(win){
@@ -2259,7 +3048,6 @@ function finishGame(id){
 function showDebt(id){ document.getElementById("debtForm"+id).style.display="block"; }
 
 function savePaid(id){
-  // Agar bron bilan bog'langan bo'lsa — bronni completed qilish
   if(games[id].bookingId){
     const bookings = getBookings();
     const b = bookings.find(x => x.id === games[id].bookingId);
@@ -2270,17 +3058,25 @@ function savePaid(id){
   const date=todayDate();
   const bookingName = games[id].clientName || "";
   const bookingPhone = games[id].clientPhone || "";
+  const u = getCurrentUser();
   history.unshift({
     id:Date.now(),table:id,
     minutes:games[id].minutes,amount:games[id].amount,
     paid:true,name:bookingName,phone:bookingPhone,paymentDate:"",
-    gameDate:date,saveDate:date,savedAt:new Date().toISOString()
+    gameDate:date,saveDate:date,savedAt:new Date().toISOString(),
+    userId: u ? u.id : null,
+    username: u ? u.username : null,
+    fullName: u ? u.fullName : null
   });
   saveHistory(history);
   const amount=games[id].amount;
   resetTable(id);
   renderReports(); renderAdminHistory(); renderAdminDebtors(); renderBookings();
+  updateActiveTablesBadge();
   beep("money");
+
+  if(u) logUserAction(u.id, "paid", `Stol ${id} — ${money(amount)} olindi`);
+
   showModal("🟢", t("paidTitle"), t("paidText", {amount: money(amount)}));
 }
 
@@ -2290,7 +3086,6 @@ function saveDebt(id){
   if(!name){ beep("error"); showModal("👤", t("nameMissingTitle"), t("nameMissingText")); return; }
   if(!phone){ beep("error"); showModal("📞", t("phoneMissingTitle"), t("phoneMissingText")); return; }
 
-  // Bron bilan bog'langan bo'lsa — completed
   if(games[id].bookingId){
     const bookings = getBookings();
     const b = bookings.find(x => x.id === games[id].bookingId);
@@ -2299,65 +3094,97 @@ function saveDebt(id){
 
   const history=getHistory();
   const date=todayDate();
+  const u = getCurrentUser();
   history.unshift({
     id:Date.now(),table:id,
     minutes:games[id].minutes,amount:games[id].amount,
     paid:false,name:name,phone:phone,paymentDate:"",
-    gameDate:date,saveDate:date,savedAt:new Date().toISOString()
+    gameDate:date,saveDate:date,savedAt:new Date().toISOString(),
+    userId: u ? u.id : null,
+    username: u ? u.username : null,
+    fullName: u ? u.fullName : null
   });
   saveHistory(history);
   const amount=games[id].amount;
   resetTable(id);
   renderReports(); renderAdminDebtors(); renderAdminHistory(); renderBookings();
+  updateActiveTablesBadge();
   beep("error");
+
+  if(u) logUserAction(u.id, "debt", `Stol ${id} — ${name} ${money(amount)} qarz`);
+
   showModal("🔴", t("debtSavedTitle"), t("debtSavedText", {name: name, amount: money(amount)}));
 }
 
 function resetTable(id){
   games[id]={start:null,finished:false,minutes:0,amount:0};
   saveGames();
-  document.getElementById("timer"+id).innerText="00:00:00";
+  const timerEl = document.getElementById("timer"+id);
+  if(timerEl) timerEl.innerText="00:00:00";
   const statusEl=document.getElementById("status"+id);
-  statusEl.innerText=t("statusFree");
-  statusEl.className="status free";
-  document.getElementById("start"+id).style.display="block";
-  document.getElementById("finish"+id).style.display="none";
-  document.getElementById("payment"+id).style.display="none";
-  document.getElementById("debtForm"+id).style.display="none";
-  document.getElementById("name"+id).value="";
-  document.getElementById("phone"+id).value="";
+  if(statusEl){
+    statusEl.innerText=t("statusFree");
+    statusEl.className="status free";
+  }
+  const startBtn = document.getElementById("start"+id);
+  if(startBtn) startBtn.style.display="block";
+  const finishBtn = document.getElementById("finish"+id);
+  if(finishBtn) finishBtn.style.display="none";
+  const paymentEl = document.getElementById("payment"+id);
+  if(paymentEl) paymentEl.style.display="none";
+  const debtFormEl = document.getElementById("debtForm"+id);
+  if(debtFormEl) debtFormEl.style.display="none";
+  const nameEl = document.getElementById("name"+id);
+  if(nameEl) nameEl.value="";
+  const phoneEl = document.getElementById("phone"+id);
+  if(phoneEl) phoneEl.value="";
   const lp=document.getElementById("livePrice"+id);
   if(lp) lp.style.display="none";
+  updateActiveTablesBadge();
 }
 
 function updateTable(id){
-  const g=games[id];
+  const g = games[id];
+  if(!g) return;
   const statusEl=document.getElementById("status"+id);
+  if(!statusEl) return;
+  
   if(g.start && !g.finished){
     statusEl.innerText=t("statusBusy");
     statusEl.className="status busy";
-    document.getElementById("start"+id).style.display="none";
-    document.getElementById("finish"+id).style.display="block";
-    document.getElementById("livePrice"+id).style.display="block";
+    const s = document.getElementById("start"+id);
+    if(s) s.style.display="none";
+    const f = document.getElementById("finish"+id);
+    if(f) f.style.display="block";
+    const lp = document.getElementById("livePrice"+id);
+    if(lp) lp.style.display="block";
     updateTimer(id);
   } else if(g.finished){
     statusEl.innerText=t("statusFinished");
     statusEl.className="status busy";
-    document.getElementById("start"+id).style.display="none";
-    document.getElementById("payment"+id).style.display="block";
-    document.getElementById("sum"+id).innerText=money(g.amount);
+    const s = document.getElementById("start"+id);
+    if(s) s.style.display="none";
+    const p = document.getElementById("payment"+id);
+    if(p) p.style.display="block";
+    const sumEl = document.getElementById("sum"+id);
+    if(sumEl) sumEl.innerText=money(g.amount);
   } else {
     statusEl.innerText=t("statusFree");
     statusEl.className="status free";
-    document.getElementById("start"+id).style.display="block";
-    document.getElementById("finish"+id).style.display="none";
-    document.getElementById("payment"+id).style.display="none";
+    const s = document.getElementById("start"+id);
+    if(s) s.style.display="block";
+    const f = document.getElementById("finish"+id);
+    if(f) f.style.display="none";
+    const p = document.getElementById("payment"+id);
+    if(p) p.style.display="none";
     const lp=document.getElementById("livePrice"+id);
     if(lp) lp.style.display="none";
   }
 }
 
-/* ========== HISOBOT ========== */
+/* ================================================================
+   HISOBOT
+   ================================================================ */
 function renderReports(){
   const history=getHistory();
   const today=todayDate();
@@ -2371,18 +3198,25 @@ function renderReports(){
     b.status !== "cancelled" && b.status !== "completed" && b.endTime >= now
   );
 
-  document.getElementById("statGames").innerText=todayData.length;
-  document.getElementById("statPaid").innerText=money(paid);
-  document.getElementById("statUnpaid").innerText=money(unpaid);
-  document.getElementById("statDebtors").innerText=debtors.length+" ta";
+  const el1 = document.getElementById("statGames");
+  if(el1) el1.innerText=todayData.length;
+  const el2 = document.getElementById("statPaid");
+  if(el2) el2.innerText=money(paid);
+  const el3 = document.getElementById("statUnpaid");
+  if(el3) el3.innerText=money(unpaid);
+  const el4 = document.getElementById("statDebtors");
+  if(el4) el4.innerText=debtors.length+" ta";
   const sb = document.getElementById("statBookings");
   if(sb) sb.innerText = activeBookings.length + " ta";
 }
 
-/* ========== QARZDORLAR ========== */
+/* ================================================================
+   QARZDORLAR
+   ================================================================ */
 function renderAdminDebtors(){
   const history=getHistory().filter(x=>!x.paid);
   const box=document.getElementById("adminDebtorList");
+  if(!box) return;
   if(!history.length){
     box.innerHTML='<div class="empty">' + t("noDebtors") + '</div>';
     return;
@@ -2396,6 +3230,7 @@ function renderAdminDebtors(){
         '👤 <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 '+escapeHTML(item.phone)+'<br>'+
         '🎱 '+t("table")+' '+item.table+' &nbsp;•&nbsp; ⏱ '+item.minutes+' '+t("minutes")+' &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
         '<span style="color:#ffc34e;font-weight:800">'+t("debtStatus")+'</span>'+
+        (item.fullName ? ' &nbsp;•&nbsp; 👨‍💼 '+escapeHTML(item.fullName) : '')+
       '</div>'+
       '<div class="history-item-actions">'+
         '<button class="paid-later" onclick="markPaid('+item.id+')">'+t("payNowBtn")+'</button>'+
@@ -2411,22 +3246,33 @@ function markPaid(id){
   if(!item) return;
   item.paid=true;
   item.paidDate=todayDate();
+  const u = getCurrentUser();
+  item.paidByUserId = u ? u.id : null;
+  item.paidByFullName = u ? u.fullName : null;
   saveHistory(history);
   renderReports(); renderAdminDebtors(); renderAdminHistory();
   beep("money");
+
+  if(u) logUserAction(u.id, "debt_paid", `${item.name} — ${money(item.amount)} qarzi yopildi`);
+
   showModal("🟢", t("paidLaterTitle"), t("paidLaterText", {
     name: item.name,
     amount: money(item.amount)
   }));
 }
 
-/* ========== TARIX ========== */
+/* ================================================================
+   TARIX
+   ================================================================ */
 function renderAdminHistory(){
   const history=getHistory();
-  document.getElementById("historyDatesPage").style.display="block";
-  document.getElementById("historyDayPage").style.display="none";
+  const datesPage = document.getElementById("historyDatesPage");
+  const dayPage = document.getElementById("historyDayPage");
+  if(datesPage) datesPage.style.display="block";
+  if(dayPage) dayPage.style.display="none";
   const box=document.getElementById("historyDatesList");
   const totalBox=document.getElementById("historyTotalBox");
+  if(!box) return;
 
   const dateGroups={};
   history.forEach(item=>{
@@ -2438,11 +3284,12 @@ function renderAdminHistory(){
 
   const dates=Object.keys(dateGroups).sort((a,b)=>convertDate(b)-convertDate(a));
   const allTotal=history.reduce((s,i)=>s+Number(i.amount||0),0);
-  document.getElementById("historyTotalAmount").innerText=money(allTotal);
+  const totalEl = document.getElementById("historyTotalAmount");
+  if(totalEl) totalEl.innerText=money(allTotal);
 
   if(!dates.length){
     box.innerHTML='<div class="empty">' + t("noHistory") + '</div>';
-    totalBox.style.display="block";
+    if(totalBox) totalBox.style.display="block";
     return;
   }
 
@@ -2498,9 +3345,10 @@ function openHistoryDate(date){
       '🎱 <b>'+t("table")+' '+item.table+'</b> &nbsp;•&nbsp; ⏱ <b>'+item.minutes+' '+t("minutes")+'</b> &nbsp;•&nbsp; 💰 <b>'+money(item.amount)+'</b><br>'+
       (item.paid
         ? '<span class="paid">'+t("paidStatus")+'</span>'
-        : '👤 '+t("colTable")+' — '+t("nameLabel")+': <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 <b>'+escapeHTML(item.phone)+'</b> &nbsp;•&nbsp; <span class="unpaid">'+t("unpaidStatus")+'</span>'
+        : '👤 <b>'+escapeHTML(item.name)+'</b> &nbsp;•&nbsp; 📞 <b>'+escapeHTML(item.phone)+'</b> &nbsp;•&nbsp; <span class="unpaid">'+t("unpaidStatus")+'</span>'
       )+
       (item.paidDate?' &nbsp;•&nbsp; '+t("paidAt")+' <b>'+escapeHTML(item.paidDate)+'</b>':'')+
+      (item.fullName?' &nbsp;•&nbsp; 👨‍💼 <b>'+escapeHTML(item.fullName)+'</b>':'')+
     '</div>';
   });
   box.innerHTML=html;
@@ -2572,13 +3420,25 @@ function escapeHTML(text){
 }
 
 /* ================================================================
-   BRON QILISH TIZIMI
+   BRON QILISH
    ================================================================ */
 function toggleBookingFilter(){
   bookingFilterToday = !bookingFilterToday;
   const btn = document.getElementById("bookingFilterBtn");
   btn.innerText = bookingFilterToday ? "📆 " + t("filterToday") : "📋 " + t("filterAll");
   renderBookings();
+}
+
+function renderBookingTableOptions(){
+  const user = getCurrentUser();
+  if(!user || !user.tablesCount) return;
+  const select = document.getElementById("bookingTable");
+  if(!select) return;
+  select.innerHTML = "";
+  for(let i = 1; i <= user.tablesCount; i++){
+    select.insertAdjacentHTML("beforeend", 
+      `<option value="${i}">Stol ${i} (${money(getTablePrice(i))})</option>`);
+  }
 }
 
 function saveBooking(){
@@ -2624,6 +3484,7 @@ function saveBooking(){
     return;
   }
 
+  const u = getCurrentUser();
   const booking = {
     id: Date.now(),
     table: table,
@@ -2634,7 +3495,9 @@ function saveBooking(){
     duration: duration,
     status: "pending",
     createdAt: new Date().toISOString(),
-    date: date
+    date: date,
+    createdByUserId: u ? u.id : null,
+    createdByFullName: u ? u.fullName : null
   };
 
   bookings.push(booking);
@@ -2646,6 +3509,8 @@ function saveBooking(){
 
   document.getElementById("bookingName").value = "";
   document.getElementById("bookingPhone").value = "";
+
+  if(u) logUserAction(u.id, "booking", `Stol ${table} bron — ${name} (${formatTime(bookingStart)})`);
 
   showModal("✅", t("bookingSavedTitle"),
     t("bookingSavedText", {
@@ -2739,7 +3604,7 @@ function startFromBooking(id){
   const b = bookings.find(x => x.id === id);
   if(!b) return;
 
-  if(games[b.table].start && !games[b.table].finished){
+  if(games[b.table] && games[b.table].start && !games[b.table].finished){
     beep("error");
     showModal("🔴", t("tableBusyTitle"), t("tableBusyText"));
     return;
@@ -2763,6 +3628,9 @@ function startFromBooking(id){
   updateAllBookingIndicators();
   renderReports();
   beep("start");
+
+  const u = getCurrentUser();
+  if(u) logUserAction(u.id, "booking_start", `Bron boshlandi: ${b.name} — Stol ${b.table}`);
 
   showModal("🎱", t("bookingStartedTitle"),
     t("bookingStartedText", { table: b.table, name: b.name }));
@@ -2808,11 +3676,18 @@ function confirmCancelBooking(id){
   updateAllBookingIndicators();
   renderReports();
   beep("end");
+
+  const u = getCurrentUser();
+  if(u) logUserAction(u.id, "booking_cancel", `Bron bekor: ${b.name} — Stol ${b.table}`);
 }
 
-/* ========== STOL KARTOCHKASIDA BRON KO'RSATKICHI ========== */
+/* ================================================================
+   STOL KARTOCHKASIDA BRON KO'RSATKICHI
+   ================================================================ */
 function updateAllBookingIndicators(){
-  for(let id = 1; id <= 3; id++){
+  const user = getCurrentUser();
+  if(!user || !user.tablesCount) return;
+  for(let id = 1; id <= user.tablesCount; id++){
     const indicator = document.getElementById("bookingIndicator" + id);
     if(!indicator) continue;
 
@@ -2843,9 +3718,20 @@ function updateAllBookingIndicators(){
   }
 }
 
-/* ========== FAOL STOLLAR BADGE ========== */
+/* ================================================================
+   FAOL STOLLAR BADGE
+   ================================================================ */
 function updateActiveTablesBadge(){
-  const active = [1,2,3].filter(id => games[id].start && !games[id].finished).length;
+  const user = getCurrentUser();
+  if(!user || !user.tablesCount){
+    const badge = document.getElementById("activeTablesBadge");
+    if(badge) badge.classList.add("hidden");
+    return;
+  }
+  let active = 0;
+  for(let id = 1; id <= user.tablesCount; id++){
+    if(games[id] && games[id].start && !games[id].finished) active++;
+  }
   const badge = document.getElementById("activeTablesBadge");
   if(!badge) return;
   badge.innerText = active;
@@ -2854,7 +3740,609 @@ function updateActiveTablesBadge(){
 }
 
 /* ================================================================
-   PDF YUKLAB OLISH
+   FOYDALANUVCHILAR SAHIFASI
+   ================================================================ */
+function generateTablePriceInputs(){
+  const countInput = document.getElementById("newUserTablesCount");
+  const container = document.getElementById("tablePriceInputsContainer");
+  if(!countInput || !container) return;
+
+  const count = Number(countInput.value) || 3;
+  
+  if(count < 1 || count > 20){
+    container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ Stol soni 1-20 orasida bo\'lishi kerak</div>';
+    return;
+  }
+
+  const existingPrices = {};
+  for(let i = 1; i <= 20; i++){
+    const inp = document.getElementById("tablePrice_" + i);
+    if(inp) existingPrices[i] = inp.value;
+  }
+
+  container.innerHTML = "";
+  for(let i = 1; i <= count; i++){
+    const val = existingPrices[i] || 40000;
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <div class="form-title" style="margin-top:0;color:#42e979">🎱 Stol ${i} narxi</div>
+      <input type="number" 
+             id="tablePrice_${i}" 
+             class="login-input table-price-input" 
+             value="${val}" 
+             min="0" 
+             step="5000"
+             placeholder="40000"
+             data-table="${i}">
+    `;
+    container.appendChild(div);
+  }
+}
+
+function setAllPrices(price){
+  const countInput = document.getElementById("newUserTablesCount");
+  if(!countInput) return;
+  const count = Number(countInput.value) || 3;
+  for(let i = 1; i <= count; i++){
+    const inp = document.getElementById("tablePrice_" + i);
+    if(inp) inp.value = price;
+  }
+  beep("money");
+}
+
+function handleCreateUser(){
+  const fullName = document.getElementById("newUserFullName").value.trim();
+  const username = document.getElementById("newUserUsername").value.trim();
+  const password = document.getElementById("newUserPassword").value.trim();
+  const role = document.getElementById("newUserRole").value;
+  
+  const tablesCount = Number(document.getElementById("newUserTablesCount").value);
+  const prices = [];
+
+  if(!tablesCount || tablesCount < 1 || tablesCount > 20){
+    beep("error");
+    showModal("⚠️", "Xatolik", t("tablesCountError"));
+    return;
+  }
+
+  for(let i = 1; i <= tablesCount; i++){
+    const inp = document.getElementById("tablePrice_" + i);
+    const price = Number(inp.value);
+    if(!price || price < 0){
+      beep("error");
+      showModal("⚠️", "Xatolik", t("tablePriceError", {n: i}));
+      return;
+    }
+    prices.push(price);
+  }
+
+  const res = createUser(username, password, fullName, role, {
+    count: tablesCount,
+    prices: prices
+  });
+
+  if(!res.ok){
+    beep("error");
+    showModal("⚠️", "Xatolik", res.error);
+    return;
+  }
+
+  const u = getCurrentUser();
+  if(u) logUserAction(u.id, "user_create", 
+    `Yangi foydalanuvchi: ${username} (${fullName}) — ${tablesCount} ta stol`);
+
+  document.getElementById("newUserFullName").value = "";
+  document.getElementById("newUserUsername").value = "";
+  document.getElementById("newUserPassword").value = "";
+  document.getElementById("newUserTablesCount").value = "3";
+  generateTablePriceInputs();
+
+  beep("money");
+  
+  const pricesList = prices.map((p, i) => `   🎱 Stol ${i+1}: ${money(p)}`).join("\n");
+  
+  showModal("✅", "Foydalanuvchi qo'shildi",
+    `👤 ${fullName}\n` +
+    `🔑 Login: ${username}\n` +
+    `🔒 Parol: ${password}\n` +
+    `🎭 Rol: ${role === "admin" ? "Admin" : "Foydalanuvchi"}\n` +
+    `🎱 Stollar: ${tablesCount} ta\n\n` +
+    `💰 Narxlar:\n${pricesList}`);
+  
+  renderUsers();
+}
+
+/* ================================================================
+   YANGILANGAN renderUsers() - MOLIYAVIY STATISTIKA BILAN
+   ================================================================ */
+function renderUsers(){
+  const box = document.getElementById("usersList");
+  if(!box) return;
+  const users = getUsers();
+  if(!users.length){
+    box.innerHTML = '<div class="empty">Foydalanuvchilar yo\'q</div>';
+    return;
+  }
+  box.innerHTML = "";
+  
+  const allHistory = getHistory();
+  const today = todayDate();
+  
+  users.forEach(u=>{
+    const isMain = u.role === "main_admin";
+    const roleLabel = isMain ? "👑 BOSH ADMIN"
+                    : u.role === "admin" ? "🛡️ ADMIN"
+                    : "👤 FOYDALANUVCHI";
+    const roleColor = isMain ? "#ffd23f"
+                    : u.role === "admin" ? "#42e979"
+                    : "#35c9ff";
+    const status = u.active === false
+      ? '<span style="color:#ff6878;font-weight:900">🚫 BLOKLANGAN</span>'
+      : '<span style="color:#42e979;font-weight:900">✅ FAOL</span>';
+
+    // ====== SHU FOYDALANUVCHINING MOLIYAVIY STATISTIKASI ======
+    const userHistory = allHistory.filter(h => h.userId === u.id);
+    
+    // Bugungi tushum
+    const todayItems = userHistory.filter(h => (h.saveDate || h.gameDate) === today);
+    const todayPaid = todayItems.filter(h => h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+    const todayUnpaid = todayItems.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+    const todayTotal = todayPaid + todayUnpaid;
+    const todayGames = todayItems.length;
+    
+    // Haftalik tushum (oxirgi 7 kun)
+    const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+    const weekItems = userHistory.filter(h => {
+      const d = h.savedAt ? new Date(h.savedAt).getTime() : convertDate(h.saveDate || h.gameDate);
+      return d >= weekAgo;
+    });
+    const weekTotal = weekItems.reduce((s,i)=>s+Number(i.amount||0),0);
+    
+    // Umumiy tushum
+    const totalPaid = userHistory.filter(h => h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+    const totalUnpaid = userHistory.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
+    const totalAll = totalPaid + totalUnpaid;
+    const totalGames = userHistory.length;
+    
+    // Faoliyat loglari
+    const logs = getUserLogs().filter(l => l.userId === u.id);
+    const loginCount = logs.filter(l => l.type === "login").length;
+    const gamesStarted = logs.filter(l => l.type === "start_game").length;
+    const paidCount = logs.filter(l => l.type === "paid").length;
+    const debtCount = logs.filter(l => l.type === "debt").length;
+
+    let tablesInfo = "";
+    if(u.tablesCount && u.tablePrices && u.tablePrices.length){
+      const pricesStr = u.tablePrices.map((p, i) => 
+        `<b style="color:#35c9ff">S${i+1}</b> ${money(p)}`
+      ).join(" • ");
+      tablesInfo = `
+        <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(53,201,255,.08);border:1px dashed rgba(53,201,255,.3)">
+          🎱 <b style="color:#42e979">${u.tablesCount} ta stol</b><br>
+          <span style="font-size:11px;color:#8aa0b8">💰 ${pricesStr}</span>
+        </div>
+      `;
+    } else {
+      tablesInfo = `
+        <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(136,152,168,.08);border:1px dashed rgba(136,152,168,.3);color:#8aa0b8">
+          🎱 Stollar sozlanmagan
+        </div>
+      `;
+    }
+
+    // ====== MOLIYAVIY BLOK ======
+    const financeBlock = `
+      <div style="margin-top:10px;padding:12px;border-radius:12px;
+                  background:linear-gradient(135deg,rgba(13,187,133,.08),rgba(53,201,255,.08));
+                  border:1px solid rgba(66,233,121,.3)">
+        <div style="font-size:10px;font-weight:900;color:#42e979;letter-spacing:1.5px;margin-bottom:10px">
+          💰 MOLIYAVIY KO'RSATKICHLAR
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
+          <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800;letter-spacing:.5px">BUGUN</div>
+            <div style="font-size:13px;font-weight:900;color:#42e979;margin-top:3px">${money(todayTotal)}</div>
+            <div style="font-size:9px;color:#5f7691;margin-top:2px">${todayGames} o'yin</div>
+          </div>
+          <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800;letter-spacing:.5px">7 KUN</div>
+            <div style="font-size:13px;font-weight:900;color:#35c9ff;margin-top:3px">${money(weekTotal)}</div>
+            <div style="font-size:9px;color:#5f7691;margin-top:2px">${weekItems.length} o'yin</div>
+          </div>
+          <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800;letter-spacing:.5px">UMUMIY</div>
+            <div style="font-size:13px;font-weight:900;color:#ffd23f;margin-top:3px">${money(totalAll)}</div>
+            <div style="font-size:9px;color:#5f7691;margin-top:2px">${totalGames} o'yin</div>
+          </div>
+        </div>
+        
+        <div style="display:flex;gap:8px;font-size:11px;font-weight:800">
+          <div style="flex:1;padding:6px 10px;border-radius:8px;background:rgba(66,233,121,.12);color:#42e979;text-align:center">
+            🟢 Olindi: ${money(totalPaid)}
+          </div>
+          <div style="flex:1;padding:6px 10px;border-radius:8px;background:rgba(224,68,86,.12);color:#ff6878;text-align:center">
+            🔴 Qarz: ${money(totalUnpaid)}
+          </div>
+        </div>
+        
+        ${todayUnpaid > 0 ? `
+          <div style="margin-top:8px;padding:6px 10px;border-radius:8px;
+                      background:rgba(255,210,63,.1);border:1px dashed rgba(255,210,63,.4);
+                      color:#ffd23f;font-size:10px;font-weight:800;text-align:center">
+            ⚠️ Bugun qarz: ${money(todayUnpaid)}
+          </div>
+        ` : ''}
+      </div>
+    `;
+
+    const div = document.createElement("div");
+    div.className = "history-item";
+    div.style.borderLeftColor = isMain ? "#ffd23f" : u.role === "admin" ? "#42e979" : "#35c9ff";
+    div.innerHTML = `
+      <div class="history-item-info">
+        <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:6px">
+          ${escapeHTML(u.fullName)}
+          <span style="font-size:10px;font-weight:900;color:${roleColor};margin-left:8px;letter-spacing:1px">${roleLabel}</span>
+        </div>
+        <div>🔑 Login: <b style="color:#35c9ff">${escapeHTML(u.username)}</b> &nbsp;•&nbsp;
+             🔒 Parol: <b style="color:#ffd23f">${escapeHTML(u.password)}</b></div>
+        <div>📅 Yaratilgan: ${new Date(u.createdAt).toLocaleDateString("uz-UZ")} &nbsp;•&nbsp; ${status}</div>
+        ${tablesInfo}
+        ${financeBlock}
+        <div style="margin-top:8px;color:#8aa0b8;font-size:11px">
+          🎱 Boshlangan: <b>${gamesStarted}</b> •
+          🟢 To'lov: <b>${paidCount}</b> •
+          🔴 Qarz: <b>${debtCount}</b> •
+          🚪 Kirish: <b>${loginCount}</b>
+        </div>
+      </div>
+      <div class="history-item-actions" style="flex-direction:column;gap:6px">
+        ${isMain ? '<div style="color:#ffd23f;font-weight:900;font-size:11px;text-align:center;padding:10px">👑 O\'CHIRILMAYDI</div>' : `
+          <button class="chek-btn" onclick="editUserTables('${u.id}')" style="background:linear-gradient(135deg,#0dbb85,#067858)">🎱 STOLLAR</button>
+          <button class="chek-btn" onclick="changeUserPasswordPrompt('${u.id}')" style="background:linear-gradient(135deg,#0a8ee8,#065a9f)">🔒 PAROL</button>
+          <button class="chek-btn" onclick="toggleUserActiveUI('${u.id}')" style="background:linear-gradient(135deg,#e8a826,#b97300)">${u.active === false ? "✅ FAOLLASHTIRISH" : "🚫 BLOKLASH"}</button>
+          <button class="chek-btn" onclick="confirmDeleteUser('${u.id}')" style="background:linear-gradient(135deg,#e04456,#8f1e2d)">🗑️ O'CHIRISH</button>
+        `}
+      </div>
+    `;
+    box.appendChild(div);
+  });
+
+  renderUserLogs();
+}
+
+function renderUserLogs(){
+  const box = document.getElementById("userLogsList");
+  if(!box) return;
+  const logs = getUserLogs().slice(0, 200);
+  if(!logs.length){
+    box.innerHTML = '<div class="empty">Hozircha faoliyat yo\'q</div>';
+    return;
+  }
+  box.innerHTML = "";
+  logs.forEach(l=>{
+    const icons = {
+      login: "🚪", logout: "👋",
+      start_game: "▶️", finish_game: "⏹️",
+      paid: "🟢", debt: "🔴", debt_paid: "💵",
+      booking: "📅", booking_start: "🎱", booking_cancel: "❌",
+      user_create: "➕", user_delete: "🗑️", user_toggle: "🔁", 
+      user_password_change: "🔒", user_tables_edit: "🎱"
+    };
+    const colors = {
+      paid: "#42e979", debt: "#ff6878", debt_paid: "#42e979",
+      login: "#35c9ff", logout: "#8aa0b8",
+      user_create: "#ffd23f", user_delete: "#e04456",
+      user_toggle: "#e8a826", user_password_change: "#0a8ee8",
+      user_tables_edit: "#0dbb85"
+    };
+    const div = document.createElement("div");
+    div.className = "history-item";
+    div.style.borderLeftColor = colors[l.type] || "#35c9ff";
+    div.style.padding = "12px 16px";
+    div.innerHTML = `
+      <div class="history-item-info" style="font-size:13px">
+        <b style="color:#fff">${icons[l.type]||"•"} ${escapeHTML(l.fullName)}</b>
+        <span style="color:#5f7691;font-size:11px;margin-left:8px">@${escapeHTML(l.username)}</span>
+        <br>
+        <span style="color:#c0d0e0">${escapeHTML(l.description)}</span>
+        <br>
+        <span style="color:#5f7691;font-size:11px">🕐 ${l.date} ${l.time}</span>
+      </div>
+    `;
+    box.appendChild(div);
+  });
+}
+
+/* ================================================================
+   STOLLARNI TAHRIRLASH
+   ================================================================ */
+let editingTablesUserId = null;
+
+function editUserTables(userId){
+  const u = findUserById(userId);
+  if(!u) return;
+  editingTablesUserId = userId;
+
+  const currentCount = u.tablesCount || 3;
+  const currentPrices = u.tablePrices || [40000, 40000, 40000];
+
+  document.getElementById("tablesEditSub").innerText = `👤 ${u.fullName} (@${u.username})`;
+  document.getElementById("editTablesCount").value = currentCount;
+  
+  document.getElementById("tablesEditBg").classList.add("active");
+  
+  setTimeout(()=>{
+    regenerateEditPrices(currentPrices);
+  }, 50);
+}
+
+function regenerateEditPrices(existingPrices){
+  const countInput = document.getElementById("editTablesCount");
+  const container = document.getElementById("editTablePricesContainer");
+  if(!countInput || !container) return;
+
+  const count = Number(countInput.value) || 3;
+
+  if(count < 1 || count > 20){
+    container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ Stol soni 1-20 orasida bo\'lishi kerak</div>';
+    return;
+  }
+
+  const oldValues = {};
+  for(let i = 1; i <= 20; i++){
+    const inp = document.getElementById("editTablePrice_" + i);
+    if(inp) oldValues[i] = inp.value;
+  }
+
+  container.innerHTML = "";
+  for(let i = 1; i <= count; i++){
+    let val;
+    if(existingPrices && existingPrices[i-1] !== undefined){
+      val = existingPrices[i-1];
+    } else if(oldValues[i] !== undefined){
+      val = oldValues[i];
+    } else {
+      val = 40000;
+    }
+
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <div class="form-title" style="margin-top:0;color:#42e979">🎱 Stol ${i}</div>
+      <input type="number" id="editTablePrice_${i}" class="pwd-field-input" 
+             value="${val}" min="0" step="5000">
+    `;
+    container.appendChild(div);
+  }
+}
+
+function setAllEditPrices(price){
+  const countInput = document.getElementById("editTablesCount");
+  if(!countInput) return;
+  const count = Number(countInput.value) || 3;
+  for(let i = 1; i <= count; i++){
+    const inp = document.getElementById("editTablePrice_" + i);
+    if(inp) inp.value = price;
+  }
+  beep("money");
+}
+
+function saveUserTables(){
+  if(!editingTablesUserId) return;
+  const count = Number(document.getElementById("editTablesCount").value);
+  if(count < 1 || count > 20){
+    beep("error");
+    showModal("⚠️", "Xatolik", t("tablesCountError"));
+    return;
+  }
+
+  const prices = [];
+  for(let i = 1; i <= count; i++){
+    const price = Number(document.getElementById("editTablePrice_" + i).value);
+    if(!price || price < 0){
+      beep("error");
+      showModal("⚠️", "Xatolik", t("tablePriceError", {n: i}));
+      return;
+    }
+    prices.push(price);
+  }
+
+  const users = getUsers();
+  const u = users.find(x => x.id === editingTablesUserId);
+  if(!u){ closeEditTablesModal(); return; }
+
+  u.tablesCount = count;
+  u.tablePrices = prices;
+  saveUsers(users);
+
+  const me = getCurrentUser();
+  if(me) logUserAction(me.id, "user_tables_edit", 
+    `${u.username} stollari: ${count} ta, narxlar: ${prices.map(p=>money(p)).join(", ")}`);
+
+  beep("money");
+  closeEditTablesModal();
+  renderUsers();
+
+  setTimeout(()=>{
+    showModal("✅", t("tablesSavedTitle"), 
+      t("tablesSavedText", {name: u.fullName, count: count}));
+  }, 200);
+}
+
+function closeEditTablesModal(){
+  document.getElementById("tablesEditBg").classList.remove("active");
+  editingTablesUserId = null;
+}
+
+/* ================================================================
+   PAROL / LOGIN YANGILASH
+   ================================================================ */
+let pwdModalTargetId = null;
+
+function changeUserPasswordPrompt(id){
+  const u = findUserById(id);
+  if(!u) return;
+  pwdModalTargetId = id;
+
+  const roleLabel = u.role === "main_admin" ? "👑 BOSH ADMIN"
+                  : u.role === "admin" ? "🛡️ ADMIN"
+                  : "👤 FOYDALANUVCHI";
+  const roleColor = u.role === "main_admin" ? "#ffd23f"
+                  : u.role === "admin" ? "#42e979"
+                  : "#35c9ff";
+
+  document.getElementById("pwdModalUserInfo").innerHTML = `
+    <div style="color:#8aa0b8;font-size:11px;font-weight:800;letter-spacing:1.5px;margin-bottom:6px">
+      FOYDALANUVCHI
+    </div>
+    <div><b>👤 ${escapeHTML(u.fullName)}</b></div>
+    <div style="color:#8aa0b8;font-size:12px;margin-top:4px">
+      Hozirgi login: <b style="color:#35c9ff">${escapeHTML(u.username)}</b>
+    </div>
+    <span class="role-tag" style="color:${roleColor};border:1px solid ${roleColor};background:${roleColor}22">
+      ${roleLabel}
+    </span>
+  `;
+
+  document.getElementById("pwdModalLogin").value = u.username;
+  document.getElementById("pwdModalPassword").value = u.password;
+  document.getElementById("pwdModalBg").classList.add("active");
+
+  setTimeout(()=>{
+    document.getElementById("pwdModalLogin").focus();
+    document.getElementById("pwdModalLogin").select();
+  }, 100);
+}
+
+function closePwdModal(){
+  document.getElementById("pwdModalBg").classList.remove("active");
+  pwdModalTargetId = null;
+}
+
+function saveUserCredentials(){
+  if(!pwdModalTargetId){
+    closePwdModal();
+    return;
+  }
+  const newLogin = document.getElementById("pwdModalLogin").value.trim();
+  const newPass = document.getElementById("pwdModalPassword").value.trim();
+
+  if(!newLogin || newLogin.length < 3){
+    beep("error");
+    showModal("⚠️", "Login xato", "Login kamida 3 ta belgi bo'lishi kerak.");
+    return;
+  }
+  if(!newPass || newPass.length < 3){
+    beep("error");
+    showModal("⚠️", "Parol xato", "Parol kamida 3 ta belgi bo'lishi kerak.");
+    return;
+  }
+
+  const users = getUsers();
+  const targetUser = users.find(x => x.id === pwdModalTargetId);
+  if(!targetUser){
+    beep("error");
+    closePwdModal();
+    return;
+  }
+
+  const duplicate = users.find(x =>
+    x.id !== pwdModalTargetId &&
+    x.username.toLowerCase() === newLogin.toLowerCase()
+  );
+  if(duplicate){
+    beep("error");
+    showModal("⚠️", "Login band", `"${newLogin}" logini allaqachon ${duplicate.fullName} tomonidan ishlatilmoqda.`);
+    return;
+  }
+
+  const oldLogin = targetUser.username;
+  targetUser.username = newLogin;
+  targetUser.password = newPass;
+  targetUser.updatedAt = new Date().toISOString();
+  saveUsers(users);
+
+  const me = getCurrentUser();
+  if(me){
+    logUserAction(me.id, "user_password_change",
+      `${oldLogin} → ${newLogin} (login/parol o'zgartirildi)`);
+  }
+
+  beep("money");
+  closePwdModal();
+  renderUsers();
+
+  setTimeout(()=>{
+    showModal("✅", "Muvaffaqiyatli yangilandi",
+      `👤 ${targetUser.fullName}\n\n` +
+      `🔑 Yangi login: ${newLogin}\n` +
+      `🔒 Yangi parol: ${newPass}`);
+  }, 300);
+}
+
+function toggleUserActiveUI(id){
+  const u = findUserById(id);
+  if(!u) return;
+  toggleUserActive(id);
+  const me = getCurrentUser();
+  if(me) logUserAction(me.id, "user_toggle", `${u.username} ${u.active ? "faollashtirildi" : "bloklandi"}`);
+  beep("money");
+  renderUsers();
+}
+
+function confirmDeleteUser(id){
+  const u = findUserById(id);
+  if(!u) return;
+  document.getElementById("modalIcon").innerText = "🗑️";
+  document.getElementById("modalTitle").innerText = "Foydalanuvchini o'chirish";
+  document.getElementById("modalText").innerText =
+    `${u.fullName} (@${u.username}) ni butunlay o'chirishni xohlaysizmi?\n\nBu amalni qaytarib bo'lmaydi.`;
+  document.getElementById("modalButtons").innerHTML =
+    `<button class="modal-danger" onclick="doDeleteUser('${id}')">🗑️ HA, O'CHIRISH</button>
+     <button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>`;
+  document.getElementById("modalBg").style.display = "flex";
+}
+
+function doDeleteUser(id){
+  const u = findUserById(id);
+  if(!u){ closeModal(); return; }
+  deleteUser(id);
+  const me = getCurrentUser();
+  if(me) logUserAction(me.id, "user_delete", `${u.username} o'chirildi`);
+  closeModal();
+  beep("end");
+  renderUsers();
+}
+
+/* ================================================================
+   LOG TOZALASH
+   ================================================================ */
+function clearUserLogs(){
+  const logs = getUserLogs();
+  document.getElementById("clearModalCount").innerText = logs.length + " ta yozuv";
+  document.getElementById("clearModalBg").classList.add("active");
+}
+
+function closeClearModal(){
+  document.getElementById("clearModalBg").classList.remove("active");
+}
+
+function doClearUserLogs(){
+  const count = getUserLogs().length;
+  saveUserLogs([]);
+  closeClearModal();
+  beep("end");
+  renderUserLogs();
+  renderUsers();
+
+  setTimeout(()=>{
+    showModal("✅", "Loglar tozalandi", `${count} ta yozuv muvaffaqiyatli o'chirildi.`);
+  }, 200);
+}
+
+/* ================================================================
+   PDF
    ================================================================ */
 function showPdfLoading(show){
   document.getElementById("pdfLoading").style.display = show ? "flex" : "none";
@@ -3068,7 +4556,9 @@ async function downloadPDF(element, filename){
   }
 }
 
-/* ========== PDF FUNKSIYALAR ========== */
+/* ================================================================
+   PDF FUNKSIYALAR
+   ================================================================ */
 function printDateChek(date){
   const history=getHistory();
   const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
@@ -3379,20 +4869,29 @@ function closePattern(){
 
 function openAdmin(){
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById("admin").classList.add("active");
+  const adminPage = document.getElementById("admin");
+  if(adminPage) adminPage.classList.add("active");
   document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
-  const adminBtn = document.querySelector('.sidebar-nav .nav-item[data-key="A"]');
+  const adminBtn = document.getElementById("navAdminBtn");
   if(adminBtn) adminBtn.classList.add("active");
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function openAdminPage(page){
+  if(page === "users" && !isMainAdmin()){
+    beep("error");
+    showModal("🚫", "Ruxsat yo'q", "Bu bo'limga faqat Bosh admin kira oladi.");
+    return;
+  }
+
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
   if(page==="reports"){ document.getElementById("adminReports").classList.add("active"); renderReports(); }
   if(page==="debtors"){ document.getElementById("adminDebtors").classList.add("active"); renderAdminDebtors(); }
   if(page==="history"){
-    document.getElementById("historyDayPage").style.display = "none";
-    document.getElementById("historyDatesPage").style.display = "block";
+    const hp = document.getElementById("historyDayPage");
+    const dp = document.getElementById("historyDatesPage");
+    if(hp) hp.style.display = "none";
+    if(dp) dp.style.display = "block";
     selectedHistoryDateValue = "";
     document.getElementById("adminHistory").classList.add("active");
     renderAdminHistory();
@@ -3405,7 +4904,14 @@ function openAdminPage(page){
       dateInput.value = today;
       dateInput.min = today;
     }
+    renderBookingTableOptions();
     renderBookings();
+  }
+  if(page==="users"){
+    const usersPage = document.getElementById("adminUsers");
+    if(usersPage) usersPage.classList.add("active");
+    renderUsers();
+    setTimeout(generateTablePriceInputs, 50);
   }
   window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -3432,8 +4938,14 @@ document.addEventListener("keydown", function(e){
   if(e.key === "Escape"){
     const modal = document.getElementById("modalBg");
     const pattern = document.getElementById("patternBg");
+    const pwdModal = document.getElementById("pwdModalBg");
+    const clearModal = document.getElementById("clearModalBg");
+    const tablesEditModal = document.getElementById("tablesEditBg");
     if(modal.style.display === "flex"){ closeModal(); return; }
     if(pattern.style.display === "flex"){ closePattern(); return; }
+    if(pwdModal.classList.contains("active")){ closePwdModal(); return; }
+    if(clearModal.classList.contains("active")){ closeClearModal(); return; }
+    if(tablesEditModal.classList.contains("active")){ closeEditTablesModal(); return; }
     return;
   }
 
@@ -3455,14 +4967,29 @@ document.addEventListener("keydown", function(e){
 
   if(document.getElementById("modalBg").style.display === "flex") return;
   if(document.getElementById("patternBg").style.display === "flex") return;
+  if(document.getElementById("pwdModalBg").classList.contains("active")) return;
+  if(document.getElementById("clearModalBg").classList.contains("active")) return;
+  if(document.getElementById("tablesEditBg").classList.contains("active")) return;
 
-  if(key === "1" || key === "2" || key === "3"){
+  if(isMainAdmin()){
+    if(key === "u"){
+      e.preventDefault();
+      openAdminUsersDirect();
+    }
+    return;
+  }
+
+  const num = parseInt(key);
+  if(!isNaN(num) && num >= 1 && num <= 9){
+    const user = getCurrentUser();
+    if(!user || !user.tablesCount) return;
+    if(num > user.tablesCount) return;
     e.preventDefault();
     openPage('tables');
     document.querySelectorAll(".sidebar-nav .nav-item").forEach(b=>b.classList.remove("active"));
     const tablesBtn = document.querySelector('.sidebar-nav .nav-item[data-key="1"]');
     if(tablesBtn) tablesBtn.classList.add("active");
-    const stol = document.getElementById("tableWindow"+key);
+    const stol = document.getElementById("tableWindow"+num);
     if(stol){
       stol.scrollIntoView({behavior:"smooth", block:"center"});
       stol.style.boxShadow = "0 0 40px rgba(53,201,255,.6)";
@@ -3515,15 +5042,21 @@ document.addEventListener("keydown", function(e){
   }
 });
 
-/* ========== TIMER ========== */
+/* ================================================================
+   TIMER
+   ================================================================ */
 setInterval(function(){
-  for(let id=1;id<=3;id++){
-    if(games[id].start && !games[id].finished) updateTimer(id);
+  const user = getCurrentUser();
+  if(!user || !user.tablesCount) return;
+  for(let id=1; id<=user.tablesCount; id++){
+    if(games[id] && games[id].start && !games[id].finished) updateTimer(id);
   }
   updateActiveTablesBadge();
 },1000);
 
-/* ========== BRON TEKSHIRISH (har 30 sekundda) ========== */
+/* ================================================================
+   BRON TEKSHIRISH
+   ================================================================ */
 setInterval(function(){
   renderBookings();
   updateAllBookingIndicators();
@@ -3553,24 +5086,32 @@ setInterval(function(){
   if(changed) saveBookings(bookings);
 }, 30000);
 
-/* Notification ruxsati */
 if("Notification" in window && Notification.permission === "default"){
   try { Notification.requestPermission(); } catch(e){}
 }
 
-/* ========== BOSHLANG'ICH ========== */
+/* ================================================================
+   BOSHLANG'ICH
+   ================================================================ */
+getUsers();
 document.querySelectorAll(".lang-btn").forEach(b=>{
   b.classList.toggle("active", b.getAttribute("data-lang") === currentLang);
 });
 applyTranslations();
-updatePriceTexts();
-for(let id=1;id<=3;id++) updateTable(id);
 renderReports();
 renderAdminDebtors();
 renderAdminHistory();
 renderBookings();
-updateAllBookingIndicators();
-updateActiveTablesBadge();
+applyRoleUI();
+
+setTimeout(()=>{
+  const user = getCurrentUser();
+  if(user && user.tablesCount){
+    initGamesForUser();
+    renderTables();
+    updatePriceTexts();
+  }
+}, 100);
 
 setTimeout(function(){
   const screen = document.getElementById("loginScreen");
@@ -3580,7 +5121,6 @@ setTimeout(function(){
 }, 200);
 
 window.addEventListener("beforeunload",function(){ saveGames(); });
-setInterval(saveGames, 5000);
 </script>
 </body>
 </html>
