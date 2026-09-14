@@ -26,7 +26,7 @@ input,select{outline:none;font-family:inherit}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#35c9ff,#985cff);border-radius:10px}
 ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#5dd4ff,#a870ff)}
 
-/* ============ LOGIN PAGE ============ */
+/* LOGIN / REGISTER */
 .login-screen{
   position:fixed;inset:0;z-index:100000;
   background:
@@ -35,6 +35,7 @@ input,select{outline:none;font-family:inherit}
     #040c17;
   display:flex;justify-content:center;align-items:center;
   padding:20px;
+  overflow-y:auto;
   animation:fadeIn .4s ease;
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -49,6 +50,7 @@ input,select{outline:none;font-family:inherit}
   box-shadow:0 30px 100px rgba(0,0,0,.7),0 0 60px rgba(53,201,255,.15);
   position:relative;overflow:hidden;
   animation:loginIn .5s cubic-bezier(.2,.9,.3,1.2);
+  margin:auto;
 }
 @keyframes loginIn{from{opacity:0;transform:translateY(30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 .login-box::before{
@@ -111,6 +113,24 @@ input,select{outline:none;font-family:inherit}
   background:rgba(7,17,31,1);
 }
 .login-input::placeholder{color:#3f5570}
+.login-input:disabled{opacity:.5;cursor:not-allowed}
+
+.login-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:520px){
+  .login-row{grid-template-columns:1fr}
+  .login-box{padding:28px 22px}
+}
+
+.login-password-wrap{position:relative}
+.login-password-wrap .login-input{padding-right:52px}
+.login-password-toggle{
+  position:absolute;
+  right:14px;top:50%;transform:translateY(-50%);
+  background:none;color:#5f7691;
+  font-size:16px;padding:4px;
+  transition:.25s;cursor:pointer;
+}
+.login-password-toggle:hover{color:#35c9ff}
 
 .login-remember{
   display:flex;align-items:center;gap:10px;
@@ -136,6 +156,7 @@ input,select{outline:none;font-family:inherit}
 }
 .login-btn:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(8,123,210,.55)}
 .login-btn:active{transform:translateY(0)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .login-btn::before{
   content:'';position:absolute;top:0;left:-100%;
   width:100%;height:100%;
@@ -144,10 +165,36 @@ input,select{outline:none;font-family:inherit}
 }
 .login-btn:hover::before{left:100%}
 
+.login-register-link{
+  text-align:center;
+  margin-top:16px;
+  font-size:13px;
+  color:#8a9eb5;
+}
+.login-register-link button{
+  background:none;
+  color:#35c9ff;
+  font-weight:800;
+  font-size:13px;
+  letter-spacing:.5px;
+  padding:4px 8px;
+  border-radius:8px;
+  transition:.25s;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+.login-register-link button:hover{
+  color:#5dd4ff;
+  background:rgba(53,201,255,.1);
+  text-decoration:none;
+}
+
 .login-error{
   color:#ff6878;font-size:13px;font-weight:700;
   text-align:center;margin-top:14px;
   min-height:20px;letter-spacing:.5px;
+  line-height:1.6;
+  white-space:pre-line;
 }
 .login-error.shake{animation:shake .4s}
 @keyframes shake{
@@ -164,7 +211,38 @@ input,select{outline:none;font-family:inherit}
   line-height:1.8;letter-spacing:.5px;
 }
 
-/* LOGOUT BUTTON */
+.register-box{
+  width:100%;max-width:520px;
+  padding:36px 34px;
+  border-radius:26px;
+  background:linear-gradient(155deg,rgba(20,42,67,.98),rgba(7,19,33,.99));
+  border:1px solid rgba(56,87,115,.8);
+  box-shadow:0 30px 100px rgba(0,0,0,.7),0 0 60px rgba(53,201,255,.15);
+  position:relative;overflow:hidden;
+  animation:loginIn .5s cubic-bezier(.2,.9,.3,1.2);
+  max-height:95vh;
+  overflow-y:auto;
+  margin:auto;
+}
+.register-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#35c9ff,#985cff,#ff55ad,#35c9ff);
+  background-size:200%;animation:titleShine 4s linear infinite;
+}
+.register-back-btn{
+  width:100%;padding:14px;margin-top:14px;
+  border-radius:14px;
+  background:linear-gradient(135deg,rgba(23,44,67,.9),rgba(13,26,41,.9));
+  color:#c0d0e0;font-weight:900;font-size:13px;
+  letter-spacing:1px;
+  border:1px solid rgba(54,82,109,.8);
+  transition:.25s;
+}
+.register-back-btn:hover{
+  border-color:#35c9ff;color:#fff;
+  transform:translateY(-2px);
+}
+
 .logout-btn{
   width:100%;padding:12px;
   margin-top:12px;
@@ -183,14 +261,12 @@ input,select{outline:none;font-family:inherit}
   transform:translateY(-2px);
 }
 
-/* ============ LAYOUT: SIDEBAR + MAIN ============ */
 .app-layout{
   display:grid;
   grid-template-columns:240px 1fr;
   min-height:100vh;
 }
 
-/* ============ SIDEBAR ============ */
 .sidebar{
   background:linear-gradient(180deg,rgba(13,29,48,.98),rgba(5,15,27,.99));
   border-right:1px solid rgba(53,201,255,.15);
@@ -232,31 +308,23 @@ input,select{outline:none;font-family:inherit}
   text-transform:capitalize;letter-spacing:.5px;
 }
 
-/* ============ LANGUAGE SWITCHER ============ */
 .lang-switcher{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:6px;
-  margin-bottom:18px;
-  padding:6px;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6px;margin-bottom:18px;padding:6px;
   background:rgba(7,17,31,.7);
   border:1px solid rgba(53,201,255,.2);
   border-radius:12px;
 }
 .lang-btn{
-  padding:9px 6px;
-  border-radius:9px;
-  background:transparent;
-  color:#7d93ab;
+  padding:9px 6px;border-radius:9px;
+  background:transparent;color:#7d93ab;
   font-size:11px;font-weight:900;
-  letter-spacing:1px;
-  transition:.25s;
+  letter-spacing:1px;transition:.25s;
 }
 .lang-btn:hover{color:#fff;background:rgba(53,201,255,.1)}
 .lang-btn.active{
   background:linear-gradient(135deg,rgba(53,201,255,.25),rgba(152,92,255,.25));
-  color:#fff;
-  border:1px solid rgba(53,201,255,.45);
+  color:#fff;border:1px solid rgba(53,201,255,.45);
   box-shadow:0 0 15px rgba(53,201,255,.25);
 }
 
@@ -272,13 +340,11 @@ input,select{outline:none;font-family:inherit}
 }
 .nav-item:hover{
   background:rgba(53,201,255,.08);
-  color:#fff;
-  transform:translateX(3px);
+  color:#fff;transform:translateX(3px);
 }
 .nav-item.active{
   background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
-  color:#fff;
-  border:1px solid rgba(53,201,255,.35);
+  color:#fff;border:1px solid rgba(53,201,255,.35);
   box-shadow:0 0 20px rgba(53,201,255,.2);
 }
 .nav-item.active::before{
@@ -290,16 +356,14 @@ input,select{outline:none;font-family:inherit}
 .nav-badge{
   margin-left:auto;
   background:rgba(220,45,65,.2);
-  color:#ff6878;
-  font-size:10px;font-weight:900;
+  color:#ff6878;font-size:10px;font-weight:900;
   padding:2px 8px;border-radius:20px;
   border:1px solid rgba(220,45,65,.4);
 }
 .nav-badge.hidden{display:none}
 .nav-badge.green{
   background:rgba(66,233,121,.2);
-  color:#42e979;
-  border-color:rgba(66,233,121,.4);
+  color:#42e979;border-color:rgba(66,233,121,.4);
 }
 
 .sidebar-footer{
@@ -309,19 +373,13 @@ input,select{outline:none;font-family:inherit}
   line-height:1.7;
 }
 
-/* ============ MAIN CONTENT ============ */
-.main-content{
-  padding:24px 28px;
-  overflow-x:hidden;
-  min-height:100vh;
-}
+.main-content{padding:24px 28px;overflow-x:hidden;min-height:100vh}
 .page{display:none;animation:pageIn .35s cubic-bezier(.2,.9,.3,1)}
 .page.active{display:block}
 @keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 .page-header{
-  margin-bottom:24px;
-  padding-bottom:18px;
+  margin-bottom:24px;padding-bottom:18px;
   border-bottom:1px solid rgba(53,201,255,.15);
   display:flex;justify-content:space-between;align-items:flex-end;
   flex-wrap:wrap;gap:12px;
@@ -337,12 +395,10 @@ input,select{outline:none;font-family:inherit}
 .page-subtitle{color:#7d93ab;font-size:13px;margin-top:6px;letter-spacing:.3px}
 .page-actions{display:flex;gap:10px;flex-wrap:wrap}
 
-/* ============ TABLES GRID ============ */
 .tables-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:20px;
-  margin-bottom:24px;
+  gap:20px;margin-bottom:24px;
 }
 .table-window{
   padding:22px;border-radius:24px;
@@ -424,7 +480,6 @@ input,select{outline:none;font-family:inherit}
 }
 .booking-indicator b{color:#fff}
 
-/* BUTTONS */
 .btn{
   width:100%;padding:13px;margin-top:10px;
   border-radius:12px;color:white;font-weight:800;font-size:13px;
@@ -483,7 +538,6 @@ input:focus{
   box-shadow:0 0 0 3px rgba(53,201,255,.15);
 }
 
-/* HOME */
 #home .home-center{
   text-align:center;padding:60px 20px;
   max-width:900px;margin:0 auto;
@@ -517,7 +571,6 @@ input:focus{
   text-transform:capitalize;
 }
 
-/* STATS */
 .stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -541,7 +594,6 @@ input:focus{
 .stat.orange{border-top:4px solid #dc971b}
 .stat.blue{border-top:4px solid #0a8ee8}
 
-/* ADMIN CARDS */
 .admin-menu-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -589,7 +641,6 @@ input:focus{
 }
 .inner-back:hover{border-color:#35c9ff;transform:translateX(-3px)}
 
-/* HISTORY */
 .history-item{
   background:linear-gradient(155deg,rgba(12,26,44,.95),rgba(8,20,35,.98));
   border:1px solid rgba(38,63,90,.8);border-left:5px solid #08a979;
@@ -602,9 +653,7 @@ input:focus{
 .history-item:hover{transform:translateX(4px);border-left-color:#42e979}
 .history-item.debt{border-left-color:#dc971b}
 .history-item-info{min-width:0}
-.history-item-actions{
-  display:flex;gap:8px;flex-shrink:0;
-}
+.history-item-actions{display:flex;gap:8px;flex-shrink:0}
 .history-item-actions .paid-later,
 .history-item-actions .chek-btn{
   width:auto;margin-top:0;padding:10px 14px;
@@ -616,7 +665,6 @@ input:focus{
   background:linear-gradient(135deg,#0dbb85,#067d5c);
   color:white;font-weight:800;font-size:11px;
   box-shadow:0 5px 16px rgba(10,169,120,.35);transition:.25s;
-  letter-spacing:.3px;
 }
 .paid-later:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(10,169,120,.5)}
 .chek-btn{
@@ -624,7 +672,6 @@ input:focus{
   background:linear-gradient(135deg,#7a3ff2,#5a2bbf);
   color:white;font-weight:800;font-size:11px;
   box-shadow:0 5px 16px rgba(122,63,242,.35);transition:.25s;
-  letter-spacing:.3px;
 }
 .chek-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(122,63,242,.5)}
 
@@ -749,7 +796,6 @@ input:focus{
 }
 @keyframes emptyFloat{50%{transform:translateY(-10px)}}
 
-/* ============ BOOKING ============ */
 .booking-form-card{
   padding:22px;border-radius:20px;
   background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
@@ -819,7 +865,6 @@ input:focus{
 .booking-cancel-btn{background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border:1px solid rgba(224,68,86,.4)}
 .booking-cancel-btn:hover{background:linear-gradient(135deg,#e04456,#a92335);color:#fff}
 
-/* MODAL */
 .modal-bg{
   display:none;position:fixed;inset:0;z-index:30000;
   background:rgba(0,0,0,.85);
@@ -855,7 +900,6 @@ input:focus{
 .modal-cancel{margin-top:10px;background:linear-gradient(135deg,#172c43,#0d1a29);border:1px solid rgba(54,82,109,.8)}
 .modal-cancel:hover{border-color:#35c9ff}
 
-/* PATTERN */
 .pattern-bg{
   display:none;position:fixed;inset:0;z-index:50000;
   background:rgba(2,8,16,.94);
@@ -896,7 +940,6 @@ input:focus{
 }
 .pattern-back:hover{border-color:#35c9ff}
 
-/* PDF LOADING */
 .pdf-loading{
   display:none;position:fixed;inset:0;z-index:99999;
   background:rgba(2,8,16,.94);
@@ -923,7 +966,6 @@ input:focus{
 .pdf-loading-title{color:#35c9ff;font-weight:900;font-size:17px;letter-spacing:1px;margin-bottom:8px}
 .pdf-loading-sub{color:#8198af;font-size:13px}
 
-/* KEYBOARD HINTS */
 .keyboard-hints{
   position:fixed;bottom:14px;right:14px;
   display:flex;gap:6px;align-items:center;
@@ -947,11 +989,9 @@ input:focus{
   font-family:Consolas,monospace;
 }
 
-/* SHORTCUT TOOLTIP */
 .shortcut-tip{
   position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
-  background:#0d1d30;
-  color:#35c9ff;
+  background:#0d1d30;color:#35c9ff;
   font-size:10px;font-weight:800;
   padding:5px 10px;border-radius:8px;
   border:1px solid rgba(53,201,255,.35);
@@ -961,19 +1001,13 @@ input:focus{
 }
 .nav-item:hover .shortcut-tip{opacity:1;transform:translateX(-50%) translateY(-4px)}
 
-/* USER BOX */
 #currentUserBox{
-  margin: 0 0 14px;
-  padding: 12px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(53,201,255,.12), rgba(152,92,255,.12));
-  border: 1px solid rgba(53,201,255,.3);
-  font-size: 12px;
-  color: #c0d8ec;
-  line-height: 1.5;
+  margin:0 0 14px;padding:12px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(53,201,255,.12),rgba(152,92,255,.12));
+  border:1px solid rgba(53,201,255,.3);
+  font-size:12px;color:#c0d8ec;line-height:1.5;
 }
 
-/* PASSWORD MODAL */
 .pwd-modal-bg{
   display:none;position:fixed;inset:0;z-index:40000;
   background:rgba(2,8,16,.92);
@@ -1016,10 +1050,7 @@ input:focus{
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   animation:titleShine 5s linear infinite;
 }
-.pwd-modal-sub{
-  font-size:11px;color:#7d93ab;margin-top:4px;
-  letter-spacing:.5px;
-}
+.pwd-modal-sub{font-size:11px;color:#7d93ab;margin-top:4px;letter-spacing:.5px}
 .pwd-modal-user{
   padding:14px 16px;border-radius:14px;
   background:linear-gradient(135deg,rgba(53,201,255,.1),rgba(152,92,255,.1));
@@ -1061,7 +1092,7 @@ input:focus{
   color:#fff;font-weight:900;font-size:13px;
   letter-spacing:1px;
   box-shadow:0 8px 25px rgba(8,123,210,.4);
-  transition:.25s;position:relative;overflow:hidden;
+  transition:.25s;
 }
 .pwd-save-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(8,123,210,.55)}
 .pwd-cancel-btn{
@@ -1076,7 +1107,6 @@ input:focus{
   background:linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15));
 }
 
-/* CLEAR MODAL */
 .clear-modal-bg{
   display:none;position:fixed;inset:0;z-index:40000;
   background:rgba(2,8,16,.92);
@@ -1120,7 +1150,6 @@ input:focus{
   border:1px solid rgba(224,68,86,.5);
   color:#ff6878;font-weight:900;font-size:13px;
   margin:14px 0;
-  letter-spacing:.5px;
 }
 .clear-modal-warning{
   padding:12px;border-radius:12px;
@@ -1151,7 +1180,6 @@ input:focus{
 }
 .clear-cancel-btn:hover{border-color:#35c9ff;color:#fff}
 
-/* TABLES EDIT MODAL */
 .tables-edit-bg{
   display:none;position:fixed;inset:0;z-index:40000;
   background:rgba(2,8,16,.92);
@@ -1176,20 +1204,92 @@ input:focus{
   background:linear-gradient(90deg,#35c9ff,#985cff,#ff55ad,#35c9ff);
   background-size:200%;animation:titleShine 4s linear infinite;
 }
-
-/* STOL NARX INPUTLARI */
 .table-price-inputs{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:12px;
-  padding:14px;
+  gap:12px;padding:14px;
   background:rgba(7,17,31,.5);
   border:1px dashed rgba(53,201,255,.3);
   border-radius:14px;
   margin-top:12px;
 }
 
-/* RESPONSIVE */
+/* TELEGRAM CODE ANIMATION */
+.telegram-code-box{
+  margin-top:14px;
+  padding:16px;
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(53,201,255,.06),rgba(152,92,255,.06));
+  border:1px dashed rgba(53,201,255,.35);
+}
+.telegram-code-title{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:10px;margin-bottom:12px;
+  font-size:12px;font-weight:900;color:#35c9ff;letter-spacing:1.5px;
+}
+.code-timer-badge{
+  display:none;padding:6px 14px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(66,233,121,.15),rgba(13,187,133,.15));
+  border:1px solid rgba(66,233,121,.4);
+  color:#42e979;font-weight:900;font-size:12px;letter-spacing:1px;
+  font-variant-numeric:tabular-nums;
+}
+
+.tg-bot-link-box{
+  text-align:center;padding:16px;border-radius:14px;
+  background:rgba(53,201,255,.06);
+  border:1px dashed rgba(53,201,255,.4);
+  margin-bottom:12px;
+}
+.tg-bot-link-title{
+  font-size:13px;color:#35c9ff;font-weight:900;margin-bottom:10px;
+}
+.tg-bot-link-steps{
+  font-size:11px;color:#a0b8d0;line-height:1.8;margin-bottom:14px;
+  text-align:left;padding:10px;border-radius:10px;background:rgba(0,0,0,.2);
+}
+.tg-bot-link-steps b{color:#42e979;font-family:Consolas,monospace}
+.tg-bot-btn{
+  display:inline-block;padding:12px 24px;border-radius:12px;
+  background:linear-gradient(135deg,#0a8ee8,#065a9f);
+  color:#fff;font-weight:900;font-size:13px;letter-spacing:1px;
+  text-decoration:none;
+  box-shadow:0 8px 25px rgba(8,123,210,.4);
+  transition:.25s;
+}
+.tg-bot-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(8,123,210,.55)}
+
+.tg-polling-status{
+  text-align:center;font-size:11px;color:#8aa0b8;
+  margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.tg-polling-dot{
+  width:8px;height:8px;border-radius:50%;background:#35c9ff;
+  animation:tgPulse 1.5s ease-in-out infinite;
+}
+@keyframes tgPulse{
+  0%,100%{opacity:.3;transform:scale(.8)}
+  50%{opacity:1;transform:scale(1.2)}
+}
+
+.tg-code-ready{
+  text-align:center;padding:16px;border-radius:12px;
+  background:rgba(66,233,121,.1);
+  border:1px solid rgba(66,233,121,.5);
+  animation:codePulse 1.5s infinite;
+}
+.tg-code-ready-icon{font-size:32px;margin-bottom:8px}
+.tg-code-ready-title{
+  font-size:14px;color:#42e979;font-weight:900;
+  margin-bottom:6px;letter-spacing:1px;
+}
+.tg-code-ready-sub{font-size:11px;color:#a0b8d0}
+
+@keyframes codePulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(66,233,121,.4)}
+  50%{box-shadow:0 0 0 12px rgba(66,233,121,0)}
+}
+
 @media (max-width:1100px){
   .app-layout{grid-template-columns:200px 1fr}
   .main-content{padding:20px 18px}
@@ -1233,9 +1333,11 @@ input:focus{
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN / REGISTER SCREEN -->
 <div id="loginScreen" class="login-screen">
-  <div class="login-box">
+
+  <!-- LOGIN BOX -->
+  <div class="login-box" id="loginBox">
     <div class="login-logo">
       <div class="login-logo-icon">🎱</div>
       <div class="login-logo-title">BILLIARD CLUB</div>
@@ -1254,7 +1356,10 @@ input:focus{
 
     <div class="login-field">
       <label class="login-label" data-i18n="passwordLabel">🔒 Parol</label>
-      <input type="password" id="loginPassword" class="login-input" data-i18n-placeholder="passwordPlaceholder" placeholder="Parolni kiriting" autocomplete="current-password">
+      <div class="login-password-wrap">
+        <input type="password" id="loginPassword" class="login-input" data-i18n-placeholder="passwordPlaceholder" placeholder="Parolni kiriting" autocomplete="current-password">
+        <button type="button" class="login-password-toggle" onclick="togglePasswordVisibility('loginPassword', this)">👁️</button>
+      </div>
     </div>
 
     <label class="login-remember">
@@ -1264,6 +1369,11 @@ input:focus{
 
     <button class="login-btn" onclick="checkLogin()" data-i18n="loginBtn">🔓 KIRISH</button>
 
+    <div class="login-register-link">
+      <span data-i18n="noAccount">Hisobingiz yo'qmi?</span>
+      <button onclick="showRegister()" data-i18n="registerNow">Ro'yxatdan o'tish</button>
+    </div>
+
     <div id="loginError" class="login-error"></div>
 
     <div class="login-footer">
@@ -1271,6 +1381,112 @@ input:focus{
       📍 Mindonobod Yangi Asr
     </div>
   </div>
+
+  <!-- REGISTER BOX -->
+  <div class="register-box" id="registerBox" style="display:none">
+    <div class="login-logo">
+      <div class="login-logo-icon">✨</div>
+      <div class="login-logo-title" data-i18n="registerTitle">RO'YXATDAN O'TISH</div>
+      <div class="login-logo-sub" data-i18n="registerSub">YANGI HISOB YARATISH</div>
+    </div>
+
+    <div class="login-lang">
+      <button class="lang-btn" data-lang="uz" onclick="setLanguage('uz')">🇺🇿 UZ</button>
+      <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
+    </div>
+
+    <div class="login-field">
+      <label class="login-label" data-i18n="fullNameLabel">👤 To'liq ism</label>
+      <input type="text" id="regFullName" class="login-input" data-i18n-placeholder="fullNamePlaceholder" placeholder="Ism va familiya" autocomplete="name">
+    </div>
+
+    <div class="login-row">
+      <div class="login-field">
+        <label class="login-label" data-i18n="loginLabel">🔑 Login</label>
+        <input type="text" id="regUsername" class="login-input" data-i18n-placeholder="registerLoginPlaceholder" placeholder="Kamida 3 belgi" autocomplete="username">
+      </div>
+      <div class="login-field">
+        <label class="login-label" data-i18n="phoneLabelReg">📞 Telefon</label>
+        <input type="tel" id="regPhone" class="login-input" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
+      </div>
+    </div>
+
+    <div class="login-row">
+      <div class="login-field">
+        <label class="login-label" data-i18n="passwordLabel">🔒 Parol</label>
+        <div class="login-password-wrap">
+          <input type="password" id="regPassword" class="login-input" data-i18n-placeholder="registerPasswordPlaceholder" placeholder="Kamida 3 belgi" autocomplete="new-password">
+          <button type="button" class="login-password-toggle" onclick="togglePasswordVisibility('regPassword', this)">👁️</button>
+        </div>
+      </div>
+      <div class="login-field">
+        <label class="login-label" data-i18n="passwordConfirmLabel">🔒 Parolni tasdiqlang</label>
+        <div class="login-password-wrap">
+          <input type="password" id="regPasswordConfirm" class="login-input" data-i18n-placeholder="passwordConfirmPlaceholder" placeholder="Qayta kiriting" autocomplete="new-password">
+          <button type="button" class="login-password-toggle" onclick="togglePasswordVisibility('regPasswordConfirm', this)">👁️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-field">
+      <label class="login-label" data-i18n="tablesCountLabel">🎱 Nechta stol?</label>
+      <input type="number" id="regTablesCount" class="login-input" value="3" min="1" max="20">
+    </div>
+
+    <!-- TELEGRAM TASDIQLASH BO'LIMI -->
+    <div class="telegram-code-box">
+      <div class="telegram-code-title">
+        <span>📱 TELEGRAM TASDIQLASH</span>
+        <span class="code-timer-badge" id="codeTimerBadge">⏱ 05:00</span>
+      </div>
+
+      <div id="codeNotSentBox">
+        <div class="tg-bot-link-box" style="background:rgba(152,92,255,.06);border-color:rgba(152,92,255,.4)">
+          <div class="tg-bot-link-title" style="color:#b28aff">
+            💡 QANDAY ISHLAYDI?
+          </div>
+          <div class="tg-bot-link-steps">
+            <b>1.</b> Pastdagi tugmani bosing<br>
+            <b>2.</b> Telegram botga <b>/start</b> yuboring<br>
+            <b>3.</b> Loginingizni botga yuboring<br>
+            <b>4.</b> Bot sizga maxsus kod yuboradi<br>
+            <b>5.</b> Kod avtomatik saytga tushadi ✅
+          </div>
+        </div>
+        <button type="button" class="login-btn" id="sendCodeBtn" 
+                onclick="startTelegramVerification()" 
+                style="background:linear-gradient(135deg,#985cff,#5a2bbf);letter-spacing:1.5px">
+          📨 TELEGRAM ORQALI TASDIQLASH
+        </button>
+      </div>
+
+      <div id="codeSentBox" style="display:none">
+        <div id="codeStatusText"></div>
+
+        <div class="login-field" style="margin-bottom:0">
+          <label class="login-label" style="color:#42e979">🔑 6 xonali kodni kiriting</label>
+          <input type="text" id="regVerificationCode" class="login-input" 
+                 maxlength="6" 
+                 placeholder="000000"
+                 inputmode="numeric"
+                 autocomplete="one-time-code"
+                 style="text-align:center;font-size:24px;font-weight:900;letter-spacing:8px;color:#42e979">
+        </div>
+        <button type="button" class="login-btn" id="resendCodeBtn"
+                onclick="startTelegramVerification()"
+                style="display:none;margin-top:10px;background:linear-gradient(135deg,#e8a826,#b97300);letter-spacing:1.5px">
+          🔄 QAYTA KOD OLISH
+        </button>
+      </div>
+    </div>
+
+    <button class="login-btn" onclick="doRegister()" style="margin-top:16px" data-i18n="registerBtn">✨ RO'YXATDAN O'TISH</button>
+
+    <div id="registerError" class="login-error"></div>
+
+    <button class="register-back-btn" onclick="showLogin()" data-i18n="backToLogin">← KIRISHGA QAYTISH</button>
+  </div>
+
 </div>
 
 <div class="app-layout">
@@ -1339,12 +1555,9 @@ input:focus{
       <div class="page-header">
         <div>
           <div class="page-title" data-i18n="tablesTitle">🎱 STOLLAR</div>
-          <div class="page-subtitle" id="tablesSubtitle" data-i18n="tablesSubtitle">
-            Barcha stollar bir ekranda
-          </div>
+          <div class="page-subtitle" id="tablesSubtitle" data-i18n="tablesSubtitle">Barcha stollar bir ekranda</div>
         </div>
       </div>
-
       <div class="tables-grid" id="tablesGrid"></div>
     </div>
 
@@ -1539,9 +1752,7 @@ input:focus{
           </div>
 
           <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
-            <label style="font-weight:800;color:#c0d0e0;font-size:13px">
-              Nechta stol?
-            </label>
+            <label style="font-weight:800;color:#c0d0e0;font-size:13px">Nechta stol?</label>
             <input type="number" id="newUserTablesCount" class="login-input"
                    value="3" min="1" max="20"
                    style="width:110px;text-align:center;font-weight:900;font-size:18px;color:#42e979"
@@ -1562,8 +1773,7 @@ input:focus{
             </button>
           </div>
 
-          <div id="tablePriceInputsContainer" class="table-price-inputs">
-          </div>
+          <div id="tablePriceInputsContainer" class="table-price-inputs"></div>
         </div>
 
         <button class="btn save-btn" onclick="handleCreateUser()" style="margin-top:20px">
@@ -1615,19 +1825,15 @@ input:focus{
         <div class="pwd-modal-sub">Foydalanuvchi ma'lumotlarini o'zgartirish</div>
       </div>
     </div>
-
     <div class="pwd-modal-user" id="pwdModalUserInfo"></div>
-
     <div class="pwd-field">
       <label class="pwd-field-label">🔑 Login</label>
       <input type="text" id="pwdModalLogin" class="pwd-field-input" placeholder="Yangi login (kamida 3 belgi)">
     </div>
-
     <div class="pwd-field">
       <label class="pwd-field-label">🔒 Yangi Parol</label>
       <input type="text" id="pwdModalPassword" class="pwd-field-input" placeholder="Yangi parol (kamida 3 belgi)">
     </div>
-
     <div class="pwd-modal-actions">
       <button class="pwd-save-btn" onclick="saveUserCredentials()">💾 SAQLASH</button>
       <button class="pwd-cancel-btn" onclick="closePwdModal()">❌ BEKOR QILISH</button>
@@ -1667,8 +1873,7 @@ input:focus{
       </button>
     </div>
 
-    <div id="editTablePricesContainer" class="table-price-inputs" style="max-height:400px;overflow-y:auto">
-    </div>
+    <div id="editTablePricesContainer" class="table-price-inputs" style="max-height:400px;overflow-y:auto"></div>
 
     <div class="pwd-modal-actions" style="margin-top:22px">
       <button class="pwd-save-btn" onclick="saveUserTables()">💾 SAQLASH</button>
@@ -1682,14 +1887,9 @@ input:focus{
   <div class="clear-modal">
     <div class="clear-modal-icon">🗑️</div>
     <div class="clear-modal-title">Loglarni tozalash</div>
-    <div class="clear-modal-text">
-      Barcha foydalanuvchi harakatlari tarixini
-      o'chirishni xohlaysizmi?
-    </div>
+    <div class="clear-modal-text">Barcha foydalanuvchi harakatlari tarixini o'chirishni xohlaysizmi?</div>
     <div class="clear-modal-count" id="clearModalCount">— ta yozuv</div>
-    <div class="clear-modal-warning">
-      ⚠️ Bu amalni qaytarib bo'lmaydi!
-    </div>
+    <div class="clear-modal-warning">⚠️ Bu amalni qaytarib bo'lmaydi!</div>
     <div class="clear-modal-actions">
       <button class="clear-confirm-btn" onclick="doClearUserLogs()">🗑️ HA, TOZALASH</button>
       <button class="clear-cancel-btn" onclick="closeClearModal()">❌ BEKOR QILISH</button>
@@ -1729,34 +1929,32 @@ input:focus{
   <b>B</b> <span data-i18n="hintBooking">Bron</span> •
   <b>Esc</b> <span data-i18n="hintClose">Yopish</span>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 /* ================================================================
-   TELEGRAM BOT SOZLAMALARI — ENG YUQORIDA
+   ⚙️ SOZLAMALAR — BU YERNI O'ZGARTIRING!
    ================================================================ */
-const TELEGRAM_BOT_TOKEN = "8977154075:AAGXq9oo7y-S2wd-8J-XYgHgx8UPvjzzWHQ";
-const TELEGRAM_ADMIN_CHAT_ID = "6120377805";
+const TELEGRAM_BOT_USERNAME = "SizningBilliardBot"; // @ belgisisiz, bot username
+const BACKEND_API_URL = "https://sizning-bot.railway.app/api"; // Backend serveringiz manzili
+// ⚠️ MUHIM: BACKEND_API_URL https:// bo'lishi SHART!
 
-// Telegramga xabar yuborish
+/* ================================================================
+   TELEGRAM LOG (faqat backend orqali, token xavfsiz!)
+   ================================================================ */
 async function sendTelegramLog(htmlMessage){
-  if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
   try{
-    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    const res = await fetch(BACKEND_API_URL + "/log", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_ADMIN_CHAT_ID,
-        text: htmlMessage,
-        parse_mode: "HTML",
-        disable_web_page_preview: true
-      })
+      body: JSON.stringify({ message: htmlMessage })
     });
-    const data = await res.json();
-    if(!data.ok) console.warn("Telegram xato:", data.description);
+    return await res.json();
   }catch(e){
-    console.warn("Telegram yuborishda xatolik:", e);
+    console.warn("Telegram log xatosi:", e);
+    return { ok: false };
   }
 }
 
@@ -1775,6 +1973,37 @@ const I18N = {
     loginFillAll: "⚠️ Login va parolni to'ldiring!",
     loginSuccess: "✅ Kirish muvaffaqiyatli!",
     loginWrong: "❌ Login yoki parol noto'g'ri!",
+
+    noAccount: "Hisobingiz yo'qmi?",
+    registerNow: "Ro'yxatdan o'tish",
+    registerTitle: "RO'YXATDAN O'TISH",
+    registerSub: "YANGI HISOB YARATISH",
+    fullNameLabel: "👤 To'liq ism",
+    fullNamePlaceholder: "Ism va familiya",
+    registerLoginPlaceholder: "Kamida 3 belgi",
+    registerPasswordPlaceholder: "Kamida 3 belgi",
+    passwordConfirmLabel: "🔒 Parolni tasdiqlang",
+    passwordConfirmPlaceholder: "Qayta kiriting",
+    phoneLabelReg: "📞 Telefon",
+    tablesCountLabel: "🎱 Nechta stol?",
+    registerBtn: "✨ RO'YXATDAN O'TISH",
+    backToLogin: "← KIRISHGA QAYTISH",
+    regSuccess: "✅ Muvaffaqiyatli ro'yxatdan o'tdingiz!",
+    regErrorFullName: "⚠️ To'liq ismingizni kiriting!",
+    regErrorUsername: "⚠️ Login kamida 3 ta belgi bo'lishi kerak!",
+    regErrorUsernameFormat: "⚠️ Login faqat harf, raqam va _ belgisidan iborat bo'lsin!",
+    regErrorPhone: "⚠️ To'g'ri telefon raqam kiriting!",
+    regErrorPassword: "⚠️ Parol kamida 3 ta belgi bo'lishi kerak!",
+    regErrorPasswordMatch: "⚠️ Parollar mos kelmadi!",
+    regErrorUsernameTaken: "⚠️ Bu login allaqachon band!",
+
+    codeNotSent: "⚠️ Avval Telegram orqali tasdiqlashni boshlang!",
+    codeEnter6: "⚠️ 6 xonali kodni to'liq kiriting!",
+    codeWrong: "❌ Kod noto'g'ri!",
+    codeCorrect: "✅ Kod to'g'ri! Hisob yaratilmoqda...",
+    codeExpired: "⏱ Kod muddati tugadi! Qayta kod oling.",
+    codeTooManyAttempts: "🚫 Juda ko'p noto'g'ri urinish! Qaytadan kod oling.",
+    attemptsLeft: "ta urinish qoldi",
 
     navHome: "Asosiy",
     navTables: "Stollar",
@@ -2019,6 +2248,37 @@ const I18N = {
     loginFillAll: "⚠️ Заполните логин и пароль!",
     loginSuccess: "✅ Вход выполнен!",
     loginWrong: "❌ Неверный логин или пароль!",
+
+    noAccount: "Нет аккаунта?",
+    registerNow: "Зарегистрироваться",
+    registerTitle: "РЕГИСТРАЦИЯ",
+    registerSub: "СОЗДАТЬ НОВЫЙ АККАУНТ",
+    fullNameLabel: "👤 Полное имя",
+    fullNamePlaceholder: "Имя и фамилия",
+    registerLoginPlaceholder: "Минимум 3 символа",
+    registerPasswordPlaceholder: "Минимум 3 символа",
+    passwordConfirmLabel: "🔒 Подтвердите пароль",
+    passwordConfirmPlaceholder: "Повторите",
+    phoneLabelReg: "📞 Телефон",
+    tablesCountLabel: "🎱 Сколько столов?",
+    registerBtn: "✨ ЗАРЕГИСТРИРОВАТЬСЯ",
+    backToLogin: "← ВЕРНУТЬСЯ К ВХОДУ",
+    regSuccess: "✅ Успешная регистрация!",
+    regErrorFullName: "⚠️ Введите полное имя!",
+    regErrorUsername: "⚠️ Логин минимум 3 символа!",
+    regErrorUsernameFormat: "⚠️ Логин только буквы, цифры и _!",
+    regErrorPhone: "⚠️ Введите корректный телефон!",
+    regErrorPassword: "⚠️ Пароль минимум 3 символа!",
+    regErrorPasswordMatch: "⚠️ Пароли не совпадают!",
+    regErrorUsernameTaken: "⚠️ Этот логин уже занят!",
+
+    codeNotSent: "⚠️ Сначала начните подтверждение через Telegram!",
+    codeEnter6: "⚠️ Введите полный 6-значный код!",
+    codeWrong: "❌ Неверный код!",
+    codeCorrect: "✅ Код верный! Создаём аккаунт...",
+    codeExpired: "⏱ Время кода истекло! Получите новый код.",
+    codeTooManyAttempts: "🚫 Слишком много неверных попыток! Получите новый код.",
+    attemptsLeft: "попыток осталось",
 
     navHome: "Главная",
     navTables: "Столы",
@@ -2425,7 +2685,7 @@ function createUser(username, password, fullName, role, tablesConfig){
     role: role,
     createdAt: new Date().toISOString(),
     active: true,
-    createdBy: me ? me.username : "system",
+    createdBy: me ? me.username : "self",
     tablesCount: tablesCount,
     tablePrices: tablePrices
   };
@@ -2454,7 +2714,7 @@ function toggleUserActive(id){
 }
 
 /* ================================================================
-   USER LOGS — TELEGRAM BILAN
+   USER LOGS
    ================================================================ */
 function getUserLogs(){
   return JSON.parse(localStorage.getItem("billiardUserLogs")) || [];
@@ -2486,14 +2746,14 @@ function logUserAction(userId, type, description, extra){
   logs.unshift(logEntry);
   saveUserLogs(logs);
 
-  /* ============ TELEGRAMGA XABAR YUBORISH ============ */
   const icons = {
     login: "🚪", logout: "👋",
     start_game: "▶️", finish_game: "⏹️",
     paid: "💰", debt: "🔴", debt_paid: "💵",
     booking: "📅", booking_start: "🎱", booking_cancel: "❌",
     user_create: "➕", user_delete: "🗑️", user_toggle: "🔁",
-    user_password_change: "🔒", user_tables_edit: "🎱"
+    user_password_change: "🔒", user_tables_edit: "🎱",
+    register: "✨"
   };
 
   const titles = {
@@ -2511,7 +2771,8 @@ function logUserAction(userId, type, description, extra){
     user_delete: "FOYDALANUVCHI O'CHIRILDI",
     user_toggle: "HOLAT O'ZGARDI",
     user_password_change: "PAROL/LOGIN O'ZGARDI",
-    user_tables_edit: "STOLLAR TAHRIRLANDI"
+    user_tables_edit: "STOLLAR TAHRIRLANDI",
+    register: "RO'YXATDAN O'TISH"
   };
 
   const icon = icons[type] || "📌";
@@ -2544,7 +2805,7 @@ function logUserAction(userId, type, description, extra){
 let selectedHistoryDateValue = "";
 let bookingFilterToday = true;
 
-const ADMIN_PATTERN = [2,4,5,3];
+const ADMIN_PATTERN = [1,5,9,6,3];
 const CLUB_NAME = "BILLIARD CLUB";
 const CLUB_PHONE = "+998 97 757 31 10";
 const CLUB_ADDRESS = "Mindonobod Yangi Asr";
@@ -2563,7 +2824,321 @@ function saveBookings(arr){
 }
 
 /* ================================================================
-   YORDAMCHI FUNKSIYALAR
+   TELEGRAM TASDIQLASH TIZIMI
+   ================================================================ */
+let verificationState = {
+  sessionId: null,
+  code: null,
+  expiresAt: 0,
+  timerInterval: null,
+  pollInterval: null,
+  tempUser: null,
+  isVerified: false,
+  attemptCount: 0
+};
+
+const CODE_VALIDITY_MS = 5 * 60 * 1000; // 5 daqiqa
+
+function generateSessionId(){
+  return "sess_" + Date.now() + "_" + Math.random().toString(36).slice(2, 11);
+}
+
+async function startTelegramVerification(){
+  const fullName = document.getElementById("regFullName").value.trim();
+  const username = document.getElementById("regUsername").value.trim();
+  const phone = document.getElementById("regPhone").value.trim();
+  const password = document.getElementById("regPassword").value;
+  const passwordConfirm = document.getElementById("regPasswordConfirm").value;
+  const tablesCount = Number(document.getElementById("regTablesCount").value) || 3;
+  const errorEl = document.getElementById("registerError");
+
+  errorEl.style.color = "#ff6878";
+
+  // VALIDATSIYA
+  if(!fullName || fullName.length < 2){
+    errorEl.innerText = t("regErrorFullName"); shakeError(errorEl); beep("error"); return;
+  }
+  if(!username || username.length < 3){
+    errorEl.innerText = t("regErrorUsername"); shakeError(errorEl); beep("error"); return;
+  }
+  if(!/^[a-zA-Z0-9_]+$/.test(username)){
+    errorEl.innerText = t("regErrorUsernameFormat"); shakeError(errorEl); beep("error"); return;
+  }
+  if(!phone || phone.length < 7){
+    errorEl.innerText = t("regErrorPhone"); shakeError(errorEl); beep("error"); return;
+  }
+  if(!password || password.length < 3){
+    errorEl.innerText = t("regErrorPassword"); shakeError(errorEl); beep("error"); return;
+  }
+  if(password !== passwordConfirm){
+    errorEl.innerText = t("regErrorPasswordMatch"); shakeError(errorEl); beep("error"); return;
+  }
+  if(tablesCount < 1 || tablesCount > 20){
+    errorEl.innerText = t("tablesCountError"); shakeError(errorEl); beep("error"); return;
+  }
+  if(findUser(username)){
+    errorEl.innerText = t("regErrorUsernameTaken"); shakeError(errorEl); beep("error"); return;
+  }
+
+  // SESSION YARATISH
+  const sessionId = generateSessionId();
+
+  try {
+    const res = await fetch(BACKEND_API_URL + "/register-pending", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sessionId: sessionId,
+        username: username,
+        fullName: fullName,
+        phone: phone,
+        tablesCount: tablesCount
+      })
+    });
+
+    const data = await res.json();
+    if(!data.ok){
+      errorEl.style.color = "#ff6878";
+      errorEl.innerText = "⚠️ Server xatosi: " + (data.error || "Noma'lum");
+      beep("error");
+      return;
+    }
+  } catch(err){
+    errorEl.style.color = "#ff6878";
+    errorEl.innerText = "⚠️ Server bilan aloqa yo'q. BACKEND_API_URL ni tekshiring!";
+    beep("error");
+    return;
+  }
+
+  // STATE
+  verificationState.sessionId = sessionId;
+  verificationState.tempUser = { fullName, username, phone, password, tablesCount };
+  verificationState.isVerified = false;
+  verificationState.attemptCount = 0;
+  verificationState.expiresAt = Date.now() + CODE_VALIDITY_MS;
+
+  // UI YANGILASH
+  const codeNotSentBox = document.getElementById("codeNotSentBox");
+  const codeSentBox = document.getElementById("codeSentBox");
+  const codeStatusText = document.getElementById("codeStatusText");
+
+  if(codeNotSentBox) codeNotSentBox.style.display = "none";
+  if(codeSentBox) codeSentBox.style.display = "block";
+
+  if(codeStatusText){
+    codeStatusText.innerHTML = `
+      <div class="tg-bot-link-box">
+        <div class="tg-bot-link-title">📱 TELEGRAM BOTGA O'TING</div>
+        <div class="tg-bot-link-steps">
+          <b>1.</b> Pastdagi tugmani bosing<br>
+          <b>2.</b> Botga <b>/start</b> yuboring<br>
+          <b>3.</b> Loginingizni yuboring: <b>${escapeHTML(username)}</b><br>
+          <b>4.</b> Bot sizga kod yuboradi
+        </div>
+        <a href="https://t.me/${TELEGRAM_BOT_USERNAME}" target="_blank" class="tg-bot-btn">
+          🤖 @${TELEGRAM_BOT_USERNAME} NI OCHISH
+        </a>
+        <div class="tg-polling-status">
+          <span class="tg-polling-dot"></span>
+          <span>Kod avtomatik tekshirilmoqda...</span>
+        </div>
+      </div>
+    `;
+  }
+
+  startCodeTimer();
+  startCodePolling(sessionId);
+  beep("start");
+}
+
+function startCodePolling(sessionId){
+  if(verificationState.pollInterval){
+    clearInterval(verificationState.pollInterval);
+  }
+
+  let checkCount = 0;
+  const maxChecks = 100; // 100 * 3s = 5 daqiqa
+
+  verificationState.pollInterval = setInterval(async () => {
+    checkCount++;
+
+    if(checkCount > maxChecks || Date.now() > verificationState.expiresAt){
+      clearInterval(verificationState.pollInterval);
+      verificationState.pollInterval = null;
+      return;
+    }
+
+    try {
+      const res = await fetch(BACKEND_API_URL + "/check-code?sessionId=" + sessionId);
+      const data = await res.json();
+
+      if(data.status === "ready" && data.code){
+        verificationState.code = data.code;
+
+        const codeInput = document.getElementById("regVerificationCode");
+        if(codeInput){
+          codeInput.value = data.code;
+          codeInput.style.background = "rgba(66,233,121,.15)";
+          codeInput.style.borderColor = "#42e979";
+        }
+
+        const statusText = document.getElementById("codeStatusText");
+        if(statusText){
+          statusText.innerHTML = `
+            <div class="tg-code-ready">
+              <div class="tg-code-ready-icon">✅</div>
+              <div class="tg-code-ready-title">KOD TAYYOR!</div>
+              <div class="tg-code-ready-sub">Kod avtomatik kiritildi</div>
+            </div>
+          `;
+        }
+
+        beep("money");
+        clearInterval(verificationState.pollInterval);
+        verificationState.pollInterval = null;
+
+        setTimeout(() => {
+          if(verifyCode()){
+            setTimeout(() => completeRegistration(), 500);
+          }
+        }, 1000);
+      }
+    } catch(err){}
+  }, 3000);
+}
+
+function startCodeTimer(){
+  const badge = document.getElementById("codeTimerBadge");
+  badge.style.display = "inline-block";
+
+  if(verificationState.timerInterval){
+    clearInterval(verificationState.timerInterval);
+  }
+
+  function tick(){
+    const remaining = verificationState.expiresAt - Date.now();
+    if(remaining <= 0){
+      clearInterval(verificationState.timerInterval);
+      verificationState.timerInterval = null;
+      if(verificationState.pollInterval){
+        clearInterval(verificationState.pollInterval);
+        verificationState.pollInterval = null;
+      }
+      badge.innerHTML = "⏱ TUGADI";
+      badge.style.background = "linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15))";
+      badge.style.borderColor = "rgba(224,68,86,.4)";
+      badge.style.color = "#ff6878";
+      document.getElementById("resendCodeBtn").style.display = "block";
+      beep("error");
+      return;
+    }
+    badge.innerHTML = "⏱ " + formatTimer(remaining);
+    if(remaining < 60000){
+      badge.style.background = "linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15))";
+      badge.style.borderColor = "rgba(224,68,86,.4)";
+      badge.style.color = "#ff6878";
+    } else {
+      badge.style.background = "linear-gradient(135deg,rgba(66,233,121,.15),rgba(13,187,133,.15))";
+      badge.style.borderColor = "rgba(66,233,121,.4)";
+      badge.style.color = "#42e979";
+    }
+  }
+
+  tick();
+  verificationState.timerInterval = setInterval(tick, 1000);
+}
+
+function formatTimer(ms){
+  if(ms < 0) ms = 0;
+  const totalSec = Math.floor(ms / 1000);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
+}
+
+function shakeError(el){
+  el.classList.remove("shake");
+  void el.offsetWidth;
+  el.classList.add("shake");
+}
+
+function verifyCode(){
+  const input = document.getElementById("regVerificationCode").value.trim();
+  const errorEl = document.getElementById("registerError");
+
+  if(!verificationState.code){
+    errorEl.style.color = "#ff6878";
+    errorEl.innerText = "⚠️ Kod hali kelmadi. Telegram botda login yuboring!";
+    shakeError(errorEl); beep("error");
+    return false;
+  }
+
+  if(Date.now() > verificationState.expiresAt){
+    errorEl.style.color = "#ff6878";
+    errorEl.innerText = t("codeExpired");
+    shakeError(errorEl); beep("error");
+    return false;
+  }
+
+  if(input.length !== 6){
+    errorEl.style.color = "#ff6878";
+    errorEl.innerText = t("codeEnter6");
+    shakeError(errorEl); beep("error");
+    return false;
+  }
+
+  if(input !== verificationState.code){
+    verificationState.attemptCount++;
+    if(verificationState.attemptCount >= 5){
+      errorEl.style.color = "#ff6878";
+      errorEl.innerText = t("codeTooManyAttempts");
+      resetVerificationState();
+      return false;
+    }
+    errorEl.style.color = "#ff6878";
+    errorEl.innerText = t("codeWrong") + ` (${5 - verificationState.attemptCount} ${t("attemptsLeft")})`;
+    shakeError(errorEl); beep("error");
+    return false;
+  }
+
+  verificationState.isVerified = true;
+  errorEl.style.color = "#42e979";
+  errorEl.innerText = t("codeCorrect");
+  beep("money");
+  return true;
+}
+
+function resetVerificationState(){
+  if(verificationState.timerInterval) clearInterval(verificationState.timerInterval);
+  if(verificationState.pollInterval) clearInterval(verificationState.pollInterval);
+  verificationState = {
+    sessionId: null, code: null, expiresAt: 0,
+    timerInterval: null, pollInterval: null,
+    tempUser: null, isVerified: false, attemptCount: 0
+  };
+  const codeSentBox = document.getElementById("codeSentBox");
+  const codeNotSentBox = document.getElementById("codeNotSentBox");
+  const timerBadge = document.getElementById("codeTimerBadge");
+  if(codeSentBox) codeSentBox.style.display = "none";
+  if(codeNotSentBox) codeNotSentBox.style.display = "block";
+  if(timerBadge) timerBadge.style.display = "none";
+}
+
+document.addEventListener("input", function(e){
+  if(e.target && e.target.id === "regVerificationCode"){
+    e.target.value = e.target.value.replace(/\D/g, "").slice(0, 6);
+    if(e.target.value.length === 6){
+      setTimeout(()=>{
+        if(verifyCode()){
+          setTimeout(()=>completeRegistration(), 500);
+        }
+      }, 200);
+    }
+  }
+});
+
+/* ================================================================
+   YORDAMCHI
    ================================================================ */
 function money(n){
   const num = Math.round(Number(n)||0).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
@@ -2622,7 +3197,7 @@ function beep(type){
 }
 
 /* ================================================================
-   LOGIN
+   LOGIN / REGISTER
    ================================================================ */
 (function initAuth(){
   const saved = localStorage.getItem("billiardAuth");
@@ -2649,10 +3224,7 @@ function checkLogin(){
   if(!userInput || !passInput){
     errorEl.innerText = t("loginFillAll");
     errorEl.style.color = "#ff6878";
-    errorEl.classList.remove("shake");
-    void errorEl.offsetWidth;
-    errorEl.classList.add("shake");
-    beep("error");
+    shakeError(errorEl); beep("error");
     return;
   }
 
@@ -2661,10 +3233,7 @@ function checkLogin(){
   if(!user || user.password !== passInput){
     errorEl.innerText = t("loginWrong");
     errorEl.style.color = "#ff6878";
-    errorEl.classList.remove("shake");
-    void errorEl.offsetWidth;
-    errorEl.classList.add("shake");
-    beep("error");
+    shakeError(errorEl); beep("error");
     document.getElementById("loginPassword").value = "";
     return;
   }
@@ -2706,6 +3275,138 @@ function checkLogin(){
   }, 500);
 }
 
+function showRegister(){
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("registerBox").style.display = "block";
+  document.getElementById("loginError").innerText = "";
+  document.getElementById("registerError").innerText = "";
+  setTimeout(()=>document.getElementById("regFullName").focus(), 100);
+}
+
+function showLogin(){
+  document.getElementById("loginBox").style.display = "block";
+  document.getElementById("registerBox").style.display = "none";
+  document.getElementById("registerError").innerText = "";
+  document.getElementById("loginError").innerText = "";
+  
+  resetVerificationState();
+  
+  // Tozalash
+  const fields = ["regFullName","regUsername","regPhone","regPassword","regPasswordConfirm","regVerificationCode"];
+  fields.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = "";
+  });
+  document.getElementById("regTablesCount").value = "3";
+  
+  setTimeout(()=>document.getElementById("loginUsername").focus(), 100);
+}
+
+function togglePasswordVisibility(inputId, btn){
+  const input = document.getElementById(inputId);
+  if(!input) return;
+  if(input.type === "password"){
+    input.type = "text";
+    btn.innerText = "🙈";
+  } else {
+    input.type = "password";
+    btn.innerText = "👁️";
+  }
+}
+
+function doRegister(){
+  if(!verificationState.isVerified){
+    if(!verificationState.code){
+      beep("error");
+      showModal("📱", "Kod kelmadi", 
+        "Iltimos, avval Telegram botga o'tib, loginingizni yuboring.\n\n" +
+        "Bot: @" + TELEGRAM_BOT_USERNAME);
+      return;
+    }
+    const input = document.getElementById("regVerificationCode").value.trim();
+    if(!input){
+      beep("error");
+      showModal("🔑", "Kodni kiriting", "Iltimos, 6 xonali kodni kiriting.");
+      return;
+    }
+    if(!verifyCode()) return;
+  }
+  completeRegistration();
+}
+
+function completeRegistration(){
+  if(!verificationState.tempUser) {
+    beep("error");
+    return;
+  }
+
+  const { fullName, username, phone, password, tablesCount } = verificationState.tempUser;
+  const errorEl = document.getElementById("registerError");
+
+  const defaultPrice = 40000;
+  const prices = [];
+  for(let i = 0; i < tablesCount; i++) prices.push(defaultPrice);
+
+  const res = createUser(username, password, fullName, "user", {
+    count: tablesCount,
+    prices: prices
+  });
+
+  if(!res.ok){
+    errorEl.style.color = "#ff6878";
+    errorEl.innerText = res.error;
+    shakeError(errorEl);
+    beep("error");
+    return;
+  }
+
+  const users = getUsers();
+  const newUser = users.find(u => u.username === username);
+  if(newUser){
+    newUser.phone = phone;
+    newUser.registeredAt = new Date().toISOString();
+    newUser.registeredBy = "self";
+    newUser.verified = true;
+    saveUsers(users);
+  }
+
+  if(newUser) logUserAction(newUser.id, "register", `Ro'yxatdan o'tdi (tasdiqlangan) — ${phone}`);
+
+  if(verificationState.timerInterval) clearInterval(verificationState.timerInterval);
+  if(verificationState.pollInterval) clearInterval(verificationState.pollInterval);
+
+  errorEl.style.color = "#42e979";
+  errorEl.innerText = t("regSuccess");
+  beep("money");
+
+  const tempUsername = username;
+  verificationState = {
+    sessionId: null, code: null, expiresAt: 0,
+    timerInterval: null, pollInterval: null,
+    tempUser: null, isVerified: false, attemptCount: 0
+  };
+
+  // Maydonlarni tozalash
+  ["regFullName","regUsername","regPhone","regPassword","regPasswordConfirm","regVerificationCode"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.value = "";
+  });
+  document.getElementById("regTablesCount").value = "3";
+  document.getElementById("codeSentBox").style.display = "none";
+  document.getElementById("codeNotSentBox").style.display = "block";
+  document.getElementById("codeTimerBadge").style.display = "none";
+  document.getElementById("resendCodeBtn").style.display = "none";
+
+  setTimeout(()=>{
+    showLogin();
+    document.getElementById("loginUsername").value = tempUsername;
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("loginError").innerText = "✅ Hisob yaratildi! Endi kiring.";
+    document.getElementById("loginError").style.color = "#42e979";
+    setTimeout(()=>document.getElementById("loginPassword").focus(), 100);
+  }, 1500);
+}
+
 function logout(){
   document.getElementById("modalIcon").innerText = "🚪";
   document.getElementById("modalTitle").innerText = t("logoutTitle");
@@ -2732,6 +3433,8 @@ function confirmLogout(){
     screen.style.animation = "none";
     void screen.offsetWidth;
     screen.style.animation = "fadeIn .4s ease";
+    document.getElementById("loginBox").style.display = "block";
+    document.getElementById("registerBox").style.display = "none";
     document.getElementById("loginUsername").value = "";
     document.getElementById("loginPassword").value = "";
     document.getElementById("loginError").innerText = "";
@@ -2740,7 +3443,7 @@ function confirmLogout(){
 }
 
 /* ================================================================
-   ROL BO'YICHA UI
+   ROL UI
    ================================================================ */
 function applyRoleUI(){
   const u = getCurrentUser();
@@ -2806,7 +3509,7 @@ function applyRoleUI(){
       const label = adminBtn.querySelector("[data-i18n='navAdmin']");
       if(icon) icon.innerText = "🔐";
       if(label){
-        label.innerText = "Admin panel";
+        label.innerText = t("navAdmin");
         label.setAttribute("data-i18n", "navAdmin");
       }
       adminBtn.setAttribute("onclick", "openPattern()");
@@ -2956,9 +3659,6 @@ function initGamesForUser(){
   saveGames();
 }
 
-/* ================================================================
-   STOLLARNI CHIZISH
-   ================================================================ */
 function renderTables(){
   const user = getCurrentUser();
   const grid = document.getElementById("tablesGrid");
@@ -3036,9 +3736,6 @@ function renderTables(){
   updateActiveTablesBadge();
 }
 
-/* ================================================================
-   O'YIN BOSHLASH
-   ================================================================ */
 function startGame(id){
   if(games[id] && games[id].start && !games[id].finished){
     beep("error");
@@ -3254,7 +3951,7 @@ function updateTable(id){
 }
 
 /* ================================================================
-   HISOBOT
+   REPORTS / DEBTORS / HISTORY
    ================================================================ */
 function renderReports(){
   const history=getHistory();
@@ -3281,9 +3978,6 @@ function renderReports(){
   if(sb) sb.innerText = activeBookings.length + " ta";
 }
 
-/* ================================================================
-   QARZDORLAR
-   ================================================================ */
 function renderAdminDebtors(){
   const history=getHistory().filter(x=>!x.paid);
   const box=document.getElementById("adminDebtorList");
@@ -3332,9 +4026,6 @@ function markPaid(id){
   }));
 }
 
-/* ================================================================
-   TARIX
-   ================================================================ */
 function renderAdminHistory(){
   const history=getHistory();
   const datesPage = document.getElementById("historyDatesPage");
@@ -3491,7 +4182,7 @@ function escapeHTML(text){
 }
 
 /* ================================================================
-   BRON QILISH
+   BOOKING
    ================================================================ */
 function toggleBookingFilter(){
   bookingFilterToday = !bookingFilterToday;
@@ -3805,7 +4496,7 @@ function updateActiveTablesBadge(){
 }
 
 /* ================================================================
-   FOYDALANUVCHILAR SAHIFASI
+   USERS MANAGEMENT
    ================================================================ */
 function generateTablePriceInputs(){
   const countInput = document.getElementById("newUserTablesCount");
@@ -3943,7 +4634,6 @@ function renderUsers(){
       : '<span style="color:#42e979;font-weight:900">✅ FAOL</span>';
 
     const userHistory = allHistory.filter(h => h.userId === u.id);
-    
     const todayItems = userHistory.filter(h => (h.saveDate || h.gameDate) === today);
     const todayPaid = todayItems.filter(h => h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const todayUnpaid = todayItems.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
@@ -3994,25 +4684,23 @@ function renderUsers(){
         <div style="font-size:10px;font-weight:900;color:#42e979;letter-spacing:1.5px;margin-bottom:10px">
           💰 MOLIYAVIY KO'RSATKICHLAR
         </div>
-        
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
           <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
-            <div style="font-size:9px;color:#8aa0b8;font-weight:800;letter-spacing:.5px">BUGUN</div>
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800">BUGUN</div>
             <div style="font-size:13px;font-weight:900;color:#42e979;margin-top:3px">${money(todayTotal)}</div>
             <div style="font-size:9px;color:#5f7691;margin-top:2px">${todayGames} o'yin</div>
           </div>
           <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
-            <div style="font-size:9px;color:#8aa0b8;font-weight:800;letter-spacing:.5px">7 KUN</div>
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800">7 KUN</div>
             <div style="font-size:13px;font-weight:900;color:#35c9ff;margin-top:3px">${money(weekTotal)}</div>
             <div style="font-size:9px;color:#5f7691;margin-top:2px">${weekItems.length} o'yin</div>
           </div>
           <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
-            <div style="font-size:9px;color:#8aa0b8;font-weight:800;letter-spacing:.5px">UMUMIY</div>
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800">UMUMIY</div>
             <div style="font-size:13px;font-weight:900;color:#ffd23f;margin-top:3px">${money(totalAll)}</div>
             <div style="font-size:9px;color:#5f7691;margin-top:2px">${totalGames} o'yin</div>
           </div>
         </div>
-        
         <div style="display:flex;gap:8px;font-size:11px;font-weight:800">
           <div style="flex:1;padding:6px 10px;border-radius:8px;background:rgba(66,233,121,.12);color:#42e979;text-align:center">
             🟢 Olindi: ${money(totalPaid)}
@@ -4021,7 +4709,6 @@ function renderUsers(){
             🔴 Qarz: ${money(totalUnpaid)}
           </div>
         </div>
-        
         ${todayUnpaid > 0 ? `
           <div style="margin-top:8px;padding:6px 10px;border-radius:8px;
                       background:rgba(255,210,63,.1);border:1px dashed rgba(255,210,63,.4);
@@ -4084,14 +4771,15 @@ function renderUserLogs(){
       paid: "🟢", debt: "🔴", debt_paid: "💵",
       booking: "📅", booking_start: "🎱", booking_cancel: "❌",
       user_create: "➕", user_delete: "🗑️", user_toggle: "🔁", 
-      user_password_change: "🔒", user_tables_edit: "🎱"
+      user_password_change: "🔒", user_tables_edit: "🎱",
+      register: "✨"
     };
     const colors = {
       paid: "#42e979", debt: "#ff6878", debt_paid: "#42e979",
       login: "#35c9ff", logout: "#8aa0b8",
       user_create: "#ffd23f", user_delete: "#e04456",
       user_toggle: "#e8a826", user_password_change: "#0a8ee8",
-      user_tables_edit: "#0dbb85"
+      user_tables_edit: "#0dbb85", register: "#985cff"
     };
     const div = document.createElement("div");
     div.className = "history-item";
@@ -4111,9 +4799,6 @@ function renderUserLogs(){
   });
 }
 
-/* ================================================================
-   STOLLARNI TAHRIRLASH
-   ================================================================ */
 let editingTablesUserId = null;
 
 function editUserTables(userId){
@@ -4231,9 +4916,6 @@ function closeEditTablesModal(){
   editingTablesUserId = null;
 }
 
-/* ================================================================
-   PAROL / LOGIN YANGILASH
-   ================================================================ */
 let pwdModalTargetId = null;
 
 function changeUserPasswordPrompt(id){
@@ -4371,9 +5053,6 @@ function doDeleteUser(id){
   renderUsers();
 }
 
-/* ================================================================
-   LOG TOZALASH
-   ================================================================ */
 function clearUserLogs(){
   const logs = getUserLogs();
   document.getElementById("clearModalCount").innerText = logs.length + " ta yozuv";
@@ -4559,12 +5238,8 @@ async function downloadPDF(element, filename){
     document.body.appendChild(tempContainer);
 
     const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-      logging: false,
-      windowWidth: 780,
-      width: 780
+      scale: 2, useCORS: true, backgroundColor: "#ffffff", logging: false,
+      windowWidth: 780, width: 780
     });
 
     const imgData = canvas.toDataURL("image/jpeg", 0.95);
@@ -4574,10 +5249,7 @@ async function downloadPDF(element, filename){
 
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF({
-      unit: "mm",
-      format: "a4",
-      orientation: "portrait",
-      compress: true
+      unit: "mm", format: "a4", orientation: "portrait", compress: true
     });
 
     let heightLeft = imgHeight;
@@ -4612,9 +5284,6 @@ async function downloadPDF(element, filename){
   }
 }
 
-/* ================================================================
-   PDF FUNKSIYALAR
-   ================================================================ */
 function printDateChek(date){
   const history=getHistory();
   const items=history.filter(i=>i.saveDate===date||(!i.saveDate&&i.gameDate===date));
@@ -4644,9 +5313,7 @@ function printDateChek(date){
     title: t("chekDaily"),
     subtitle: t("dailyReportFor", {date: date}),
     headerInfo: '<div><span>' + t("chekDate") + '</span><span>' + date + '</span></div>',
-    items: tableItems,
-    totals: totals,
-    footer: t("autoGenerated")
+    items: tableItems, totals: totals, footer: t("autoGenerated")
   });
   downloadPDF(el, "BILLIARD_KUNLIK_" + date.replace(/\./g,"-") + ".pdf");
 }
@@ -4685,9 +5352,7 @@ function printAllHistoryChek(){
     title: t("chekAllHistory"),
     subtitle: t("allGamesList"),
     headerInfo: '<div><span>' + t("totalGames") + '</span><span>' + history.length + ' ' + t("gamesCount") + '</span></div>',
-    items: tableItems,
-    totals: totals,
-    footer: t("allHistory")
+    items: tableItems, totals: totals, footer: t("allHistory")
   });
   downloadPDF(el, "BILLIARD_TARIX_" + fileDate() + ".pdf");
 }
@@ -4715,9 +5380,7 @@ function printDebtorsChek(){
     title: t("chekDebtors"),
     subtitle: t("unpaidList"),
     headerInfo: '<div><span>' + t("totalDebtors") + '</span><span>' + history.length + ' ta</span></div>',
-    items: tableItems,
-    totals: totals,
-    footer: t("payOnTime")
+    items: tableItems, totals: totals, footer: t("payOnTime")
   });
   downloadPDF(el, "BILLIARD_QARZDORLAR_" + fileDate() + ".pdf");
 }
@@ -4746,9 +5409,7 @@ function printSingleDebtChek(id){
     title: t("chekDebt"),
     subtitle: t("debtFor", {name: escapeHTML(item.name||"")}),
     headerInfo: '<div><span>' + t("chekDate") + '</span><span>' + (item.saveDate||item.gameDate||"—") + '</span></div>',
-    items: tableItems,
-    totals: totals,
-    footer: t("payAtCashier")
+    items: tableItems, totals: totals, footer: t("payAtCashier")
   });
   downloadPDF(el, "BILLIARD_QARZ_" + safeFilename(item.name) + ".pdf");
 }
@@ -4785,9 +5446,7 @@ function printReportChek(){
     title: t("chekReport"),
     subtitle: t("reportFor", {date: today}),
     headerInfo: '<div><span>' + t("chekDate") + '</span><span>' + today + '</span></div>',
-    items: tableItems,
-    totals: totals,
-    footer: t("dailyCashReport")
+    items: tableItems, totals: totals, footer: t("dailyCashReport")
   });
   downloadPDF(el, "BILLIARD_HISOBOT_" + fileDate() + ".pdf");
 }
@@ -4982,7 +5641,22 @@ function backToMain(){
 document.addEventListener("keydown", function(e){
   const loginScreen = document.getElementById("loginScreen");
   if(loginScreen && !loginScreen.classList.contains("hidden")){
-    if(e.key === "Enter"){ e.preventDefault(); checkLogin(); }
+    if(e.key === "Enter"){
+      const regBox = document.getElementById("registerBox");
+      if(regBox && regBox.style.display !== "none"){
+        const tag = (e.target.tagName||"").toLowerCase();
+        if(tag === "input" && e.target.id !== "regVerificationCode"){
+          e.preventDefault(); 
+          startTelegramVerification();
+        }
+      } else {
+        e.preventDefault(); checkLogin();
+      }
+    }
+    if(e.key === "Escape"){
+      const regBox = document.getElementById("registerBox");
+      if(regBox && regBox.style.display !== "none"){ showLogin(); }
+    }
     return;
   }
 
@@ -5063,38 +5737,22 @@ document.addEventListener("keydown", function(e){
     return;
   }
 
-  if(key === "a"){
-    e.preventDefault();
-    openPattern();
-    return;
-  }
-
+  if(key === "a"){ e.preventDefault(); openPattern(); return; }
   if(key === "r"){
-    e.preventDefault();
-    openAdmin();
-    setTimeout(()=>openAdminPage('reports'), 50);
-    return;
+    e.preventDefault(); openAdmin();
+    setTimeout(()=>openAdminPage('reports'), 50); return;
   }
-
   if(key === "d"){
-    e.preventDefault();
-    openAdmin();
-    setTimeout(()=>openAdminPage('debtors'), 50);
-    return;
+    e.preventDefault(); openAdmin();
+    setTimeout(()=>openAdminPage('debtors'), 50); return;
   }
-
   if(key === "t"){
-    e.preventDefault();
-    openAdmin();
-    setTimeout(()=>openAdminPage('history'), 50);
-    return;
+    e.preventDefault(); openAdmin();
+    setTimeout(()=>openAdminPage('history'), 50); return;
   }
-
   if(key === "b"){
-    e.preventDefault();
-    openAdmin();
-    setTimeout(()=>openAdminPage('booking'), 50);
-    return;
+    e.preventDefault(); openAdmin();
+    setTimeout(()=>openAdminPage('booking'), 50); return;
   }
 });
 
@@ -5114,9 +5772,6 @@ setInterval(function(){
    BRON TEKSHIRISH
    ================================================================ */
 setInterval(function(){
-  renderBookings();
-  updateAllBookingIndicators();
-
   const bookings = getBookings();
   const now = Date.now();
   let changed = false;
