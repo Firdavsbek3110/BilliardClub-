@@ -26,7 +26,7 @@ input,select{outline:none;font-family:inherit}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#35c9ff,#985cff);border-radius:10px}
 ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#5dd4ff,#a870ff)}
 
-/* LOGIN / REGISTER */
+/* ============ LOGIN / REGISTER PAGE ============ */
 .login-screen{
   position:fixed;inset:0;z-index:100000;
   background:
@@ -113,7 +113,6 @@ input,select{outline:none;font-family:inherit}
   background:rgba(7,17,31,1);
 }
 .login-input::placeholder{color:#3f5570}
-.login-input:disabled{opacity:.5;cursor:not-allowed}
 
 .login-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 @media (max-width:520px){
@@ -128,7 +127,8 @@ input,select{outline:none;font-family:inherit}
   right:14px;top:50%;transform:translateY(-50%);
   background:none;color:#5f7691;
   font-size:16px;padding:4px;
-  transition:.25s;cursor:pointer;
+  transition:.25s;
+  cursor:pointer;
 }
 .login-password-toggle:hover{color:#35c9ff}
 
@@ -156,7 +156,6 @@ input,select{outline:none;font-family:inherit}
 }
 .login-btn:hover{transform:translateY(-2px);box-shadow:0 15px 40px rgba(8,123,210,.55)}
 .login-btn:active{transform:translateY(0)}
-.login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .login-btn::before{
   content:'';position:absolute;top:0;left:-100%;
   width:100%;height:100%;
@@ -211,6 +210,7 @@ input,select{outline:none;font-family:inherit}
   line-height:1.8;letter-spacing:.5px;
 }
 
+/* REGISTER BOX */
 .register-box{
   width:100%;max-width:520px;
   padding:36px 34px;
@@ -243,6 +243,7 @@ input,select{outline:none;font-family:inherit}
   transform:translateY(-2px);
 }
 
+/* LOGOUT BUTTON */
 .logout-btn{
   width:100%;padding:12px;
   margin-top:12px;
@@ -261,12 +262,14 @@ input,select{outline:none;font-family:inherit}
   transform:translateY(-2px);
 }
 
+/* ============ LAYOUT ============ */
 .app-layout{
   display:grid;
   grid-template-columns:240px 1fr;
   min-height:100vh;
 }
 
+/* SIDEBAR */
 .sidebar{
   background:linear-gradient(180deg,rgba(13,29,48,.98),rgba(5,15,27,.99));
   border-right:1px solid rgba(53,201,255,.15);
@@ -373,6 +376,7 @@ input,select{outline:none;font-family:inherit}
   line-height:1.7;
 }
 
+/* MAIN */
 .main-content{padding:24px 28px;overflow-x:hidden;min-height:100vh}
 .page{display:none;animation:pageIn .35s cubic-bezier(.2,.9,.3,1)}
 .page.active{display:block}
@@ -395,6 +399,7 @@ input,select{outline:none;font-family:inherit}
 .page-subtitle{color:#7d93ab;font-size:13px;margin-top:6px;letter-spacing:.3px}
 .page-actions{display:flex;gap:10px;flex-wrap:wrap}
 
+/* TABLES */
 .tables-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
@@ -538,6 +543,7 @@ input:focus{
   box-shadow:0 0 0 3px rgba(53,201,255,.15);
 }
 
+/* HOME */
 #home .home-center{
   text-align:center;padding:60px 20px;
   max-width:900px;margin:0 auto;
@@ -571,6 +577,7 @@ input:focus{
   text-transform:capitalize;
 }
 
+/* STATS */
 .stats{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
@@ -594,6 +601,7 @@ input:focus{
 .stat.orange{border-top:4px solid #dc971b}
 .stat.blue{border-top:4px solid #0a8ee8}
 
+/* ADMIN */
 .admin-menu-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
@@ -641,6 +649,7 @@ input:focus{
 }
 .inner-back:hover{border-color:#35c9ff;transform:translateX(-3px)}
 
+/* HISTORY */
 .history-item{
   background:linear-gradient(155deg,rgba(12,26,44,.95),rgba(8,20,35,.98));
   border:1px solid rgba(38,63,90,.8);border-left:5px solid #08a979;
@@ -796,6 +805,7 @@ input:focus{
 }
 @keyframes emptyFloat{50%{transform:translateY(-10px)}}
 
+/* BOOKING */
 .booking-form-card{
   padding:22px;border-radius:20px;
   background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
@@ -865,6 +875,7 @@ input:focus{
 .booking-cancel-btn{background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border:1px solid rgba(224,68,86,.4)}
 .booking-cancel-btn:hover{background:linear-gradient(135deg,#e04456,#a92335);color:#fff}
 
+/* MODAL */
 .modal-bg{
   display:none;position:fixed;inset:0;z-index:30000;
   background:rgba(0,0,0,.85);
@@ -900,6 +911,7 @@ input:focus{
 .modal-cancel{margin-top:10px;background:linear-gradient(135deg,#172c43,#0d1a29);border:1px solid rgba(54,82,109,.8)}
 .modal-cancel:hover{border-color:#35c9ff}
 
+/* PATTERN */
 .pattern-bg{
   display:none;position:fixed;inset:0;z-index:50000;
   background:rgba(2,8,16,.94);
@@ -940,6 +952,7 @@ input:focus{
 }
 .pattern-back:hover{border-color:#35c9ff}
 
+/* PDF LOADING */
 .pdf-loading{
   display:none;position:fixed;inset:0;z-index:99999;
   background:rgba(2,8,16,.94);
@@ -966,6 +979,7 @@ input:focus{
 .pdf-loading-title{color:#35c9ff;font-weight:900;font-size:17px;letter-spacing:1px;margin-bottom:8px}
 .pdf-loading-sub{color:#8198af;font-size:13px}
 
+/* KEYBOARD HINTS */
 .keyboard-hints{
   position:fixed;bottom:14px;right:14px;
   display:flex;gap:6px;align-items:center;
@@ -1008,6 +1022,7 @@ input:focus{
   font-size:12px;color:#c0d8ec;line-height:1.5;
 }
 
+/* PWD MODAL */
 .pwd-modal-bg{
   display:none;position:fixed;inset:0;z-index:40000;
   background:rgba(2,8,16,.92);
@@ -1107,6 +1122,7 @@ input:focus{
   background:linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15));
 }
 
+/* CLEAR MODAL */
 .clear-modal-bg{
   display:none;position:fixed;inset:0;z-index:40000;
   background:rgba(2,8,16,.92);
@@ -1180,6 +1196,7 @@ input:focus{
 }
 .clear-cancel-btn:hover{border-color:#35c9ff;color:#fff}
 
+/* TABLES EDIT */
 .tables-edit-bg{
   display:none;position:fixed;inset:0;z-index:40000;
   background:rgba(2,8,16,.92);
@@ -1212,82 +1229,6 @@ input:focus{
   border:1px dashed rgba(53,201,255,.3);
   border-radius:14px;
   margin-top:12px;
-}
-
-/* TELEGRAM CODE ANIMATION */
-.telegram-code-box{
-  margin-top:14px;
-  padding:16px;
-  border-radius:16px;
-  background:linear-gradient(135deg,rgba(53,201,255,.06),rgba(152,92,255,.06));
-  border:1px dashed rgba(53,201,255,.35);
-}
-.telegram-code-title{
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:10px;margin-bottom:12px;
-  font-size:12px;font-weight:900;color:#35c9ff;letter-spacing:1.5px;
-}
-.code-timer-badge{
-  display:none;padding:6px 14px;border-radius:20px;
-  background:linear-gradient(135deg,rgba(66,233,121,.15),rgba(13,187,133,.15));
-  border:1px solid rgba(66,233,121,.4);
-  color:#42e979;font-weight:900;font-size:12px;letter-spacing:1px;
-  font-variant-numeric:tabular-nums;
-}
-
-.tg-bot-link-box{
-  text-align:center;padding:16px;border-radius:14px;
-  background:rgba(53,201,255,.06);
-  border:1px dashed rgba(53,201,255,.4);
-  margin-bottom:12px;
-}
-.tg-bot-link-title{
-  font-size:13px;color:#35c9ff;font-weight:900;margin-bottom:10px;
-}
-.tg-bot-link-steps{
-  font-size:11px;color:#a0b8d0;line-height:1.8;margin-bottom:14px;
-  text-align:left;padding:10px;border-radius:10px;background:rgba(0,0,0,.2);
-}
-.tg-bot-link-steps b{color:#42e979;font-family:Consolas,monospace}
-.tg-bot-btn{
-  display:inline-block;padding:12px 24px;border-radius:12px;
-  background:linear-gradient(135deg,#0a8ee8,#065a9f);
-  color:#fff;font-weight:900;font-size:13px;letter-spacing:1px;
-  text-decoration:none;
-  box-shadow:0 8px 25px rgba(8,123,210,.4);
-  transition:.25s;
-}
-.tg-bot-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(8,123,210,.55)}
-
-.tg-polling-status{
-  text-align:center;font-size:11px;color:#8aa0b8;
-  margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;
-}
-.tg-polling-dot{
-  width:8px;height:8px;border-radius:50%;background:#35c9ff;
-  animation:tgPulse 1.5s ease-in-out infinite;
-}
-@keyframes tgPulse{
-  0%,100%{opacity:.3;transform:scale(.8)}
-  50%{opacity:1;transform:scale(1.2)}
-}
-
-.tg-code-ready{
-  text-align:center;padding:16px;border-radius:12px;
-  background:rgba(66,233,121,.1);
-  border:1px solid rgba(66,233,121,.5);
-  animation:codePulse 1.5s infinite;
-}
-.tg-code-ready-icon{font-size:32px;margin-bottom:8px}
-.tg-code-ready-title{
-  font-size:14px;color:#42e979;font-weight:900;
-  margin-bottom:6px;letter-spacing:1px;
-}
-.tg-code-ready-sub{font-size:11px;color:#a0b8d0}
-
-@keyframes codePulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(66,233,121,.4)}
-  50%{box-shadow:0 0 0 12px rgba(66,233,121,0)}
 }
 
 @media (max-width:1100px){
@@ -1331,6 +1272,8 @@ input:focus{
 }
 </style>
 </head>
+<body>
+
 <body>
 
 <!-- LOGIN / REGISTER SCREEN -->
@@ -1433,54 +1376,7 @@ input:focus{
       <input type="number" id="regTablesCount" class="login-input" value="3" min="1" max="20">
     </div>
 
-    <!-- TELEGRAM TASDIQLASH BO'LIMI -->
-    <div class="telegram-code-box">
-      <div class="telegram-code-title">
-        <span>📱 TELEGRAM TASDIQLASH</span>
-        <span class="code-timer-badge" id="codeTimerBadge">⏱ 05:00</span>
-      </div>
-
-      <div id="codeNotSentBox">
-        <div class="tg-bot-link-box" style="background:rgba(152,92,255,.06);border-color:rgba(152,92,255,.4)">
-          <div class="tg-bot-link-title" style="color:#b28aff">
-            💡 QANDAY ISHLAYDI?
-          </div>
-          <div class="tg-bot-link-steps">
-            <b>1.</b> Pastdagi tugmani bosing<br>
-            <b>2.</b> Telegram botga <b>/start</b> yuboring<br>
-            <b>3.</b> Loginingizni botga yuboring<br>
-            <b>4.</b> Bot sizga maxsus kod yuboradi<br>
-            <b>5.</b> Kod avtomatik saytga tushadi ✅
-          </div>
-        </div>
-        <button type="button" class="login-btn" id="sendCodeBtn" 
-                onclick="startTelegramVerification()" 
-                style="background:linear-gradient(135deg,#985cff,#5a2bbf);letter-spacing:1.5px">
-          📨 TELEGRAM ORQALI TASDIQLASH
-        </button>
-      </div>
-
-      <div id="codeSentBox" style="display:none">
-        <div id="codeStatusText"></div>
-
-        <div class="login-field" style="margin-bottom:0">
-          <label class="login-label" style="color:#42e979">🔑 6 xonali kodni kiriting</label>
-          <input type="text" id="regVerificationCode" class="login-input" 
-                 maxlength="6" 
-                 placeholder="000000"
-                 inputmode="numeric"
-                 autocomplete="one-time-code"
-                 style="text-align:center;font-size:24px;font-weight:900;letter-spacing:8px;color:#42e979">
-        </div>
-        <button type="button" class="login-btn" id="resendCodeBtn"
-                onclick="startTelegramVerification()"
-                style="display:none;margin-top:10px;background:linear-gradient(135deg,#e8a826,#b97300);letter-spacing:1.5px">
-          🔄 QAYTA KOD OLISH
-        </button>
-      </div>
-    </div>
-
-    <button class="login-btn" onclick="doRegister()" style="margin-top:16px" data-i18n="registerBtn">✨ RO'YXATDAN O'TISH</button>
+    <button class="login-btn" onclick="doRegister()" data-i18n="registerBtn">✨ RO'YXATDAN O'TISH</button>
 
     <div id="registerError" class="login-error"></div>
 
@@ -1935,26 +1831,28 @@ input:focus{
 
 <script>
 /* ================================================================
-   ⚙️ SOZLAMALAR — BU YERNI O'ZGARTIRING!
+   TELEGRAM BOT SOZLAMALARI
    ================================================================ */
-const TELEGRAM_BOT_USERNAME = "SizningBilliardBot"; // @ belgisisiz, bot username
-const BACKEND_API_URL = "https://sizning-bot.railway.app/api"; // Backend serveringiz manzili
-// ⚠️ MUHIM: BACKEND_API_URL https:// bo'lishi SHART!
+const TELEGRAM_BOT_TOKEN = "8977154075:AAGXq9oo7y-S2wd-8J-XYgHgx8UPvjzzWHQ";
+const TELEGRAM_ADMIN_CHAT_ID = "6120377805";
 
-/* ================================================================
-   TELEGRAM LOG (faqat backend orqali, token xavfsiz!)
-   ================================================================ */
 async function sendTelegramLog(htmlMessage){
+  if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
   try{
-    const res = await fetch(BACKEND_API_URL + "/log", {
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: htmlMessage })
+      body: JSON.stringify({
+        chat_id: TELEGRAM_ADMIN_CHAT_ID,
+        text: htmlMessage,
+        parse_mode: "HTML",
+        disable_web_page_preview: true
+      })
     });
-    return await res.json();
+    const data = await res.json();
+    if(!data.ok) console.warn("Telegram xato:", data.description);
   }catch(e){
-    console.warn("Telegram log xatosi:", e);
-    return { ok: false };
+    console.warn("Telegram yuborishda xatolik:", e);
   }
 }
 
@@ -1996,14 +1894,6 @@ const I18N = {
     regErrorPassword: "⚠️ Parol kamida 3 ta belgi bo'lishi kerak!",
     regErrorPasswordMatch: "⚠️ Parollar mos kelmadi!",
     regErrorUsernameTaken: "⚠️ Bu login allaqachon band!",
-
-    codeNotSent: "⚠️ Avval Telegram orqali tasdiqlashni boshlang!",
-    codeEnter6: "⚠️ 6 xonali kodni to'liq kiriting!",
-    codeWrong: "❌ Kod noto'g'ri!",
-    codeCorrect: "✅ Kod to'g'ri! Hisob yaratilmoqda...",
-    codeExpired: "⏱ Kod muddati tugadi! Qayta kod oling.",
-    codeTooManyAttempts: "🚫 Juda ko'p noto'g'ri urinish! Qaytadan kod oling.",
-    attemptsLeft: "ta urinish qoldi",
 
     navHome: "Asosiy",
     navTables: "Stollar",
@@ -2271,14 +2161,6 @@ const I18N = {
     regErrorPassword: "⚠️ Пароль минимум 3 символа!",
     regErrorPasswordMatch: "⚠️ Пароли не совпадают!",
     regErrorUsernameTaken: "⚠️ Этот логин уже занят!",
-
-    codeNotSent: "⚠️ Сначала начните подтверждение через Telegram!",
-    codeEnter6: "⚠️ Введите полный 6-значный код!",
-    codeWrong: "❌ Неверный код!",
-    codeCorrect: "✅ Код верный! Создаём аккаунт...",
-    codeExpired: "⏱ Время кода истекло! Получите новый код.",
-    codeTooManyAttempts: "🚫 Слишком много неверных попыток! Получите новый код.",
-    attemptsLeft: "попыток осталось",
 
     navHome: "Главная",
     navTables: "Столы",
@@ -2805,7 +2687,7 @@ function logUserAction(userId, type, description, extra){
 let selectedHistoryDateValue = "";
 let bookingFilterToday = true;
 
-const ADMIN_PATTERN = [1,5,9,6,3];
+const ADMIN_PATTERN = [2,4,5,3];
 const CLUB_NAME = "BILLIARD CLUB";
 const CLUB_PHONE = "+998 97 757 31 10";
 const CLUB_ADDRESS = "Mindonobod Yangi Asr";
@@ -2822,320 +2704,6 @@ function saveBookings(arr){
   localStorage.setItem("billiardBookings", JSON.stringify(arr));
   updateAllBookingIndicators();
 }
-
-/* ================================================================
-   TELEGRAM TASDIQLASH TIZIMI
-   ================================================================ */
-let verificationState = {
-  sessionId: null,
-  code: null,
-  expiresAt: 0,
-  timerInterval: null,
-  pollInterval: null,
-  tempUser: null,
-  isVerified: false,
-  attemptCount: 0
-};
-
-const CODE_VALIDITY_MS = 5 * 60 * 1000; // 5 daqiqa
-
-function generateSessionId(){
-  return "sess_" + Date.now() + "_" + Math.random().toString(36).slice(2, 11);
-}
-
-async function startTelegramVerification(){
-  const fullName = document.getElementById("regFullName").value.trim();
-  const username = document.getElementById("regUsername").value.trim();
-  const phone = document.getElementById("regPhone").value.trim();
-  const password = document.getElementById("regPassword").value;
-  const passwordConfirm = document.getElementById("regPasswordConfirm").value;
-  const tablesCount = Number(document.getElementById("regTablesCount").value) || 3;
-  const errorEl = document.getElementById("registerError");
-
-  errorEl.style.color = "#ff6878";
-
-  // VALIDATSIYA
-  if(!fullName || fullName.length < 2){
-    errorEl.innerText = t("regErrorFullName"); shakeError(errorEl); beep("error"); return;
-  }
-  if(!username || username.length < 3){
-    errorEl.innerText = t("regErrorUsername"); shakeError(errorEl); beep("error"); return;
-  }
-  if(!/^[a-zA-Z0-9_]+$/.test(username)){
-    errorEl.innerText = t("regErrorUsernameFormat"); shakeError(errorEl); beep("error"); return;
-  }
-  if(!phone || phone.length < 7){
-    errorEl.innerText = t("regErrorPhone"); shakeError(errorEl); beep("error"); return;
-  }
-  if(!password || password.length < 3){
-    errorEl.innerText = t("regErrorPassword"); shakeError(errorEl); beep("error"); return;
-  }
-  if(password !== passwordConfirm){
-    errorEl.innerText = t("regErrorPasswordMatch"); shakeError(errorEl); beep("error"); return;
-  }
-  if(tablesCount < 1 || tablesCount > 20){
-    errorEl.innerText = t("tablesCountError"); shakeError(errorEl); beep("error"); return;
-  }
-  if(findUser(username)){
-    errorEl.innerText = t("regErrorUsernameTaken"); shakeError(errorEl); beep("error"); return;
-  }
-
-  // SESSION YARATISH
-  const sessionId = generateSessionId();
-
-  try {
-    const res = await fetch(BACKEND_API_URL + "/register-pending", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        sessionId: sessionId,
-        username: username,
-        fullName: fullName,
-        phone: phone,
-        tablesCount: tablesCount
-      })
-    });
-
-    const data = await res.json();
-    if(!data.ok){
-      errorEl.style.color = "#ff6878";
-      errorEl.innerText = "⚠️ Server xatosi: " + (data.error || "Noma'lum");
-      beep("error");
-      return;
-    }
-  } catch(err){
-    errorEl.style.color = "#ff6878";
-    errorEl.innerText = "⚠️ Server bilan aloqa yo'q. BACKEND_API_URL ni tekshiring!";
-    beep("error");
-    return;
-  }
-
-  // STATE
-  verificationState.sessionId = sessionId;
-  verificationState.tempUser = { fullName, username, phone, password, tablesCount };
-  verificationState.isVerified = false;
-  verificationState.attemptCount = 0;
-  verificationState.expiresAt = Date.now() + CODE_VALIDITY_MS;
-
-  // UI YANGILASH
-  const codeNotSentBox = document.getElementById("codeNotSentBox");
-  const codeSentBox = document.getElementById("codeSentBox");
-  const codeStatusText = document.getElementById("codeStatusText");
-
-  if(codeNotSentBox) codeNotSentBox.style.display = "none";
-  if(codeSentBox) codeSentBox.style.display = "block";
-
-  if(codeStatusText){
-    codeStatusText.innerHTML = `
-      <div class="tg-bot-link-box">
-        <div class="tg-bot-link-title">📱 TELEGRAM BOTGA O'TING</div>
-        <div class="tg-bot-link-steps">
-          <b>1.</b> Pastdagi tugmani bosing<br>
-          <b>2.</b> Botga <b>/start</b> yuboring<br>
-          <b>3.</b> Loginingizni yuboring: <b>${escapeHTML(username)}</b><br>
-          <b>4.</b> Bot sizga kod yuboradi
-        </div>
-        <a href="https://t.me/${TELEGRAM_BOT_USERNAME}" target="_blank" class="tg-bot-btn">
-          🤖 @${TELEGRAM_BOT_USERNAME} NI OCHISH
-        </a>
-        <div class="tg-polling-status">
-          <span class="tg-polling-dot"></span>
-          <span>Kod avtomatik tekshirilmoqda...</span>
-        </div>
-      </div>
-    `;
-  }
-
-  startCodeTimer();
-  startCodePolling(sessionId);
-  beep("start");
-}
-
-function startCodePolling(sessionId){
-  if(verificationState.pollInterval){
-    clearInterval(verificationState.pollInterval);
-  }
-
-  let checkCount = 0;
-  const maxChecks = 100; // 100 * 3s = 5 daqiqa
-
-  verificationState.pollInterval = setInterval(async () => {
-    checkCount++;
-
-    if(checkCount > maxChecks || Date.now() > verificationState.expiresAt){
-      clearInterval(verificationState.pollInterval);
-      verificationState.pollInterval = null;
-      return;
-    }
-
-    try {
-      const res = await fetch(BACKEND_API_URL + "/check-code?sessionId=" + sessionId);
-      const data = await res.json();
-
-      if(data.status === "ready" && data.code){
-        verificationState.code = data.code;
-
-        const codeInput = document.getElementById("regVerificationCode");
-        if(codeInput){
-          codeInput.value = data.code;
-          codeInput.style.background = "rgba(66,233,121,.15)";
-          codeInput.style.borderColor = "#42e979";
-        }
-
-        const statusText = document.getElementById("codeStatusText");
-        if(statusText){
-          statusText.innerHTML = `
-            <div class="tg-code-ready">
-              <div class="tg-code-ready-icon">✅</div>
-              <div class="tg-code-ready-title">KOD TAYYOR!</div>
-              <div class="tg-code-ready-sub">Kod avtomatik kiritildi</div>
-            </div>
-          `;
-        }
-
-        beep("money");
-        clearInterval(verificationState.pollInterval);
-        verificationState.pollInterval = null;
-
-        setTimeout(() => {
-          if(verifyCode()){
-            setTimeout(() => completeRegistration(), 500);
-          }
-        }, 1000);
-      }
-    } catch(err){}
-  }, 3000);
-}
-
-function startCodeTimer(){
-  const badge = document.getElementById("codeTimerBadge");
-  badge.style.display = "inline-block";
-
-  if(verificationState.timerInterval){
-    clearInterval(verificationState.timerInterval);
-  }
-
-  function tick(){
-    const remaining = verificationState.expiresAt - Date.now();
-    if(remaining <= 0){
-      clearInterval(verificationState.timerInterval);
-      verificationState.timerInterval = null;
-      if(verificationState.pollInterval){
-        clearInterval(verificationState.pollInterval);
-        verificationState.pollInterval = null;
-      }
-      badge.innerHTML = "⏱ TUGADI";
-      badge.style.background = "linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15))";
-      badge.style.borderColor = "rgba(224,68,86,.4)";
-      badge.style.color = "#ff6878";
-      document.getElementById("resendCodeBtn").style.display = "block";
-      beep("error");
-      return;
-    }
-    badge.innerHTML = "⏱ " + formatTimer(remaining);
-    if(remaining < 60000){
-      badge.style.background = "linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15))";
-      badge.style.borderColor = "rgba(224,68,86,.4)";
-      badge.style.color = "#ff6878";
-    } else {
-      badge.style.background = "linear-gradient(135deg,rgba(66,233,121,.15),rgba(13,187,133,.15))";
-      badge.style.borderColor = "rgba(66,233,121,.4)";
-      badge.style.color = "#42e979";
-    }
-  }
-
-  tick();
-  verificationState.timerInterval = setInterval(tick, 1000);
-}
-
-function formatTimer(ms){
-  if(ms < 0) ms = 0;
-  const totalSec = Math.floor(ms / 1000);
-  const m = Math.floor(totalSec / 60);
-  const s = totalSec % 60;
-  return String(m).padStart(2,"0") + ":" + String(s).padStart(2,"0");
-}
-
-function shakeError(el){
-  el.classList.remove("shake");
-  void el.offsetWidth;
-  el.classList.add("shake");
-}
-
-function verifyCode(){
-  const input = document.getElementById("regVerificationCode").value.trim();
-  const errorEl = document.getElementById("registerError");
-
-  if(!verificationState.code){
-    errorEl.style.color = "#ff6878";
-    errorEl.innerText = "⚠️ Kod hali kelmadi. Telegram botda login yuboring!";
-    shakeError(errorEl); beep("error");
-    return false;
-  }
-
-  if(Date.now() > verificationState.expiresAt){
-    errorEl.style.color = "#ff6878";
-    errorEl.innerText = t("codeExpired");
-    shakeError(errorEl); beep("error");
-    return false;
-  }
-
-  if(input.length !== 6){
-    errorEl.style.color = "#ff6878";
-    errorEl.innerText = t("codeEnter6");
-    shakeError(errorEl); beep("error");
-    return false;
-  }
-
-  if(input !== verificationState.code){
-    verificationState.attemptCount++;
-    if(verificationState.attemptCount >= 5){
-      errorEl.style.color = "#ff6878";
-      errorEl.innerText = t("codeTooManyAttempts");
-      resetVerificationState();
-      return false;
-    }
-    errorEl.style.color = "#ff6878";
-    errorEl.innerText = t("codeWrong") + ` (${5 - verificationState.attemptCount} ${t("attemptsLeft")})`;
-    shakeError(errorEl); beep("error");
-    return false;
-  }
-
-  verificationState.isVerified = true;
-  errorEl.style.color = "#42e979";
-  errorEl.innerText = t("codeCorrect");
-  beep("money");
-  return true;
-}
-
-function resetVerificationState(){
-  if(verificationState.timerInterval) clearInterval(verificationState.timerInterval);
-  if(verificationState.pollInterval) clearInterval(verificationState.pollInterval);
-  verificationState = {
-    sessionId: null, code: null, expiresAt: 0,
-    timerInterval: null, pollInterval: null,
-    tempUser: null, isVerified: false, attemptCount: 0
-  };
-  const codeSentBox = document.getElementById("codeSentBox");
-  const codeNotSentBox = document.getElementById("codeNotSentBox");
-  const timerBadge = document.getElementById("codeTimerBadge");
-  if(codeSentBox) codeSentBox.style.display = "none";
-  if(codeNotSentBox) codeNotSentBox.style.display = "block";
-  if(timerBadge) timerBadge.style.display = "none";
-}
-
-document.addEventListener("input", function(e){
-  if(e.target && e.target.id === "regVerificationCode"){
-    e.target.value = e.target.value.replace(/\D/g, "").slice(0, 6);
-    if(e.target.value.length === 6){
-      setTimeout(()=>{
-        if(verifyCode()){
-          setTimeout(()=>completeRegistration(), 500);
-        }
-      }, 200);
-    }
-  }
-});
 
 /* ================================================================
    YORDAMCHI
@@ -3224,7 +2792,10 @@ function checkLogin(){
   if(!userInput || !passInput){
     errorEl.innerText = t("loginFillAll");
     errorEl.style.color = "#ff6878";
-    shakeError(errorEl); beep("error");
+    errorEl.classList.remove("shake");
+    void errorEl.offsetWidth;
+    errorEl.classList.add("shake");
+    beep("error");
     return;
   }
 
@@ -3233,7 +2804,10 @@ function checkLogin(){
   if(!user || user.password !== passInput){
     errorEl.innerText = t("loginWrong");
     errorEl.style.color = "#ff6878";
-    shakeError(errorEl); beep("error");
+    errorEl.classList.remove("shake");
+    void errorEl.offsetWidth;
+    errorEl.classList.add("shake");
+    beep("error");
     document.getElementById("loginPassword").value = "";
     return;
   }
@@ -3275,6 +2849,7 @@ function checkLogin(){
   }, 500);
 }
 
+/* ---- REGISTER ---- */
 function showRegister(){
   document.getElementById("loginBox").style.display = "none";
   document.getElementById("registerBox").style.display = "block";
@@ -3288,17 +2863,6 @@ function showLogin(){
   document.getElementById("registerBox").style.display = "none";
   document.getElementById("registerError").innerText = "";
   document.getElementById("loginError").innerText = "";
-  
-  resetVerificationState();
-  
-  // Tozalash
-  const fields = ["regFullName","regUsername","regPhone","regPassword","regPasswordConfirm","regVerificationCode"];
-  fields.forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.value = "";
-  });
-  document.getElementById("regTablesCount").value = "3";
-  
   setTimeout(()=>document.getElementById("loginUsername").focus(), 100);
 }
 
@@ -3315,33 +2879,56 @@ function togglePasswordVisibility(inputId, btn){
 }
 
 function doRegister(){
-  if(!verificationState.isVerified){
-    if(!verificationState.code){
-      beep("error");
-      showModal("📱", "Kod kelmadi", 
-        "Iltimos, avval Telegram botga o'tib, loginingizni yuboring.\n\n" +
-        "Bot: @" + TELEGRAM_BOT_USERNAME);
-      return;
-    }
-    const input = document.getElementById("regVerificationCode").value.trim();
-    if(!input){
-      beep("error");
-      showModal("🔑", "Kodni kiriting", "Iltimos, 6 xonali kodni kiriting.");
-      return;
-    }
-    if(!verifyCode()) return;
-  }
-  completeRegistration();
-}
-
-function completeRegistration(){
-  if(!verificationState.tempUser) {
-    beep("error");
-    return;
-  }
-
-  const { fullName, username, phone, password, tablesCount } = verificationState.tempUser;
+  const fullName = document.getElementById("regFullName").value.trim();
+  const username = document.getElementById("regUsername").value.trim();
+  const phone = document.getElementById("regPhone").value.trim();
+  const password = document.getElementById("regPassword").value;
+  const passwordConfirm = document.getElementById("regPasswordConfirm").value;
+  const tablesCount = Number(document.getElementById("regTablesCount").value) || 3;
   const errorEl = document.getElementById("registerError");
+
+  errorEl.style.color = "#ff6878";
+
+  if(!fullName || fullName.length < 2){
+    errorEl.innerText = t("regErrorFullName");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+  if(!username || username.length < 3){
+    errorEl.innerText = t("regErrorUsername");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+  if(!/^[a-zA-Z0-9_]+$/.test(username)){
+    errorEl.innerText = t("regErrorUsernameFormat");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+  if(!phone || phone.length < 7){
+    errorEl.innerText = t("regErrorPhone");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+  if(!password || password.length < 3){
+    errorEl.innerText = t("regErrorPassword");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+  if(password !== passwordConfirm){
+    errorEl.innerText = t("regErrorPasswordMatch");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+  if(tablesCount < 1 || tablesCount > 20){
+    errorEl.innerText = t("tablesCountError");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+  if(findUser(username)){
+    errorEl.innerText = t("regErrorUsernameTaken");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
 
   const defaultPrice = 40000;
   const prices = [];
@@ -3353,11 +2940,9 @@ function completeRegistration(){
   });
 
   if(!res.ok){
-    errorEl.style.color = "#ff6878";
     errorEl.innerText = res.error;
-    shakeError(errorEl);
-    beep("error");
-    return;
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
   }
 
   const users = getUsers();
@@ -3366,40 +2951,25 @@ function completeRegistration(){
     newUser.phone = phone;
     newUser.registeredAt = new Date().toISOString();
     newUser.registeredBy = "self";
-    newUser.verified = true;
     saveUsers(users);
   }
 
-  if(newUser) logUserAction(newUser.id, "register", `Ro'yxatdan o'tdi (tasdiqlangan) — ${phone}`);
-
-  if(verificationState.timerInterval) clearInterval(verificationState.timerInterval);
-  if(verificationState.pollInterval) clearInterval(verificationState.pollInterval);
+  if(newUser) logUserAction(newUser.id, "register", `Ro'yxatdan o'tdi — ${phone}`);
 
   errorEl.style.color = "#42e979";
   errorEl.innerText = t("regSuccess");
   beep("money");
 
-  const tempUsername = username;
-  verificationState = {
-    sessionId: null, code: null, expiresAt: 0,
-    timerInterval: null, pollInterval: null,
-    tempUser: null, isVerified: false, attemptCount: 0
-  };
-
-  // Maydonlarni tozalash
-  ["regFullName","regUsername","regPhone","regPassword","regPasswordConfirm","regVerificationCode"].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el) el.value = "";
-  });
+  document.getElementById("regFullName").value = "";
+  document.getElementById("regUsername").value = "";
+  document.getElementById("regPhone").value = "";
+  document.getElementById("regPassword").value = "";
+  document.getElementById("regPasswordConfirm").value = "";
   document.getElementById("regTablesCount").value = "3";
-  document.getElementById("codeSentBox").style.display = "none";
-  document.getElementById("codeNotSentBox").style.display = "block";
-  document.getElementById("codeTimerBadge").style.display = "none";
-  document.getElementById("resendCodeBtn").style.display = "none";
 
   setTimeout(()=>{
     showLogin();
-    document.getElementById("loginUsername").value = tempUsername;
+    document.getElementById("loginUsername").value = username;
     document.getElementById("loginPassword").value = "";
     document.getElementById("loginError").innerText = "✅ Hisob yaratildi! Endi kiring.";
     document.getElementById("loginError").style.color = "#42e979";
@@ -3433,6 +3003,7 @@ function confirmLogout(){
     screen.style.animation = "none";
     void screen.offsetWidth;
     screen.style.animation = "fadeIn .4s ease";
+    // Login oynasini ko'rsatish
     document.getElementById("loginBox").style.display = "block";
     document.getElementById("registerBox").style.display = "none";
     document.getElementById("loginUsername").value = "";
@@ -4799,6 +4370,7 @@ function renderUserLogs(){
   });
 }
 
+/* EDIT TABLES */
 let editingTablesUserId = null;
 
 function editUserTables(userId){
@@ -4916,6 +4488,7 @@ function closeEditTablesModal(){
   editingTablesUserId = null;
 }
 
+/* PASSWORD */
 let pwdModalTargetId = null;
 
 function changeUserPasswordPrompt(id){
@@ -5053,6 +4626,7 @@ function doDeleteUser(id){
   renderUsers();
 }
 
+/* CLEAR LOGS */
 function clearUserLogs(){
   const logs = getUserLogs();
   document.getElementById("clearModalCount").innerText = logs.length + " ta yozuv";
@@ -5077,7 +4651,7 @@ function doClearUserLogs(){
 }
 
 /* ================================================================
-   PDF
+   PDF FUNKSIYALAR
    ================================================================ */
 function showPdfLoading(show){
   document.getElementById("pdfLoading").style.display = show ? "flex" : "none";
@@ -5645,10 +5219,7 @@ document.addEventListener("keydown", function(e){
       const regBox = document.getElementById("registerBox");
       if(regBox && regBox.style.display !== "none"){
         const tag = (e.target.tagName||"").toLowerCase();
-        if(tag === "input" && e.target.id !== "regVerificationCode"){
-          e.preventDefault(); 
-          startTelegramVerification();
-        }
+        if(tag === "input"){ e.preventDefault(); doRegister(); }
       } else {
         e.preventDefault(); checkLogin();
       }
@@ -5772,6 +5343,9 @@ setInterval(function(){
    BRON TEKSHIRISH
    ================================================================ */
 setInterval(function(){
+  renderBookings();
+  updateAllBookingIndicators();
+
   const bookings = getBookings();
   const now = Date.now();
   let changed = false;
