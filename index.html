@@ -368,6 +368,12 @@ input,select{outline:none;font-family:inherit}
   background:rgba(66,233,121,.2);
   color:#42e979;border-color:rgba(66,233,121,.4);
 }
+.nav-badge.gold{
+  background:rgba(255,210,63,.2);
+  color:#ffd23f;border-color:rgba(255,210,63,.4);
+  animation:pendingPulse 1.5s infinite;
+}
+@keyframes pendingPulse{50%{box-shadow:0 0 15px rgba(255,210,63,.6)}}
 
 .sidebar-footer{
   padding:14px 10px 6px;
@@ -804,6 +810,18 @@ input:focus{
   animation:emptyFloat 3s ease-in-out infinite;
 }
 @keyframes emptyFloat{50%{transform:translateY(-10px)}}
+
+/* PENDING REQUESTS SECTION */
+.pending-card{
+  background:linear-gradient(155deg,rgba(40,35,20,.95),rgba(25,20,10,.98)) !important;
+  border:1px solid rgba(255,210,63,.5) !important;
+  border-left:5px solid #ffd23f !important;
+}
+.pending-badge-gold{
+  background:rgba(255,210,63,.2) !important;
+  color:#ffd23f !important;
+  border-color:rgba(255,210,63,.5) !important;
+}
 
 /* BOOKING */
 .booking-form-card{
@@ -1274,8 +1292,6 @@ input:focus{
 </head>
 <body>
 
-<body>
-
 <!-- LOGIN / REGISTER SCREEN -->
 <div id="loginScreen" class="login-screen">
 
@@ -1321,7 +1337,7 @@ input:focus{
 
     <div class="login-footer">
       📞 +998 97 757 31 10<br>
-      📍 Mindonobod Yangi Asr
+      👦🏻 Admin : Firdavsbek
     </div>
   </div>
 
@@ -1330,12 +1346,17 @@ input:focus{
     <div class="login-logo">
       <div class="login-logo-icon">✨</div>
       <div class="login-logo-title" data-i18n="registerTitle">RO'YXATDAN O'TISH</div>
-      <div class="login-logo-sub" data-i18n="registerSub">YANGI HISOB YARATISH</div>
+      <div class="login-logo-sub" data-i18n="registerSub">SO'ROV YUBORISH</div>
     </div>
 
     <div class="login-lang">
       <button class="lang-btn" data-lang="uz" onclick="setLanguage('uz')">🇺🇿 UZ</button>
       <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
+    </div>
+
+    <div style="padding:14px;border-radius:14px;background:rgba(255,210,63,.08);border:1px dashed rgba(255,210,63,.5);margin-bottom:18px;font-size:12px;color:#ffd23f;line-height:1.6;text-align:center">
+      ⏳ <b>Diqqat!</b> Ro'yxatdan o'tganingizdan so'ng hisobingiz <b>avtomatik yaratilmaydi</b>.<br>
+      👑 Glavniy Admin <b>tasdiqlashini</b> kutasiz.
     </div>
 
     <div class="login-field">
@@ -1376,7 +1397,7 @@ input:focus{
       <input type="number" id="regTablesCount" class="login-input" value="3" min="1" max="20">
     </div>
 
-    <button class="login-btn" onclick="doRegister()" data-i18n="registerBtn">✨ RO'YXATDAN O'TISH</button>
+    <button class="login-btn" onclick="doRegister()" data-i18n="registerBtn" style="background:linear-gradient(135deg,#e8a826,#b97300)">📩 SO'ROV YUBORISH</button>
 
     <div id="registerError" class="login-error"></div>
 
@@ -1420,13 +1441,14 @@ input:focus{
       <button class="nav-item" id="navAdminBtn" onclick="openPattern()" data-key="A">
         <span class="nav-icon">🔐</span>
         <span data-i18n="navAdmin">Admin panel</span>
+        <span class="nav-badge hidden" id="pendingBadge">0</span>
         <span class="shortcut-tip" data-i18n="tipAdmin">A tugmasi</span>
       </button>
     </nav>
 
     <div class="sidebar-footer">
       📞 +998 97 757 31 10<br>
-      📍 Mindonobod Yangi Asr
+      👦🏻 Admin : Firdavsbek 
       <button class="logout-btn" onclick="logout()">
         <span>🚪</span>
         <span data-i18n="logoutBtn">CHIQISH</span>
@@ -1489,6 +1511,11 @@ input:focus{
         <button class="admin-card" id="usersAdminCard" onclick="openAdminPage('users')" style="display:none">
           <div class="admin-card-icon">👥</div>
           <div><b>Foydalanuvchilar</b><br><small>Login/parol va stollar</small></div>
+        </button>
+        <button class="admin-card" id="pendingAdminCard" onclick="openAdminPage('users')" style="display:none;border-color:rgba(255,210,63,.6);background:linear-gradient(155deg,rgba(50,42,20,.95),rgba(30,24,10,.98))">
+          <div class="admin-card-icon" style="background:linear-gradient(135deg,rgba(255,210,63,.25),rgba(232,168,38,.25));border-color:rgba(255,210,63,.5)">⏳</div>
+          <div><b style="color:#ffd23f">Kutilayotgan so'rovlar</b><br><small style="color:#ffd23f">Tasdiqlash kutilmoqda</small></div>
+          <span id="pendingCardBadge" style="position:absolute;top:12px;right:12px;background:#ffd23f;color:#1a1a1a;font-weight:900;font-size:11px;padding:4px 10px;border-radius:20px">0</span>
         </button>
       </div>
     </div>
@@ -1607,13 +1634,22 @@ input:focus{
       <div id="bookingList"></div>
     </div>
 
-    <!-- USERS -->
+    <!-- USERS + PENDING -->
     <div id="adminUsers" class="page">
       <div class="page-header">
         <div>
           <div class="page-title">👥 FOYDALANUVCHILAR</div>
           <div class="page-subtitle">Login/parollar, stollar va faoliyat</div>
         </div>
+      </div>
+
+      <!-- PENDING REQUESTS SECTION -->
+      <div id="pendingRequestsSection" class="booking-form-card" style="margin-bottom:20px;border-color:rgba(255,210,63,.5);background:linear-gradient(155deg,rgba(30,26,15,.95),rgba(18,14,8,.98))">
+        <div style="font-size:14px;font-weight:900;color:#ffd23f;margin-bottom:14px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center">
+          <span>⏳ KUTILAYOTGAN SO'ROVLAR</span>
+          <span id="pendingCountBadge" style="background:rgba(255,210,63,.2);color:#ffd23f;padding:4px 12px;border-radius:20px;font-size:11px">0 ta</span>
+        </div>
+        <div id="pendingRequestsList"></div>
       </div>
 
       <div class="booking-form-card" style="margin-bottom:20px">
@@ -1825,7 +1861,6 @@ input:focus{
   <b>B</b> <span data-i18n="hintBooking">Bron</span> •
   <b>Esc</b> <span data-i18n="hintClose">Yopish</span>
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -1871,11 +1906,14 @@ const I18N = {
     loginFillAll: "⚠️ Login va parolni to'ldiring!",
     loginSuccess: "✅ Kirish muvaffaqiyatli!",
     loginWrong: "❌ Login yoki parol noto'g'ri!",
+    loginPending: "⏳ So'rovingiz hali tasdiqlanmagan!\n\n👑 Admin tasdiqlashini kuting.",
+    loginRejected: "❌ So'rovingiz rad etilgan!\n\nBatafsil ma'lumot uchun admin bilan bog'laning.",
+    loginBlocked: "🚫 Sizning hisobingiz bloklangan!",
 
     noAccount: "Hisobingiz yo'qmi?",
     registerNow: "Ro'yxatdan o'tish",
     registerTitle: "RO'YXATDAN O'TISH",
-    registerSub: "YANGI HISOB YARATISH",
+    registerSub: "SO'ROV YUBORISH",
     fullNameLabel: "👤 To'liq ism",
     fullNamePlaceholder: "Ism va familiya",
     registerLoginPlaceholder: "Kamida 3 belgi",
@@ -1884,9 +1922,9 @@ const I18N = {
     passwordConfirmPlaceholder: "Qayta kiriting",
     phoneLabelReg: "📞 Telefon",
     tablesCountLabel: "🎱 Nechta stol?",
-    registerBtn: "✨ RO'YXATDAN O'TISH",
+    registerBtn: "📩 SO'ROV YUBORISH",
     backToLogin: "← KIRISHGA QAYTISH",
-    regSuccess: "✅ Muvaffaqiyatli ro'yxatdan o'tdingiz!",
+    regSuccess: "⏳ So'rovingiz yuborildi!\n\n👑 Glavniy Admin tasdiqlashini kuting.\nTasdiqlangach login/parolingiz faollashadi.",
     regErrorFullName: "⚠️ To'liq ismingizni kiriting!",
     regErrorUsername: "⚠️ Login kamida 3 ta belgi bo'lishi kerak!",
     regErrorUsernameFormat: "⚠️ Login faqat harf, raqam va _ belgisidan iborat bo'lsin!",
@@ -1894,6 +1932,7 @@ const I18N = {
     regErrorPassword: "⚠️ Parol kamida 3 ta belgi bo'lishi kerak!",
     regErrorPasswordMatch: "⚠️ Parollar mos kelmadi!",
     regErrorUsernameTaken: "⚠️ Bu login allaqachon band!",
+    regErrorPending: "⏳ Bu login bilan so'rov allaqachon yuborilgan. Admin tasdiqlashini kuting.",
 
     navHome: "Asosiy",
     navTables: "Stollar",
@@ -2125,7 +2164,29 @@ const I18N = {
     pricesRequired: "Har bir stol uchun narx kiritilishi kerak",
     userTablesLabel: "Stollar",
     userPricesLabel: "Narxlar",
-    editTablesBtn: "🎱 STOLLAR"
+    editTablesBtn: "🎱 STOLLAR",
+
+    // PENDING
+    pendingTitle: "⏳ KUTILAYOTGAN SO'ROVLAR",
+    pendingNone: "Hozircha kutilayotgan so'rovlar yo'q",
+    pendingApproveTitle: "So'rovni tasdiqlash",
+    pendingApproveText: "{name} (@{username}) ni tasdiqlaysizmi?\n\nTasdiqlangach foydalanuvchi:\n🔑 Login: {username}\n🔒 Parol: {password}\n\nbilan tizimga kira oladi.",
+    pendingApproveYes: "✅ HA, TASDIQLASH",
+    pendingRejectTitle: "So'rovni rad etish",
+    pendingRejectText: "{name} (@{username}) ning so'rovini rad etasizmi?\n\nFoydalanuvchi tizimga kira olmaydi va hisob ochilmaydi.",
+    pendingRejectYes: "❌ HA, RAD ETISH",
+    pendingRejectReason: "Rad etish sababini yozing (ixtiyoriy):",
+    pendingApprovedTitle: "Tasdiqlandi!",
+    pendingApprovedText: "👤 {name}\n\n🔑 Login: {username}\n🔒 Parol: {password}\n\nEndi foydalanuvchi tizimga kirishi mumkin.",
+    pendingRejectedTitle: "Rad etildi",
+    pendingRejectedText: "So'rov rad etildi. Foydalanuvchi tizimga kira olmaydi.",
+    pendingBadge: "{count} ta",
+    pendingSent: "⏳ So'rovingiz yuborildi!",
+    pendingRemoveConfirm: "So'rovni butunlay o'chirishni xohlaysizmi?",
+    pendingRemoveTitle: "O'chirish",
+    pendingRemoveText: "Rad etilgan so'rovni butunlay o'chirishni xohlaysizmi?",
+    pendingRemoveYes: "🗑️ HA, O'CHIRISH",
+    pendingRemoveNo: "❌ YO'Q"
   },
   ru: {
     loginSub: "WINDOWS EDITION",
@@ -2138,11 +2199,14 @@ const I18N = {
     loginFillAll: "⚠️ Заполните логин и пароль!",
     loginSuccess: "✅ Вход выполнен!",
     loginWrong: "❌ Неверный логин или пароль!",
+    loginPending: "⏳ Ваш запрос ещё не одобрен!\n\n👑 Ожидайте одобрения админа.",
+    loginRejected: "❌ Ваш запрос отклонён!\n\nСвяжитесь с админом для подробностей.",
+    loginBlocked: "🚫 Ваш аккаунт заблокирован!",
 
     noAccount: "Нет аккаунта?",
     registerNow: "Зарегистрироваться",
     registerTitle: "РЕГИСТРАЦИЯ",
-    registerSub: "СОЗДАТЬ НОВЫЙ АККАУНТ",
+    registerSub: "ОТПРАВИТЬ ЗАПРОС",
     fullNameLabel: "👤 Полное имя",
     fullNamePlaceholder: "Имя и фамилия",
     registerLoginPlaceholder: "Минимум 3 символа",
@@ -2151,9 +2215,9 @@ const I18N = {
     passwordConfirmPlaceholder: "Повторите",
     phoneLabelReg: "📞 Телефон",
     tablesCountLabel: "🎱 Сколько столов?",
-    registerBtn: "✨ ЗАРЕГИСТРИРОВАТЬСЯ",
+    registerBtn: "📩 ОТПРАВИТЬ ЗАПРОС",
     backToLogin: "← ВЕРНУТЬСЯ К ВХОДУ",
-    regSuccess: "✅ Успешная регистрация!",
+    regSuccess: "⏳ Ваш запрос отправлен!\n\n👑 Ожидайте одобрения Главного админа.\nПосле одобрения логин/пароль активируются.",
     regErrorFullName: "⚠️ Введите полное имя!",
     regErrorUsername: "⚠️ Логин минимум 3 символа!",
     regErrorUsernameFormat: "⚠️ Логин только буквы, цифры и _!",
@@ -2161,6 +2225,7 @@ const I18N = {
     regErrorPassword: "⚠️ Пароль минимум 3 символа!",
     regErrorPasswordMatch: "⚠️ Пароли не совпадают!",
     regErrorUsernameTaken: "⚠️ Этот логин уже занят!",
+    regErrorPending: "⏳ Запрос с этим логином уже отправлен. Ожидайте одобрения админа.",
 
     navHome: "Главная",
     navTables: "Столы",
@@ -2392,7 +2457,29 @@ const I18N = {
     pricesRequired: "Нужно указать цену для каждого стола",
     userTablesLabel: "Столы",
     userPricesLabel: "Цены",
-    editTablesBtn: "🎱 СТОЛЫ"
+    editTablesBtn: "🎱 СТОЛЫ",
+
+    // PENDING
+    pendingTitle: "⏳ ОЖИДАЮЩИЕ ЗАПРОСЫ",
+    pendingNone: "Пока нет ожидающих запросов",
+    pendingApproveTitle: "Одобрить запрос",
+    pendingApproveText: "Одобрить {name} (@{username})?\n\nПосле одобрения пользователь:\n🔑 Логин: {username}\n🔒 Пароль: {password}\n\nсможет войти в систему.",
+    pendingApproveYes: "✅ ДА, ОДОБРИТЬ",
+    pendingRejectTitle: "Отклонить запрос",
+    pendingRejectText: "Отклонить запрос {name} (@{username})?\n\nПользователь не сможет войти, аккаунт не создастся.",
+    pendingRejectYes: "❌ ДА, ОТКЛОНИТЬ",
+    pendingRejectReason: "Укажите причину отклонения (необязательно):",
+    pendingApprovedTitle: "Одобрено!",
+    pendingApprovedText: "👤 {name}\n\n🔑 Логин: {username}\n🔒 Пароль: {password}\n\nТеперь пользователь может войти.",
+    pendingRejectedTitle: "Отклонено",
+    pendingRejectedText: "Запрос отклонён. Пользователь не может войти.",
+    pendingBadge: "{count} шт",
+    pendingSent: "⏳ Ваш запрос отправлен!",
+    pendingRemoveConfirm: "Удалить запрос полностью?",
+    pendingRemoveTitle: "Удаление",
+    pendingRemoveText: "Удалить отклонённый запрос полностью?",
+    pendingRemoveYes: "🗑️ ДА, УДАЛИТЬ",
+    pendingRemoveNo: "❌ НЕТ"
   }
 };
 
@@ -2437,6 +2524,7 @@ function setLanguage(lang){
   updatePriceTexts();
   renderBookings();
   renderTables();
+  renderPendingRequests();
   beep("money");
 }
 
@@ -2596,6 +2684,184 @@ function toggleUserActive(id){
 }
 
 /* ================================================================
+   PENDING REQUESTS (TASDIQLASH KUTAYOTGAN SO'ROVLAR)
+   ================================================================ */
+function getPendingRequests(){
+  return JSON.parse(localStorage.getItem("billiardPendingRequests")) || [];
+}
+
+function savePendingRequests(arr){
+  localStorage.setItem("billiardPendingRequests", JSON.stringify(arr));
+}
+
+function findPendingRequest(id){
+  return getPendingRequests().find(r => r.id === id);
+}
+
+// Admin tasdiqlaganda chaqiriladi
+function approveRequest(requestId){
+  const requests = getPendingRequests();
+  const req = requests.find(r => r.id === requestId);
+  if(!req) return { ok: false, error: "So'rov topilmadi" };
+  if(req.status !== "pending") return { ok: false, error: "So'rov allaqachon ko'rib chiqilgan" };
+
+  // Endi haqiqiy user yaratamiz
+  const res = createUser(
+    req.username,
+    req.password,
+    req.fullName,
+    req.role || "user",
+    { count: req.tablesCount, prices: req.tablePrices }
+  );
+
+  if(!res.ok) return res;
+
+  // Phone va approval info qo'shamiz
+  const users = getUsers();
+  const newUser = users.find(u => u.username === req.username);
+  if(newUser){
+    newUser.phone = req.phone;
+    newUser.approvedAt = new Date().toISOString();
+    newUser.approvedBy = "main_admin";
+    newUser.registeredAt = req.createdAt;
+    saveUsers(users);
+  }
+
+  // So'rovni statusini yangilaymiz
+  req.status = "approved";
+  req.approvedAt = new Date().toISOString();
+  savePendingRequests(requests);
+
+  // Log
+  if(newUser) {
+    logUserAction(newUser.id, "register", `Admin tomonidan tasdiqlandi — ${req.phone}`);
+  }
+
+  // Telegramga xabar
+  sendApprovalNotification(req, true);
+  updatePendingBadge();
+
+  return { ok: true, user: newUser };
+}
+
+// Admin rad etganda chaqiriladi
+function rejectRequest(requestId, reason){
+  const requests = getPendingRequests();
+  const req = requests.find(r => r.id === requestId);
+  if(!req) return { ok: false, error: "So'rov topilmadi" };
+
+  req.status = "rejected";
+  req.rejectedAt = new Date().toISOString();
+  req.rejectReason = reason || "Sabab ko'rsatilmagan";
+  savePendingRequests(requests);
+
+  // Telegramga xabar
+  sendApprovalNotification(req, false);
+  updatePendingBadge();
+
+  return { ok: true };
+}
+
+// Tasdiqlangandan keyin so'rovni o'chirish (tozalash uchun)
+function removeRequest(requestId){
+  const requests = getPendingRequests().filter(r => r.id !== requestId);
+  savePendingRequests(requests);
+  updatePendingBadge();
+}
+
+function updatePendingBadge(){
+  const pending = getPendingRequests().filter(r => r.status === "pending");
+  const count = pending.length;
+
+  const navBadge = document.getElementById("pendingBadge");
+  if(navBadge){
+    if(count > 0){
+      navBadge.innerText = count;
+      navBadge.classList.remove("hidden");
+      navBadge.classList.add("gold");
+    } else {
+      navBadge.classList.add("hidden");
+    }
+  }
+
+  const cardBadge = document.getElementById("pendingCardBadge");
+  if(cardBadge) cardBadge.innerText = count;
+
+  const countBadge = document.getElementById("pendingCountBadge");
+  if(countBadge) countBadge.innerText = count + " ta";
+
+  const card = document.getElementById("pendingAdminCard");
+  if(card) card.style.display = count > 0 ? "flex" : "none";
+}
+
+/* ================================================================
+   TELEGRAM: TASDIQLASH SO'ROVI
+   ================================================================ */
+async function sendApprovalRequestToAdmin(req){
+  if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
+
+  const text = 
+    `🔔 <b>YANGI RO'YXATDAN O'TISH SO'ROVI</b>\n` +
+    `━━━━━━━━━━━━━━━━━━━━━\n` +
+    `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
+    `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
+    `🔒 <b>Parol:</b> <code>${escapeHTML(req.password)}</code>\n` +
+    `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
+    `🎱 <b>Stollar:</b> ${req.tablesCount} ta\n` +
+    `💰 <b>Narxlar:</b> ${req.tablePrices.map((p,i)=>`S${i+1}: ${p.toLocaleString()}`).join(", ")}\n` +
+    `🕐 <b>Vaqt:</b> ${new Date(req.createdAt).toLocaleString("uz-UZ")}\n` +
+    `━━━━━━━━━━━━━━━━━━━━━\n` +
+    `✅ <b>Tasdiqlash</b> yoki ❌ <b>Rad etish</b> uchun\n` +
+    `ilovadagi <b>Admin Panel → Foydalanuvchilar</b> bo'limiga o'ting.`;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_ADMIN_CHAT_ID,
+        text: text,
+        parse_mode: "HTML",
+        disable_web_page_preview: true
+      })
+    });
+  } catch(e) {
+    console.warn("Telegram yuborishda xatolik:", e);
+  }
+}
+
+async function sendApprovalNotification(req, approved){
+  if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
+
+  const icon = approved ? "✅" : "❌";
+  const status = approved ? "TASDIQLANDI" : "RAD ETILDI";
+
+  const text = 
+    `${icon} <b>SO'ROV ${status}</b>\n` +
+    `━━━━━━━━━━━━━━━━━━━━━\n` +
+    `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
+    `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
+    `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
+    `${icon} <b>Holat:</b> ${status}\n` +
+    (req.rejectReason ? `📝 <b>Sabab:</b> ${escapeHTML(req.rejectReason)}\n` : "") +
+    `🕐 <b>Vaqt:</b> ${new Date().toLocaleString("uz-UZ")}`;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_ADMIN_CHAT_ID,
+        text: text,
+        parse_mode: "HTML"
+      })
+    });
+  } catch(e) {
+    console.warn("Telegram xatolik:", e);
+  }
+}
+
+/* ================================================================
    USER LOGS
    ================================================================ */
 function getUserLogs(){
@@ -2690,7 +2956,7 @@ let bookingFilterToday = true;
 const ADMIN_PATTERN = [2,4,5,3];
 const CLUB_NAME = "BILLIARD CLUB";
 const CLUB_PHONE = "+998 97 757 31 10";
-const CLUB_ADDRESS = "Mindonobod Yangi Asr";
+const CLUB_ADDRESS = "Firdavsbek";
 
 let games = JSON.parse(localStorage.getItem("billiardGames")) || {};
 function saveGames(){ localStorage.setItem("billiardGames",JSON.stringify(games)); }
@@ -2779,6 +3045,7 @@ function beep(type){
       initGamesForUser();
       renderTables();
       updatePriceTexts();
+      updatePendingBadge();
     }, 100);
   }
 })();
@@ -2801,6 +3068,40 @@ function checkLogin(){
 
   const user = findUser(userInput);
 
+  // Pending tekshirish
+  if(!user){
+    const pending = getPendingRequests();
+    const pendingReq = pending.find(p => 
+      p.username.toLowerCase() === userInput.toLowerCase() && 
+      p.status === "pending"
+    );
+    
+    if(pendingReq){
+      errorEl.innerText = t("loginPending");
+      errorEl.style.color = "#ffd23f";
+      errorEl.classList.remove("shake");
+      void errorEl.offsetWidth;
+      errorEl.classList.add("shake");
+      beep("error");
+      return;
+    }
+
+    const rejectedReq = pending.find(p => 
+      p.username.toLowerCase() === userInput.toLowerCase() && 
+      p.status === "rejected"
+    );
+    
+    if(rejectedReq){
+      errorEl.innerText = t("loginRejected");
+      errorEl.style.color = "#ff6878";
+      errorEl.classList.remove("shake");
+      void errorEl.offsetWidth;
+      errorEl.classList.add("shake");
+      beep("error");
+      return;
+    }
+  }
+
   if(!user || user.password !== passInput){
     errorEl.innerText = t("loginWrong");
     errorEl.style.color = "#ff6878";
@@ -2813,7 +3114,7 @@ function checkLogin(){
   }
 
   if(user.active === false){
-    errorEl.innerText = "🚫 Sizning hisobingiz bloklangan!";
+    errorEl.innerText = t("loginBlocked");
     errorEl.style.color = "#ff6878";
     beep("error");
     return;
@@ -2842,6 +3143,7 @@ function checkLogin(){
     initGamesForUser();
     renderTables();
     updatePriceTexts();
+    updatePendingBadge();
     showWelcomeToast(user);
     if(user.role === "main_admin"){
       setTimeout(()=>openAdminUsersDirect(), 300);
@@ -2924,8 +3226,18 @@ function doRegister(){
     errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
     beep("error"); return;
   }
+
+  // Mavjud userlar orasida tekshirish
   if(findUser(username)){
     errorEl.innerText = t("regErrorUsernameTaken");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error"); return;
+  }
+
+  // Pending so'rovlar orasida tekshirish
+  const pending = getPendingRequests();
+  if(pending.find(p => p.username.toLowerCase() === username.toLowerCase() && p.status === "pending")){
+    errorEl.innerText = t("regErrorPending");
     errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
     beep("error"); return;
   }
@@ -2934,29 +3246,30 @@ function doRegister(){
   const prices = [];
   for(let i = 0; i < tablesCount; i++) prices.push(defaultPrice);
 
-  const res = createUser(username, password, fullName, "user", {
-    count: tablesCount,
-    prices: prices
-  });
+  // PENDING so'rov yaratamiz (USER EMAS!)
+  const request = {
+    id: "req_" + Date.now() + "_" + Math.random().toString(36).slice(2,7),
+    fullName: fullName,
+    username: username,
+    phone: phone,
+    password: password,
+    role: "user",
+    tablesCount: tablesCount,
+    tablePrices: prices,
+    status: "pending",
+    createdAt: new Date().toISOString(),
+    requestedAt: new Date().toISOString()
+  };
 
-  if(!res.ok){
-    errorEl.innerText = res.error;
-    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
-    beep("error"); return;
-  }
+  const requests = getPendingRequests();
+  requests.push(request);
+  savePendingRequests(requests);
 
-  const users = getUsers();
-  const newUser = users.find(u => u.username === username);
-  if(newUser){
-    newUser.phone = phone;
-    newUser.registeredAt = new Date().toISOString();
-    newUser.registeredBy = "self";
-    saveUsers(users);
-  }
+  // Telegramga xabar yuborish
+  sendApprovalRequestToAdmin(request);
+  updatePendingBadge();
 
-  if(newUser) logUserAction(newUser.id, "register", `Ro'yxatdan o'tdi — ${phone}`);
-
-  errorEl.style.color = "#42e979";
+  errorEl.style.color = "#ffd23f";
   errorEl.innerText = t("regSuccess");
   beep("money");
 
@@ -2971,10 +3284,10 @@ function doRegister(){
     showLogin();
     document.getElementById("loginUsername").value = username;
     document.getElementById("loginPassword").value = "";
-    document.getElementById("loginError").innerText = "✅ Hisob yaratildi! Endi kiring.";
-    document.getElementById("loginError").style.color = "#42e979";
+    document.getElementById("loginError").innerText = t("pendingSent");
+    document.getElementById("loginError").style.color = "#ffd23f";
     setTimeout(()=>document.getElementById("loginPassword").focus(), 100);
-  }, 1500);
+  }, 2500);
 }
 
 function logout(){
@@ -3003,7 +3316,6 @@ function confirmLogout(){
     screen.style.animation = "none";
     void screen.offsetWidth;
     screen.style.animation = "fadeIn .4s ease";
-    // Login oynasini ko'rsatish
     document.getElementById("loginBox").style.display = "block";
     document.getElementById("registerBox").style.display = "none";
     document.getElementById("loginUsername").value = "";
@@ -3088,6 +3400,8 @@ function applyRoleUI(){
     }
     if(keyboardHints) keyboardHints.style.display = "flex";
   }
+
+  updatePendingBadge();
 }
 
 function openAdminUsersDirect(){
@@ -3105,6 +3419,7 @@ function openAdminUsersDirect(){
   if(adminBtn) adminBtn.classList.add("active");
 
   renderUsers();
+  renderPendingRequests();
   setTimeout(()=>{
     generateTablePriceInputs();
     if(document.getElementById("newUserTablesCount").value === ""){
@@ -3750,6 +4065,151 @@ function escapeHTML(text){
   return String(text||"")
     .replace(/&/g,"&amp;").replace(/</g,"&lt;")
     .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+
+/* ================================================================
+   PENDING REQUESTS UI
+   ================================================================ */
+function renderPendingRequests(){
+  const box = document.getElementById("pendingRequestsList");
+  const badge = document.getElementById("pendingCountBadge");
+  if(!box) return;
+
+  const requests = getPendingRequests().filter(r => r.status === "pending");
+  
+  if(badge) badge.innerText = requests.length + " ta";
+
+  if(!requests.length){
+    box.innerHTML = `
+      <div style="text-align:center;padding:30px;color:#8aa0b8;font-size:13px">
+        <div style="font-size:40px;opacity:.4;margin-bottom:10px">📭</div>
+        ${t("pendingNone")}
+      </div>`;
+    updatePendingBadge();
+    return;
+  }
+
+  box.innerHTML = "";
+  requests.forEach(req => {
+    const div = document.createElement("div");
+    div.className = "history-item pending-card";
+    
+    const createdDate = new Date(req.createdAt).toLocaleString("uz-UZ");
+    const pricesStr = req.tablePrices.map((p,i) => 
+      `<b style="color:#35c9ff">S${i+1}</b> ${p.toLocaleString()}`
+    ).join(" • ");
+
+    div.innerHTML = `
+      <div class="history-item-info">
+        <div style="font-size:16px;font-weight:900;color:#ffd23f;margin-bottom:8px">
+          ⏳ ${escapeHTML(req.fullName)}
+          <span style="font-size:10px;font-weight:900;color:#ffd23f;margin-left:8px;letter-spacing:1px">YANGI SO'ROV</span>
+        </div>
+        <div>🔑 Login: <b style="color:#35c9ff">${escapeHTML(req.username)}</b> &nbsp;•&nbsp;
+             🔒 Parol: <b style="color:#ffd23f">${escapeHTML(req.password)}</b></div>
+        <div>📞 Telefon: <b>${escapeHTML(req.phone)}</b></div>
+        <div>🕐 Yuborilgan: ${createdDate}</div>
+        <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(53,201,255,.08);border:1px dashed rgba(53,201,255,.3)">
+          🎱 <b style="color:#42e979">${req.tablesCount} ta stol</b><br>
+          <span style="font-size:11px;color:#8aa0b8">💰 ${pricesStr}</span>
+        </div>
+      </div>
+      <div class="history-item-actions" style="flex-direction:column;gap:6px">
+        <button class="chek-btn" 
+                onclick="confirmApproveRequest('${req.id}')" 
+                style="background:linear-gradient(135deg,#0dbb85,#067858)">
+          ✅ TASDIQLASH
+        </button>
+        <button class="chek-btn" 
+                onclick="confirmRejectRequest('${req.id}')" 
+                style="background:linear-gradient(135deg,#e04456,#8f1e2d)">
+          ❌ RAD ETISH
+        </button>
+      </div>
+    `;
+    box.appendChild(div);
+  });
+
+  updatePendingBadge();
+}
+
+function confirmApproveRequest(id){
+  const req = findPendingRequest(id);
+  if(!req) return;
+
+  document.getElementById("modalIcon").innerText = "✅";
+  document.getElementById("modalTitle").innerText = t("pendingApproveTitle");
+  document.getElementById("modalText").innerText = t("pendingApproveText", {
+    name: req.fullName,
+    username: req.username,
+    password: req.password
+  });
+  document.getElementById("modalButtons").innerHTML = 
+    `<button class="modal-btn" style="background:linear-gradient(135deg,#0dbb85,#067858)" 
+             onclick="doApproveRequest('${id}')">${t("pendingApproveYes")}</button>
+     <button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>`;
+  document.getElementById("modalBg").style.display = "flex";
+}
+
+function doApproveRequest(id){
+  const res = approveRequest(id);
+  closeModal();
+  
+  if(!res.ok){
+    beep("error");
+    showModal("⚠️", "Xatolik", res.error || "So'rovni tasdiqlashda xatolik");
+    return;
+  }
+
+  beep("money");
+  renderPendingRequests();
+  renderUsers();
+  updatePendingBadge();
+  
+  setTimeout(() => {
+    showModal("✅", t("pendingApprovedTitle"), t("pendingApprovedText", {
+      name: res.user.fullName,
+      username: res.user.username,
+      password: res.user.password
+    }));
+  }, 200);
+}
+
+function confirmRejectRequest(id){
+  const req = findPendingRequest(id);
+  if(!req) return;
+
+  document.getElementById("modalIcon").innerText = "❌";
+  document.getElementById("modalTitle").innerText = t("pendingRejectTitle");
+  document.getElementById("modalText").innerText = t("pendingRejectText", {
+    name: req.fullName,
+    username: req.username
+  });
+  document.getElementById("modalButtons").innerHTML = 
+    `<button class="modal-danger" onclick="doRejectRequest('${id}')">${t("pendingRejectYes")}</button>
+     <button class="modal-cancel" onclick="closeModal()">BEKOR QILISH</button>`;
+  document.getElementById("modalBg").style.display = "flex";
+}
+
+function doRejectRequest(id){
+  closeModal();
+  const reason = prompt(t("pendingRejectReason")) || "";
+  const res = rejectRequest(id, reason);
+
+  if(!res.ok){
+    beep("error");
+    showModal("⚠️", "Xatolik", res.error || "Xatolik yuz berdi");
+    return;
+  }
+
+  beep("end");
+  renderPendingRequests();
+  renderUsers();
+  updatePendingBadge();
+
+  setTimeout(() => {
+    showModal("❌", t("pendingRejectedTitle"), t("pendingRejectedText"));
+  }, 200);
 }
 
 /* ================================================================
@@ -5200,6 +5660,7 @@ function openAdminPage(page){
     const usersPage = document.getElementById("adminUsers");
     if(usersPage) usersPage.classList.add("active");
     renderUsers();
+    renderPendingRequests();
     setTimeout(generateTablePriceInputs, 50);
   }
   window.scrollTo({top:0,behavior:"smooth"});
@@ -5371,6 +5832,17 @@ setInterval(function(){
   if(changed) saveBookings(bookings);
 }, 30000);
 
+/* ================================================================
+   PENDING REQUESTS POLLING (har 15 sekundda yangilash)
+   ================================================================ */
+setInterval(function(){
+  updatePendingBadge();
+  const usersPage = document.getElementById("adminUsers");
+  if(usersPage && usersPage.classList.contains("active")){
+    renderPendingRequests();
+  }
+}, 15000);
+
 if("Notification" in window && Notification.permission === "default"){
   try { Notification.requestPermission(); } catch(e){}
 }
@@ -5387,7 +5859,9 @@ renderReports();
 renderAdminDebtors();
 renderAdminHistory();
 renderBookings();
+renderPendingRequests();
 applyRoleUI();
+updatePendingBadge();
 
 setTimeout(()=>{
   const user = getCurrentUser();
