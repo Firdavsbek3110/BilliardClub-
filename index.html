@@ -749,6 +749,7 @@ input:focus{
 .booking-form-grid select:focus{border-color:#35c9ff;box-shadow:0 0 0 3px rgba(53,201,255,.15)}
 .booking-form-grid select option{background:#0a1a2c;color:#fff}
 
+/* CUSTOM SELECT */
 .custom-select{position:relative;width:100%;user-select:none}
 .custom-select-trigger{
   width:100%;min-height:52px;padding:12px 18px;border-radius:14px;
@@ -1229,26 +1230,6 @@ input:focus{
   border-radius:14px;margin-top:12px;
 }
 
-/* ========== YANGI: TELEGRAM STATUS BANNER ========== */
-.tg-status-banner{
-  position:fixed;bottom:60px;right:14px;
-  padding:10px 16px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(13,187,133,.95),rgba(6,120,88,.95));
-  color:#fff;font-weight:800;font-size:12px;
-  box-shadow:0 10px 30px rgba(10,169,120,.5);
-  z-index:100;display:flex;align-items:center;gap:10px;
-  opacity:0;transform:translateY(20px);transition:.4s;
-  pointer-events:none;
-}
-.tg-status-banner.show{opacity:1;transform:translateY(0)}
-.tg-status-banner.error{background:linear-gradient(135deg,rgba(224,68,86,.95),rgba(143,30,45,.95));box-shadow:0 10px 30px rgba(224,68,86,.5)}
-.tg-status-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:#fff;box-shadow:0 0 10px #fff;
-  animation:tgPulse 1.5s infinite;
-}
-@keyframes tgPulse{50%{opacity:.4}}
-
 @media (max-width:1100px){
   .app-layout{grid-template-columns:200px 1fr}
   .main-content{padding:20px 18px}
@@ -1270,7 +1251,6 @@ input:focus{
   .sidebar-footer{display:none}
   .tables-grid{grid-template-columns:1fr}
   .keyboard-hints{display:none}
-  .tg-status-banner{display:none}
 }
 @media (max-width:600px){
   .main-content{padding:14px}
@@ -1732,6 +1712,7 @@ input:focus{
   </main>
 </div>
 
+<!-- MODAL -->
 <div id="modalBg" class="modal-bg">
   <div class="modal">
     <div id="modalIcon" class="modal-icon">⚠️</div>
@@ -1743,6 +1724,7 @@ input:focus{
   </div>
 </div>
 
+<!-- PWD MODAL -->
 <div id="pwdModalBg" class="pwd-modal-bg">
   <div class="pwd-modal">
     <div class="pwd-modal-header">
@@ -1768,6 +1750,7 @@ input:focus{
   </div>
 </div>
 
+<!-- TABLES EDIT MODAL -->
 <div id="tablesEditBg" class="tables-edit-bg">
   <div class="tables-edit-modal">
     <div class="pwd-modal-header">
@@ -1808,6 +1791,7 @@ input:focus{
   </div>
 </div>
 
+<!-- CLEAR LOG MODAL -->
 <div id="clearModalBg" class="clear-modal-bg">
   <div class="clear-modal">
     <div class="clear-modal-icon">🗑️</div>
@@ -1822,6 +1806,7 @@ input:focus{
   </div>
 </div>
 
+<!-- PATTERN -->
 <div id="patternBg" class="pattern-bg">
   <div class="pattern-box">
     <div class="pattern-icon">🔐</div>
@@ -1833,6 +1818,7 @@ input:focus{
   </div>
 </div>
 
+<!-- PDF LOADING -->
 <div id="pdfLoading" class="pdf-loading">
   <div class="pdf-loading-box">
     <div class="pdf-spinner"></div>
@@ -1841,6 +1827,7 @@ input:focus{
   </div>
 </div>
 
+<!-- KEYBOARD HINTS -->
 <div class="keyboard-hints" id="keyboardHints">
   <b>1..9</b> <span data-i18n="hintTables">Stollar</span> •
   <b>H</b> <span data-i18n="hintHome">Asosiy</span> •
@@ -1851,23 +1838,27 @@ input:focus{
   <b>B</b> <span data-i18n="hintBooking">Bron</span> •
   <b>Esc</b> <span data-i18n="hintClose">Yopish</span>
 </div>
-
-<!-- ========== YANGI: TELEGRAM STATUS BANNER ========== -->
-<div class="tg-status-banner" id="tgStatusBanner">
-  <div class="tg-status-dot"></div>
-  <span id="tgStatusText">Telegram polling faol</span>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 /* ================================================================
-   TELEGRAM
+   BILLIARD CLUB — CLIENT + SERVER INTEGRATSIYA
    ================================================================ */
+
+/* ================================================================
+   ⚙️ SERVER SOZLAMASI — BU YERGA O'Z SERVERINGIZNI YOZING!
+   ================================================================ */
+const SERVER_URL = "http://localhost:3000"; 
+// Production uchun: "https://sizning-domen.uz"
+// Ngrok uchun: "https://abc123.ngrok-free.app"
+
 const TELEGRAM_BOT_TOKEN = "8977154075:AAGXq9oo7y-S2wd-8J-XYgHgx8UPvjzzWHQ";
 const TELEGRAM_ADMIN_CHAT_ID = "6120377805";
 
+/* ================================================================
+   TELEGRAM (oddiy log yuborish — serverga zaxira sifatida)
+   ================================================================ */
 async function sendTelegramLog(htmlMessage){
   if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
   try{
@@ -1884,6 +1875,42 @@ async function sendTelegramLog(htmlMessage){
     const data = await res.json();
     if(!data.ok) console.warn("Telegram xato:", data.description);
   }catch(e){ console.warn("Telegram yuborishda xatolik:", e); }
+}
+
+/* ================================================================
+   SERVER API WRAPPER
+   ================================================================ */
+async function apiRegister(data){
+  try {
+    const res = await fetch(`${SERVER_URL}/api/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    return await res.json();
+  } catch(e) {
+    console.error("API register xato:", e);
+    return { ok: false, error: "Serverga ulanib bo'lmadi. Server ishlayaptimi?" };
+  }
+}
+
+async function apiGetStatus(requestId){
+  try {
+    const res = await fetch(`${SERVER_URL}/api/status/${requestId}`);
+    return await res.json();
+  } catch(e) {
+    console.error("API status xato:", e);
+    return { ok: false };
+  }
+}
+
+async function apiGetApproved(username){
+  try {
+    const res = await fetch(`${SERVER_URL}/api/approved/${username}`);
+    return await res.json();
+  } catch(e) {
+    return { ok: false };
+  }
 }
 
 /* ================================================================
@@ -1904,12 +1931,14 @@ const I18N = {
     loginPending: "⏳ So'rovingiz hali tasdiqlanmagan!\n\n👑 Admin tasdiqlashini kuting.",
     loginRejected: "❌ So'rovingiz rad etilgan!\n\nBatafsil ma'lumot uchun admin bilan bog'laning.",
     loginBlocked: "🚫 Sizning hisobingiz bloklangan!",
-
+    checkingStatus: "⏳ Holat tekshirilmoqda...",
+    approvedLogin: "✅ Tasdiqlandi! Endi parolingizni kiriting.",
+    rejectedLogin: "❌ So'rovingiz rad etildi!",
     noAccount: "Hisobingiz yo'qmi?",
     registerNow: "Ro'yxatdan o'tish",
     registerTitle: "RO'YXATDAN O'TISH",
     registerSub: "SO'ROV YUBORISH",
-    registerWarning: "⏳ <b>Diqqat!</b> Ro'yxatdan o'tganingizdan so'ng hisobingiz <b>avtomatik yaratilmaydi</b>.<br>👑 Glavniy Admin <b>tasdiqlashini</b> kutasiz.",
+    registerWarning: "⏳ <b>Diqqat!</b> Ro'yxatdan o'tganingizdan so'ng hisobingiz <b>avtomatik yaratilmaydi</b>.<br>👑 Glavniy Admin <b>tasdiqlashini</b> kutasiz.<br><br>📱 <b>Admin Telegram'dan tugmani bosadi</b> — ✅ Tasdiqlash yoki ❌ Rad etish.",
     fullNameLabel: "👤 To'liq ism",
     fullNamePlaceholder: "Ism va familiya",
     registerLoginPlaceholder: "Kamida 3 belgi",
@@ -1919,8 +1948,9 @@ const I18N = {
     phoneLabelReg: "📞 Telefon",
     tablesCountLabel: "🎱 Nechta stol?",
     registerBtn: "📩 SO'ROV YUBORISH",
+    sendingRequest: "⏳ Yuborilmoqda...",
     backToLogin: "← KIRISHGA QAYTISH",
-    regSuccess: "⏳ So'rovingiz yuborildi!\n\n👑 Glavniy Admin tasdiqlashini kuting.\nTasdiqlangach login/parolingiz faollashadi.",
+    regSuccess: "⏳ So'rovingiz Telegram'ga yuborildi!\n\n📱 Admin tugmani bosishini kuting.\n✅ Tasdiqlansa — avtomatik login qilasiz!",
     regErrorFullName: "⚠️ To'liq ismingizni kiriting!",
     regErrorUsername: "⚠️ Login kamida 3 ta belgi bo'lishi kerak!",
     regErrorUsernameFormat: "⚠️ Login faqat harf, raqam va _ belgisidan iborat bo'lsin!",
@@ -1929,6 +1959,8 @@ const I18N = {
     regErrorPasswordMatch: "⚠️ Parollar mos kelmadi!",
     regErrorUsernameTaken: "⚠️ Bu login allaqachon band!",
     regErrorPending: "⏳ Bu login bilan so'rov allaqachon yuborilgan. Admin tasdiqlashini kuting.",
+    regServerError: "❌ Serverga ulanib bo'lmadi.\n\n💡 Server ishga tushirilganmi?",
+    waitingApproval: "⏳ Tasdiqlanish kutilmoqda...\n\n📱 Telegram'dagi tugmani bosing",
 
     navHome: "Asosiy",
     navTables: "Stollar",
@@ -2289,14 +2321,16 @@ const I18N = {
     loginSuccess: "✅ Вход выполнен!",
     loginWrong: "❌ Неверный логин или пароль!",
     loginPending: "⏳ Ваш запрос ещё не одобрен!\n\n👑 Ожидайте одобрения админа.",
-    loginRejected: "❌ Ваш запрос отклонён!\n\nСвяжитесь с админом для подробностей.",
+    loginRejected: "❌ Ваш запрос отклонён!\n\nСвяжитесь с админом.",
     loginBlocked: "🚫 Ваш аккаунт заблокирован!",
-
+    checkingStatus: "⏳ Проверка статуса...",
+    approvedLogin: "✅ Одобрено! Введите пароль.",
+    rejectedLogin: "❌ Ваш запрос отклонён!",
     noAccount: "Нет аккаунта?",
     registerNow: "Зарегистрироваться",
     registerTitle: "РЕГИСТРАЦИЯ",
     registerSub: "ОТПРАВИТЬ ЗАПРОС",
-    registerWarning: "⏳ <b>Внимание!</b> После регистрации ваш аккаунт <b>не создаётся автоматически</b>.<br>👑 Ожидайте одобрения Главного админа.",
+    registerWarning: "⏳ <b>Внимание!</b> Аккаунт создаётся <b>после одобрения</b> админом.<br><br>📱 <b>Админ нажмёт кнопку в Telegram</b>.",
     fullNameLabel: "👤 Полное имя",
     fullNamePlaceholder: "Имя и фамилия",
     registerLoginPlaceholder: "Минимум 3 символа",
@@ -2306,8 +2340,9 @@ const I18N = {
     phoneLabelReg: "📞 Телефон",
     tablesCountLabel: "🎱 Сколько столов?",
     registerBtn: "📩 ОТПРАВИТЬ ЗАПРОС",
+    sendingRequest: "⏳ Отправка...",
     backToLogin: "← ВЕРНУТЬСЯ К ВХОДУ",
-    regSuccess: "⏳ Ваш запрос отправлен!\n\n👑 Ожидайте одобрения Главного админа.\nПосле одобрения логин/пароль активируются.",
+    regSuccess: "⏳ Запрос отправлен в Telegram!\n\n📱 Ожидайте нажатия кнопки админом.",
     regErrorFullName: "⚠️ Введите полное имя!",
     regErrorUsername: "⚠️ Логин минимум 3 символа!",
     regErrorUsernameFormat: "⚠️ Логин только буквы, цифры и _!",
@@ -2315,7 +2350,9 @@ const I18N = {
     regErrorPassword: "⚠️ Пароль минимум 3 символа!",
     regErrorPasswordMatch: "⚠️ Пароли не совпадают!",
     regErrorUsernameTaken: "⚠️ Этот логин уже занят!",
-    regErrorPending: "⏳ Запрос с этим логином уже отправлен. Ожидайте одобрения админа.",
+    regErrorPending: "⏳ Запрос с этим логином уже отправлен.",
+    regServerError: "❌ Не удалось подключиться к серверу.\n\n💡 Сервер запущен?",
+    waitingApproval: "⏳ Ожидание одобрения...\n\n📱 Нажмите кнопку в Telegram",
 
     navHome: "Главная",
     navTables: "Столы",
@@ -2324,14 +2361,14 @@ const I18N = {
     tipTables: "Клавиши 1-9",
     tipAdmin: "Клавиша A",
     logoutBtn: "ВЫЙТИ",
-    logoutTitle: "Выход из системы",
+    logoutTitle: "Выход",
     logoutText: "Вы действительно хотите выйти?",
     logoutYes: "🚪 ДА, ВЫЙТИ",
     logoutNo: "❌ ОТМЕНА",
     modalOk: "ПОНЯТНО",
 
     tablesTitle: "🎱 СТОЛЫ",
-    tablesSubtitle: "Все столы на одном экране",
+    tablesSubtitle: "Все столы на экране",
     tableLabel: "🎱 СТОЛ",
     statusFree: "🔵 СВОБОДЕН",
     statusBusy: "🔴 ЗАНЯТ",
@@ -2348,15 +2385,14 @@ const I18N = {
     phoneLabel: "📞 Телефон",
     phonePlaceholder: "Номер телефона",
     saveDebtBtn: "💾 СОХРАНИТЬ ДОЛЖНИКА",
-
     tableBusyTitle: "Стол занят",
     tableBusyText: "Этот стол сейчас играет.",
     paidTitle: "Деньги получены",
     paidText: "{amount} принято.",
     nameMissingTitle: "Имя не указано",
-    nameMissingText: "Пожалуйста, введите имя.",
+    nameMissingText: "Введите имя.",
     phoneMissingTitle: "Телефон не указан",
-    phoneMissingText: "Пожалуйста, введите номер телефона.",
+    phoneMissingText: "Введите телефон.",
     debtSavedTitle: "Должник сохранён",
     debtSavedText: "{name} — {amount}",
     paidLaterTitle: "Оплата получена",
@@ -2366,32 +2402,32 @@ const I18N = {
     adminSubtitle: "Меню управления",
     backToMain: "🏠 ГЛАВНОЕ МЕНЮ",
     reportsCard: "Отчёт",
-    reportsCardSub: "Выручка и игры",
+    reportsCardSub: "Выручка",
     debtorsCard: "Должники",
-    debtorsCardSub: "Неоплаченные суммы",
+    debtorsCardSub: "Неоплачено",
     historyCard: "История",
     historyCardSub: "Все игры",
     bookingCard: "Бронирование",
-    bookingCardSub: "Забронировать стол",
+    bookingCardSub: "Забронировать",
     usersCard: "Пользователи",
-    usersCardSub: "Логин/пароль и столы",
+    usersCardSub: "Логины и столы",
     pendingCardTitle: "Ожидающие запросы",
     pendingCardSub: "Ожидают одобрения",
-    backToAdmin: "← НАЗАД В АДМИН МЕНЮ",
+    backToAdmin: "← НАЗАД",
 
     reportsTitle: "📊 ОТЧЁТ",
-    reportsSubtitle: "Сегодняшняя выручка и статистика",
-    statGames: "🎱 Игры за сегодня",
+    reportsSubtitle: "Статистика",
+    statGames: "🎱 Игры сегодня",
     statPaid: "🟢 Оплачено",
     statUnpaid: "🔴 Не оплачено",
     statDebtors: "👥 Должники",
-    statBookings: "📅 Активные брони",
-    downloadReportPdf: "📄 СКАЧАТЬ ОБЩИЙ ОТЧЁТ PDF",
+    statBookings: "📅 Брони",
+    downloadReportPdf: "📄 СКАЧАТЬ PDF",
 
     debtorsTitle: "🔴 ДОЛЖНИКИ",
-    debtorsSubtitle: "Список неоплаченных игр",
-    downloadAllDebtorsPdf: "📄 СКАЧАТЬ ВСЕХ ДОЛЖНИКОВ PDF",
-    noDebtors: "🎉 Должников нет",
+    debtorsSubtitle: "Неоплаченные игры",
+    downloadAllDebtorsPdf: "📄 СКАЧАТЬ PDF",
+    noDebtors: "🎉 Нет должников",
     noDebtorsPdf: "Все долги оплачены!",
     debtStatus: "🔴 НЕ ОПЛАЧЕНО",
     payNowBtn: "🟢 ОПЛАЧЕНО",
@@ -2399,45 +2435,45 @@ const I18N = {
 
     historyTitle: "📋 ИСТОРИЯ",
     historySubtitle: "Игры по датам",
-    allDatesTotal: "💰 ОБЩАЯ СУММА ВСЕХ ДАТ",
-    downloadAllHistoryPdf: "📄 СКАЧАТЬ ВСЮ ИСТОРИЮ PDF",
-    backToDates: "← НАЗАД К ДАТАМ",
+    allDatesTotal: "💰 ОБЩАЯ СУММА",
+    downloadAllHistoryPdf: "📄 СКАЧАТЬ PDF",
+    backToDates: "← К ДАТАМ",
     dateLabel: "📅 Дата",
     dailyGames: "Игры за день",
-    downloadPdf: "📄 СКАЧАТЬ PDF",
-    clearDate: "🗑️ ОЧИСТИТЬ ДАТУ",
-    noHistory: "📋 История пока пуста",
-    noHistoryDate: "На эту дату нет данных.",
+    downloadPdf: "📄 PDF",
+    clearDate: "🗑️ ОЧИСТИТЬ",
+    noHistory: "📋 История пуста",
+    noHistoryDate: "Нет данных.",
     gamesCount: "игр",
     gamesShort: "игр",
-    dateTotal: "💰 ОБЩАЯ СУММА ЗА ЭТУ ДАТУ",
+    dateTotal: "💰 СУММА ЗА ДАТУ",
     gamesSmall: "🎱 ИГРЫ",
     paidSmall: "🟢 ОПЛАЧЕНО",
     unpaidSmall: "🔴 НЕ ОПЛАЧЕНО",
     paidStatus: "🟢 ОПЛАЧЕНО",
     unpaidStatus: "🔴 НЕ ОПЛАЧЕНО",
     paidAt: "✅ Оплачено:",
-    clearHistoryTitle: "Очистка истории",
+    clearHistoryTitle: "Очистка",
     clearHistoryText: "Удалить {count} игр за {date} ({amount})?",
-    clearYes: "🗑️ ДА, УДАЛИТЬ",
+    clearYes: "🗑️ ДА",
     clearNo: "❌ ОТМЕНА",
     dateNotSelected: "Дата не выбрана",
-    dateNotSelectedText: "Дата для удаления не определена.",
+    dateNotSelectedText: "Дата не определена.",
     historyEmptyTitle: "История пуста",
-    historyEmptyText: "На эту дату нет истории для удаления.",
+    historyEmptyText: "Нет истории для удаления.",
     clearedTitle: "История очищена",
     clearedText: "История за {date} удалена.",
 
     pdfLoading: "📄 PDF ГОТОВИТСЯ...",
-    pdfLoadingSub: "Пожалуйста, подождите 1-2 секунды",
+    pdfLoadingSub: "Подождите 1-2 секунды",
     pdfDoneTitle: "PDF загружен",
-    pdfDoneText: '📄 Файл: "{filename}"\n\n📁 Папка: Загрузки (Downloads)\n\n💡 Windows: папка "Загрузки"',
+    pdfDoneText: '📄 Файл: "{filename}"\n\n📁 Папка: Загрузки',
     pdfErrorTitle: "Ошибка",
-    pdfErrorText: "Ошибка при создании PDF.\n\nПожалуйста, попробуйте снова.",
+    pdfErrorText: "Ошибка при создании PDF.",
 
     chekKassa: "КАССОВЫЙ ЧЕК",
     chekDaily: "ДНЕВНОЙ ОТЧЁТ",
-    chekAllHistory: "ОБЩИЙ ОТЧЁТ ИСТОРИИ",
+    chekAllHistory: "ОБЩАЯ ИСТОРИЯ",
     chekDebtors: "СПИСОК ДОЛЖНИКОВ",
     chekDebt: "ЧЕК ДОЛГА",
     chekReport: "КАССОВЫЙ ОТЧЁТ",
@@ -2450,8 +2486,8 @@ const I18N = {
     colAmount: "Сумма",
     noData: "Нет данных",
     totalGames: "Всего игр:",
-    paidSum: "🟢 Оплаченная сумма:",
-    unpaidSum: "🔴 Сумма долга:",
+    paidSum: "🟢 Оплачено:",
+    unpaidSum: "🔴 Долг:",
     grandTotal: "💰 ОБЩАЯ СУММА:",
     totalDebtors: "Всего должников:",
     grandDebt: "💰 ОБЩИЙ ДОЛГ:",
@@ -2460,34 +2496,34 @@ const I18N = {
     tableShort: "🎱 Стол:",
     timeShort: "⏱ Время:",
     debtSum: "💰 СУММА ДОЛГА:",
-    todayGames: "🎱 Игры за сегодня:",
-    todayPaid: "🟢 Оплачено сегодня:",
-    todayUnpaid: "🔴 Долг сегодня:",
-    todayTotal: "💰 ИТОГО ЗА СЕГОДНЯ:",
-    totalDebtorsSmall: "👥 Всего должников:",
+    todayGames: "🎱 Игры сегодня:",
+    todayPaid: "🟢 Оплачено:",
+    todayUnpaid: "🔴 Долг:",
+    todayTotal: "💰 ИТОГО:",
+    totalDebtorsSmall: "👥 Должников:",
     totalDebtSmall: "💸 Общий долг:",
     paidStatusPdf: "✅ Оплачено",
     debtStatusPdf: "🔴 Долг",
     debtStatusNamePdf: "🔴 Долг ({name})",
     signatureClient: "ПОДПИСЬ КЛИЕНТА",
     signatureCashier: "ПОДПИСЬ КАССИРА",
-    thanks: "СПАСИБО ЗА ВИЗИТ! 🎱",
-    autoGenerated: "Этот чек создан автоматически",
+    thanks: "СПАСИБО! 🎱",
+    autoGenerated: "Чек создан автоматически",
     dailyReportFor: "за {date}",
-    allGamesList: "Список всех игр",
+    allGamesList: "Список игр",
     unpaidList: "Неоплаченные игры",
     debtFor: "для {name}",
     reportFor: "за {date}",
-    payOnTime: "Пожалуйста, оплачивайте долги вовремя",
-    payAtCashier: "Для оплаты долга обратитесь в кассу",
-    dailyCashReport: "Дневной кассовый отчёт",
-    allHistory: "История всех игр",
+    payOnTime: "Оплачивайте вовремя",
+    payAtCashier: "Обратитесь в кассу",
+    dailyCashReport: "Дневной отчёт",
+    allHistory: "История игр",
 
-    adminLogin: "ВХОД В АДМИН",
-    drawPattern: "Нарисуйте графический пароль мышью",
-    drawPatternMsg: "🔑 Нарисуйте графический пароль",
-    patternCorrect: "✅ Пароль верный!",
-    patternWrong: "❌ Неверный пароль!",
+    adminLogin: "ВХОД АДМИН",
+    drawPattern: "Нарисуйте пароль",
+    drawPatternMsg: "🔑 Нарисуйте пароль",
+    patternCorrect: "✅ Верно!",
+    patternWrong: "❌ Неверно!",
     patternRetry: "🔑 Попробуйте снова",
     backEsc: "← НАЗАД (ESC)",
 
@@ -2501,28 +2537,28 @@ const I18N = {
     hintClose: "Закрыть",
 
     bookingTitle: "📅 БРОНИРОВАНИЕ",
-    bookingSubtitle: "Забронировать стол заранее",
+    bookingSubtitle: "Забронировать стол",
     bookingTableLabel: "🎱 Номер стола",
     selectTable: "Выберите стол",
-    bookingNameLabel: "👤 Имя клиента",
+    bookingNameLabel: "👤 Имя",
     bookingNamePlaceholder: "Введите имя",
     bookingPhoneLabel: "📞 Телефон",
     bookingDateLabel: "📅 Дата",
     bookingTimeLabel: "⏰ Время",
-    bookingDurationLabel: "⏱ Длительность (минут)",
-    saveBookingBtn: "💾 СОХРАНИТЬ БРОНЬ",
+    bookingDurationLabel: "⏱ Длительность (мин)",
+    saveBookingBtn: "💾 СОХРАНИТЬ",
     activeBookingsTitle: "🔔 Активные брони",
     filterToday: "📆 Сегодня",
     filterAll: "📋 Все",
-    bookingDateMissingTitle: "Дата/время не указаны",
-    bookingDateMissingText: "Пожалуйста, выберите дату и время.",
+    bookingDateMissingTitle: "Дата не указана",
+    bookingDateMissingText: "Выберите дату и время.",
     bookingTableMissingTitle: "Стол не выбран",
-    bookingTableMissingText: "Пожалуйста, выберите номер стола.",
+    bookingTableMissingText: "Выберите стол.",
     bookingPastTitle: "Прошедшее время",
-    bookingPastText: "Нельзя бронировать на прошедшее время.",
-    bookingConflictTitle: "Время занято",
-    bookingConflictText: "В это время уже забронировано в {time} клиентом {name}.",
-    bookingSavedTitle: "Бронь сохранена",
+    bookingPastText: "Нельзя бронировать в прошлом.",
+    bookingConflictTitle: "Занято",
+    bookingConflictText: "В {time} уже занято {name}.",
+    bookingSavedTitle: "Сохранено",
     bookingSavedText: "Стол {table} • {name} • {time}",
     bookingStatusActive: "🟢 АКТИВНО",
     bookingStatusSoon: "🟡 СКОРО",
@@ -2531,13 +2567,13 @@ const I18N = {
     bookingStartBtn: "НАЧАТЬ",
     bookingCancelBtn: "ОТМЕНА",
     bookingCancelTitle: "Отмена брони",
-    bookingCancelText: "Отменить бронь стола {table} на {time} для {name}?",
-    bookingCancelYes: "🗑️ ДА, ОТМЕНИТЬ",
+    bookingCancelText: "Отменить бронь {table} для {name}?",
+    bookingCancelYes: "🗑️ ДА",
     bookingCancelNo: "❌ НЕТ",
     bookingStartedTitle: "Игра началась",
     bookingStartedText: "Стол {table} • {name}",
-    bookingReminder: "⏰ Напоминание: {name} • Стол {table} • {time}",
-    noBookings: "📅 Пока нет бронирований",
+    bookingReminder: "⏰ {name} • Стол {table} • {time}",
+    noBookings: "📅 Нет бронирований",
 
     som: "сум",
     table: "Стол",
@@ -2547,21 +2583,21 @@ const I18N = {
 
     noTablesConfigured: "Столы не настроены",
     tablesEditTitle: "Редактировать столы",
-    tablesEditSub: "Столы и цены для пользователя",
+    tablesEditSub: "Столы и цены",
     tablesSavedTitle: "Столы сохранены",
-    tablesSavedText: "Для {name} установлено {count} столов.",
-    tablePriceError: "Введите корректную цену для стола {n}!",
-    tablesCountError: "Количество столов должно быть от 1 до 20!",
-    tablesCountRequired: "Нужно указать минимум 1 стол",
-    pricesRequired: "Нужно указать цену для каждого стола",
+    tablesSavedText: "Для {name}: {count} столов.",
+    tablePriceError: "Введите цену для стола {n}!",
+    tablesCountError: "Количество 1-20!",
+    tablesCountRequired: "Минимум 1 стол",
+    pricesRequired: "Введите цены",
     userTablesLabel: "Столы",
     userPricesLabel: "Цены",
     editTablesBtn: "🎱 СТОЛЫ",
-    tablesNotConfigured: "Столы не настроены",
+    tablesNotConfigured: "Не настроены",
     tablesBtn: "СТОЛЫ",
     passwordBtn: "ПАРОЛЬ",
     activateBtn: "АКТИВИРОВАТЬ",
-    blockBtn: "ЗАБЛОКИРОВАТЬ",
+    blockBtn: "БЛОКИРОВАТЬ",
     deleteBtn: "УДАЛИТЬ",
     cannotDelete: "НЕ УДАЛЯЕТСЯ",
     createdLabel: "Создан",
@@ -2579,79 +2615,79 @@ const I18N = {
     userBlocked: "🚫 ЗАБЛОКИРОВАН",
 
     usersPageTitle: "👥 ПОЛЬЗОВАТЕЛИ",
-    usersPageSubtitle: "Логины/пароли, столы и активность",
-    createUserTitle: "➕ СОЗДАТЬ НОВОГО ПОЛЬЗОВАТЕЛЯ",
+    usersPageSubtitle: "Логины, столы, активность",
+    createUserTitle: "➕ СОЗДАТЬ ПОЛЬЗОВАТЕЛЯ",
     roleLabel: "🎭 Роль",
     roleUser: "👤 Пользователь",
     roleAdmin: "🛡️ Админ",
-    tablesSettingsTitle: "🎱 НАСТРОЙКА СТОЛОВ И ЦЕН",
+    tablesSettingsTitle: "🎱 НАСТРОЙКА СТОЛОВ",
     howManyTables: "Сколько столов?",
     tablesRange: "столов (1-20)",
-    allFor40: "Все по 40к",
-    allFor50: "Все по 50к",
-    addUserBtn: "💾 ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ",
-    existingUsersTitle: "📋 Существующие пользователи",
-    userActivityTitle: "📊 Активность пользователей (последние 200)",
-    userActivitySubtitle: "Кто, когда, что сделал — отправляется в Telegram",
-    clearLogsBtn: "🗑️ ОЧИСТИТЬ ЛОГ",
-    noUsers: "Пользователей нет",
-    noActivity: "Пока нет активности",
-    userCreatedTitle: "Пользователь добавлен",
+    allFor40: "Все 40к",
+    allFor50: "Все 50к",
+    addUserBtn: "💾 ДОБАВИТЬ",
+    existingUsersTitle: "📋 Пользователи",
+    userActivityTitle: "📊 Активность (последние 200)",
+    userActivitySubtitle: "Отправляется в Telegram",
+    clearLogsBtn: "🗑️ ОЧИСТИТЬ",
+    noUsers: "Нет пользователей",
+    noActivity: "Нет активности",
+    userCreatedTitle: "Пользователь создан",
     pricesLabel: "Цены",
     tablesShort: "шт",
 
-    pwdModalTitle: "Обновить логин и пароль",
-    pwdModalSub: "Изменение данных пользователя",
+    pwdModalTitle: "Обновить данные",
+    pwdModalSub: "Изменение данных",
     pwdNewLogin: "🔑 Логин",
-    pwdNewLoginPlaceholder: "Новый логин (минимум 3 символа)",
-    pwdNewPassword: "🔒 Новый пароль",
-    pwdNewPasswordPlaceholder: "Новый пароль (минимум 3 символа)",
+    pwdNewLoginPlaceholder: "Новый логин (мин 3)",
+    pwdNewPassword: "🔒 Пароль",
+    pwdNewPasswordPlaceholder: "Новый пароль (мин 3)",
     saveBtn: "💾 СОХРАНИТЬ",
     cancelBtn: "❌ ОТМЕНА",
     loginErrorTitle: "Ошибка логина",
     passwordErrorTitle: "Ошибка пароля",
-    loginMinLength: "Логин должен быть минимум 3 символа.",
-    passwordMinLength: "Пароль должен быть минимум 3 символа.",
+    loginMinLength: "Логин мин 3 символа.",
+    passwordMinLength: "Пароль мин 3 символа.",
     loginTakenTitle: "Логин занят",
-    loginTakenText: "Логин \"{login}\" уже используется пользователем {name}.",
-    updatedTitle: "Успешно обновлено",
-    updatedText: "👤 {name}\n\n🔑 Новый логин: {login}\n🔒 Новый пароль: {password}",
+    loginTakenText: "Логин \"{login}\" занят {name}.",
+    updatedTitle: "Обновлено",
+    updatedText: "👤 {name}\n\n🔑 {login}\n🔒 {password}",
 
     clearLogsTitle: "Очистка логов",
-    clearLogsText: "Удалить всю историю действий пользователей?",
-    clearLogsWarning: "⚠️ Это действие нельзя отменить!",
-    clearLogsYes: "🗑️ ДА, ОЧИСТИТЬ",
-    logsClearedTitle: "Логи очищены",
-    logsClearedText: "{count} записей успешно удалено.",
+    clearLogsText: "Удалить всю историю?",
+    clearLogsWarning: "⚠️ Нельзя отменить!",
+    clearLogsYes: "🗑️ ДА",
+    logsClearedTitle: "Очищено",
+    logsClearedText: "{count} записей удалено.",
     entriesShort: "записей",
 
     deleteUserTitle: "Удалить пользователя",
-    deleteUserText: "Полностью удалить {name} (@{username})?\n\nЭто действие нельзя отменить.",
-    deleteYes: "🗑️ ДА, УДАЛИТЬ",
+    deleteUserText: "Удалить {name} (@{username})?",
+    deleteYes: "🗑️ ДА",
 
     errorTitle: "Ошибка",
     noAccessTitle: "Доступ запрещён",
-    noAccessText: "Этот раздел доступен только Главному админу.",
+    noAccessText: "Только для главного админа.",
     errorOccurred: "Произошла ошибка",
-    approveError: "Ошибка при одобрении запроса",
+    approveError: "Ошибка одобрения",
 
     pendingTitle: "⏳ ОЖИДАЮЩИЕ ЗАПРОСЫ",
-    pendingNone: "Пока нет ожидающих запросов",
-    pendingApproveTitle: "Одобрить запрос",
-    pendingApproveText: "Одобрить {name} (@{username})?\n\nПосле одобрения пользователь:\n🔑 Логин: {username}\n🔒 Пароль: {password}\n\nсможет войти в систему.",
-    pendingApproveYes: "✅ ДА, ОДОБРИТЬ",
-    pendingRejectTitle: "Отклонить запрос",
-    pendingRejectText: "Отклонить запрос {name} (@{username})?\n\nПользователь не сможет войти, аккаунт не создастся.",
-    pendingRejectYes: "❌ ДА, ОТКЛОНИТЬ",
-    pendingRejectReason: "Укажите причину отклонения (необязательно):",
+    pendingNone: "Нет запросов",
+    pendingApproveTitle: "Одобрить",
+    pendingApproveText: "Одобрить {name} (@{username})?",
+    pendingApproveYes: "✅ ДА",
+    pendingRejectTitle: "Отклонить",
+    pendingRejectText: "Отклонить {name} (@{username})?",
+    pendingRejectYes: "❌ ДА",
+    pendingRejectReason: "Причина:",
     pendingApprovedTitle: "Одобрено!",
-    pendingApprovedText: "👤 {name}\n\n🔑 Логин: {username}\n🔒 Пароль: {password}\n\nТеперь пользователь может войти.",
+    pendingApprovedText: "👤 {name}\n🔑 {username}\n🔒 {password}",
     pendingRejectedTitle: "Отклонено",
-    pendingRejectedText: "Запрос отклонён. Пользователь не может войти.",
+    pendingRejectedText: "Запрос отклонён.",
     pendingBadge: "{count} шт",
-    pendingSent: "⏳ Ваш запрос отправлен!",
-    pendingNewBadge: "НОВЫЙ ЗАПРОС",
-    newRequestLabel: "НОВЫЙ ЗАПРОС",
+    pendingSent: "⏳ Отправлено!",
+    pendingNewBadge: "НОВЫЙ",
+    newRequestLabel: "НОВЫЙ",
     tablesCountLabelShort: "столов",
     sentAtLabel: "Отправлено",
     busyShort: "ЗАНЯТ",
@@ -2878,359 +2914,79 @@ function toggleUserActive(id){
 }
 
 /* ================================================================
-   PENDING REQUESTS
+   PENDING REQUESTS — ENDI SERVERDAN OLINADI!
    ================================================================ */
-function getPendingRequests(){
-  return JSON.parse(localStorage.getItem("billiardPendingRequests")) || [];
-}
-function savePendingRequests(arr){
-  localStorage.setItem("billiardPendingRequests", JSON.stringify(arr));
-}
-function findPendingRequest(id){
-  return getPendingRequests().find(r => r.id === id);
-}
-
-function approveRequest(requestId){
-  const requests = getPendingRequests();
-  const req = requests.find(r => r.id === requestId);
-  if(!req) return { ok: false, error: "So'rov topilmadi" };
-  if(req.status !== "pending") return { ok: false, error: "So'rov allaqachon ko'rib chiqilgan" };
-
-  const res = createUser(
-    req.username,
-    req.password,
-    req.fullName,
-    req.role || "user",
-    { count: req.tablesCount, prices: req.tablePrices }
-  );
-
-  if(!res.ok) return res;
-
-  const users = getUsers();
-  const newUser = users.find(u => u.username === req.username);
-  if(newUser){
-    newUser.phone = req.phone;
-    newUser.approvedAt = new Date().toISOString();
-    newUser.approvedBy = "main_admin";
-    newUser.registeredAt = req.createdAt;
-    saveUsers(users);
+async function fetchPendingRequests(){
+  try {
+    const res = await fetch(`${SERVER_URL}/api/pending`);
+    const data = await res.json();
+    if(data.ok) return data.requests || [];
+    return [];
+  } catch(e) {
+    return [];
   }
-
-  req.status = "approved";
-  req.approvedAt = new Date().toISOString();
-  savePendingRequests(requests);
-
-  if(newUser) {
-    logUserAction(newUser.id, "register", `Admin tomonidan tasdiqlandi — ${req.phone}`);
-  }
-
-  sendApprovalNotification(req, true);
-  updatePendingBadge();
-
-  return { ok: true, user: newUser };
-}
-
-function rejectRequest(requestId, reason){
-  const requests = getPendingRequests();
-  const req = requests.find(r => r.id === requestId);
-  if(!req) return { ok: false, error: "So'rov topilmadi" };
-
-  req.status = "rejected";
-  req.rejectedAt = new Date().toISOString();
-  req.rejectReason = reason || "Sabab ko'rsatilmagan";
-  savePendingRequests(requests);
-
-  sendApprovalNotification(req, false);
-  updatePendingBadge();
-
-  return { ok: true };
 }
 
 function updatePendingBadge(){
-  const pending = getPendingRequests().filter(r => r.status === "pending");
-  const count = pending.length;
-
-  const navBadge = document.getElementById("pendingBadge");
-  if(navBadge){
-    if(count > 0){
-      navBadge.innerText = count;
-      navBadge.classList.remove("hidden");
-      navBadge.classList.add("gold");
-    } else {
-      navBadge.classList.add("hidden");
-    }
-  }
-
-  const cardBadge = document.getElementById("pendingCardBadge");
-  if(cardBadge) cardBadge.innerText = count;
-
-  const countBadge = document.getElementById("pendingCountBadge");
-  if(countBadge) countBadge.innerText = count + " " + (currentLang === "ru" ? "шт" : "ta");
-
+  // Endi badge olib tashlanadi yoki server holatiga qarab ko'rsatiladi
+  const badge = document.getElementById("pendingBadge");
+  if(badge) badge.classList.add("hidden");
   const card = document.getElementById("pendingAdminCard");
-  if(card) card.style.display = count > 0 ? "flex" : "none";
+  if(card) card.style.display = "none";
 }
 
-/* ================================================================
-   YANGI: TELEGRAM INLINE TASDIQLASH (Polling orqali)
-   ================================================================ */
-let tgPollingInterval = null;
-let tgLastUpdateId = Number(localStorage.getItem("tgLastUpdateId")) || 0;
-let tgPollingRunning = false;
+async function renderPendingRequests(){
+  const box = document.getElementById("pendingRequestsList");
+  const badge = document.getElementById("pendingCountBadge");
+  if(!box) return;
 
-async function sendApprovalRequestToAdmin(req){
-  if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
+  box.innerHTML = '<div style="text-align:center;padding:20px;color:#8aa0b8">⏳ '+ t("checkingStatus") +'</div>';
 
-  const text = 
-    `🔔 <b>YANGI RO'YXATDAN O'TISH SO'ROVI</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
-    `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
-    `🔒 <b>Parol:</b> <code>${escapeHTML(req.password)}</code>\n` +
-    `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
-    `🎱 <b>Stollar:</b> ${req.tablesCount} ta\n` +
-    `💰 <b>Narxlar:</b> ${req.tablePrices.map((p,i)=>`S${i+1}: ${p.toLocaleString()}`).join(", ")}\n` +
-    `🕐 <b>Vaqt:</b> ${new Date(req.createdAt).toLocaleString("uz-UZ")}\n` +
-    `━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👇 <b>Tasdiqlash yoki Rad etish:</b>`;
+  const requests = await fetchPendingRequests();
+  
+  if(badge) badge.innerText = requests.length + " " + (currentLang === "ru" ? "шт" : "ta");
 
-  const keyboard = {
-    inline_keyboard: [
-      [
-        { text: "✅ TASDIQLASH", callback_data: `approve_${req.id}` },
-        { text: "❌ RAD ETISH", callback_data: `reject_${req.id}` }
-      ]
-    ]
-  };
-
-  try {
-    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_ADMIN_CHAT_ID,
-        text: text,
-        parse_mode: "HTML",
-        disable_web_page_preview: true,
-        reply_markup: keyboard
-      })
-    });
-    const data = await res.json();
-    if(data.ok && data.result && data.result.message_id){
-      const requests = getPendingRequests();
-      const r = requests.find(x => x.id === req.id);
-      if(r){
-        r.tgMessageId = data.result.message_id;
-        savePendingRequests(requests);
-      }
-      startTelegramPolling();
-      showTgStatus("Telegram polling faol", false);
-    }
-  } catch(e) {
-    console.warn("Telegram yuborishda xatolik:", e);
-  }
-}
-
-function showTgStatus(text, isError){
-  const banner = document.getElementById("tgStatusBanner");
-  const txt = document.getElementById("tgStatusText");
-  if(!banner || !txt) return;
-  txt.innerText = text;
-  banner.classList.toggle("error", !!isError);
-  banner.classList.add("show");
-  clearTimeout(showTgStatus._timer);
-  showTgStatus._timer = setTimeout(() => {
-    banner.classList.remove("show");
-  }, 4000);
-}
-
-function startTelegramPolling(){
-  if(tgPollingRunning) return;
-  tgPollingRunning = true;
-  console.log("🤖 Telegram polling boshlandi...");
-
-  tgPollingInterval = setInterval(async () => {
-    try {
-      const res = await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=${tgLastUpdateId + 1}&timeout=0&allowed_updates=${encodeURIComponent('["callback_query"]')}`
-      );
-      const data = await res.json();
-
-      if(!data.ok || !data.result || !data.result.length) return;
-
-      for(const update of data.result){
-        tgLastUpdateId = update.update_id;
-        localStorage.setItem("tgLastUpdateId", tgLastUpdateId);
-
-        if(update.callback_query){
-          await handleTelegramCallback(update.callback_query);
-        }
-      }
-    } catch(e) {
-      // jimgina o'tkazamiz
-    }
-  }, 3000);
-}
-
-function stopTelegramPolling(){
-  if(tgPollingInterval){
-    clearInterval(tgPollingInterval);
-    tgPollingInterval = null;
-    tgPollingRunning = false;
-    console.log("🤖 Telegram polling to'xtatildi");
-  }
-}
-
-async function handleTelegramCallback(cq){
-  const data = cq.data || "";
-  const callbackId = cq.id;
-  const messageId = cq.message ? cq.message.message_id : null;
-  const chatId = cq.message && cq.message.chat ? cq.message.chat.id : null;
-
-  if(String(chatId) !== String(TELEGRAM_ADMIN_CHAT_ID)){
-    await answerCallback(callbackId, "❌ Ruxsat yo'q");
+  if(!requests.length){
+    box.innerHTML = `
+      <div style="text-align:center;padding:30px;color:#8aa0b8;font-size:13px">
+        <div style="font-size:40px;opacity:.4;margin-bottom:10px">📭</div>
+        ${t("pendingNone")}<br><br>
+        <span style="font-size:11px;color:#5f7691">✅ Tasdiqlash va ❌ Rad etish <b>Telegram orqali</b> amalga oshiriladi</span>
+      </div>`;
     return;
   }
 
-  const match = data.match(/^(approve|reject)_(.+)$/);
-  if(!match){
-    await answerCallback(callbackId, "❓ Noma'lum amal");
-    return;
-  }
+  box.innerHTML = "";
+  requests.forEach(req => {
+    const div = document.createElement("div");
+    div.className = "history-item pending-card";
+    
+    const createdDate = new Date(req.createdAt).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
+    const pricesStr = (req.tablePrices||[]).map((p,i) => 
+      `<b style="color:#35c9ff">S${i+1}</b> ${p.toLocaleString()}`
+    ).join(" • ");
 
-  const action = match[1];
-  const reqId = match[2];
-
-  const req = findPendingRequest(reqId);
-  if(!req){
-    await answerCallback(callbackId, "⚠️ So'rov topilmadi");
-    return;
-  }
-  if(req.status !== "pending"){
-    await answerCallback(callbackId, "ℹ️ Allaqachon ko'rib chiqilgan");
-    return;
-  }
-
-  if(action === "approve"){
-    const res = approveRequest(reqId);
-    if(!res.ok){
-      await answerCallback(callbackId, "❌ Xatolik: " + (res.error||""));
-      return;
-    }
-
-    if(messageId){
-      await editTelegramMessage(messageId,
-        `✅ <b>TASDIQLANDI</b>\n` +
-        `━━━━━━━━━━━━━━━━━━━━━\n` +
-        `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
-        `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
-        `🔒 <b>Parol:</b> <code>${escapeHTML(req.password)}</code>\n` +
-        `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
-        `🎱 <b>Stollar:</b> ${req.tablesCount} ta\n` +
-        `━━━━━━━━━━━━━━━━━━━━━\n` +
-        `🕐 <b>Tasdiqlandi:</b> ${new Date().toLocaleString("uz-UZ")}\n` +
-        `✅ Foydalanuvchi tizimga kirishi mumkin.`
-      );
-    }
-
-    await answerCallback(callbackId, "✅ Tasdiqlandi!");
-    beep("money");
-    showTgStatus("✅ So'rov tasdiqlandi: " + req.fullName, false);
-
-    if(isMainAdmin()){
-      renderPendingRequests();
-      renderUsers();
-      updatePendingBadge();
-    }
-
-  } else if(action === "reject"){
-    const res = rejectRequest(reqId, "Telegram orqali rad etildi");
-    if(!res.ok){
-      await answerCallback(callbackId, "❌ Xatolik");
-      return;
-    }
-
-    if(messageId){
-      await editTelegramMessage(messageId,
-        `❌ <b>RAD ETILDI</b>\n` +
-        `━━━━━━━━━━━━━━━━━━━━━\n` +
-        `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
-        `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
-        `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
-        `━━━━━━━━━━━━━━━━━━━━━\n` +
-        `🕐 <b>Rad etildi:</b> ${new Date().toLocaleString("uz-UZ")}\n` +
-        `❌ Foydalanuvchi tizimga kira olmaydi.`
-      );
-    }
-
-    await answerCallback(callbackId, "❌ Rad etildi");
-    beep("end");
-    showTgStatus("❌ So'rov rad etildi: " + req.fullName, true);
-
-    if(isMainAdmin()){
-      renderPendingRequests();
-      renderUsers();
-      updatePendingBadge();
-    }
-  }
-}
-
-async function answerCallback(callbackQueryId, text){
-  try {
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        callback_query_id: callbackQueryId,
-        text: text,
-        show_alert: false
-      })
-    });
-  } catch(e){}
-}
-
-async function editTelegramMessage(messageId, newText){
-  try {
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/editMessageText`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_ADMIN_CHAT_ID,
-        message_id: messageId,
-        text: newText,
-        parse_mode: "HTML"
-      })
-    });
-  } catch(e){}
-}
-
-async function sendApprovalNotification(req, approved){
-  if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
-
-  const icon = approved ? "✅" : "❌";
-  const status = approved ? "TASDIQLANDI" : "RAD ETILDI";
-
-  const text = 
-    `${icon} <b>SO'ROV ${status}</b>\n` +
-    `━━━━━━━━━━━━━━━━━━━━━\n` +
-    `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
-    `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
-    `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
-    `${icon} <b>Holat:</b> ${status}\n` +
-    (req.rejectReason ? `📝 <b>Sabab:</b> ${escapeHTML(req.rejectReason)}\n` : "") +
-    `🕐 <b>Vaqt:</b> ${new Date().toLocaleString("uz-UZ")}`;
-
-  try {
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_ADMIN_CHAT_ID,
-        text: text,
-        parse_mode: "HTML"
-      })
-    });
-  } catch(e) { console.warn("Telegram xatolik:", e); }
+    div.innerHTML = `
+      <div class="history-item-info">
+        <div style="font-size:16px;font-weight:900;color:#ffd23f;margin-bottom:8px">
+          ⏳ ${escapeHTML(req.fullName)}
+          <span style="font-size:10px;font-weight:900;color:#ffd23f;margin-left:8px;letter-spacing:1px">TELEGRAM'DA</span>
+        </div>
+        <div>🔑 ${t("pwdNewLogin")}: <b style="color:#35c9ff">${escapeHTML(req.username)}</b> &nbsp;•&nbsp;
+             🔒 ${t("pwdNewPassword")}: <b style="color:#ffd23f">${escapeHTML(req.password)}</b></div>
+        <div>📞 ${t("phone")} <b>${escapeHTML(req.phone)}</b></div>
+        <div>🕐 ${t("sentAtLabel")}: ${createdDate}</div>
+        <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(53,201,255,.08);border:1px dashed rgba(53,201,255,.3)">
+          🎱 <b style="color:#42e979">${req.tablesCount} ${t("tablesShort")}</b><br>
+          <span style="font-size:11px;color:#8aa0b8">💰 ${pricesStr}</span>
+        </div>
+        <div style="margin-top:10px;padding:10px;border-radius:10px;background:rgba(255,210,63,.1);border:1px solid rgba(255,210,63,.4);font-size:11px;color:#ffd23f;text-align:center;font-weight:800">
+          📱 Tasdiqlash va Rad etish <b>Telegram botda</b> amalga oshiriladi
+        </div>
+      </div>
+    `;
+    box.appendChild(div);
+  });
 }
 
 /* ================================================================
@@ -3249,7 +3005,7 @@ function logUserAction(userId, type, description, extra){
   const u = users.find(x => x.id === userId);
   const logs = getUserLogs();
   const now = new Date();
-
+  
   const logEntry = {
     id: Date.now() + Math.random(),
     userId: userId,
@@ -3262,7 +3018,7 @@ function logUserAction(userId, type, description, extra){
     date: todayDate(),
     time: String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0")+":"+String(now.getSeconds()).padStart(2,"0")
   };
-
+  
   logs.unshift(logEntry);
   saveUserLogs(logs);
 
@@ -3324,6 +3080,7 @@ function logUserAction(userId, type, description, extra){
    ================================================================ */
 let selectedHistoryDateValue = "";
 let bookingFilterToday = true;
+let approvalPollingInterval = null;
 
 const ADMIN_PATTERN = [2,4,5,3];
 const CLUB_NAME = "BILLIARD CLUB";
@@ -3418,12 +3175,11 @@ function beep(type){
       renderTables();
       updatePriceTexts();
       updatePendingBadge();
-      startTelegramPolling();
     }, 100);
   }
 })();
 
-function checkLogin(){
+async function checkLogin(){
   const userInput = document.getElementById("loginUsername").value.trim();
   const passInput = document.getElementById("loginPassword").value;
   const remember = document.getElementById("loginRemember").checked;
@@ -3439,42 +3195,42 @@ function checkLogin(){
     return;
   }
 
-  const user = findUser(userInput);
+  let user = findUser(userInput);
 
+  // Agar localStorage'da yo'q bo'lsa — serverdan tasdiqlanganlarni qidiramiz
   if(!user){
-    const pending = getPendingRequests();
-    const pendingReq = pending.find(p => 
-      p.username.toLowerCase() === userInput.toLowerCase() && 
-      p.status === "pending"
-    );
+    errorEl.innerText = t("checkingStatus");
+    errorEl.style.color = "#ffd23f";
     
-    if(pendingReq){
-      errorEl.innerText = t("loginPending");
-      errorEl.style.color = "#ffd23f";
-      errorEl.classList.remove("shake");
-      void errorEl.offsetWidth;
-      errorEl.classList.add("shake");
-      beep("error");
-      return;
-    }
-
-    const rejectedReq = pending.find(p => 
-      p.username.toLowerCase() === userInput.toLowerCase() && 
-      p.status === "rejected"
-    );
-    
-    if(rejectedReq){
-      errorEl.innerText = t("loginRejected");
-      errorEl.style.color = "#ff6878";
-      errorEl.classList.remove("shake");
-      void errorEl.offsetWidth;
-      errorEl.classList.add("shake");
-      beep("error");
-      return;
+    const serverRes = await apiGetApproved(userInput);
+    if(serverRes.ok && serverRes.user){
+      // Serverdan tasdiqlangan — local'ga qo'shamiz
+      const createRes = createUser(
+        serverRes.user.username,
+        serverRes.user.password,
+        serverRes.user.fullName,
+        serverRes.user.role || "user",
+        { count: serverRes.user.tablesCount, prices: serverRes.user.tablePrices }
+      );
+      if(createRes.ok){
+        user = createRes.user;
+      }
     }
   }
 
-  if(!user || user.password !== passInput){
+  if(!user){
+    // Server'da pending/rejected tekshiramiz
+    errorEl.innerText = t("loginWrong");
+    errorEl.style.color = "#ff6878";
+    errorEl.classList.remove("shake");
+    void errorEl.offsetWidth;
+    errorEl.classList.add("shake");
+    beep("error");
+    document.getElementById("loginPassword").value = "";
+    return;
+  }
+
+  if(user.password !== passInput){
     errorEl.innerText = t("loginWrong");
     errorEl.style.color = "#ff6878";
     errorEl.classList.remove("shake");
@@ -3516,7 +3272,6 @@ function checkLogin(){
     renderTables();
     updatePriceTexts();
     updatePendingBadge();
-    startTelegramPolling();
     showWelcomeToast(user);
     if(user.role === "main_admin"){
       setTimeout(()=>openAdminUsersDirect(), 300);
@@ -3537,6 +3292,7 @@ function showLogin(){
   document.getElementById("registerBox").style.display = "none";
   document.getElementById("registerError").innerText = "";
   document.getElementById("loginError").innerText = "";
+  stopApprovalPolling();
   setTimeout(()=>document.getElementById("loginUsername").focus(), 100);
 }
 
@@ -3552,7 +3308,10 @@ function togglePasswordVisibility(inputId, btn){
   }
 }
 
-function doRegister(){
+/* ================================================================
+   YANGI: SERVERGA YUBORISH + POLLING
+   ================================================================ */
+async function doRegister(){
   const fullName = document.getElementById("regFullName").value.trim();
   const username = document.getElementById("regUsername").value.trim();
   const phone = document.getElementById("regPhone").value.trim();
@@ -3560,6 +3319,7 @@ function doRegister(){
   const passwordConfirm = document.getElementById("regPasswordConfirm").value;
   const tablesCount = Number(document.getElementById("regTablesCount").value) || 3;
   const errorEl = document.getElementById("registerError");
+  const btn = document.querySelector('#registerBox .login-btn');
 
   errorEl.style.color = "#ff6878";
 
@@ -3605,42 +3365,50 @@ function doRegister(){
     beep("error"); return;
   }
 
-  const pending = getPendingRequests();
-  if(pending.find(p => p.username.toLowerCase() === username.toLowerCase() && p.status === "pending")){
-    errorEl.innerText = t("regErrorPending");
-    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
-    beep("error"); return;
+  // Tugmani bloklash
+  if(btn){
+    btn.disabled = true;
+    btn.innerHTML = "⏳ " + t("sendingRequest");
   }
 
+  errorEl.style.color = "#35c9ff";
+  errorEl.innerText = "⏳ " + t("sendingRequest");
+
+  // Default narxlar
   const defaultPrice = 40000;
   const prices = [];
   for(let i = 0; i < tablesCount; i++) prices.push(defaultPrice);
 
-  const request = {
-    id: "req_" + Date.now() + "_" + Math.random().toString(36).slice(2,7),
+  // SERVERGA YUBORISH
+  const result = await apiRegister({
     fullName: fullName,
     username: username,
     phone: phone,
     password: password,
     role: "user",
     tablesCount: tablesCount,
-    tablePrices: prices,
-    status: "pending",
-    createdAt: new Date().toISOString(),
-    requestedAt: new Date().toISOString()
-  };
+    tablePrices: prices
+  });
 
-  const requests = getPendingRequests();
-  requests.push(request);
-  savePendingRequests(requests);
+  if(btn){
+    btn.disabled = false;
+    btn.innerHTML = "📩 " + t("registerBtn");
+  }
 
-  sendApprovalRequestToAdmin(request);
-  updatePendingBadge();
+  if(!result.ok){
+    errorEl.style.color = "#ff6878";
+    errorEl.innerText = result.error || t("regServerError");
+    errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
+    beep("error");
+    return;
+  }
 
+  // MUVAFFAQIYAT!
   errorEl.style.color = "#ffd23f";
   errorEl.innerText = t("regSuccess");
   beep("money");
 
+  // Formani tozalash
   document.getElementById("regFullName").value = "";
   document.getElementById("regUsername").value = "";
   document.getElementById("regPhone").value = "";
@@ -3648,16 +3416,100 @@ function doRegister(){
   document.getElementById("regPasswordConfirm").value = "";
   document.getElementById("regTablesCount").value = "3";
 
-  setTimeout(()=>{
+  const requestId = result.requestId;
+
+  // POLLING BOSHLASH
+  setTimeout(() => {
     showLogin();
     document.getElementById("loginUsername").value = username;
     document.getElementById("loginPassword").value = "";
-    document.getElementById("loginError").innerText = t("pendingSent");
-    document.getElementById("loginError").style.color = "#ffd23f";
-    setTimeout(()=>document.getElementById("loginPassword").focus(), 100);
-  }, 2500);
+    const loginError = document.getElementById("loginError");
+    loginError.innerText = t("waitingApproval");
+    loginError.style.color = "#ffd23f";
+
+    // Pollingni boshlash
+    startApprovalPolling(requestId, username);
+  }, 2000);
 }
 
+/* ================================================================
+   POLLING — har 3 soniyada holat tekshirish
+   ================================================================ */
+function startApprovalPolling(requestId, username){
+  stopApprovalPolling();
+  
+  let attempts = 0;
+  const maxAttempts = 200; // ~10 daqiqa
+
+  approvalPollingInterval = setInterval(async () => {
+    attempts++;
+    
+    if(attempts > maxAttempts){
+      stopApprovalPolling();
+      const loginError = document.getElementById("loginError");
+      if(loginError){
+        loginError.innerText = "⏰ Vaqt tugadi. Sahifani yangilang.";
+        loginError.style.color = "#ff6878";
+      }
+      return;
+    }
+
+    const status = await apiGetStatus(requestId);
+    
+    if(!status.ok) return;
+
+    const loginError = document.getElementById("loginError");
+    if(!loginError) return;
+
+    if(status.status === "approved"){
+      stopApprovalPolling();
+      loginError.innerText = t("approvedLogin");
+      loginError.style.color = "#42e979";
+      beep("money");
+      
+      // Serverdan foydalanuvchi ma'lumotlarini olish
+      const userRes = await apiGetApproved(username);
+      if(userRes.ok && userRes.user){
+        // LocalStorage'ga qo'shish
+        const createRes = createUser(
+          userRes.user.username,
+          userRes.user.password,
+          userRes.user.fullName,
+          userRes.user.role || "user",
+          { count: userRes.user.tablesCount, prices: userRes.user.tablePrices }
+        );
+
+        if(createRes.ok){
+          // Parolni avtomatik to'ldirish
+          document.getElementById("loginPassword").value = userRes.user.password;
+          document.getElementById("loginPassword").focus();
+          
+          setTimeout(() => {
+            checkLogin();
+          }, 500);
+        }
+      }
+    } 
+    else if(status.status === "rejected"){
+      stopApprovalPolling();
+      loginError.innerText = t("rejectedLogin") + "\n\n" + (status.rejectReason || "");
+      loginError.style.color = "#ff6878";
+      beep("error");
+    }
+    // "pending" bo'lsa — kutamiz, davom etamiz
+  }, 3000); // 3 soniyada bir marta
+}
+
+function stopApprovalPolling(){
+  if(approvalPollingInterval){
+    clearInterval(approvalPollingInterval);
+    approvalPollingInterval = null;
+  }
+}
+
+/* ================================================================
+   LOGOUT
+   ================================================================ */
 function logout(){
   document.getElementById("modalIcon").innerText = "🚪";
   document.getElementById("modalTitle").innerText = t("logoutTitle");
@@ -3675,8 +3527,8 @@ function confirmLogout(){
   localStorage.removeItem("billiardAuth");
   localStorage.removeItem("billiardRemember");
   setCurrentUser(null);
+  stopApprovalPolling();
 
-  stopTelegramPolling();
   closeModal();
   beep("end");
   setTimeout(function(){
@@ -3983,7 +3835,7 @@ function renderTables(){
   }
 
   applyTranslations();
-
+  
   for(let id = 1; id <= count; id++){
     updateTable(id);
   }
@@ -4172,7 +4024,7 @@ function updateTable(id){
   if(!g) return;
   const statusEl=document.getElementById("status"+id);
   if(!statusEl) return;
-
+  
   if(g.start && !g.finished){
     statusEl.innerText=t("statusBusy");
     statusEl.className="status busy";
@@ -4435,151 +4287,6 @@ function escapeHTML(text){
   return String(text||"")
     .replace(/&/g,"&amp;").replace(/</g,"&lt;")
     .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-
-/* ================================================================
-   PENDING REQUESTS UI
-   ================================================================ */
-function renderPendingRequests(){
-  const box = document.getElementById("pendingRequestsList");
-  const badge = document.getElementById("pendingCountBadge");
-  if(!box) return;
-
-  const requests = getPendingRequests().filter(r => r.status === "pending");
-
-  if(badge) badge.innerText = requests.length + " " + (currentLang === "ru" ? "шт" : "ta");
-
-  if(!requests.length){
-    box.innerHTML = `
-      <div style="text-align:center;padding:30px;color:#8aa0b8;font-size:13px">
-        <div style="font-size:40px;opacity:.4;margin-bottom:10px">📭</div>
-        ${t("pendingNone")}
-      </div>`;
-    updatePendingBadge();
-    return;
-  }
-
-  box.innerHTML = "";
-  requests.forEach(req => {
-    const div = document.createElement("div");
-    div.className = "history-item pending-card";
-
-    const createdDate = new Date(req.createdAt).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
-    const pricesStr = req.tablePrices.map((p,i) => 
-      `<b style="color:#35c9ff">S${i+1}</b> ${p.toLocaleString()}`
-    ).join(" • ");
-
-    div.innerHTML = `
-      <div class="history-item-info">
-        <div style="font-size:16px;font-weight:900;color:#ffd23f;margin-bottom:8px">
-          ⏳ ${escapeHTML(req.fullName)}
-          <span style="font-size:10px;font-weight:900;color:#ffd23f;margin-left:8px;letter-spacing:1px">${t("newRequestLabel")}</span>
-        </div>
-        <div>🔑 ${t("pwdNewLogin")}: <b style="color:#35c9ff">${escapeHTML(req.username)}</b> &nbsp;•&nbsp;
-             🔒 ${t("pwdNewPassword")}: <b style="color:#ffd23f">${escapeHTML(req.password)}</b></div>
-        <div>📞 ${t("phone")} <b>${escapeHTML(req.phone)}</b></div>
-        <div>🕐 ${t("sentAtLabel")}: ${createdDate}</div>
-        <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(53,201,255,.08);border:1px dashed rgba(53,201,255,.3)">
-          🎱 <b style="color:#42e979">${req.tablesCount} ${t("tablesShort")}</b><br>
-          <span style="font-size:11px;color:#8aa0b8">💰 ${pricesStr}</span>
-        </div>
-      </div>
-      <div class="history-item-actions" style="flex-direction:column;gap:6px">
-        <button class="chek-btn" 
-                onclick="confirmApproveRequest('${req.id}')" 
-                style="background:linear-gradient(135deg,#0dbb85,#067858)">
-          ${t("approveBtn")}
-        </button>
-        <button class="chek-btn" 
-                onclick="confirmRejectRequest('${req.id}')" 
-                style="background:linear-gradient(135deg,#e04456,#8f1e2d)">
-          ${t("rejectBtn")}
-        </button>
-      </div>
-    `;
-    box.appendChild(div);
-  });
-
-  updatePendingBadge();
-}
-
-function confirmApproveRequest(id){
-  const req = findPendingRequest(id);
-  if(!req) return;
-
-  document.getElementById("modalIcon").innerText = "✅";
-  document.getElementById("modalTitle").innerText = t("pendingApproveTitle");
-  document.getElementById("modalText").innerText = t("pendingApproveText", {
-    name: req.fullName,
-    username: req.username,
-    password: req.password
-  });
-  document.getElementById("modalButtons").innerHTML = 
-    `<button class="modal-btn" style="background:linear-gradient(135deg,#0dbb85,#067858)" 
-             onclick="doApproveRequest('${id}')">${t("pendingApproveYes")}</button>
-     <button class="modal-cancel" onclick="closeModal()">${t("cancelRejectBtn")}</button>`;
-  document.getElementById("modalBg").style.display = "flex";
-}
-
-function doApproveRequest(id){
-  const res = approveRequest(id);
-  closeModal();
-
-  if(!res.ok){
-    beep("error");
-    showModal("⚠️", t("errorTitle"), res.error || t("approveError"));
-    return;
-  }
-
-  beep("money");
-  renderPendingRequests();
-  renderUsers();
-  updatePendingBadge();
-
-  setTimeout(() => {
-    showModal("✅", t("pendingApprovedTitle"), t("pendingApprovedText", {
-      name: res.user.fullName,
-      username: res.user.username,
-      password: res.user.password
-    }));
-  }, 200);
-}
-
-function confirmRejectRequest(id){
-  const req = findPendingRequest(id);
-  if(!req) return;
-
-  document.getElementById("modalIcon").innerText = "❌";
-  document.getElementById("modalTitle").innerText = t("pendingRejectTitle");
-  document.getElementById("modalText").innerText = t("pendingRejectText", {
-    name: req.fullName,
-    username: req.username
-  });
-  document.getElementById("modalButtons").innerHTML = 
-    `<button class="modal-danger" onclick="doRejectRequest('${id}')">${t("pendingRejectYes")}</button>
-     <button class="modal-cancel" onclick="closeModal()">${t("cancelRejectBtn")}</button>`;
-  document.getElementById("modalBg").style.display = "flex";
-}
-
-function doRejectRequest(id){
-  closeModal();
-  const reason = prompt(t("pendingRejectReason")) || "";
-  const res = rejectRequest(id, reason);
-
-  if(!res.ok){
-    beep("error");
-    showModal("⚠️", t("errorTitle"), res.error || t("errorOccurred"));
-    return;
-  }
-
-  beep("end");
-  renderPendingRequests();
-  renderUsers();
-  updatePendingBadge();
-
-  setTimeout(() => {
-    showModal("❌", t("pendingRejectedTitle"), t("pendingRejectedText"));
-  }, 200);
 }
 
 /* ================================================================
@@ -4994,7 +4701,7 @@ function generateTablePriceInputs(){
   if(!countInput || !container) return;
 
   const count = Number(countInput.value) || 3;
-
+  
   if(count < 1 || count > 20){
     container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ ' + t("tablesCountError") + '</div>';
     return;
@@ -5041,7 +4748,7 @@ function handleCreateUser(){
   const username = document.getElementById("newUserUsername").value.trim();
   const password = document.getElementById("newUserPassword").value.trim();
   const role = document.getElementById("newUserRole").value;
-
+  
   const tablesCount = Number(document.getElementById("newUserTablesCount").value);
   const prices = [];
 
@@ -5084,10 +4791,10 @@ function handleCreateUser(){
   generateTablePriceInputs();
 
   beep("money");
-
+  
   const pricesList = prices.map((p, i) => `   🎱 ${t("table")} ${i+1}: ${money(p)}`).join("\n");
   const roleText = role === "admin" ? t("roleAdmin") : t("roleUser");
-
+  
   showModal("✅", t("userCreatedTitle"),
     `👤 ${fullName}\n` +
     `🔑 ${t("pwdNewLogin")}: ${username}\n` +
@@ -5095,7 +4802,7 @@ function handleCreateUser(){
     `🎭 ${t("roleLabel")}: ${roleText}\n` +
     `🎱 ${t("userTablesLabel")}: ${tablesCount} ${t("tablesShort")}\n\n` +
     `💰 ${t("pricesLabel")}:\n${pricesList}`);
-
+  
   renderUsers();
 }
 
@@ -5108,10 +4815,10 @@ function renderUsers(){
     return;
   }
   box.innerHTML = "";
-
+  
   const allHistory = getHistory();
   const today = todayDate();
-
+  
   users.forEach(u=>{
     const isMain = u.role === "main_admin";
     const roleLabel = isMain ? "👑 BOSH ADMIN"
@@ -5130,19 +4837,19 @@ function renderUsers(){
     const todayUnpaid = todayItems.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const todayTotal = todayPaid + todayUnpaid;
     const todayGames = todayItems.length;
-
+    
     const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
     const weekItems = userHistory.filter(h => {
       const d = h.savedAt ? new Date(h.savedAt).getTime() : convertDate(h.saveDate || h.gameDate);
       return d >= weekAgo;
     });
     const weekTotal = weekItems.reduce((s,i)=>s+Number(i.amount||0),0);
-
+    
     const totalPaid = userHistory.filter(h => h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const totalUnpaid = userHistory.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const totalAll = totalPaid + totalUnpaid;
     const totalGames = userHistory.length;
-
+    
     const logs = getUserLogs().filter(l => l.userId === u.id);
     const loginCount = logs.filter(l => l.type === "login").length;
     const gamesStarted = logs.filter(l => l.type === "start_game").length;
@@ -5290,6 +4997,7 @@ function renderUserLogs(){
   });
 }
 
+/* EDIT TABLES */
 let editingTablesUserId = null;
 
 function editUserTables(userId){
@@ -5302,9 +5010,9 @@ function editUserTables(userId){
 
   document.getElementById("tablesEditSub").innerText = `👤 ${u.fullName} (@${u.username})`;
   document.getElementById("editTablesCount").value = currentCount;
-
+  
   document.getElementById("tablesEditBg").classList.add("active");
-
+  
   setTimeout(()=>{
     regenerateEditPrices(currentPrices);
   }, 50);
@@ -5407,6 +5115,7 @@ function closeEditTablesModal(){
   editingTablesUserId = null;
 }
 
+/* PASSWORD */
 let pwdModalTargetId = null;
 
 function changeUserPasswordPrompt(id){
@@ -5545,6 +5254,7 @@ function doDeleteUser(id){
   renderUsers();
 }
 
+/* CLEAR LOGS */
 function clearUserLogs(){
   const logs = getUserLogs();
   document.getElementById("clearModalCount").innerText = logs.length + " " + t("entriesShort");
@@ -6291,12 +6001,11 @@ setInterval(function(){
   if(changed) saveBookings(bookings);
 }, 30000);
 
-/* PENDING REQUESTS POLLING */
-setInterval(function(){
-  updatePendingBadge();
+/* PENDING REQUESTS POLLING (Admin uchun) */
+setInterval(async function(){
   const usersPage = document.getElementById("adminUsers");
   if(usersPage && usersPage.classList.contains("active")){
-    renderPendingRequests();
+    await renderPendingRequests();
   }
 }, 15000);
 
@@ -6316,7 +6025,6 @@ renderReports();
 renderAdminDebtors();
 renderAdminHistory();
 renderBookings();
-renderPendingRequests();
 applyRoleUI();
 updatePendingBadge();
 
@@ -6337,10 +6045,21 @@ setTimeout(function(){
   }
 }, 200);
 
-window.addEventListener("beforeunload",function(){ 
-  saveGames();
-  stopTelegramPolling();
-});
+// Server holatini tekshirish
+(async function checkServer(){
+  try {
+    const res = await fetch(`${SERVER_URL}/api/ping`, { method: 'GET' });
+    const data = await res.json();
+    if(data.ok){
+      console.log("✅ Server ishlayapti:", SERVER_URL);
+    }
+  } catch(e){
+    console.warn("⚠️ Server ishlamayapti:", SERVER_URL);
+    console.warn("💡 Server ishga tushiring: node server.js");
+  }
+})();
+
+window.addEventListener("beforeunload",function(){ saveGames(); });
 </script>
 </body>
 </html>
