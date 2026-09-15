@@ -749,7 +749,6 @@ input:focus{
 .booking-form-grid select:focus{border-color:#35c9ff;box-shadow:0 0 0 3px rgba(53,201,255,.15)}
 .booking-form-grid select option{background:#0a1a2c;color:#fff}
 
-/* CUSTOM SELECT */
 .custom-select{position:relative;width:100%;user-select:none}
 .custom-select-trigger{
   width:100%;min-height:52px;padding:12px 18px;border-radius:14px;
@@ -1230,6 +1229,26 @@ input:focus{
   border-radius:14px;margin-top:12px;
 }
 
+/* ========== YANGI: TELEGRAM STATUS BANNER ========== */
+.tg-status-banner{
+  position:fixed;bottom:60px;right:14px;
+  padding:10px 16px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(13,187,133,.95),rgba(6,120,88,.95));
+  color:#fff;font-weight:800;font-size:12px;
+  box-shadow:0 10px 30px rgba(10,169,120,.5);
+  z-index:100;display:flex;align-items:center;gap:10px;
+  opacity:0;transform:translateY(20px);transition:.4s;
+  pointer-events:none;
+}
+.tg-status-banner.show{opacity:1;transform:translateY(0)}
+.tg-status-banner.error{background:linear-gradient(135deg,rgba(224,68,86,.95),rgba(143,30,45,.95));box-shadow:0 10px 30px rgba(224,68,86,.5)}
+.tg-status-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:#fff;box-shadow:0 0 10px #fff;
+  animation:tgPulse 1.5s infinite;
+}
+@keyframes tgPulse{50%{opacity:.4}}
+
 @media (max-width:1100px){
   .app-layout{grid-template-columns:200px 1fr}
   .main-content{padding:20px 18px}
@@ -1251,6 +1270,7 @@ input:focus{
   .sidebar-footer{display:none}
   .tables-grid{grid-template-columns:1fr}
   .keyboard-hints{display:none}
+  .tg-status-banner{display:none}
 }
 @media (max-width:600px){
   .main-content{padding:14px}
@@ -1712,7 +1732,6 @@ input:focus{
   </main>
 </div>
 
-<!-- MODAL -->
 <div id="modalBg" class="modal-bg">
   <div class="modal">
     <div id="modalIcon" class="modal-icon">⚠️</div>
@@ -1724,7 +1743,6 @@ input:focus{
   </div>
 </div>
 
-<!-- PWD MODAL -->
 <div id="pwdModalBg" class="pwd-modal-bg">
   <div class="pwd-modal">
     <div class="pwd-modal-header">
@@ -1750,7 +1768,6 @@ input:focus{
   </div>
 </div>
 
-<!-- TABLES EDIT MODAL -->
 <div id="tablesEditBg" class="tables-edit-bg">
   <div class="tables-edit-modal">
     <div class="pwd-modal-header">
@@ -1791,7 +1808,6 @@ input:focus{
   </div>
 </div>
 
-<!-- CLEAR LOG MODAL -->
 <div id="clearModalBg" class="clear-modal-bg">
   <div class="clear-modal">
     <div class="clear-modal-icon">🗑️</div>
@@ -1806,7 +1822,6 @@ input:focus{
   </div>
 </div>
 
-<!-- PATTERN -->
 <div id="patternBg" class="pattern-bg">
   <div class="pattern-box">
     <div class="pattern-icon">🔐</div>
@@ -1818,7 +1833,6 @@ input:focus{
   </div>
 </div>
 
-<!-- PDF LOADING -->
 <div id="pdfLoading" class="pdf-loading">
   <div class="pdf-loading-box">
     <div class="pdf-spinner"></div>
@@ -1827,7 +1841,6 @@ input:focus{
   </div>
 </div>
 
-<!-- KEYBOARD HINTS -->
 <div class="keyboard-hints" id="keyboardHints">
   <b>1..9</b> <span data-i18n="hintTables">Stollar</span> •
   <b>H</b> <span data-i18n="hintHome">Asosiy</span> •
@@ -1838,6 +1851,13 @@ input:focus{
   <b>B</b> <span data-i18n="hintBooking">Bron</span> •
   <b>Esc</b> <span data-i18n="hintClose">Yopish</span>
 </div>
+
+<!-- ========== YANGI: TELEGRAM STATUS BANNER ========== -->
+<div class="tg-status-banner" id="tgStatusBanner">
+  <div class="tg-status-dot"></div>
+  <span id="tgStatusText">Telegram polling faol</span>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -1871,7 +1891,6 @@ async function sendTelegramLog(htmlMessage){
    ================================================================ */
 const I18N = {
   uz: {
-    // LOGIN
     loginSub: "WINDOWS EDITION",
     loginLabel: "👤 Login",
     loginPlaceholder: "Loginni kiriting",
@@ -1911,7 +1930,6 @@ const I18N = {
     regErrorUsernameTaken: "⚠️ Bu login allaqachon band!",
     regErrorPending: "⏳ Bu login bilan so'rov allaqachon yuborilgan. Admin tasdiqlashini kuting.",
 
-    // NAV
     navHome: "Asosiy",
     navTables: "Stollar",
     navAdmin: "Admin panel",
@@ -1925,7 +1943,6 @@ const I18N = {
     logoutNo: "❌ BEKOR QILISH",
     modalOk: "TUSHUNDIM",
 
-    // TABLES
     tablesTitle: "🎱 STOLLAR",
     tablesSubtitle: "Barcha stollar bir ekranda",
     tableLabel: "🎱 STOL",
@@ -1958,7 +1975,6 @@ const I18N = {
     paidLaterTitle: "To'lov olindi",
     paidLaterText: "{name}ning {amount} qarzi yopildi.",
 
-    // ADMIN
     adminTitle: "🔐 ADMIN PANEL",
     adminSubtitle: "Boshqaruv menyusi",
     backToMain: "🏠 ASOSIY MENYUGA",
@@ -1976,7 +1992,6 @@ const I18N = {
     pendingCardSub: "Tasdiqlash kutilmoqda",
     backToAdmin: "← ADMIN MENYUSIGA QAYTISH",
 
-    // REPORTS
     reportsTitle: "📊 HISOBOT",
     reportsSubtitle: "Bugungi tushum va statistika",
     statGames: "🎱 Bugungi o'yinlar",
@@ -1986,7 +2001,6 @@ const I18N = {
     statBookings: "📅 Faol bronlar",
     downloadReportPdf: "📄 UMUMIY HISOBOTNI PDF YUKLASH",
 
-    // DEBTORS
     debtorsTitle: "🔴 QARZDORLAR",
     debtorsSubtitle: "To'lanmagan o'yinlar ro'yxati",
     downloadAllDebtorsPdf: "📄 BARCHA QARZDORLAR PDF YUKLASH",
@@ -1996,7 +2010,6 @@ const I18N = {
     payNowBtn: "🟢 PULNI OLDIM",
     pdfBtn: "📄 PDF",
 
-    // HISTORY
     historyTitle: "📋 TARIX",
     historySubtitle: "Sanalar bo'yicha o'yinlar",
     allDatesTotal: "💰 BARCHA SANALARNING UMUMIY SUMMASI",
@@ -2028,7 +2041,6 @@ const I18N = {
     clearedTitle: "Tarix o'chirildi",
     clearedText: "{date} sanasining tarixi o'chirildi.",
 
-    // PDF
     pdfLoading: "📄 PDF TAYYORLANMOQDA...",
     pdfLoadingSub: "Iltimos kuting, 1-2 soniya",
     pdfDoneTitle: "PDF yuklandi",
@@ -2101,7 +2113,6 @@ const I18N = {
     hintBooking: "Bron",
     hintClose: "Yopish",
 
-    // BOOKING
     bookingTitle: "📅 BRON QILISH",
     bookingSubtitle: "Stolni oldindan band qilish",
     bookingTableLabel: "🎱 Stol raqami",
@@ -2180,7 +2191,6 @@ const I18N = {
     userActive: "✅ FAOL",
     userBlocked: "🚫 BLOKLANGAN",
 
-    // USERS PAGE
     usersPageTitle: "👥 FOYDALANUVCHILAR",
     usersPageSubtitle: "Login/parollar, stollar va faoliyat",
     createUserTitle: "➕ YANGI FOYDALANUVCHI YARATISH",
@@ -2203,7 +2213,6 @@ const I18N = {
     pricesLabel: "Narxlar",
     tablesShort: "ta",
 
-    // PWD MODAL
     pwdModalTitle: "Login va Parolni yangilash",
     pwdModalSub: "Foydalanuvchi ma'lumotlarini o'zgartirish",
     pwdNewLogin: "🔑 Login",
@@ -2221,7 +2230,6 @@ const I18N = {
     updatedTitle: "Muvaffaqiyatli yangilandi",
     updatedText: "👤 {name}\n\n🔑 Yangi login: {login}\n🔒 Yangi parol: {password}",
 
-    // CLEAR LOGS
     clearLogsTitle: "Loglarni tozalash",
     clearLogsText: "Barcha foydalanuvchi harakatlari tarixini o'chirishni xohlaysizmi?",
     clearLogsWarning: "⚠️ Bu amalni qaytarib bo'lmaydi!",
@@ -2230,19 +2238,16 @@ const I18N = {
     logsClearedText: "{count} ta yozuv muvaffaqiyatli o'chirildi.",
     entriesShort: "ta yozuv",
 
-    // DELETE USER
     deleteUserTitle: "Foydalanuvchini o'chirish",
     deleteUserText: "{name} (@{username}) ni butunlay o'chirishni xohlaysizmi?\n\nBu amalni qaytarib bo'lmaydi.",
     deleteYes: "🗑️ HA, O'CHIRISH",
 
-    // ERRORS
     errorTitle: "Xatolik",
     noAccessTitle: "Ruxsat yo'q",
     noAccessText: "Bu bo'limga faqat Bosh admin kira oladi.",
     errorOccurred: "Xatolik yuz berdi",
     approveError: "So'rovni tasdiqlashda xatolik",
 
-    // PENDING
     pendingTitle: "⏳ KUTILAYOTGAN SO'ROVLAR",
     pendingNone: "Hozircha kutilayotgan so'rovlar yo'q",
     pendingApproveTitle: "So'rovni tasdiqlash",
@@ -2273,7 +2278,6 @@ const I18N = {
     approveBtn: "✅ TASDIQLASH"
   },
   ru: {
-    // LOGIN
     loginSub: "WINDOWS EDITION",
     loginLabel: "👤 Логин",
     loginPlaceholder: "Введите логин",
@@ -2313,7 +2317,6 @@ const I18N = {
     regErrorUsernameTaken: "⚠️ Этот логин уже занят!",
     regErrorPending: "⏳ Запрос с этим логином уже отправлен. Ожидайте одобрения админа.",
 
-    // NAV
     navHome: "Главная",
     navTables: "Столы",
     navAdmin: "Админ панель",
@@ -2327,7 +2330,6 @@ const I18N = {
     logoutNo: "❌ ОТМЕНА",
     modalOk: "ПОНЯТНО",
 
-    // TABLES
     tablesTitle: "🎱 СТОЛЫ",
     tablesSubtitle: "Все столы на одном экране",
     tableLabel: "🎱 СТОЛ",
@@ -2360,7 +2362,6 @@ const I18N = {
     paidLaterTitle: "Оплата получена",
     paidLaterText: "Долг {name} на {amount} закрыт.",
 
-    // ADMIN
     adminTitle: "🔐 АДМИН ПАНЕЛЬ",
     adminSubtitle: "Меню управления",
     backToMain: "🏠 ГЛАВНОЕ МЕНЮ",
@@ -2378,7 +2379,6 @@ const I18N = {
     pendingCardSub: "Ожидают одобрения",
     backToAdmin: "← НАЗАД В АДМИН МЕНЮ",
 
-    // REPORTS
     reportsTitle: "📊 ОТЧЁТ",
     reportsSubtitle: "Сегодняшняя выручка и статистика",
     statGames: "🎱 Игры за сегодня",
@@ -2388,7 +2388,6 @@ const I18N = {
     statBookings: "📅 Активные брони",
     downloadReportPdf: "📄 СКАЧАТЬ ОБЩИЙ ОТЧЁТ PDF",
 
-    // DEBTORS
     debtorsTitle: "🔴 ДОЛЖНИКИ",
     debtorsSubtitle: "Список неоплаченных игр",
     downloadAllDebtorsPdf: "📄 СКАЧАТЬ ВСЕХ ДОЛЖНИКОВ PDF",
@@ -2398,7 +2397,6 @@ const I18N = {
     payNowBtn: "🟢 ОПЛАЧЕНО",
     pdfBtn: "📄 PDF",
 
-    // HISTORY
     historyTitle: "📋 ИСТОРИЯ",
     historySubtitle: "Игры по датам",
     allDatesTotal: "💰 ОБЩАЯ СУММА ВСЕХ ДАТ",
@@ -2430,7 +2428,6 @@ const I18N = {
     clearedTitle: "История очищена",
     clearedText: "История за {date} удалена.",
 
-    // PDF
     pdfLoading: "📄 PDF ГОТОВИТСЯ...",
     pdfLoadingSub: "Пожалуйста, подождите 1-2 секунды",
     pdfDoneTitle: "PDF загружен",
@@ -2503,7 +2500,6 @@ const I18N = {
     hintBooking: "Бронь",
     hintClose: "Закрыть",
 
-    // BOOKING
     bookingTitle: "📅 БРОНИРОВАНИЕ",
     bookingSubtitle: "Забронировать стол заранее",
     bookingTableLabel: "🎱 Номер стола",
@@ -2582,7 +2578,6 @@ const I18N = {
     userActive: "✅ АКТИВЕН",
     userBlocked: "🚫 ЗАБЛОКИРОВАН",
 
-    // USERS PAGE
     usersPageTitle: "👥 ПОЛЬЗОВАТЕЛИ",
     usersPageSubtitle: "Логины/пароли, столы и активность",
     createUserTitle: "➕ СОЗДАТЬ НОВОГО ПОЛЬЗОВАТЕЛЯ",
@@ -2605,7 +2600,6 @@ const I18N = {
     pricesLabel: "Цены",
     tablesShort: "шт",
 
-    // PWD MODAL
     pwdModalTitle: "Обновить логин и пароль",
     pwdModalSub: "Изменение данных пользователя",
     pwdNewLogin: "🔑 Логин",
@@ -2623,7 +2617,6 @@ const I18N = {
     updatedTitle: "Успешно обновлено",
     updatedText: "👤 {name}\n\n🔑 Новый логин: {login}\n🔒 Новый пароль: {password}",
 
-    // CLEAR LOGS
     clearLogsTitle: "Очистка логов",
     clearLogsText: "Удалить всю историю действий пользователей?",
     clearLogsWarning: "⚠️ Это действие нельзя отменить!",
@@ -2632,19 +2625,16 @@ const I18N = {
     logsClearedText: "{count} записей успешно удалено.",
     entriesShort: "записей",
 
-    // DELETE USER
     deleteUserTitle: "Удалить пользователя",
     deleteUserText: "Полностью удалить {name} (@{username})?\n\nЭто действие нельзя отменить.",
     deleteYes: "🗑️ ДА, УДАЛИТЬ",
 
-    // ERRORS
     errorTitle: "Ошибка",
     noAccessTitle: "Доступ запрещён",
     noAccessText: "Этот раздел доступен только Главному админу.",
     errorOccurred: "Произошла ошибка",
     approveError: "Ошибка при одобрении запроса",
 
-    // PENDING
     pendingTitle: "⏳ ОЖИДАЮЩИЕ ЗАПРОСЫ",
     pendingNone: "Пока нет ожидающих запросов",
     pendingApproveTitle: "Одобрить запрос",
@@ -2981,6 +2971,13 @@ function updatePendingBadge(){
   if(card) card.style.display = count > 0 ? "flex" : "none";
 }
 
+/* ================================================================
+   YANGI: TELEGRAM INLINE TASDIQLASH (Polling orqali)
+   ================================================================ */
+let tgPollingInterval = null;
+let tgLastUpdateId = Number(localStorage.getItem("tgLastUpdateId")) || 0;
+let tgPollingRunning = false;
+
 async function sendApprovalRequestToAdmin(req){
   if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
 
@@ -2995,21 +2992,216 @@ async function sendApprovalRequestToAdmin(req){
     `💰 <b>Narxlar:</b> ${req.tablePrices.map((p,i)=>`S${i+1}: ${p.toLocaleString()}`).join(", ")}\n` +
     `🕐 <b>Vaqt:</b> ${new Date(req.createdAt).toLocaleString("uz-UZ")}\n` +
     `━━━━━━━━━━━━━━━━━━━━━\n` +
-    `✅ <b>Tasdiqlash</b> yoki ❌ <b>Rad etish</b> uchun\n` +
-    `ilovadagi <b>Admin Panel → Foydalanuvchilar</b> bo'limiga o'ting.`;
+    `👇 <b>Tasdiqlash yoki Rad etish:</b>`;
+
+  const keyboard = {
+    inline_keyboard: [
+      [
+        { text: "✅ TASDIQLASH", callback_data: `approve_${req.id}` },
+        { text: "❌ RAD ETISH", callback_data: `reject_${req.id}` }
+      ]
+    ]
+  };
 
   try {
-    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: TELEGRAM_ADMIN_CHAT_ID,
         text: text,
         parse_mode: "HTML",
-        disable_web_page_preview: true
+        disable_web_page_preview: true,
+        reply_markup: keyboard
       })
     });
-  } catch(e) { console.warn("Telegram yuborishda xatolik:", e); }
+    const data = await res.json();
+    if(data.ok && data.result && data.result.message_id){
+      const requests = getPendingRequests();
+      const r = requests.find(x => x.id === req.id);
+      if(r){
+        r.tgMessageId = data.result.message_id;
+        savePendingRequests(requests);
+      }
+      startTelegramPolling();
+      showTgStatus("Telegram polling faol", false);
+    }
+  } catch(e) {
+    console.warn("Telegram yuborishda xatolik:", e);
+  }
+}
+
+function showTgStatus(text, isError){
+  const banner = document.getElementById("tgStatusBanner");
+  const txt = document.getElementById("tgStatusText");
+  if(!banner || !txt) return;
+  txt.innerText = text;
+  banner.classList.toggle("error", !!isError);
+  banner.classList.add("show");
+  clearTimeout(showTgStatus._timer);
+  showTgStatus._timer = setTimeout(() => {
+    banner.classList.remove("show");
+  }, 4000);
+}
+
+function startTelegramPolling(){
+  if(tgPollingRunning) return;
+  tgPollingRunning = true;
+  console.log("🤖 Telegram polling boshlandi...");
+
+  tgPollingInterval = setInterval(async () => {
+    try {
+      const res = await fetch(
+        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=${tgLastUpdateId + 1}&timeout=0&allowed_updates=${encodeURIComponent('["callback_query"]')}`
+      );
+      const data = await res.json();
+
+      if(!data.ok || !data.result || !data.result.length) return;
+
+      for(const update of data.result){
+        tgLastUpdateId = update.update_id;
+        localStorage.setItem("tgLastUpdateId", tgLastUpdateId);
+
+        if(update.callback_query){
+          await handleTelegramCallback(update.callback_query);
+        }
+      }
+    } catch(e) {
+      // jimgina o'tkazamiz
+    }
+  }, 3000);
+}
+
+function stopTelegramPolling(){
+  if(tgPollingInterval){
+    clearInterval(tgPollingInterval);
+    tgPollingInterval = null;
+    tgPollingRunning = false;
+    console.log("🤖 Telegram polling to'xtatildi");
+  }
+}
+
+async function handleTelegramCallback(cq){
+  const data = cq.data || "";
+  const callbackId = cq.id;
+  const messageId = cq.message ? cq.message.message_id : null;
+  const chatId = cq.message && cq.message.chat ? cq.message.chat.id : null;
+
+  if(String(chatId) !== String(TELEGRAM_ADMIN_CHAT_ID)){
+    await answerCallback(callbackId, "❌ Ruxsat yo'q");
+    return;
+  }
+
+  const match = data.match(/^(approve|reject)_(.+)$/);
+  if(!match){
+    await answerCallback(callbackId, "❓ Noma'lum amal");
+    return;
+  }
+
+  const action = match[1];
+  const reqId = match[2];
+
+  const req = findPendingRequest(reqId);
+  if(!req){
+    await answerCallback(callbackId, "⚠️ So'rov topilmadi");
+    return;
+  }
+  if(req.status !== "pending"){
+    await answerCallback(callbackId, "ℹ️ Allaqachon ko'rib chiqilgan");
+    return;
+  }
+
+  if(action === "approve"){
+    const res = approveRequest(reqId);
+    if(!res.ok){
+      await answerCallback(callbackId, "❌ Xatolik: " + (res.error||""));
+      return;
+    }
+
+    if(messageId){
+      await editTelegramMessage(messageId,
+        `✅ <b>TASDIQLANDI</b>\n` +
+        `━━━━━━━━━━━━━━━━━━━━━\n` +
+        `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
+        `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
+        `🔒 <b>Parol:</b> <code>${escapeHTML(req.password)}</code>\n` +
+        `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
+        `🎱 <b>Stollar:</b> ${req.tablesCount} ta\n` +
+        `━━━━━━━━━━━━━━━━━━━━━\n` +
+        `🕐 <b>Tasdiqlandi:</b> ${new Date().toLocaleString("uz-UZ")}\n` +
+        `✅ Foydalanuvchi tizimga kirishi mumkin.`
+      );
+    }
+
+    await answerCallback(callbackId, "✅ Tasdiqlandi!");
+    beep("money");
+    showTgStatus("✅ So'rov tasdiqlandi: " + req.fullName, false);
+
+    if(isMainAdmin()){
+      renderPendingRequests();
+      renderUsers();
+      updatePendingBadge();
+    }
+
+  } else if(action === "reject"){
+    const res = rejectRequest(reqId, "Telegram orqali rad etildi");
+    if(!res.ok){
+      await answerCallback(callbackId, "❌ Xatolik");
+      return;
+    }
+
+    if(messageId){
+      await editTelegramMessage(messageId,
+        `❌ <b>RAD ETILDI</b>\n` +
+        `━━━━━━━━━━━━━━━━━━━━━\n` +
+        `👤 <b>Ism:</b> ${escapeHTML(req.fullName)}\n` +
+        `🔑 <b>Login:</b> <code>${escapeHTML(req.username)}</code>\n` +
+        `📞 <b>Telefon:</b> ${escapeHTML(req.phone)}\n` +
+        `━━━━━━━━━━━━━━━━━━━━━\n` +
+        `🕐 <b>Rad etildi:</b> ${new Date().toLocaleString("uz-UZ")}\n` +
+        `❌ Foydalanuvchi tizimga kira olmaydi.`
+      );
+    }
+
+    await answerCallback(callbackId, "❌ Rad etildi");
+    beep("end");
+    showTgStatus("❌ So'rov rad etildi: " + req.fullName, true);
+
+    if(isMainAdmin()){
+      renderPendingRequests();
+      renderUsers();
+      updatePendingBadge();
+    }
+  }
+}
+
+async function answerCallback(callbackQueryId, text){
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        callback_query_id: callbackQueryId,
+        text: text,
+        show_alert: false
+      })
+    });
+  } catch(e){}
+}
+
+async function editTelegramMessage(messageId, newText){
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/editMessageText`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_ADMIN_CHAT_ID,
+        message_id: messageId,
+        text: newText,
+        parse_mode: "HTML"
+      })
+    });
+  } catch(e){}
 }
 
 async function sendApprovalNotification(req, approved){
@@ -3057,7 +3249,7 @@ function logUserAction(userId, type, description, extra){
   const u = users.find(x => x.id === userId);
   const logs = getUserLogs();
   const now = new Date();
-  
+
   const logEntry = {
     id: Date.now() + Math.random(),
     userId: userId,
@@ -3070,7 +3262,7 @@ function logUserAction(userId, type, description, extra){
     date: todayDate(),
     time: String(now.getHours()).padStart(2,"0")+":"+String(now.getMinutes()).padStart(2,"0")+":"+String(now.getSeconds()).padStart(2,"0")
   };
-  
+
   logs.unshift(logEntry);
   saveUserLogs(logs);
 
@@ -3226,6 +3418,7 @@ function beep(type){
       renderTables();
       updatePriceTexts();
       updatePendingBadge();
+      startTelegramPolling();
     }, 100);
   }
 })();
@@ -3323,6 +3516,7 @@ function checkLogin(){
     renderTables();
     updatePriceTexts();
     updatePendingBadge();
+    startTelegramPolling();
     showWelcomeToast(user);
     if(user.role === "main_admin"){
       setTimeout(()=>openAdminUsersDirect(), 300);
@@ -3482,6 +3676,7 @@ function confirmLogout(){
   localStorage.removeItem("billiardRemember");
   setCurrentUser(null);
 
+  stopTelegramPolling();
   closeModal();
   beep("end");
   setTimeout(function(){
@@ -3788,7 +3983,7 @@ function renderTables(){
   }
 
   applyTranslations();
-  
+
   for(let id = 1; id <= count; id++){
     updateTable(id);
   }
@@ -3977,7 +4172,7 @@ function updateTable(id){
   if(!g) return;
   const statusEl=document.getElementById("status"+id);
   if(!statusEl) return;
-  
+
   if(g.start && !g.finished){
     statusEl.innerText=t("statusBusy");
     statusEl.className="status busy";
@@ -4251,7 +4446,7 @@ function renderPendingRequests(){
   if(!box) return;
 
   const requests = getPendingRequests().filter(r => r.status === "pending");
-  
+
   if(badge) badge.innerText = requests.length + " " + (currentLang === "ru" ? "шт" : "ta");
 
   if(!requests.length){
@@ -4268,7 +4463,7 @@ function renderPendingRequests(){
   requests.forEach(req => {
     const div = document.createElement("div");
     div.className = "history-item pending-card";
-    
+
     const createdDate = new Date(req.createdAt).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
     const pricesStr = req.tablePrices.map((p,i) => 
       `<b style="color:#35c9ff">S${i+1}</b> ${p.toLocaleString()}`
@@ -4329,7 +4524,7 @@ function confirmApproveRequest(id){
 function doApproveRequest(id){
   const res = approveRequest(id);
   closeModal();
-  
+
   if(!res.ok){
     beep("error");
     showModal("⚠️", t("errorTitle"), res.error || t("approveError"));
@@ -4340,7 +4535,7 @@ function doApproveRequest(id){
   renderPendingRequests();
   renderUsers();
   updatePendingBadge();
-  
+
   setTimeout(() => {
     showModal("✅", t("pendingApprovedTitle"), t("pendingApprovedText", {
       name: res.user.fullName,
@@ -4799,7 +4994,7 @@ function generateTablePriceInputs(){
   if(!countInput || !container) return;
 
   const count = Number(countInput.value) || 3;
-  
+
   if(count < 1 || count > 20){
     container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ ' + t("tablesCountError") + '</div>';
     return;
@@ -4846,7 +5041,7 @@ function handleCreateUser(){
   const username = document.getElementById("newUserUsername").value.trim();
   const password = document.getElementById("newUserPassword").value.trim();
   const role = document.getElementById("newUserRole").value;
-  
+
   const tablesCount = Number(document.getElementById("newUserTablesCount").value);
   const prices = [];
 
@@ -4889,10 +5084,10 @@ function handleCreateUser(){
   generateTablePriceInputs();
 
   beep("money");
-  
+
   const pricesList = prices.map((p, i) => `   🎱 ${t("table")} ${i+1}: ${money(p)}`).join("\n");
   const roleText = role === "admin" ? t("roleAdmin") : t("roleUser");
-  
+
   showModal("✅", t("userCreatedTitle"),
     `👤 ${fullName}\n` +
     `🔑 ${t("pwdNewLogin")}: ${username}\n` +
@@ -4900,7 +5095,7 @@ function handleCreateUser(){
     `🎭 ${t("roleLabel")}: ${roleText}\n` +
     `🎱 ${t("userTablesLabel")}: ${tablesCount} ${t("tablesShort")}\n\n` +
     `💰 ${t("pricesLabel")}:\n${pricesList}`);
-  
+
   renderUsers();
 }
 
@@ -4913,10 +5108,10 @@ function renderUsers(){
     return;
   }
   box.innerHTML = "";
-  
+
   const allHistory = getHistory();
   const today = todayDate();
-  
+
   users.forEach(u=>{
     const isMain = u.role === "main_admin";
     const roleLabel = isMain ? "👑 BOSH ADMIN"
@@ -4935,19 +5130,19 @@ function renderUsers(){
     const todayUnpaid = todayItems.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const todayTotal = todayPaid + todayUnpaid;
     const todayGames = todayItems.length;
-    
+
     const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
     const weekItems = userHistory.filter(h => {
       const d = h.savedAt ? new Date(h.savedAt).getTime() : convertDate(h.saveDate || h.gameDate);
       return d >= weekAgo;
     });
     const weekTotal = weekItems.reduce((s,i)=>s+Number(i.amount||0),0);
-    
+
     const totalPaid = userHistory.filter(h => h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const totalUnpaid = userHistory.filter(h => !h.paid).reduce((s,i)=>s+Number(i.amount||0),0);
     const totalAll = totalPaid + totalUnpaid;
     const totalGames = userHistory.length;
-    
+
     const logs = getUserLogs().filter(l => l.userId === u.id);
     const loginCount = logs.filter(l => l.type === "login").length;
     const gamesStarted = logs.filter(l => l.type === "start_game").length;
@@ -5095,7 +5290,6 @@ function renderUserLogs(){
   });
 }
 
-/* EDIT TABLES */
 let editingTablesUserId = null;
 
 function editUserTables(userId){
@@ -5108,9 +5302,9 @@ function editUserTables(userId){
 
   document.getElementById("tablesEditSub").innerText = `👤 ${u.fullName} (@${u.username})`;
   document.getElementById("editTablesCount").value = currentCount;
-  
+
   document.getElementById("tablesEditBg").classList.add("active");
-  
+
   setTimeout(()=>{
     regenerateEditPrices(currentPrices);
   }, 50);
@@ -5213,7 +5407,6 @@ function closeEditTablesModal(){
   editingTablesUserId = null;
 }
 
-/* PASSWORD */
 let pwdModalTargetId = null;
 
 function changeUserPasswordPrompt(id){
@@ -5352,7 +5545,6 @@ function doDeleteUser(id){
   renderUsers();
 }
 
-/* CLEAR LOGS */
 function clearUserLogs(){
   const logs = getUserLogs();
   document.getElementById("clearModalCount").innerText = logs.length + " " + t("entriesShort");
@@ -6145,7 +6337,10 @@ setTimeout(function(){
   }
 }, 200);
 
-window.addEventListener("beforeunload",function(){ saveGames(); });
+window.addEventListener("beforeunload",function(){ 
+  saveGames();
+  stopTelegramPolling();
+});
 </script>
 </body>
 </html>
