@@ -26,7 +26,6 @@ input,select{outline:none;font-family:inherit}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#35c9ff,#985cff);border-radius:10px}
 ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#5dd4ff,#a870ff)}
 
-/* ============ LOGIN / REGISTER PAGE ============ */
 .login-screen{
   position:fixed;inset:0;z-index:100000;
   background:
@@ -34,8 +33,7 @@ input,select{outline:none;font-family:inherit}
     radial-gradient(circle at 85% 80%, rgba(180,0,255,.15), transparent 40%),
     #040c17;
   display:flex;justify-content:center;align-items:center;
-  padding:20px;
-  overflow-y:auto;
+  padding:20px;overflow-y:auto;
   animation:fadeIn .4s ease;
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -43,8 +41,7 @@ input,select{outline:none;font-family:inherit}
 
 .login-box{
   width:100%;max-width:420px;
-  padding:40px 34px;
-  border-radius:26px;
+  padding:40px 34px;border-radius:26px;
   background:linear-gradient(155deg,rgba(20,42,67,.98),rgba(7,19,33,.99));
   border:1px solid rgba(56,87,115,.8);
   box-shadow:0 30px 100px rgba(0,0,0,.7),0 0 60px rgba(53,201,255,.15);
@@ -100,12 +97,10 @@ input,select{outline:none;font-family:inherit}
   margin-bottom:8px;text-transform:uppercase;
 }
 .login-input{
-  width:100%;padding:15px 18px;
-  border-radius:14px;
+  width:100%;padding:15px 18px;border-radius:14px;
   border:1px solid rgba(48,73,102,.8);
   background:rgba(7,17,31,.9);
-  color:#fff;font-size:15px;font-weight:600;
-  transition:.25s;
+  color:#fff;font-size:15px;font-weight:600;transition:.25s;
 }
 .login-input:focus{
   border-color:#35c9ff;
@@ -123,31 +118,24 @@ input,select{outline:none;font-family:inherit}
 .login-password-wrap{position:relative}
 .login-password-wrap .login-input{padding-right:52px}
 .login-password-toggle{
-  position:absolute;
-  right:14px;top:50%;transform:translateY(-50%);
-  background:none;color:#5f7691;
-  font-size:16px;padding:4px;
-  transition:.25s;
-  cursor:pointer;
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  background:none;color:#5f7691;font-size:16px;padding:4px;
+  transition:.25s;cursor:pointer;
 }
 .login-password-toggle:hover{color:#35c9ff}
 
 .login-remember{
   display:flex;align-items:center;gap:10px;
-  margin:14px 0 20px;
-  color:#8a9eb5;font-size:13px;
+  margin:14px 0 20px;color:#8a9eb5;font-size:13px;
   cursor:pointer;user-select:none;
 }
 .login-remember input{
-  width:18px;height:18px;
-  min-height:auto;
-  accent-color:#35c9ff;
-  cursor:pointer;
+  width:18px;height:18px;min-height:auto;
+  accent-color:#35c9ff;cursor:pointer;
 }
 
 .login-btn{
-  width:100%;padding:16px;
-  border-radius:14px;
+  width:100%;padding:16px;border-radius:14px;
   background:linear-gradient(135deg,#0a8ee8,#065a9f);
   color:#fff;font-weight:900;font-size:15px;
   letter-spacing:2px;
@@ -165,34 +153,22 @@ input,select{outline:none;font-family:inherit}
 .login-btn:hover::before{left:100%}
 
 .login-register-link{
-  text-align:center;
-  margin-top:16px;
-  font-size:13px;
-  color:#8a9eb5;
+  text-align:center;margin-top:16px;
+  font-size:13px;color:#8a9eb5;
 }
 .login-register-link button{
-  background:none;
-  color:#35c9ff;
-  font-weight:800;
-  font-size:13px;
-  letter-spacing:.5px;
-  padding:4px 8px;
-  border-radius:8px;
-  transition:.25s;
-  text-decoration:underline;
-  text-underline-offset:4px;
+  background:none;color:#35c9ff;font-weight:800;font-size:13px;
+  letter-spacing:.5px;padding:4px 8px;border-radius:8px;
+  transition:.25s;text-decoration:underline;text-underline-offset:4px;
 }
 .login-register-link button:hover{
-  color:#5dd4ff;
-  background:rgba(53,201,255,.1);
-  text-decoration:none;
+  color:#5dd4ff;background:rgba(53,201,255,.1);text-decoration:none;
 }
 
 .login-error{
   color:#ff6878;font-size:13px;font-weight:700;
   text-align:center;margin-top:14px;
-  min-height:20px;letter-spacing:.5px;
-  line-height:1.6;
+  min-height:20px;letter-spacing:.5px;line-height:1.6;
   white-space:pre-line;
 }
 .login-error.shake{animation:shake .4s}
@@ -203,26 +179,20 @@ input,select{outline:none;font-family:inherit}
 }
 
 .login-footer{
-  text-align:center;margin-top:24px;
-  padding-top:20px;
+  text-align:center;margin-top:24px;padding-top:20px;
   border-top:1px solid rgba(53,201,255,.12);
   font-size:11px;color:#5f7691;
   line-height:1.8;letter-spacing:.5px;
 }
 
-/* REGISTER BOX */
 .register-box{
-  width:100%;max-width:520px;
-  padding:36px 34px;
-  border-radius:26px;
+  width:100%;max-width:520px;padding:36px 34px;border-radius:26px;
   background:linear-gradient(155deg,rgba(20,42,67,.98),rgba(7,19,33,.99));
   border:1px solid rgba(56,87,115,.8);
   box-shadow:0 30px 100px rgba(0,0,0,.7),0 0 60px rgba(53,201,255,.15);
   position:relative;overflow:hidden;
   animation:loginIn .5s cubic-bezier(.2,.9,.3,1.2);
-  max-height:95vh;
-  overflow-y:auto;
-  margin:auto;
+  max-height:95vh;overflow-y:auto;margin:auto;
 }
 .register-box::before{
   content:'';position:absolute;top:0;left:0;right:0;height:4px;
@@ -230,59 +200,38 @@ input,select{outline:none;font-family:inherit}
   background-size:200%;animation:titleShine 4s linear infinite;
 }
 .register-back-btn{
-  width:100%;padding:14px;margin-top:14px;
-  border-radius:14px;
+  width:100%;padding:14px;margin-top:14px;border-radius:14px;
   background:linear-gradient(135deg,rgba(23,44,67,.9),rgba(13,26,41,.9));
-  color:#c0d0e0;font-weight:900;font-size:13px;
-  letter-spacing:1px;
-  border:1px solid rgba(54,82,109,.8);
-  transition:.25s;
+  color:#c0d0e0;font-weight:900;font-size:13px;letter-spacing:1px;
+  border:1px solid rgba(54,82,109,.8);transition:.25s;
 }
-.register-back-btn:hover{
-  border-color:#35c9ff;color:#fff;
-  transform:translateY(-2px);
-}
+.register-back-btn:hover{border-color:#35c9ff;color:#fff;transform:translateY(-2px)}
 
-/* LOGOUT BUTTON */
 .logout-btn{
-  width:100%;padding:12px;
-  margin-top:12px;
-  border-radius:12px;
+  width:100%;padding:12px;margin-top:12px;border-radius:12px;
   background:linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15));
   border:1px solid rgba(224,68,86,.4);
-  color:#ff6878;
-  font-weight:800;font-size:12px;
-  letter-spacing:1px;
+  color:#ff6878;font-weight:800;font-size:12px;letter-spacing:1px;
   transition:.25s;
   display:flex;align-items:center;justify-content:center;gap:8px;
 }
 .logout-btn:hover{
   background:linear-gradient(135deg,rgba(224,68,86,.3),rgba(169,35,53,.3));
-  border-color:#ff6878;
-  transform:translateY(-2px);
+  border-color:#ff6878;transform:translateY(-2px);
 }
 
-/* ============ LAYOUT ============ */
-.app-layout{
-  display:grid;
-  grid-template-columns:240px 1fr;
-  min-height:100vh;
-}
+.app-layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
 
-/* SIDEBAR */
 .sidebar{
   background:linear-gradient(180deg,rgba(13,29,48,.98),rgba(5,15,27,.99));
   border-right:1px solid rgba(53,201,255,.15);
-  padding:20px 14px;
-  position:sticky;top:0;height:100vh;
+  padding:20px 14px;position:sticky;top:0;height:100vh;
   display:flex;flex-direction:column;
-  box-shadow:5px 0 30px rgba(0,0,0,.3);
-  overflow-y:auto;
+  box-shadow:5px 0 30px rgba(0,0,0,.3);overflow-y:auto;
 }
 .sidebar-logo{
   text-align:center;padding:16px 8px 22px;
-  border-bottom:1px solid rgba(53,201,255,.15);
-  margin-bottom:18px;
+  border-bottom:1px solid rgba(53,201,255,.15);margin-bottom:18px;
 }
 .sidebar-logo-icon{font-size:42px;margin-bottom:6px}
 .sidebar-logo-text{
@@ -321,8 +270,7 @@ input,select{outline:none;font-family:inherit}
 .lang-btn{
   padding:9px 6px;border-radius:9px;
   background:transparent;color:#7d93ab;
-  font-size:11px;font-weight:900;
-  letter-spacing:1px;transition:.25s;
+  font-size:11px;font-weight:900;letter-spacing:1px;transition:.25s;
 }
 .lang-btn:hover{color:#fff;background:rgba(53,201,255,.1)}
 .lang-btn.active{
@@ -333,18 +281,13 @@ input,select{outline:none;font-family:inherit}
 
 .sidebar-nav{flex:1;display:flex;flex-direction:column;gap:6px}
 .nav-item{
-  width:100%;padding:13px 14px;
-  border-radius:12px;
+  width:100%;padding:13px 14px;border-radius:12px;
   background:transparent;color:#8a9eb5;
   display:flex;align-items:center;gap:12px;
   font-size:13px;font-weight:700;letter-spacing:.3px;
-  transition:.25s;text-align:left;
-  position:relative;
+  transition:.25s;text-align:left;position:relative;
 }
-.nav-item:hover{
-  background:rgba(53,201,255,.08);
-  color:#fff;transform:translateX(3px);
-}
+.nav-item:hover{background:rgba(53,201,255,.08);color:#fff;transform:translateX(3px)}
 .nav-item.active{
   background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
   color:#fff;border:1px solid rgba(53,201,255,.35);
@@ -357,20 +300,16 @@ input,select{outline:none;font-family:inherit}
 }
 .nav-icon{font-size:20px;width:28px;text-align:center}
 .nav-badge{
-  margin-left:auto;
-  background:rgba(220,45,65,.2);
+  margin-left:auto;background:rgba(220,45,65,.2);
   color:#ff6878;font-size:10px;font-weight:900;
   padding:2px 8px;border-radius:20px;
   border:1px solid rgba(220,45,65,.4);
 }
 .nav-badge.hidden{display:none}
-.nav-badge.green{
-  background:rgba(66,233,121,.2);
-  color:#42e979;border-color:rgba(66,233,121,.4);
-}
+.nav-badge.green{background:rgba(66,233,121,.2);color:#42e979;border-color:rgba(66,233,121,.4)}
 .nav-badge.gold{
-  background:rgba(255,210,63,.2);
-  color:#ffd23f;border-color:rgba(255,210,63,.4);
+  background:rgba(255,210,63,.2);color:#ffd23f;
+  border-color:rgba(255,210,63,.4);
   animation:pendingPulse 1.5s infinite;
 }
 @keyframes pendingPulse{50%{box-shadow:0 0 15px rgba(255,210,63,.6)}}
@@ -378,11 +317,9 @@ input,select{outline:none;font-family:inherit}
 .sidebar-footer{
   padding:14px 10px 6px;
   border-top:1px solid rgba(53,201,255,.15);
-  font-size:10px;color:#5f7691;text-align:center;
-  line-height:1.7;
+  font-size:10px;color:#5f7691;text-align:center;line-height:1.7;
 }
 
-/* MAIN */
 .main-content{padding:24px 28px;overflow-x:hidden;min-height:100vh}
 .page{display:none;animation:pageIn .35s cubic-bezier(.2,.9,.3,1)}
 .page.active{display:block}
@@ -405,7 +342,6 @@ input,select{outline:none;font-family:inherit}
 .page-subtitle{color:#7d93ab;font-size:13px;margin-top:6px;letter-spacing:.3px}
 .page-actions{display:flex;gap:10px;flex-wrap:wrap}
 
-/* TABLES */
 .tables-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
@@ -416,12 +352,10 @@ input,select{outline:none;font-family:inherit}
   background:linear-gradient(155deg,rgba(22,44,72,.95),rgba(9,24,42,.98));
   border:1px solid rgba(53,201,255,.15);
   box-shadow:0 15px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05);
-  position:relative;overflow:hidden;
-  transition:.35s;
+  position:relative;overflow:hidden;transition:.35s;
 }
 .table-window:hover{
-  transform:translateY(-5px);
-  border-color:rgba(53,201,255,.4);
+  transform:translateY(-5px);border-color:rgba(53,201,255,.4);
   box-shadow:0 25px 70px rgba(0,0,0,.45);
 }
 .table-window::before{
@@ -481,8 +415,7 @@ input,select{outline:none;font-family:inherit}
 .live-price b{color:#42e979;font-size:16px;font-weight:900;margin-left:5px}
 
 .booking-indicator{
-  margin-top:12px;padding:10px 14px;
-  border-radius:12px;
+  margin-top:12px;padding:10px 14px;border-radius:12px;
   background:linear-gradient(135deg,rgba(255,210,63,.1),rgba(53,201,255,.1));
   border:1px dashed rgba(255,210,63,.5);
   font-size:11px;color:#ffd23f;
@@ -492,12 +425,10 @@ input,select{outline:none;font-family:inherit}
 .booking-indicator b{color:#fff}
 
 .btn{
-  width:100%;padding:13px;margin-top:10px;
-  border-radius:12px;color:white;font-weight:800;font-size:13px;
-  letter-spacing:.5px;transition:.25s;
-  position:relative;z-index:1;
-  box-shadow:0 6px 20px rgba(0,0,0,.3);
-  overflow:hidden;
+  width:100%;padding:13px;margin-top:10px;border-radius:12px;
+  color:white;font-weight:800;font-size:13px;letter-spacing:.5px;
+  transition:.25s;position:relative;z-index:1;
+  box-shadow:0 6px 20px rgba(0,0,0,.3);overflow:hidden;
 }
 .btn::before{
   content:'';position:absolute;top:0;left:-100%;
@@ -527,8 +458,7 @@ input,select{outline:none;font-family:inherit}
 .total b{color:#55c3ff;font-size:22px;margin-left:5px}
 
 .debt-form{
-  display:none;
-  background:rgba(5,15,27,.6);
+  display:none;background:rgba(5,15,27,.6);
   border:1px solid rgba(53,201,255,.15);
   border-radius:14px;padding:14px;margin-top:10px;
 }
@@ -538,8 +468,7 @@ input,select{outline:none;font-family:inherit}
 }
 .form-title:first-child{margin-top:0}
 input{
-  width:100%;padding:12px;min-height:44px;
-  border-radius:11px;
+  width:100%;padding:12px;min-height:44px;border-radius:11px;
   border:1px solid rgba(48,73,102,.8);
   background:rgba(7,17,31,.9);
   color:white;font-size:14px;transition:.25s;
@@ -549,7 +478,6 @@ input:focus{
   box-shadow:0 0 0 3px rgba(53,201,255,.15);
 }
 
-/* HOME */
 #home .home-center{
   text-align:center;padding:60px 20px;
   max-width:900px;margin:0 auto;
@@ -561,8 +489,7 @@ input:focus{
   text-shadow:0 0 30px currentColor,0 0 70px currentColor;
   white-space:nowrap;
   animation:clockFloat 3.5s ease-in-out infinite;
-  transition:color .8s;
-  font-variant-numeric:tabular-nums;
+  transition:color .8s;font-variant-numeric:tabular-nums;
 }
 @keyframes clockFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 .clock.color1{color:#35c8ff}
@@ -579,14 +506,11 @@ input:focus{
 .clock.color12{color:#ffffff}
 .date{
   margin-top:24px;color:#91a8bd;
-  font-size:18px;letter-spacing:1px;
-  text-transform:capitalize;
+  font-size:18px;letter-spacing:1px;text-transform:capitalize;
 }
 
-/* STATS */
 .stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:18px;margin-bottom:24px;
 }
 .stat{
@@ -607,23 +531,19 @@ input:focus{
 .stat.orange{border-top:4px solid #dc971b}
 .stat.blue{border-top:4px solid #0a8ee8}
 
-/* ADMIN */
 .admin-menu-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:18px;margin-bottom:24px;
 }
 .admin-card{
-  min-height:160px;padding:24px;
-  border-radius:22px;color:white;
+  min-height:160px;padding:24px;border-radius:22px;color:white;
   background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
   border:1px solid rgba(53,201,255,.15);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:14px;transition:.35s;position:relative;overflow:hidden;
 }
 .admin-card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(53,201,255,.5);
+  transform:translateY(-6px);border-color:rgba(53,201,255,.5);
   box-shadow:0 20px 45px rgba(53,201,255,.15);
 }
 .admin-card-icon{
@@ -641,28 +561,24 @@ input:focus{
   padding:13px 24px;border-radius:12px;
   background:linear-gradient(135deg,#0a8ee8,#065a9f);
   color:white;font-weight:800;font-size:13px;
-  box-shadow:0 8px 24px rgba(8,123,210,.35);transition:.3s;
-  letter-spacing:.5px;
+  box-shadow:0 8px 24px rgba(8,123,210,.35);transition:.3s;letter-spacing:.5px;
 }
 .back-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(8,123,210,.5)}
 
 .inner-back{
   padding:11px 18px;border-radius:11px;
-  background:rgba(23,44,67,.9);
-  color:white;border:1px solid rgba(54,82,109,.8);
-  font-weight:800;font-size:12px;transition:.25s;
-  margin-bottom:20px;
+  background:rgba(23,44,67,.9);color:white;
+  border:1px solid rgba(54,82,109,.8);
+  font-weight:800;font-size:12px;transition:.25s;margin-bottom:20px;
 }
 .inner-back:hover{border-color:#35c9ff;transform:translateX(-3px)}
 
-/* HISTORY */
 .history-item{
   background:linear-gradient(155deg,rgba(12,26,44,.95),rgba(8,20,35,.98));
   border:1px solid rgba(38,63,90,.8);border-left:5px solid #08a979;
   border-radius:14px;padding:16px;margin-bottom:12px;
   line-height:1.8;overflow-wrap:anywhere;transition:.25s;
-  display:grid;
-  grid-template-columns:1fr auto;
+  display:grid;grid-template-columns:1fr auto;
   gap:12px;align-items:center;
 }
 .history-item:hover{transform:translateX(4px);border-left-color:#42e979}
@@ -691,19 +607,16 @@ input:focus{
 .chek-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(122,63,242,.5)}
 
 .history-date-card{
-  width:100%;padding:18px;margin-bottom:12px;
-  border-radius:16px;
+  width:100%;padding:18px;margin-bottom:12px;border-radius:16px;
   background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
   border:1px solid rgba(44,73,101,.7);
-  color:white;
-  display:grid;
+  color:white;display:grid;
   grid-template-columns:auto 1fr auto;
   gap:16px;align-items:center;text-align:left;
   transition:.3s;cursor:pointer;
 }
 .history-date-card:hover{
-  transform:translateX(5px);
-  border-color:rgba(53,201,255,.5);
+  transform:translateX(5px);border-color:rgba(53,201,255,.5);
   box-shadow:0 10px 30px rgba(53,201,255,.15);
 }
 .history-date-icon{
@@ -744,10 +657,7 @@ input:focus{
   text-shadow:0 0 20px rgba(75,200,255,.5);
 }
 
-.history-summary{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:12px;margin-bottom:18px;
-}
+.history-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
 .history-summary-card{
   padding:16px 12px;border-radius:16px;
   background:linear-gradient(155deg,rgba(13,29,49,.95),rgba(8,20,35,.98));
@@ -772,10 +682,7 @@ input:focus{
 .history-day-item .paid{color:#42df9d;font-weight:800}
 .history-day-item .unpaid{color:#ff6374;font-weight:800}
 
-.chek-actions-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:12px;margin-top:16px;
-}
+.chek-actions-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
 .chek-print-btn{
   padding:16px;border-radius:14px;
   background:linear-gradient(135deg,#7a3ff2,#5a2bbf);
@@ -811,7 +718,6 @@ input:focus{
 }
 @keyframes emptyFloat{50%{transform:translateY(-10px)}}
 
-/* PENDING REQUESTS SECTION */
 .pending-card{
   background:linear-gradient(155deg,rgba(40,35,20,.95),rgba(25,20,10,.98)) !important;
   border:1px solid rgba(255,210,63,.5) !important;
@@ -823,7 +729,6 @@ input:focus{
   border-color:rgba(255,210,63,.5) !important;
 }
 
-/* BOOKING */
 .booking-form-card{
   padding:22px;border-radius:20px;
   background:linear-gradient(155deg,rgba(20,42,67,.95),rgba(11,26,44,.98));
@@ -831,8 +736,7 @@ input:focus{
   box-shadow:0 15px 40px rgba(0,0,0,.3);
 }
 .booking-form-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
   gap:14px;
 }
 .booking-form-grid .form-title{margin-top:0}
@@ -845,16 +749,138 @@ input:focus{
 .booking-form-grid select:focus{border-color:#35c9ff;box-shadow:0 0 0 3px rgba(53,201,255,.15)}
 .booking-form-grid select option{background:#0a1a2c;color:#fff}
 
+/* CUSTOM SELECT */
+.custom-select{position:relative;width:100%;user-select:none}
+.custom-select-trigger{
+  width:100%;min-height:52px;padding:12px 18px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(13,29,49,.95),rgba(8,20,35,.98));
+  border:1px solid rgba(53,201,255,.35);
+  color:#fff;font-size:14px;font-weight:800;letter-spacing:.5px;
+  display:flex;align-items:center;gap:12px;
+  transition:.3s;text-align:left;cursor:pointer;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 4px 16px rgba(0,0,0,.25);
+}
+.custom-select-trigger:hover{
+  border-color:rgba(53,201,255,.7);
+  box-shadow:0 0 20px rgba(53,201,255,.25),inset 0 1px 0 rgba(255,255,255,.08);
+  transform:translateY(-1px);
+}
+.custom-select.open .custom-select-trigger{
+  border-color:#35c9ff;
+  box-shadow:0 0 0 4px rgba(53,201,255,.15),0 8px 24px rgba(53,201,255,.3);
+  background:linear-gradient(135deg,rgba(20,42,67,.98),rgba(11,26,44,.99));
+}
+.custom-select-icon{
+  font-size:22px;width:36px;height:36px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(53,201,255,.18),rgba(152,92,255,.18));
+  border:1px solid rgba(53,201,255,.3);
+  flex-shrink:0;transition:.3s;
+}
+.custom-select.open .custom-select-icon{
+  transform:rotate(-10deg) scale(1.08);
+  box-shadow:0 0 20px rgba(53,201,255,.4);
+}
+.custom-select-text{
+  flex:1;min-width:0;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;
+  color:#fff;font-weight:900;font-size:14px;letter-spacing:.5px;
+}
+.custom-select-text.placeholder{color:#5f7691;font-weight:700}
+.custom-select-arrow{
+  font-size:11px;color:#35c9ff;
+  transition:transform .3s;flex-shrink:0;
+}
+.custom-select.open .custom-select-arrow{transform:rotate(180deg)}
+
+.custom-select-menu{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  z-index:5000;max-height:0;overflow:hidden;border-radius:16px;
+  background:linear-gradient(155deg,rgba(18,38,62,.99),rgba(7,19,33,.99));
+  border:1px solid rgba(53,201,255,.35);
+  box-shadow:0 20px 60px rgba(0,0,0,.7),0 0 40px rgba(53,201,255,.15);
+  transition:max-height .35s cubic-bezier(.2,.9,.3,1),opacity .25s,transform .25s;
+  opacity:0;transform:translateY(-8px);
+  backdrop-filter:blur(12px);
+}
+.custom-select.open .custom-select-menu{
+  max-height:340px;overflow-y:auto;
+  opacity:1;transform:translateY(0);
+}
+.custom-select-menu::-webkit-scrollbar{width:6px}
+.custom-select-menu::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#35c9ff,#985cff);
+  border-radius:6px;
+}
+.custom-select-option{
+  padding:14px 16px;display:flex;align-items:center;gap:14px;
+  cursor:pointer;transition:.25s;
+  border-bottom:1px solid rgba(53,201,255,.08);
+  position:relative;
+}
+.custom-select-option:last-child{border-bottom:0}
+.custom-select-option:hover{
+  background:linear-gradient(90deg,rgba(53,201,255,.12),rgba(152,92,255,.06));
+  padding-left:22px;
+}
+.custom-select-option.selected{
+  background:linear-gradient(90deg,rgba(53,201,255,.2),rgba(152,92,255,.1));
+}
+.custom-select-option.selected::before{
+  content:'';position:absolute;
+  left:0;top:20%;bottom:20%;width:3px;border-radius:0 3px 3px 0;
+  background:linear-gradient(180deg,#35c9ff,#985cff);
+}
+.custom-select-option-icon{
+  width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,#0a8ee8,#065a9f);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:900;color:#fff;
+  flex-shrink:0;box-shadow:0 4px 14px rgba(8,123,210,.4);
+  transition:.25s;
+}
+.custom-select-option:hover .custom-select-option-icon{
+  transform:scale(1.08) rotate(-5deg);
+  box-shadow:0 6px 20px rgba(8,123,210,.6);
+}
+.custom-select-option.selected .custom-select-option-icon{
+  background:linear-gradient(135deg,#0dbb85,#067858);
+  box-shadow:0 4px 14px rgba(10,169,120,.5);
+}
+.custom-select-option-info{flex:1;min-width:0}
+.custom-select-option-name{
+  font-size:13px;font-weight:900;color:#fff;letter-spacing:.5px;
+}
+.custom-select-option-price{
+  font-size:11px;color:#42e979;font-weight:800;
+  margin-top:3px;letter-spacing:.3px;
+}
+.custom-select-option.selected .custom-select-option-price{color:#7dffb0}
+.custom-select-option-check{
+  font-size:16px;color:#42e979;
+  opacity:0;transition:.25s;flex-shrink:0;
+}
+.custom-select-option.selected .custom-select-option-check{opacity:1}
+.custom-select-option-status{
+  width:8px;height:8px;border-radius:50%;
+  background:#42e979;box-shadow:0 0 10px #42e979;flex-shrink:0;
+}
+.custom-select-option-status.busy{
+  background:#ff6878;box-shadow:0 0 10px #ff6878;
+}
+@media (max-width:600px){
+  .custom-select-trigger{min-height:48px;padding:10px 14px}
+  .custom-select-option{padding:12px 14px}
+  .custom-select-option-icon{width:36px;height:36px;font-size:16px}
+}
+
 .booking-item{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  gap:14px;align-items:center;
-  padding:16px;margin-bottom:12px;
+  display:grid;grid-template-columns:auto 1fr auto;
+  gap:14px;align-items:center;padding:16px;margin-bottom:12px;
   border-radius:16px;
   background:linear-gradient(155deg,rgba(12,26,44,.95),rgba(8,20,35,.98));
   border:1px solid rgba(38,63,90,.8);
-  border-left:5px solid #35c9ff;
-  transition:.25s;
+  border-left:5px solid #35c9ff;transition:.25s;
 }
 .booking-item:hover{transform:translateX(4px);border-left-color:#42e979}
 .booking-item.soon{border-left-color:#ffd23f;animation:soonPulse 2s infinite}
@@ -863,14 +889,12 @@ input:focus{
 @keyframes soonPulse{50%{box-shadow:0 0 25px rgba(255,210,63,.4)}}
 
 .booking-time-badge{
-  min-width:80px;padding:12px 10px;
-  border-radius:14px;text-align:center;
+  min-width:80px;padding:12px 10px;border-radius:14px;text-align:center;
   background:linear-gradient(135deg,rgba(53,201,255,.15),rgba(152,92,255,.15));
   border:1px solid rgba(53,201,255,.35);
 }
 .booking-time-badge .time{font-size:18px;font-weight:900;color:#35c9ff;display:block}
 .booking-time-badge .date{font-size:10px;color:#8aa0b8;margin-top:2px;letter-spacing:.5px}
-
 .booking-info{min-width:0;line-height:1.7;font-size:13px;color:#c0d0e0}
 .booking-info b{color:#fff}
 .booking-info .status-badge{
@@ -893,11 +917,9 @@ input:focus{
 .booking-cancel-btn{background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border:1px solid rgba(224,68,86,.4)}
 .booking-cancel-btn:hover{background:linear-gradient(135deg,#e04456,#a92335);color:#fff}
 
-/* MODAL */
 .modal-bg{
   display:none;position:fixed;inset:0;z-index:30000;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,.85);backdrop-filter:blur(12px);
   justify-content:center;align-items:center;padding:20px;
 }
 .modal{
@@ -929,11 +951,9 @@ input:focus{
 .modal-cancel{margin-top:10px;background:linear-gradient(135deg,#172c43,#0d1a29);border:1px solid rgba(54,82,109,.8)}
 .modal-cancel:hover{border-color:#35c9ff}
 
-/* PATTERN */
 .pattern-bg{
   display:none;position:fixed;inset:0;z-index:50000;
-  background:rgba(2,8,16,.94);
-  backdrop-filter:blur(16px);
+  background:rgba(2,8,16,.94);backdrop-filter:blur(16px);
   justify-content:center;align-items:center;padding:20px;
 }
 .pattern-box{
@@ -963,24 +983,21 @@ input:focus{
   cursor:pointer;
 }
 .pattern-back{
-  width:100%;margin-top:16px;padding:14px;
-  border-radius:12px;color:white;font-weight:800;font-size:13px;
+  width:100%;margin-top:16px;padding:14px;border-radius:12px;
+  color:white;font-weight:800;font-size:13px;
   background:rgba(23,44,67,.9);
   border:1px solid rgba(54,82,109,.8);transition:.25s;
 }
 .pattern-back:hover{border-color:#35c9ff}
 
-/* PDF LOADING */
 .pdf-loading{
   display:none;position:fixed;inset:0;z-index:99999;
-  background:rgba(2,8,16,.94);
-  backdrop-filter:blur(16px);
+  background:rgba(2,8,16,.94);backdrop-filter:blur(16px);
   justify-content:center;align-items:center;
 }
 .pdf-loading-box{
-  text-align:center;padding:40px 36px;
+  text-align:center;padding:40px 36px;border-radius:26px;
   background:linear-gradient(155deg,rgba(20,42,67,.98),rgba(7,19,33,.99));
-  border-radius:26px;
   border:1px solid rgba(53,201,255,.4);
   box-shadow:0 30px 100px rgba(53,201,255,.2);
   max-width:360px;width:100%;
@@ -990,14 +1007,12 @@ input:focus{
   border:6px solid rgba(53,201,255,.15);
   border-top-color:#35c9ff;
   border-right-color:#985cff;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
+  border-radius:50%;animation:spin 1s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 .pdf-loading-title{color:#35c9ff;font-weight:900;font-size:17px;letter-spacing:1px;margin-bottom:8px}
 .pdf-loading-sub{color:#8198af;font-size:13px}
 
-/* KEYBOARD HINTS */
 .keyboard-hints{
   position:fixed;bottom:14px;right:14px;
   display:flex;gap:6px;align-items:center;
@@ -1005,19 +1020,16 @@ input:focus{
   border:1px solid rgba(53,201,255,.2);
   border-radius:12px;padding:8px 14px;
   font-size:11px;color:#7d93ab;
-  backdrop-filter:blur(10px);
-  z-index:100;
+  backdrop-filter:blur(10px);z-index:100;
   box-shadow:0 8px 24px rgba(0,0,0,.4);
-  flex-wrap:wrap;
-  max-width:90vw;
+  flex-wrap:wrap;max-width:90vw;
 }
 .keyboard-hints b{
-  display:inline-block;
-  padding:2px 7px;margin:0 2px;
+  display:inline-block;padding:2px 7px;margin:0 2px;
   background:rgba(53,201,255,.15);
   border:1px solid rgba(53,201,255,.35);
-  border-radius:5px;
-  color:#35c9ff;font-size:10px;font-weight:900;
+  border-radius:5px;color:#35c9ff;
+  font-size:10px;font-weight:900;
   font-family:Consolas,monospace;
 }
 
@@ -1027,8 +1039,7 @@ input:focus{
   font-size:10px;font-weight:800;
   padding:5px 10px;border-radius:8px;
   border:1px solid rgba(53,201,255,.35);
-  white-space:nowrap;
-  opacity:0;pointer-events:none;transition:.25s;
+  white-space:nowrap;opacity:0;pointer-events:none;transition:.25s;
   z-index:1000;
 }
 .nav-item:hover .shortcut-tip{opacity:1;transform:translateX(-50%) translateY(-4px)}
@@ -1040,17 +1051,14 @@ input:focus{
   font-size:12px;color:#c0d8ec;line-height:1.5;
 }
 
-/* PWD MODAL */
 .pwd-modal-bg{
   display:none;position:fixed;inset:0;z-index:40000;
-  background:rgba(2,8,16,.92);
-  backdrop-filter:blur(14px);
+  background:rgba(2,8,16,.92);backdrop-filter:blur(14px);
   justify-content:center;align-items:center;padding:20px;
 }
 .pwd-modal-bg.active{display:flex}
 .pwd-modal{
-  width:100%;max-width:460px;
-  padding:32px 30px;border-radius:26px;
+  width:100%;max-width:460px;padding:32px 30px;border-radius:26px;
   background:linear-gradient(155deg,rgba(20,42,67,.99),rgba(7,19,33,.99));
   border:1px solid rgba(56,87,115,.9);
   box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 60px rgba(53,201,255,.2);
@@ -1093,8 +1101,7 @@ input:focus{
 .pwd-modal-user b{color:#fff;font-weight:900}
 .pwd-modal-user .role-tag{
   display:inline-block;padding:3px 10px;border-radius:20px;
-  font-size:10px;font-weight:900;letter-spacing:1px;
-  margin-top:6px;
+  font-size:10px;font-weight:900;letter-spacing:1px;margin-top:6px;
 }
 .pwd-field{margin-bottom:14px}
 .pwd-field-label{
@@ -1103,59 +1110,47 @@ input:focus{
   margin-bottom:7px;text-transform:uppercase;
 }
 .pwd-field-input{
-  width:100%;padding:14px 16px;
-  border-radius:13px;
+  width:100%;padding:14px 16px;border-radius:13px;
   border:1px solid rgba(48,73,102,.9);
   background:rgba(7,17,31,.95);
-  color:#fff;font-size:14px;font-weight:600;
-  transition:.25s;
+  color:#fff;font-size:14px;font-weight:600;transition:.25s;
 }
 .pwd-field-input:focus{
   border-color:#35c9ff;
   box-shadow:0 0 0 4px rgba(53,201,255,.15);
   background:rgba(7,17,31,1);
 }
-.pwd-modal-actions{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:10px;margin-top:22px;
-}
+.pwd-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
 .pwd-save-btn{
   padding:15px;border-radius:13px;
   background:linear-gradient(135deg,#0a8ee8,#065a9f);
-  color:#fff;font-weight:900;font-size:13px;
-  letter-spacing:1px;
-  box-shadow:0 8px 25px rgba(8,123,210,.4);
-  transition:.25s;
+  color:#fff;font-weight:900;font-size:13px;letter-spacing:1px;
+  box-shadow:0 8px 25px rgba(8,123,210,.4);transition:.25s;
 }
 .pwd-save-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(8,123,210,.55)}
 .pwd-cancel-btn{
   padding:15px;border-radius:13px;
   background:linear-gradient(135deg,rgba(23,44,67,.9),rgba(13,26,41,.9));
-  color:#c0d0e0;font-weight:900;font-size:13px;
-  letter-spacing:1px;border:1px solid rgba(54,82,109,.8);
-  transition:.25s;
+  color:#c0d0e0;font-weight:900;font-size:13px;letter-spacing:1px;
+  border:1px solid rgba(54,82,109,.8);transition:.25s;
 }
 .pwd-cancel-btn:hover{
   border-color:#ff6878;color:#ff6878;
   background:linear-gradient(135deg,rgba(224,68,86,.15),rgba(169,35,53,.15));
 }
 
-/* CLEAR MODAL */
 .clear-modal-bg{
   display:none;position:fixed;inset:0;z-index:40000;
-  background:rgba(2,8,16,.92);
-  backdrop-filter:blur(14px);
+  background:rgba(2,8,16,.92);backdrop-filter:blur(14px);
   justify-content:center;align-items:center;padding:20px;
 }
 .clear-modal-bg.active{display:flex}
 .clear-modal{
-  width:100%;max-width:440px;
-  padding:34px 30px;border-radius:26px;
+  width:100%;max-width:440px;padding:34px 30px;border-radius:26px;
   background:linear-gradient(155deg,rgba(40,20,26,.99),rgba(20,8,12,.99));
   border:1px solid rgba(224,68,86,.5);
   box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 60px rgba(224,68,86,.2);
-  position:relative;overflow:hidden;
-  text-align:center;
+  position:relative;overflow:hidden;text-align:center;
   animation:centerModal .4s cubic-bezier(.2,.9,.3,1.2);
 }
 .clear-modal::before{
@@ -1178,8 +1173,7 @@ input:focus{
   margin-bottom:10px;white-space:pre-line;
 }
 .clear-modal-count{
-  display:inline-block;
-  padding:8px 20px;border-radius:30px;
+  display:inline-block;padding:8px 20px;border-radius:30px;
   background:rgba(224,68,86,.15);
   border:1px solid rgba(224,68,86,.5);
   color:#ff6878;font-weight:900;font-size:13px;
@@ -1192,47 +1186,36 @@ input:focus{
   color:#ffd23f;font-size:12px;font-weight:700;
   margin:16px 0 0;
 }
-.clear-modal-actions{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:10px;margin-top:24px;
-}
+.clear-modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
 .clear-confirm-btn{
   padding:15px;border-radius:13px;
   background:linear-gradient(135deg,#e04456,#8f1e2d);
-  color:#fff;font-weight:900;font-size:13px;
-  letter-spacing:1px;
-  box-shadow:0 8px 25px rgba(224,68,86,.4);
-  transition:.25s;
+  color:#fff;font-weight:900;font-size:13px;letter-spacing:1px;
+  box-shadow:0 8px 25px rgba(224,68,86,.4);transition:.25s;
 }
 .clear-confirm-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(224,68,86,.6)}
 .clear-cancel-btn{
   padding:15px;border-radius:13px;
   background:linear-gradient(135deg,#172c43,#0d1a29);
-  color:#c0d0e0;font-weight:900;font-size:13px;
-  letter-spacing:1px;border:1px solid rgba(54,82,109,.8);
-  transition:.25s;
+  color:#c0d0e0;font-weight:900;font-size:13px;letter-spacing:1px;
+  border:1px solid rgba(54,82,109,.8);transition:.25s;
 }
 .clear-cancel-btn:hover{border-color:#35c9ff;color:#fff}
 
-/* TABLES EDIT */
 .tables-edit-bg{
   display:none;position:fixed;inset:0;z-index:40000;
-  background:rgba(2,8,16,.92);
-  backdrop-filter:blur(14px);
-  justify-content:center;align-items:center;padding:20px;
-  overflow-y:auto;
+  background:rgba(2,8,16,.92);backdrop-filter:blur(14px);
+  justify-content:center;align-items:center;padding:20px;overflow-y:auto;
 }
 .tables-edit-bg.active{display:flex}
 .tables-edit-modal{
-  width:100%;max-width:640px;
-  padding:32px 30px;border-radius:26px;
+  width:100%;max-width:640px;padding:32px 30px;border-radius:26px;
   background:linear-gradient(155deg,rgba(20,42,67,.99),rgba(7,19,33,.99));
   border:1px solid rgba(56,87,115,.9);
   box-shadow:0 30px 100px rgba(0,0,0,.8),0 0 60px rgba(53,201,255,.2);
   position:relative;overflow:hidden;
   animation:centerModal .4s cubic-bezier(.2,.9,.3,1.2);
-  max-height:90vh;
-  overflow-y:auto;
+  max-height:90vh;overflow-y:auto;
 }
 .tables-edit-modal::before{
   content:'';position:absolute;top:0;left:0;right:0;height:4px;
@@ -1240,13 +1223,11 @@ input:focus{
   background-size:200%;animation:titleShine 4s linear infinite;
 }
 .table-price-inputs{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:12px;padding:14px;
   background:rgba(7,17,31,.5);
   border:1px dashed rgba(53,201,255,.3);
-  border-radius:14px;
-  margin-top:12px;
+  border-radius:14px;margin-top:12px;
 }
 
 @media (max-width:1100px){
@@ -1292,10 +1273,9 @@ input:focus{
 </head>
 <body>
 
-<!-- LOGIN / REGISTER SCREEN -->
+<!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
 
-  <!-- LOGIN BOX -->
   <div class="login-box" id="loginBox">
     <div class="login-logo">
       <div class="login-logo-icon">🎱</div>
@@ -1341,7 +1321,6 @@ input:focus{
     </div>
   </div>
 
-  <!-- REGISTER BOX -->
   <div class="register-box" id="registerBox" style="display:none">
     <div class="login-logo">
       <div class="login-logo-icon">✨</div>
@@ -1354,7 +1333,7 @@ input:focus{
       <button class="lang-btn" data-lang="ru" onclick="setLanguage('ru')">🇷🇺 RU</button>
     </div>
 
-    <div style="padding:14px;border-radius:14px;background:rgba(255,210,63,.08);border:1px dashed rgba(255,210,63,.5);margin-bottom:18px;font-size:12px;color:#ffd23f;line-height:1.6;text-align:center">
+    <div data-i18n-html="registerWarning" style="padding:14px;border-radius:14px;background:rgba(255,210,63,.08);border:1px dashed rgba(255,210,63,.5);margin-bottom:18px;font-size:12px;color:#ffd23f;line-height:1.6;text-align:center">
       ⏳ <b>Diqqat!</b> Ro'yxatdan o'tganingizdan so'ng hisobingiz <b>avtomatik yaratilmaydi</b>.<br>
       👑 Glavniy Admin <b>tasdiqlashini</b> kutasiz.
     </div>
@@ -1408,7 +1387,6 @@ input:focus{
 
 <div class="app-layout">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-logo">
       <div class="sidebar-logo-icon">🎱</div>
@@ -1456,10 +1434,8 @@ input:focus{
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main-content">
 
-    <!-- HOME -->
     <div id="home" class="page active">
       <div class="home-center">
         <div class="page-title" style="font-size:clamp(28px,3vw,42px)">🎱 BILLIARD CLUB</div>
@@ -1468,7 +1444,6 @@ input:focus{
       </div>
     </div>
 
-    <!-- TABLES -->
     <div id="tables" class="page">
       <div class="page-header">
         <div>
@@ -1479,7 +1454,6 @@ input:focus{
       <div class="tables-grid" id="tablesGrid"></div>
     </div>
 
-    <!-- ADMIN -->
     <div id="admin" class="page">
       <div class="page-header">
         <div>
@@ -1510,17 +1484,16 @@ input:focus{
         </button>
         <button class="admin-card" id="usersAdminCard" onclick="openAdminPage('users')" style="display:none">
           <div class="admin-card-icon">👥</div>
-          <div><b>Foydalanuvchilar</b><br><small>Login/parol va stollar</small></div>
+          <div><b data-i18n="usersCard">Foydalanuvchilar</b><br><small data-i18n="usersCardSub">Login/parol va stollar</small></div>
         </button>
         <button class="admin-card" id="pendingAdminCard" onclick="openAdminPage('users')" style="display:none;border-color:rgba(255,210,63,.6);background:linear-gradient(155deg,rgba(50,42,20,.95),rgba(30,24,10,.98))">
           <div class="admin-card-icon" style="background:linear-gradient(135deg,rgba(255,210,63,.25),rgba(232,168,38,.25));border-color:rgba(255,210,63,.5)">⏳</div>
-          <div><b style="color:#ffd23f">Kutilayotgan so'rovlar</b><br><small style="color:#ffd23f">Tasdiqlash kutilmoqda</small></div>
+          <div><b style="color:#ffd23f" data-i18n="pendingCardTitle">Kutilayotgan so'rovlar</b><br><small style="color:#ffd23f" data-i18n="pendingCardSub">Tasdiqlash kutilmoqda</small></div>
           <span id="pendingCardBadge" style="position:absolute;top:12px;right:12px;background:#ffd23f;color:#1a1a1a;font-weight:900;font-size:11px;padding:4px 10px;border-radius:20px">0</span>
         </button>
       </div>
     </div>
 
-    <!-- REPORTS -->
     <div id="adminReports" class="page">
       <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
       <div class="page-header">
@@ -1531,15 +1504,14 @@ input:focus{
       </div>
       <div class="stats">
         <div class="stat"><small data-i18n="statGames">🎱 Bugungi o'yinlar</small><h2 id="statGames">0</h2></div>
-        <div class="stat green"><small data-i18n="statPaid">🟢 Pul olingan</small><h2 id="statPaid">0 so'm</h2></div>
-        <div class="stat red"><small data-i18n="statUnpaid">🔴 Pul olinmagan</small><h2 id="statUnpaid">0 so'm</h2></div>
-        <div class="stat orange"><small data-i18n="statDebtors">👥 Qarzdorlar</small><h2 id="statDebtors">0 ta</h2></div>
-        <div class="stat blue"><small data-i18n="statBookings">📅 Faol bronlar</small><h2 id="statBookings">0 ta</h2></div>
+        <div class="stat green"><small data-i18n="statPaid">🟢 Pul olingan</small><h2 id="statPaid">0</h2></div>
+        <div class="stat red"><small data-i18n="statUnpaid">🔴 Pul olinmagan</small><h2 id="statUnpaid">0</h2></div>
+        <div class="stat orange"><small data-i18n="statDebtors">👥 Qarzdorlar</small><h2 id="statDebtors">0</h2></div>
+        <div class="stat blue"><small data-i18n="statBookings">📅 Faol bronlar</small><h2 id="statBookings">0</h2></div>
       </div>
       <button class="report-chek-btn" onclick="printReportChek()" data-i18n="downloadReportPdf">📄 UMUMIY HISOBOTNI PDF YUKLASH</button>
     </div>
 
-    <!-- DEBTORS -->
     <div id="adminDebtors" class="page">
       <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
       <div class="page-header">
@@ -1552,7 +1524,6 @@ input:focus{
       <button class="report-chek-btn" onclick="printDebtorsChek()" data-i18n="downloadAllDebtorsPdf">📄 BARCHA QARZDORLAR PDF YUKLASH</button>
     </div>
 
-    <!-- HISTORY -->
     <div id="adminHistory" class="page">
       <div id="historyDatesPage">
         <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
@@ -1565,7 +1536,7 @@ input:focus{
         <div id="historyDatesList"></div>
         <div id="historyTotalBox" class="history-total-box">
           <small data-i18n="allDatesTotal">💰 BARCHA SANALARNING UMUMIY SUMMASI</small>
-          <b id="historyTotalAmount">0 so'm</b>
+          <b id="historyTotalAmount">0</b>
         </div>
         <button class="report-chek-btn" onclick="printAllHistoryChek()" data-i18n="downloadAllHistoryPdf">📄 BARCHA TARIXNI PDF YUKLASH</button>
       </div>
@@ -1573,7 +1544,7 @@ input:focus{
         <button class="inner-back" onclick="backToHistoryDates()" data-i18n="backToDates">← SANALARGA QAYTISH</button>
         <div class="page-header">
           <div>
-            <div class="page-title" id="selectedHistoryDate">📅 Sana</div>
+            <div class="page-title" id="selectedHistoryDate" data-i18n="dateLabel">📅 Sana</div>
             <div class="page-subtitle" data-i18n="dailyGames">Kunlik o'yinlar</div>
           </div>
         </div>
@@ -1585,7 +1556,6 @@ input:focus{
       </div>
     </div>
 
-    <!-- BOOKING -->
     <div id="adminBooking" class="page">
       <button class="inner-back" onclick="openAdmin()" data-i18n="backToAdmin">← ADMIN MENYUSIGA QAYTISH</button>
       <div class="page-header">
@@ -1599,8 +1569,17 @@ input:focus{
         <div class="booking-form-grid">
           <div>
             <div class="form-title" data-i18n="bookingTableLabel">🎱 Stol raqami</div>
-            <select id="bookingTable" class="login-input"></select>
+            <div class="custom-select" id="bookingTableWrap">
+              <button type="button" class="custom-select-trigger" onclick="toggleTableDropdown(event)">
+                <span class="custom-select-icon">🎱</span>
+                <span class="custom-select-text placeholder" id="bookingTableText" data-i18n="selectTable">Stol tanlang</span>
+                <span class="custom-select-arrow">▼</span>
+              </button>
+              <div class="custom-select-menu" id="bookingTableMenu"></div>
+            </div>
+            <input type="hidden" id="bookingTable" value="">
           </div>
+
           <div>
             <div class="form-title" data-i18n="bookingNameLabel">👤 Mijoz ismi</div>
             <input id="bookingName" class="login-input" data-i18n-placeholder="bookingNamePlaceholder" placeholder="Ismini yozing">
@@ -1629,103 +1608,101 @@ input:focus{
         <div>
           <div class="page-title" style="font-size:20px" data-i18n="activeBookingsTitle">🔔 Faol bronlar</div>
         </div>
-        <button class="inner-back" onclick="toggleBookingFilter()" id="bookingFilterBtn" style="margin:0">📆 Bugun</button>
+        <button class="inner-back" onclick="toggleBookingFilter()" id="bookingFilterBtn" style="margin:0" data-i18n="filterToday">📆 Bugun</button>
       </div>
       <div id="bookingList"></div>
     </div>
 
-    <!-- USERS + PENDING -->
     <div id="adminUsers" class="page">
       <div class="page-header">
         <div>
-          <div class="page-title">👥 FOYDALANUVCHILAR</div>
-          <div class="page-subtitle">Login/parollar, stollar va faoliyat</div>
+          <div class="page-title" data-i18n="usersPageTitle">👥 FOYDALANUVCHILAR</div>
+          <div class="page-subtitle" data-i18n="usersPageSubtitle">Login/parollar, stollar va faoliyat</div>
         </div>
       </div>
 
-      <!-- PENDING REQUESTS SECTION -->
       <div id="pendingRequestsSection" class="booking-form-card" style="margin-bottom:20px;border-color:rgba(255,210,63,.5);background:linear-gradient(155deg,rgba(30,26,15,.95),rgba(18,14,8,.98))">
         <div style="font-size:14px;font-weight:900;color:#ffd23f;margin-bottom:14px;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center">
-          <span>⏳ KUTILAYOTGAN SO'ROVLAR</span>
-          <span id="pendingCountBadge" style="background:rgba(255,210,63,.2);color:#ffd23f;padding:4px 12px;border-radius:20px;font-size:11px">0 ta</span>
+          <span data-i18n="pendingTitle">⏳ KUTILAYOTGAN SO'ROVLAR</span>
+          <span id="pendingCountBadge" style="background:rgba(255,210,63,.2);color:#ffd23f;padding:4px 12px;border-radius:20px;font-size:11px">0</span>
         </div>
         <div id="pendingRequestsList"></div>
       </div>
 
       <div class="booking-form-card" style="margin-bottom:20px">
-        <div style="font-size:14px;font-weight:900;color:#35c9ff;margin-bottom:14px;letter-spacing:1px">
+        <div style="font-size:14px;font-weight:900;color:#35c9ff;margin-bottom:14px;letter-spacing:1px" data-i18n="createUserTitle">
           ➕ YANGI FOYDALANUVCHI YARATISH
         </div>
         <div class="booking-form-grid">
           <div>
-            <div class="form-title">👤 To'liq ism</div>
-            <input id="newUserFullName" class="login-input" placeholder="Masalan: Ali Valiyev">
+            <div class="form-title" data-i18n="fullNameLabel">👤 To'liq ism</div>
+            <input id="newUserFullName" class="login-input" data-i18n-placeholder="fullNamePlaceholder" placeholder="Masalan: Ali Valiyev">
           </div>
           <div>
-            <div class="form-title">🔑 Login</div>
-            <input id="newUserUsername" class="login-input" placeholder="Login (kamida 3 belgi)">
+            <div class="form-title" data-i18n="loginLabel">🔑 Login</div>
+            <input id="newUserUsername" class="login-input" data-i18n-placeholder="registerLoginPlaceholder" placeholder="Login (kamida 3 belgi)">
           </div>
           <div>
-            <div class="form-title">🔒 Parol</div>
-            <input id="newUserPassword" class="login-input" placeholder="Parol (kamida 3 belgi)">
+            <div class="form-title" data-i18n="passwordLabel">🔒 Parol</div>
+            <input id="newUserPassword" class="login-input" data-i18n-placeholder="registerPasswordPlaceholder" placeholder="Parol (kamida 3 belgi)">
           </div>
           <div>
-            <div class="form-title">🎭 Rol</div>
+            <div class="form-title" data-i18n="roleLabel">🎭 Rol</div>
             <select id="newUserRole" class="login-input">
-              <option value="user">👤 Foydalanuvchi</option>
-              <option value="admin">🛡️ Admin</option>
+              <option value="user" data-i18n="roleUser">👤 Foydalanuvchi</option>
+              <option value="admin" data-i18n="roleAdmin">🛡️ Admin</option>
             </select>
           </div>
         </div>
 
         <div style="margin-top:22px;padding-top:22px;border-top:1px solid rgba(53,201,255,.2)">
-          <div style="font-size:14px;font-weight:900;color:#42e979;margin-bottom:14px;letter-spacing:1px">
+          <div style="font-size:14px;font-weight:900;color:#42e979;margin-bottom:14px;letter-spacing:1px" data-i18n="tablesSettingsTitle">
             🎱 STOLLAR VA NARXLAR SOZLAMASI
           </div>
 
           <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
-            <label style="font-weight:800;color:#c0d0e0;font-size:13px">Nechta stol?</label>
+            <label style="font-weight:800;color:#c0d0e0;font-size:13px" data-i18n="howManyTables">Nechta stol?</label>
             <input type="number" id="newUserTablesCount" class="login-input"
                    value="3" min="1" max="20"
                    style="width:110px;text-align:center;font-weight:900;font-size:18px;color:#42e979"
                    onchange="generateTablePriceInputs()"
                    oninput="generateTablePriceInputs()">
-            <span style="color:#8aa0b8;font-size:12px">ta stol (1-20)</span>
+            <span style="color:#8aa0b8;font-size:12px" data-i18n="tablesRange">ta stol (1-20)</span>
             <button onclick="setAllPrices(40000)" 
                     style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
                            background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
                            border:1px solid rgba(53,201,255,.4);color:#35c9ff">
-              💰 Hammasi 40k
+              💰 <span data-i18n="allFor40">Hammasi 40k</span>
             </button>
             <button onclick="setAllPrices(50000)" 
                     style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
                            background:linear-gradient(135deg,rgba(66,233,121,.2),rgba(13,187,133,.2));
                            border:1px solid rgba(66,233,121,.4);color:#42e979">
-              💰 Hammasi 50k
+              💰 <span data-i18n="allFor50">Hammasi 50k</span>
             </button>
           </div>
 
           <div id="tablePriceInputsContainer" class="table-price-inputs"></div>
         </div>
 
-        <button class="btn save-btn" onclick="handleCreateUser()" style="margin-top:20px">
+        <button class="btn save-btn" onclick="handleCreateUser()" style="margin-top:20px" data-i18n="addUserBtn">
           💾 FOYDALANUVCHI QO'SHISH
         </button>
       </div>
 
       <div class="page-header" style="margin-top:20px">
         <div>
-          <div class="page-title" style="font-size:20px">📋 Mavjud foydalanuvchilar</div>
+          <div class="page-title" style="font-size:20px" data-i18n="existingUsersTitle">📋 Mavjud foydalanuvchilar</div>
         </div>
       </div>
       <div id="usersList"></div>
 
       <div class="page-header" style="margin-top:30px">
         <div>
-          <div class="page-title" style="font-size:20px">📊 Foydalanuvchilar faoliyati (oxirgi 200 ta)</div>
-          <div class="page-subtitle">Kim, qachon, nima qilgan — Telegramga ham yuboriladi</div>
+          <div class="page-title" style="font-size:20px" data-i18n="userActivityTitle">📊 Foydalanuvchilar faoliyati (oxirgi 200 ta)</div>
+          <div class="page-subtitle" data-i18n="userActivitySubtitle">Kim, qachon, nima qilgan — Telegramga ham yuboriladi</div>
         </div>
-        <button class="inner-back" onclick="clearUserLogs()" style="margin:0;background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border-color:rgba(224,68,86,.4)">
+        <button class="inner-back" onclick="clearUserLogs()" style="margin:0;background:linear-gradient(135deg,rgba(224,68,86,.2),rgba(169,35,53,.2));color:#ff6878;border-color:rgba(224,68,86,.4)" data-i18n="clearLogsBtn">
           🗑️ LOGNI TOZALASH
         </button>
       </div>
@@ -1747,28 +1724,28 @@ input:focus{
   </div>
 </div>
 
-<!-- PASSWORD CHANGE MODAL -->
+<!-- PWD MODAL -->
 <div id="pwdModalBg" class="pwd-modal-bg">
   <div class="pwd-modal">
     <div class="pwd-modal-header">
       <div class="pwd-modal-icon">🔒</div>
       <div>
-        <div class="pwd-modal-title">Login va Parolni yangilash</div>
-        <div class="pwd-modal-sub">Foydalanuvchi ma'lumotlarini o'zgartirish</div>
+        <div class="pwd-modal-title" data-i18n="pwdModalTitle">Login va Parolni yangilash</div>
+        <div class="pwd-modal-sub" data-i18n="pwdModalSub">Foydalanuvchi ma'lumotlarini o'zgartirish</div>
       </div>
     </div>
     <div class="pwd-modal-user" id="pwdModalUserInfo"></div>
     <div class="pwd-field">
-      <label class="pwd-field-label">🔑 Login</label>
-      <input type="text" id="pwdModalLogin" class="pwd-field-input" placeholder="Yangi login (kamida 3 belgi)">
+      <label class="pwd-field-label" data-i18n="pwdNewLogin">🔑 Login</label>
+      <input type="text" id="pwdModalLogin" class="pwd-field-input" data-i18n-placeholder="pwdNewLoginPlaceholder" placeholder="Yangi login (kamida 3 belgi)">
     </div>
     <div class="pwd-field">
-      <label class="pwd-field-label">🔒 Yangi Parol</label>
-      <input type="text" id="pwdModalPassword" class="pwd-field-input" placeholder="Yangi parol (kamida 3 belgi)">
+      <label class="pwd-field-label" data-i18n="pwdNewPassword">🔒 Yangi Parol</label>
+      <input type="text" id="pwdModalPassword" class="pwd-field-input" data-i18n-placeholder="pwdNewPasswordPlaceholder" placeholder="Yangi parol (kamida 3 belgi)">
     </div>
     <div class="pwd-modal-actions">
-      <button class="pwd-save-btn" onclick="saveUserCredentials()">💾 SAQLASH</button>
-      <button class="pwd-cancel-btn" onclick="closePwdModal()">❌ BEKOR QILISH</button>
+      <button class="pwd-save-btn" onclick="saveUserCredentials()" data-i18n="saveBtn">💾 SAQLASH</button>
+      <button class="pwd-cancel-btn" onclick="closePwdModal()" data-i18n="cancelBtn">❌ BEKOR QILISH</button>
     </div>
   </div>
 </div>
@@ -1779,13 +1756,13 @@ input:focus{
     <div class="pwd-modal-header">
       <div class="pwd-modal-icon">🎱</div>
       <div>
-        <div class="pwd-modal-title">Stollarni tahrirlash</div>
+        <div class="pwd-modal-title" data-i18n="tablesEditTitle">Stollarni tahrirlash</div>
         <div class="pwd-modal-sub" id="tablesEditSub">—</div>
       </div>
     </div>
 
     <div style="display:flex;gap:14px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
-      <label style="font-weight:800;color:#c0d0e0;font-size:13px">Nechta stol?</label>
+      <label style="font-weight:800;color:#c0d0e0;font-size:13px" data-i18n="howManyTables">Nechta stol?</label>
       <input type="number" id="editTablesCount" class="pwd-field-input"
              min="1" max="20"
              style="width:110px;text-align:center;font-weight:900;font-size:18px;color:#42e979"
@@ -1795,36 +1772,36 @@ input:focus{
               style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
                      background:linear-gradient(135deg,rgba(53,201,255,.2),rgba(152,92,255,.2));
                      border:1px solid rgba(53,201,255,.4);color:#35c9ff">
-        💰 Hammasi 40k
+        💰 <span data-i18n="allFor40">Hammasi 40k</span>
       </button>
       <button onclick="setAllEditPrices(50000)" 
               style="padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;
                      background:linear-gradient(135deg,rgba(66,233,121,.2),rgba(13,187,133,.2));
                      border:1px solid rgba(66,233,121,.4);color:#42e979">
-        💰 Hammasi 50k
+        💰 <span data-i18n="allFor50">Hammasi 50k</span>
       </button>
     </div>
 
     <div id="editTablePricesContainer" class="table-price-inputs" style="max-height:400px;overflow-y:auto"></div>
 
     <div class="pwd-modal-actions" style="margin-top:22px">
-      <button class="pwd-save-btn" onclick="saveUserTables()">💾 SAQLASH</button>
-      <button class="pwd-cancel-btn" onclick="closeEditTablesModal()">❌ BEKOR QILISH</button>
+      <button class="pwd-save-btn" onclick="saveUserTables()" data-i18n="saveBtn">💾 SAQLASH</button>
+      <button class="pwd-cancel-btn" onclick="closeEditTablesModal()" data-i18n="cancelBtn">❌ BEKOR QILISH</button>
     </div>
   </div>
 </div>
 
-<!-- CLEAR LOG CONFIRM MODAL -->
+<!-- CLEAR LOG MODAL -->
 <div id="clearModalBg" class="clear-modal-bg">
   <div class="clear-modal">
     <div class="clear-modal-icon">🗑️</div>
-    <div class="clear-modal-title">Loglarni tozalash</div>
-    <div class="clear-modal-text">Barcha foydalanuvchi harakatlari tarixini o'chirishni xohlaysizmi?</div>
-    <div class="clear-modal-count" id="clearModalCount">— ta yozuv</div>
-    <div class="clear-modal-warning">⚠️ Bu amalni qaytarib bo'lmaydi!</div>
+    <div class="clear-modal-title" data-i18n="clearLogsTitle">Loglarni tozalash</div>
+    <div class="clear-modal-text" data-i18n="clearLogsText">Barcha foydalanuvchi harakatlari tarixini o'chirishni xohlaysizmi?</div>
+    <div class="clear-modal-count" id="clearModalCount">—</div>
+    <div class="clear-modal-warning" data-i18n="clearLogsWarning">⚠️ Bu amalni qaytarib bo'lmaydi!</div>
     <div class="clear-modal-actions">
-      <button class="clear-confirm-btn" onclick="doClearUserLogs()">🗑️ HA, TOZALASH</button>
-      <button class="clear-cancel-btn" onclick="closeClearModal()">❌ BEKOR QILISH</button>
+      <button class="clear-confirm-btn" onclick="doClearUserLogs()" data-i18n="clearLogsYes">🗑️ HA, TOZALASH</button>
+      <button class="clear-cancel-btn" onclick="closeClearModal()" data-i18n="cancelBtn">❌ BEKOR QILISH</button>
     </div>
   </div>
 </div>
@@ -1866,7 +1843,7 @@ input:focus{
 
 <script>
 /* ================================================================
-   TELEGRAM BOT SOZLAMALARI
+   TELEGRAM
    ================================================================ */
 const TELEGRAM_BOT_TOKEN = "8977154075:AAGXq9oo7y-S2wd-8J-XYgHgx8UPvjzzWHQ";
 const TELEGRAM_ADMIN_CHAT_ID = "6120377805";
@@ -1886,16 +1863,15 @@ async function sendTelegramLog(htmlMessage){
     });
     const data = await res.json();
     if(!data.ok) console.warn("Telegram xato:", data.description);
-  }catch(e){
-    console.warn("Telegram yuborishda xatolik:", e);
-  }
+  }catch(e){ console.warn("Telegram yuborishda xatolik:", e); }
 }
 
 /* ================================================================
-   i18n
+   i18n — BARCHA KALITLAR
    ================================================================ */
 const I18N = {
   uz: {
+    // LOGIN
     loginSub: "WINDOWS EDITION",
     loginLabel: "👤 Login",
     loginPlaceholder: "Loginni kiriting",
@@ -1914,6 +1890,7 @@ const I18N = {
     registerNow: "Ro'yxatdan o'tish",
     registerTitle: "RO'YXATDAN O'TISH",
     registerSub: "SO'ROV YUBORISH",
+    registerWarning: "⏳ <b>Diqqat!</b> Ro'yxatdan o'tganingizdan so'ng hisobingiz <b>avtomatik yaratilmaydi</b>.<br>👑 Glavniy Admin <b>tasdiqlashini</b> kutasiz.",
     fullNameLabel: "👤 To'liq ism",
     fullNamePlaceholder: "Ism va familiya",
     registerLoginPlaceholder: "Kamida 3 belgi",
@@ -1934,6 +1911,7 @@ const I18N = {
     regErrorUsernameTaken: "⚠️ Bu login allaqachon band!",
     regErrorPending: "⏳ Bu login bilan so'rov allaqachon yuborilgan. Admin tasdiqlashini kuting.",
 
+    // NAV
     navHome: "Asosiy",
     navTables: "Stollar",
     navAdmin: "Admin panel",
@@ -1947,6 +1925,7 @@ const I18N = {
     logoutNo: "❌ BEKOR QILISH",
     modalOk: "TUSHUNDIM",
 
+    // TABLES
     tablesTitle: "🎱 STOLLAR",
     tablesSubtitle: "Barcha stollar bir ekranda",
     tableLabel: "🎱 STOL",
@@ -1979,6 +1958,7 @@ const I18N = {
     paidLaterTitle: "To'lov olindi",
     paidLaterText: "{name}ning {amount} qarzi yopildi.",
 
+    // ADMIN
     adminTitle: "🔐 ADMIN PANEL",
     adminSubtitle: "Boshqaruv menyusi",
     backToMain: "🏠 ASOSIY MENYUGA",
@@ -1990,8 +1970,13 @@ const I18N = {
     historyCardSub: "Barcha o'yinlar",
     bookingCard: "Bron qilish",
     bookingCardSub: "Stol band qilish",
+    usersCard: "Foydalanuvchilar",
+    usersCardSub: "Login/parol va stollar",
+    pendingCardTitle: "Kutilayotgan so'rovlar",
+    pendingCardSub: "Tasdiqlash kutilmoqda",
     backToAdmin: "← ADMIN MENYUSIGA QAYTISH",
 
+    // REPORTS
     reportsTitle: "📊 HISOBOT",
     reportsSubtitle: "Bugungi tushum va statistika",
     statGames: "🎱 Bugungi o'yinlar",
@@ -2001,6 +1986,7 @@ const I18N = {
     statBookings: "📅 Faol bronlar",
     downloadReportPdf: "📄 UMUMIY HISOBOTNI PDF YUKLASH",
 
+    // DEBTORS
     debtorsTitle: "🔴 QARZDORLAR",
     debtorsSubtitle: "To'lanmagan o'yinlar ro'yxati",
     downloadAllDebtorsPdf: "📄 BARCHA QARZDORLAR PDF YUKLASH",
@@ -2010,17 +1996,20 @@ const I18N = {
     payNowBtn: "🟢 PULNI OLDIM",
     pdfBtn: "📄 PDF",
 
+    // HISTORY
     historyTitle: "📋 TARIX",
     historySubtitle: "Sanalar bo'yicha o'yinlar",
     allDatesTotal: "💰 BARCHA SANALARNING UMUMIY SUMMASI",
     downloadAllHistoryPdf: "📄 BARCHA TARIXNI PDF YUKLASH",
     backToDates: "← SANALARGA QAYTISH",
+    dateLabel: "📅 Sana",
     dailyGames: "Kunlik o'yinlar",
     downloadPdf: "📄 PDF YUKLASH",
     clearDate: "🗑️ SANANI TOZALASH",
     noHistory: "📋 Hozircha saqlangan tarix yo'q",
     noHistoryDate: "Bu sanada saqlangan ma'lumot yo'q.",
     gamesCount: "ta o'yin",
+    gamesShort: "o'yin",
     dateTotal: "💰 SHU SANANING UMUMIY SUMMASI",
     gamesSmall: "🎱 O'YINLAR",
     paidSmall: "🟢 OLINAN",
@@ -2039,6 +2028,7 @@ const I18N = {
     clearedTitle: "Tarix o'chirildi",
     clearedText: "{date} sanasining tarixi o'chirildi.",
 
+    // PDF
     pdfLoading: "📄 PDF TAYYORLANMOQDA...",
     pdfLoadingSub: "Iltimos kuting, 1-2 soniya",
     pdfDoneTitle: "PDF yuklandi",
@@ -2111,9 +2101,11 @@ const I18N = {
     hintBooking: "Bron",
     hintClose: "Yopish",
 
+    // BOOKING
     bookingTitle: "📅 BRON QILISH",
     bookingSubtitle: "Stolni oldindan band qilish",
     bookingTableLabel: "🎱 Stol raqami",
+    selectTable: "Stol tanlang",
     bookingNameLabel: "👤 Mijoz ismi",
     bookingNamePlaceholder: "Ismini yozing",
     bookingPhoneLabel: "📞 Telefon",
@@ -2126,6 +2118,8 @@ const I18N = {
     filterAll: "📋 Barchasi",
     bookingDateMissingTitle: "Sana/vaqt kiritilmagan",
     bookingDateMissingText: "Iltimos, sanani va vaqtni tanlang.",
+    bookingTableMissingTitle: "Stol tanlanmagan",
+    bookingTableMissingText: "Iltimos, stol raqamini tanlang.",
     bookingPastTitle: "O'tgan vaqt",
     bookingPastText: "O'tgan vaqtga bron qilish mumkin emas.",
     bookingConflictTitle: "Vaqt band",
@@ -2165,6 +2159,88 @@ const I18N = {
     userTablesLabel: "Stollar",
     userPricesLabel: "Narxlar",
     editTablesBtn: "🎱 STOLLAR",
+    tablesNotConfigured: "Stollar sozlanmagan",
+    tablesBtn: "STOLLAR",
+    passwordBtn: "PAROL",
+    activateBtn: "FAOLLASHTIRISH",
+    blockBtn: "BLOKLASH",
+    deleteBtn: "O'CHIRISH",
+    cannotDelete: "O'CHIRILMAYDI",
+    createdLabel: "Yaratilgan",
+    startedLabel: "Boshlangan",
+    paymentLabel: "To'lov",
+    debtLabel: "Qarz",
+    loginLabelShort: "Kirish",
+    receivedLabel: "Olindi",
+    today: "BUGUN",
+    week7: "7 KUN",
+    totalLabelShort: "UMUMIY",
+    todayDebt: "Bugun qarz",
+    financialIndicators: "MOLIYAVIY KO'RSATKICHLAR",
+    userActive: "✅ FAOL",
+    userBlocked: "🚫 BLOKLANGAN",
+
+    // USERS PAGE
+    usersPageTitle: "👥 FOYDALANUVCHILAR",
+    usersPageSubtitle: "Login/parollar, stollar va faoliyat",
+    createUserTitle: "➕ YANGI FOYDALANUVCHI YARATISH",
+    roleLabel: "🎭 Rol",
+    roleUser: "👤 Foydalanuvchi",
+    roleAdmin: "🛡️ Admin",
+    tablesSettingsTitle: "🎱 STOLLAR VA NARXLAR SOZLAMASI",
+    howManyTables: "Nechta stol?",
+    tablesRange: "ta stol (1-20)",
+    allFor40: "Hammasi 40k",
+    allFor50: "Hammasi 50k",
+    addUserBtn: "💾 FOYDALANUVCHI QO'SHISH",
+    existingUsersTitle: "📋 Mavjud foydalanuvchilar",
+    userActivityTitle: "📊 Foydalanuvchilar faoliyati (oxirgi 200 ta)",
+    userActivitySubtitle: "Kim, qachon, nima qilgan — Telegramga ham yuboriladi",
+    clearLogsBtn: "🗑️ LOGNI TOZALASH",
+    noUsers: "Foydalanuvchilar yo'q",
+    noActivity: "Hozircha faoliyat yo'q",
+    userCreatedTitle: "Foydalanuvchi qo'shildi",
+    pricesLabel: "Narxlar",
+    tablesShort: "ta",
+
+    // PWD MODAL
+    pwdModalTitle: "Login va Parolni yangilash",
+    pwdModalSub: "Foydalanuvchi ma'lumotlarini o'zgartirish",
+    pwdNewLogin: "🔑 Login",
+    pwdNewLoginPlaceholder: "Yangi login (kamida 3 belgi)",
+    pwdNewPassword: "🔒 Yangi Parol",
+    pwdNewPasswordPlaceholder: "Yangi parol (kamida 3 belgi)",
+    saveBtn: "💾 SAQLASH",
+    cancelBtn: "❌ BEKOR QILISH",
+    loginErrorTitle: "Login xato",
+    passwordErrorTitle: "Parol xato",
+    loginMinLength: "Login kamida 3 ta belgi bo'lishi kerak.",
+    passwordMinLength: "Parol kamida 3 ta belgi bo'lishi kerak.",
+    loginTakenTitle: "Login band",
+    loginTakenText: "\"{login}\" logini allaqachon {name} tomonidan ishlatilmoqda.",
+    updatedTitle: "Muvaffaqiyatli yangilandi",
+    updatedText: "👤 {name}\n\n🔑 Yangi login: {login}\n🔒 Yangi parol: {password}",
+
+    // CLEAR LOGS
+    clearLogsTitle: "Loglarni tozalash",
+    clearLogsText: "Barcha foydalanuvchi harakatlari tarixini o'chirishni xohlaysizmi?",
+    clearLogsWarning: "⚠️ Bu amalni qaytarib bo'lmaydi!",
+    clearLogsYes: "🗑️ HA, TOZALASH",
+    logsClearedTitle: "Loglar tozalandi",
+    logsClearedText: "{count} ta yozuv muvaffaqiyatli o'chirildi.",
+    entriesShort: "ta yozuv",
+
+    // DELETE USER
+    deleteUserTitle: "Foydalanuvchini o'chirish",
+    deleteUserText: "{name} (@{username}) ni butunlay o'chirishni xohlaysizmi?\n\nBu amalni qaytarib bo'lmaydi.",
+    deleteYes: "🗑️ HA, O'CHIRISH",
+
+    // ERRORS
+    errorTitle: "Xatolik",
+    noAccessTitle: "Ruxsat yo'q",
+    noAccessText: "Bu bo'limga faqat Bosh admin kira oladi.",
+    errorOccurred: "Xatolik yuz berdi",
+    approveError: "So'rovni tasdiqlashda xatolik",
 
     // PENDING
     pendingTitle: "⏳ KUTILAYOTGAN SO'ROVLAR",
@@ -2182,13 +2258,22 @@ const I18N = {
     pendingRejectedText: "So'rov rad etildi. Foydalanuvchi tizimga kira olmaydi.",
     pendingBadge: "{count} ta",
     pendingSent: "⏳ So'rovingiz yuborildi!",
-    pendingRemoveConfirm: "So'rovni butunlay o'chirishni xohlaysizmi?",
-    pendingRemoveTitle: "O'chirish",
-    pendingRemoveText: "Rad etilgan so'rovni butunlay o'chirishni xohlaysizmi?",
-    pendingRemoveYes: "🗑️ HA, O'CHIRISH",
-    pendingRemoveNo: "❌ YO'Q"
+    pendingNewBadge: "YANGI SO'ROV",
+    newRequestLabel: "YANGI SO'ROV",
+    tablesCountLabelShort: "ta stol",
+    sentAtLabel: "Yuborilgan",
+    busyShort: "BAND",
+    freeShort: "BO'SH",
+    hourShort: "soat",
+    occupiedLabel: "hozir kutmoqda",
+    untilLabel: "gacha",
+    afterLabel: "dan keyin",
+    cancelRejectBtn: "❌ BEKOR QILISH",
+    rejectBtn: "❌ RAD ETISH",
+    approveBtn: "✅ TASDIQLASH"
   },
   ru: {
+    // LOGIN
     loginSub: "WINDOWS EDITION",
     loginLabel: "👤 Логин",
     loginPlaceholder: "Введите логин",
@@ -2207,6 +2292,7 @@ const I18N = {
     registerNow: "Зарегистрироваться",
     registerTitle: "РЕГИСТРАЦИЯ",
     registerSub: "ОТПРАВИТЬ ЗАПРОС",
+    registerWarning: "⏳ <b>Внимание!</b> После регистрации ваш аккаунт <b>не создаётся автоматически</b>.<br>👑 Ожидайте одобрения Главного админа.",
     fullNameLabel: "👤 Полное имя",
     fullNamePlaceholder: "Имя и фамилия",
     registerLoginPlaceholder: "Минимум 3 символа",
@@ -2227,6 +2313,7 @@ const I18N = {
     regErrorUsernameTaken: "⚠️ Этот логин уже занят!",
     regErrorPending: "⏳ Запрос с этим логином уже отправлен. Ожидайте одобрения админа.",
 
+    // NAV
     navHome: "Главная",
     navTables: "Столы",
     navAdmin: "Админ панель",
@@ -2240,6 +2327,7 @@ const I18N = {
     logoutNo: "❌ ОТМЕНА",
     modalOk: "ПОНЯТНО",
 
+    // TABLES
     tablesTitle: "🎱 СТОЛЫ",
     tablesSubtitle: "Все столы на одном экране",
     tableLabel: "🎱 СТОЛ",
@@ -2272,6 +2360,7 @@ const I18N = {
     paidLaterTitle: "Оплата получена",
     paidLaterText: "Долг {name} на {amount} закрыт.",
 
+    // ADMIN
     adminTitle: "🔐 АДМИН ПАНЕЛЬ",
     adminSubtitle: "Меню управления",
     backToMain: "🏠 ГЛАВНОЕ МЕНЮ",
@@ -2283,8 +2372,13 @@ const I18N = {
     historyCardSub: "Все игры",
     bookingCard: "Бронирование",
     bookingCardSub: "Забронировать стол",
+    usersCard: "Пользователи",
+    usersCardSub: "Логин/пароль и столы",
+    pendingCardTitle: "Ожидающие запросы",
+    pendingCardSub: "Ожидают одобрения",
     backToAdmin: "← НАЗАД В АДМИН МЕНЮ",
 
+    // REPORTS
     reportsTitle: "📊 ОТЧЁТ",
     reportsSubtitle: "Сегодняшняя выручка и статистика",
     statGames: "🎱 Игры за сегодня",
@@ -2294,6 +2388,7 @@ const I18N = {
     statBookings: "📅 Активные брони",
     downloadReportPdf: "📄 СКАЧАТЬ ОБЩИЙ ОТЧЁТ PDF",
 
+    // DEBTORS
     debtorsTitle: "🔴 ДОЛЖНИКИ",
     debtorsSubtitle: "Список неоплаченных игр",
     downloadAllDebtorsPdf: "📄 СКАЧАТЬ ВСЕХ ДОЛЖНИКОВ PDF",
@@ -2303,17 +2398,20 @@ const I18N = {
     payNowBtn: "🟢 ОПЛАЧЕНО",
     pdfBtn: "📄 PDF",
 
+    // HISTORY
     historyTitle: "📋 ИСТОРИЯ",
     historySubtitle: "Игры по датам",
     allDatesTotal: "💰 ОБЩАЯ СУММА ВСЕХ ДАТ",
     downloadAllHistoryPdf: "📄 СКАЧАТЬ ВСЮ ИСТОРИЮ PDF",
     backToDates: "← НАЗАД К ДАТАМ",
+    dateLabel: "📅 Дата",
     dailyGames: "Игры за день",
     downloadPdf: "📄 СКАЧАТЬ PDF",
     clearDate: "🗑️ ОЧИСТИТЬ ДАТУ",
     noHistory: "📋 История пока пуста",
     noHistoryDate: "На эту дату нет данных.",
     gamesCount: "игр",
+    gamesShort: "игр",
     dateTotal: "💰 ОБЩАЯ СУММА ЗА ЭТУ ДАТУ",
     gamesSmall: "🎱 ИГРЫ",
     paidSmall: "🟢 ОПЛАЧЕНО",
@@ -2332,6 +2430,7 @@ const I18N = {
     clearedTitle: "История очищена",
     clearedText: "История за {date} удалена.",
 
+    // PDF
     pdfLoading: "📄 PDF ГОТОВИТСЯ...",
     pdfLoadingSub: "Пожалуйста, подождите 1-2 секунды",
     pdfDoneTitle: "PDF загружен",
@@ -2404,9 +2503,11 @@ const I18N = {
     hintBooking: "Бронь",
     hintClose: "Закрыть",
 
+    // BOOKING
     bookingTitle: "📅 БРОНИРОВАНИЕ",
     bookingSubtitle: "Забронировать стол заранее",
     bookingTableLabel: "🎱 Номер стола",
+    selectTable: "Выберите стол",
     bookingNameLabel: "👤 Имя клиента",
     bookingNamePlaceholder: "Введите имя",
     bookingPhoneLabel: "📞 Телефон",
@@ -2419,6 +2520,8 @@ const I18N = {
     filterAll: "📋 Все",
     bookingDateMissingTitle: "Дата/время не указаны",
     bookingDateMissingText: "Пожалуйста, выберите дату и время.",
+    bookingTableMissingTitle: "Стол не выбран",
+    bookingTableMissingText: "Пожалуйста, выберите номер стола.",
     bookingPastTitle: "Прошедшее время",
     bookingPastText: "Нельзя бронировать на прошедшее время.",
     bookingConflictTitle: "Время занято",
@@ -2458,6 +2561,88 @@ const I18N = {
     userTablesLabel: "Столы",
     userPricesLabel: "Цены",
     editTablesBtn: "🎱 СТОЛЫ",
+    tablesNotConfigured: "Столы не настроены",
+    tablesBtn: "СТОЛЫ",
+    passwordBtn: "ПАРОЛЬ",
+    activateBtn: "АКТИВИРОВАТЬ",
+    blockBtn: "ЗАБЛОКИРОВАТЬ",
+    deleteBtn: "УДАЛИТЬ",
+    cannotDelete: "НЕ УДАЛЯЕТСЯ",
+    createdLabel: "Создан",
+    startedLabel: "Начато",
+    paymentLabel: "Оплата",
+    debtLabel: "Долг",
+    loginLabelShort: "Входы",
+    receivedLabel: "Получено",
+    today: "СЕГОДНЯ",
+    week7: "7 ДНЕЙ",
+    totalLabelShort: "ВСЕГО",
+    todayDebt: "Долг сегодня",
+    financialIndicators: "ФИНАНСОВЫЕ ПОКАЗАТЕЛИ",
+    userActive: "✅ АКТИВЕН",
+    userBlocked: "🚫 ЗАБЛОКИРОВАН",
+
+    // USERS PAGE
+    usersPageTitle: "👥 ПОЛЬЗОВАТЕЛИ",
+    usersPageSubtitle: "Логины/пароли, столы и активность",
+    createUserTitle: "➕ СОЗДАТЬ НОВОГО ПОЛЬЗОВАТЕЛЯ",
+    roleLabel: "🎭 Роль",
+    roleUser: "👤 Пользователь",
+    roleAdmin: "🛡️ Админ",
+    tablesSettingsTitle: "🎱 НАСТРОЙКА СТОЛОВ И ЦЕН",
+    howManyTables: "Сколько столов?",
+    tablesRange: "столов (1-20)",
+    allFor40: "Все по 40к",
+    allFor50: "Все по 50к",
+    addUserBtn: "💾 ДОБАВИТЬ ПОЛЬЗОВАТЕЛЯ",
+    existingUsersTitle: "📋 Существующие пользователи",
+    userActivityTitle: "📊 Активность пользователей (последние 200)",
+    userActivitySubtitle: "Кто, когда, что сделал — отправляется в Telegram",
+    clearLogsBtn: "🗑️ ОЧИСТИТЬ ЛОГ",
+    noUsers: "Пользователей нет",
+    noActivity: "Пока нет активности",
+    userCreatedTitle: "Пользователь добавлен",
+    pricesLabel: "Цены",
+    tablesShort: "шт",
+
+    // PWD MODAL
+    pwdModalTitle: "Обновить логин и пароль",
+    pwdModalSub: "Изменение данных пользователя",
+    pwdNewLogin: "🔑 Логин",
+    pwdNewLoginPlaceholder: "Новый логин (минимум 3 символа)",
+    pwdNewPassword: "🔒 Новый пароль",
+    pwdNewPasswordPlaceholder: "Новый пароль (минимум 3 символа)",
+    saveBtn: "💾 СОХРАНИТЬ",
+    cancelBtn: "❌ ОТМЕНА",
+    loginErrorTitle: "Ошибка логина",
+    passwordErrorTitle: "Ошибка пароля",
+    loginMinLength: "Логин должен быть минимум 3 символа.",
+    passwordMinLength: "Пароль должен быть минимум 3 символа.",
+    loginTakenTitle: "Логин занят",
+    loginTakenText: "Логин \"{login}\" уже используется пользователем {name}.",
+    updatedTitle: "Успешно обновлено",
+    updatedText: "👤 {name}\n\n🔑 Новый логин: {login}\n🔒 Новый пароль: {password}",
+
+    // CLEAR LOGS
+    clearLogsTitle: "Очистка логов",
+    clearLogsText: "Удалить всю историю действий пользователей?",
+    clearLogsWarning: "⚠️ Это действие нельзя отменить!",
+    clearLogsYes: "🗑️ ДА, ОЧИСТИТЬ",
+    logsClearedTitle: "Логи очищены",
+    logsClearedText: "{count} записей успешно удалено.",
+    entriesShort: "записей",
+
+    // DELETE USER
+    deleteUserTitle: "Удалить пользователя",
+    deleteUserText: "Полностью удалить {name} (@{username})?\n\nЭто действие нельзя отменить.",
+    deleteYes: "🗑️ ДА, УДАЛИТЬ",
+
+    // ERRORS
+    errorTitle: "Ошибка",
+    noAccessTitle: "Доступ запрещён",
+    noAccessText: "Этот раздел доступен только Главному админу.",
+    errorOccurred: "Произошла ошибка",
+    approveError: "Ошибка при одобрении запроса",
 
     // PENDING
     pendingTitle: "⏳ ОЖИДАЮЩИЕ ЗАПРОСЫ",
@@ -2475,11 +2660,19 @@ const I18N = {
     pendingRejectedText: "Запрос отклонён. Пользователь не может войти.",
     pendingBadge: "{count} шт",
     pendingSent: "⏳ Ваш запрос отправлен!",
-    pendingRemoveConfirm: "Удалить запрос полностью?",
-    pendingRemoveTitle: "Удаление",
-    pendingRemoveText: "Удалить отклонённый запрос полностью?",
-    pendingRemoveYes: "🗑️ ДА, УДАЛИТЬ",
-    pendingRemoveNo: "❌ НЕТ"
+    pendingNewBadge: "НОВЫЙ ЗАПРОС",
+    newRequestLabel: "НОВЫЙ ЗАПРОС",
+    tablesCountLabelShort: "столов",
+    sentAtLabel: "Отправлено",
+    busyShort: "ЗАНЯТ",
+    freeShort: "СВОБОДЕН",
+    hourShort: "час",
+    occupiedLabel: "ожидает",
+    untilLabel: "до",
+    afterLabel: "через",
+    cancelRejectBtn: "❌ ОТМЕНА",
+    rejectBtn: "❌ ОТКЛОНИТЬ",
+    approveBtn: "✅ ОДОБРИТЬ"
   }
 };
 
@@ -2500,6 +2693,10 @@ function applyTranslations(){
     const key = el.getAttribute("data-i18n");
     el.innerText = t(key);
   });
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{
+    const key = el.getAttribute("data-i18n-html");
+    el.innerHTML = t(key);
+  });
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
     const key = el.getAttribute("data-i18n-placeholder");
     el.placeholder = t(key);
@@ -2510,6 +2707,11 @@ function applyTranslations(){
   const filterBtn = document.getElementById("bookingFilterBtn");
   if(filterBtn){
     filterBtn.innerText = bookingFilterToday ? "📆 " + t("filterToday") : "📋 " + t("filterAll");
+  }
+
+  const bookingText = document.getElementById("bookingTableText");
+  if(bookingText && !document.getElementById("bookingTable").value){
+    bookingText.innerText = t("selectTable");
   }
 }
 
@@ -2525,6 +2727,7 @@ function setLanguage(lang){
   renderBookings();
   renderTables();
   renderPendingRequests();
+  renderBookingTableOptions();
   beep("money");
 }
 
@@ -2562,6 +2765,7 @@ function refreshDynamicContent(){
   renderBookings();
   updateAllBookingIndicators();
   updateActiveTablesBadge();
+  updatePendingBadge();
 }
 
 /* ================================================================
@@ -2624,9 +2828,9 @@ function createUser(username, password, fullName, role, tablesConfig){
   fullName = String(fullName||"").trim() || username;
   role = role || "user";
 
-  if(!username || username.length < 3) return { ok:false, error:"Username kamida 3 ta belgi" };
-  if(!password || password.length < 3) return { ok:false, error:"Parol kamida 3 ta belgi" };
-  if(findUser(username)) return { ok:false, error:"Bu login allaqachon mavjud" };
+  if(!username || username.length < 3) return { ok:false, error: t("regErrorUsername") };
+  if(!password || password.length < 3) return { ok:false, error: t("regErrorPassword") };
+  if(findUser(username)) return { ok:false, error: t("regErrorUsernameTaken") };
 
   let tablesCount = 3;
   let tablePrices = [40000, 40000, 40000];
@@ -2684,28 +2888,24 @@ function toggleUserActive(id){
 }
 
 /* ================================================================
-   PENDING REQUESTS (TASDIQLASH KUTAYOTGAN SO'ROVLAR)
+   PENDING REQUESTS
    ================================================================ */
 function getPendingRequests(){
   return JSON.parse(localStorage.getItem("billiardPendingRequests")) || [];
 }
-
 function savePendingRequests(arr){
   localStorage.setItem("billiardPendingRequests", JSON.stringify(arr));
 }
-
 function findPendingRequest(id){
   return getPendingRequests().find(r => r.id === id);
 }
 
-// Admin tasdiqlaganda chaqiriladi
 function approveRequest(requestId){
   const requests = getPendingRequests();
   const req = requests.find(r => r.id === requestId);
   if(!req) return { ok: false, error: "So'rov topilmadi" };
   if(req.status !== "pending") return { ok: false, error: "So'rov allaqachon ko'rib chiqilgan" };
 
-  // Endi haqiqiy user yaratamiz
   const res = createUser(
     req.username,
     req.password,
@@ -2716,7 +2916,6 @@ function approveRequest(requestId){
 
   if(!res.ok) return res;
 
-  // Phone va approval info qo'shamiz
   const users = getUsers();
   const newUser = users.find(u => u.username === req.username);
   if(newUser){
@@ -2727,24 +2926,20 @@ function approveRequest(requestId){
     saveUsers(users);
   }
 
-  // So'rovni statusini yangilaymiz
   req.status = "approved";
   req.approvedAt = new Date().toISOString();
   savePendingRequests(requests);
 
-  // Log
   if(newUser) {
     logUserAction(newUser.id, "register", `Admin tomonidan tasdiqlandi — ${req.phone}`);
   }
 
-  // Telegramga xabar
   sendApprovalNotification(req, true);
   updatePendingBadge();
 
   return { ok: true, user: newUser };
 }
 
-// Admin rad etganda chaqiriladi
 function rejectRequest(requestId, reason){
   const requests = getPendingRequests();
   const req = requests.find(r => r.id === requestId);
@@ -2755,18 +2950,10 @@ function rejectRequest(requestId, reason){
   req.rejectReason = reason || "Sabab ko'rsatilmagan";
   savePendingRequests(requests);
 
-  // Telegramga xabar
   sendApprovalNotification(req, false);
   updatePendingBadge();
 
   return { ok: true };
-}
-
-// Tasdiqlangandan keyin so'rovni o'chirish (tozalash uchun)
-function removeRequest(requestId){
-  const requests = getPendingRequests().filter(r => r.id !== requestId);
-  savePendingRequests(requests);
-  updatePendingBadge();
 }
 
 function updatePendingBadge(){
@@ -2788,15 +2975,12 @@ function updatePendingBadge(){
   if(cardBadge) cardBadge.innerText = count;
 
   const countBadge = document.getElementById("pendingCountBadge");
-  if(countBadge) countBadge.innerText = count + " ta";
+  if(countBadge) countBadge.innerText = count + " " + (currentLang === "ru" ? "шт" : "ta");
 
   const card = document.getElementById("pendingAdminCard");
   if(card) card.style.display = count > 0 ? "flex" : "none";
 }
 
-/* ================================================================
-   TELEGRAM: TASDIQLASH SO'ROVI
-   ================================================================ */
 async function sendApprovalRequestToAdmin(req){
   if(!TELEGRAM_BOT_TOKEN || !TELEGRAM_ADMIN_CHAT_ID) return;
 
@@ -2825,9 +3009,7 @@ async function sendApprovalRequestToAdmin(req){
         disable_web_page_preview: true
       })
     });
-  } catch(e) {
-    console.warn("Telegram yuborishda xatolik:", e);
-  }
+  } catch(e) { console.warn("Telegram yuborishda xatolik:", e); }
 }
 
 async function sendApprovalNotification(req, approved){
@@ -2856,9 +3038,7 @@ async function sendApprovalNotification(req, approved){
         parse_mode: "HTML"
       })
     });
-  } catch(e) {
-    console.warn("Telegram xatolik:", e);
-  }
+  } catch(e) { console.warn("Telegram xatolik:", e); }
 }
 
 /* ================================================================
@@ -3068,7 +3248,6 @@ function checkLogin(){
 
   const user = findUser(userInput);
 
-  // Pending tekshirish
   if(!user){
     const pending = getPendingRequests();
     const pendingReq = pending.find(p => 
@@ -3151,7 +3330,6 @@ function checkLogin(){
   }, 500);
 }
 
-/* ---- REGISTER ---- */
 function showRegister(){
   document.getElementById("loginBox").style.display = "none";
   document.getElementById("registerBox").style.display = "block";
@@ -3227,14 +3405,12 @@ function doRegister(){
     beep("error"); return;
   }
 
-  // Mavjud userlar orasida tekshirish
   if(findUser(username)){
     errorEl.innerText = t("regErrorUsernameTaken");
     errorEl.classList.remove("shake"); void errorEl.offsetWidth; errorEl.classList.add("shake");
     beep("error"); return;
   }
 
-  // Pending so'rovlar orasida tekshirish
   const pending = getPendingRequests();
   if(pending.find(p => p.username.toLowerCase() === username.toLowerCase() && p.status === "pending")){
     errorEl.innerText = t("regErrorPending");
@@ -3246,7 +3422,6 @@ function doRegister(){
   const prices = [];
   for(let i = 0; i < tablesCount; i++) prices.push(defaultPrice);
 
-  // PENDING so'rov yaratamiz (USER EMAS!)
   const request = {
     id: "req_" + Date.now() + "_" + Math.random().toString(36).slice(2,7),
     fullName: fullName,
@@ -3265,7 +3440,6 @@ function doRegister(){
   requests.push(request);
   savePendingRequests(requests);
 
-  // Telegramga xabar yuborish
   sendApprovalRequestToAdmin(request);
   updatePendingBadge();
 
@@ -3341,13 +3515,13 @@ function applyRoleUI(){
   }
   const roleLabel = u.role === "main_admin" ? "👑 BOSH ADMIN"
                   : u.role === "admin" ? "🛡️ ADMIN"
-                  : "👤 FOYDALANUVCHI";
+                  : "👤 " + (currentLang === "ru" ? "ПОЛЬЗОВАТЕЛЬ" : "FOYDALANUVCHI");
   const roleColor = u.role === "main_admin" ? "#ffd23f"
                   : u.role === "admin" ? "#42e979"
                   : "#35c9ff";
 
   const tablesInfo = u.tablesCount 
-    ? `<div style="font-size:10px;color:#8aa0b8;margin-top:6px">🎱 ${u.tablesCount} ta stol</div>`
+    ? `<div style="font-size:10px;color:#8aa0b8;margin-top:6px">🎱 ${u.tablesCount} ${t("tablesShort")}</div>`
     : '';
 
   infoBox.innerHTML = `
@@ -3376,7 +3550,7 @@ function applyRoleUI(){
       const label = adminBtn.querySelector("[data-i18n='navAdmin']");
       if(icon) icon.innerText = "👥";
       if(label){
-        label.innerText = "FOYDALANUVCHILAR";
+        label.innerText = (currentLang === "ru" ? "ПОЛЬЗОВАТЕЛИ" : "FOYDALANUVCHILAR");
         label.removeAttribute("data-i18n");
       }
       adminBtn.setAttribute("onclick", "openAdminUsersDirect()");
@@ -3407,7 +3581,7 @@ function applyRoleUI(){
 function openAdminUsersDirect(){
   if(!isMainAdmin()){
     beep("error");
-    showModal("🚫", "Ruxsat yo'q", "Bu bo'limga faqat Bosh admin kira oladi.");
+    showModal("🚫", t("noAccessTitle"), t("noAccessText"));
     return;
   }
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
@@ -3432,7 +3606,7 @@ function openAdminUsersDirect(){
 function showWelcomeToast(user){
   const roleLabel = user.role === "main_admin" ? "👑 Bosh admin"
                   : user.role === "admin" ? "🛡️ Admin"
-                  : "👤 Foydalanuvchi";
+                  : "👤 " + (currentLang === "ru" ? "Пользователь" : "Foydalanuvchi");
   const toast = document.createElement("div");
   toast.style.cssText = `
     position: fixed; top: 20px; right: 20px; z-index: 99999;
@@ -3442,7 +3616,8 @@ function showWelcomeToast(user){
     box-shadow: 0 15px 40px rgba(10,169,120,.5);
     animation: pageIn .4s cubic-bezier(.2,.9,.3,1.2);
   `;
-  toast.innerHTML = `✅ Xush kelibsiz, <b>${escapeHTML(user.fullName)}</b>!<br>
+  const hello = currentLang === "ru" ? "Добро пожаловать" : "Xush kelibsiz";
+  toast.innerHTML = `✅ ${hello}, <b>${escapeHTML(user.fullName)}</b>!<br>
     <span style="font-size:11px;opacity:.85">${roleLabel}</span>`;
   document.body.appendChild(toast);
   setTimeout(()=>{
@@ -3561,49 +3736,49 @@ function renderTables(){
   const subtitle = document.getElementById("tablesSubtitle");
   if(subtitle){
     const prices = (user.tablePrices||[]).map((p,i)=>`S${i+1}: ${money(p)}`).join(" • ");
-    subtitle.innerText = `${count} ta stol • ${prices}`;
+    subtitle.innerText = `${count} ${t("tablesShort")} • ${prices}`;
   }
 
   for(let id = 1; id <= count; id++){
     const price = getTablePrice(id);
     const tableHTML = `
       <div class="table-window" id="tableWindow${id}">
-        <div class="table-title"><span data-i18n="tableLabel">🎱 STOL</span> ${id}</div>
-        <div id="status${id}" class="status free" data-i18n="statusFree">🔵 BO'SH</div>
+        <div class="table-title"><span data-i18n="tableLabel">${t("tableLabel")}</span> ${id}</div>
+        <div id="status${id}" class="status free" data-i18n="statusFree">${t("statusFree")}</div>
         <div id="timer${id}" class="timer">00:00:00</div>
         <div class="price">
-          <span data-i18n="priceLabel">1 SOAT NARXI</span> 
+          <span data-i18n="priceLabel">${t("priceLabel")}</span> 
           <b id="priceText${id}">${money(price)}</b>
         </div>
         <div id="livePrice${id}" class="live-price" style="display:none">
-          <span data-i18n="currentBill">💰 Hozirgi hisob:</span> 
-          <b id="liveSum${id}">0 so'm</b>
+          <span data-i18n="currentBill">${t("currentBill")}</span> 
+          <b id="liveSum${id}">0 ${t("som")}</b>
         </div>
         <div id="bookingIndicator${id}" class="booking-indicator" style="display:none"></div>
         <button id="start${id}" class="btn start-btn" onclick="startGame(${id})" data-i18n="startBtn">
-          ▶️ O'YINNI BOSHLASH
+          ${t("startBtn")}
         </button>
         <button id="finish${id}" class="btn finish-btn" onclick="finishGame(${id})" data-i18n="finishBtn">
-          ⏹️ O'YINNI TUGATISH
+          ${t("finishBtn")}
         </button>
         <div id="payment${id}" class="payment">
           <div class="total">
-            <span data-i18n="totalLabel">💰 JAMI:</span> 
-            <b id="sum${id}">0 so'm</b>
+            <span data-i18n="totalLabel">${t("totalLabel")}</span> 
+            <b id="sum${id}">0 ${t("som")}</b>
           </div>
           <button class="btn paid-btn" onclick="savePaid(${id})" data-i18n="paidBtn">
-            🟢 PUL OLINDI
+            ${t("paidBtn")}
           </button>
           <button class="btn debt-btn" onclick="showDebt(${id})" data-i18n="debtBtn">
-            🔴 PUL OLINMADI
+            ${t("debtBtn")}
           </button>
           <div id="debtForm${id}" class="debt-form">
-            <div class="form-title" data-i18n="nameLabel">👤 Ismi</div>
-            <input id="name${id}" data-i18n-placeholder="namePlaceholder" placeholder="Ismini yozing">
-            <div class="form-title" data-i18n="phoneLabel">📞 Telefon</div>
-            <input id="phone${id}" data-i18n-placeholder="phonePlaceholder" placeholder="Telefon raqami">
+            <div class="form-title" data-i18n="nameLabel">${t("nameLabel")}</div>
+            <input id="name${id}" data-i18n-placeholder="namePlaceholder" placeholder="${t("namePlaceholder")}">
+            <div class="form-title" data-i18n="phoneLabel">${t("phoneLabel")}</div>
+            <input id="phone${id}" data-i18n-placeholder="phonePlaceholder" placeholder="${t("phonePlaceholder")}">
             <button class="btn save-btn" onclick="saveDebt(${id})" data-i18n="saveDebtBtn">
-              💾 QARZDORNI SAQLASH
+              ${t("saveDebtBtn")}
             </button>
           </div>
         </div>
@@ -3859,9 +4034,9 @@ function renderReports(){
   const el3 = document.getElementById("statUnpaid");
   if(el3) el3.innerText=money(unpaid);
   const el4 = document.getElementById("statDebtors");
-  if(el4) el4.innerText=debtors.length+" ta";
+  if(el4) el4.innerText=debtors.length+" "+(currentLang === "ru" ? "шт" : "ta");
   const sb = document.getElementById("statBookings");
-  if(sb) sb.innerText = activeBookings.length + " ta";
+  if(sb) sb.innerText = activeBookings.length + " " + (currentLang === "ru" ? "шт" : "ta");
 }
 
 function renderAdminDebtors(){
@@ -4077,7 +4252,7 @@ function renderPendingRequests(){
 
   const requests = getPendingRequests().filter(r => r.status === "pending");
   
-  if(badge) badge.innerText = requests.length + " ta";
+  if(badge) badge.innerText = requests.length + " " + (currentLang === "ru" ? "шт" : "ta");
 
   if(!requests.length){
     box.innerHTML = `
@@ -4094,7 +4269,7 @@ function renderPendingRequests(){
     const div = document.createElement("div");
     div.className = "history-item pending-card";
     
-    const createdDate = new Date(req.createdAt).toLocaleString("uz-UZ");
+    const createdDate = new Date(req.createdAt).toLocaleString(currentLang === "ru" ? "ru-RU" : "uz-UZ");
     const pricesStr = req.tablePrices.map((p,i) => 
       `<b style="color:#35c9ff">S${i+1}</b> ${p.toLocaleString()}`
     ).join(" • ");
@@ -4103,14 +4278,14 @@ function renderPendingRequests(){
       <div class="history-item-info">
         <div style="font-size:16px;font-weight:900;color:#ffd23f;margin-bottom:8px">
           ⏳ ${escapeHTML(req.fullName)}
-          <span style="font-size:10px;font-weight:900;color:#ffd23f;margin-left:8px;letter-spacing:1px">YANGI SO'ROV</span>
+          <span style="font-size:10px;font-weight:900;color:#ffd23f;margin-left:8px;letter-spacing:1px">${t("newRequestLabel")}</span>
         </div>
-        <div>🔑 Login: <b style="color:#35c9ff">${escapeHTML(req.username)}</b> &nbsp;•&nbsp;
-             🔒 Parol: <b style="color:#ffd23f">${escapeHTML(req.password)}</b></div>
-        <div>📞 Telefon: <b>${escapeHTML(req.phone)}</b></div>
-        <div>🕐 Yuborilgan: ${createdDate}</div>
+        <div>🔑 ${t("pwdNewLogin")}: <b style="color:#35c9ff">${escapeHTML(req.username)}</b> &nbsp;•&nbsp;
+             🔒 ${t("pwdNewPassword")}: <b style="color:#ffd23f">${escapeHTML(req.password)}</b></div>
+        <div>📞 ${t("phone")} <b>${escapeHTML(req.phone)}</b></div>
+        <div>🕐 ${t("sentAtLabel")}: ${createdDate}</div>
         <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(53,201,255,.08);border:1px dashed rgba(53,201,255,.3)">
-          🎱 <b style="color:#42e979">${req.tablesCount} ta stol</b><br>
+          🎱 <b style="color:#42e979">${req.tablesCount} ${t("tablesShort")}</b><br>
           <span style="font-size:11px;color:#8aa0b8">💰 ${pricesStr}</span>
         </div>
       </div>
@@ -4118,12 +4293,12 @@ function renderPendingRequests(){
         <button class="chek-btn" 
                 onclick="confirmApproveRequest('${req.id}')" 
                 style="background:linear-gradient(135deg,#0dbb85,#067858)">
-          ✅ TASDIQLASH
+          ${t("approveBtn")}
         </button>
         <button class="chek-btn" 
                 onclick="confirmRejectRequest('${req.id}')" 
                 style="background:linear-gradient(135deg,#e04456,#8f1e2d)">
-          ❌ RAD ETISH
+          ${t("rejectBtn")}
         </button>
       </div>
     `;
@@ -4147,7 +4322,7 @@ function confirmApproveRequest(id){
   document.getElementById("modalButtons").innerHTML = 
     `<button class="modal-btn" style="background:linear-gradient(135deg,#0dbb85,#067858)" 
              onclick="doApproveRequest('${id}')">${t("pendingApproveYes")}</button>
-     <button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>`;
+     <button class="modal-cancel" onclick="closeModal()">${t("cancelRejectBtn")}</button>`;
   document.getElementById("modalBg").style.display = "flex";
 }
 
@@ -4157,7 +4332,7 @@ function doApproveRequest(id){
   
   if(!res.ok){
     beep("error");
-    showModal("⚠️", "Xatolik", res.error || "So'rovni tasdiqlashda xatolik");
+    showModal("⚠️", t("errorTitle"), res.error || t("approveError"));
     return;
   }
 
@@ -4187,7 +4362,7 @@ function confirmRejectRequest(id){
   });
   document.getElementById("modalButtons").innerHTML = 
     `<button class="modal-danger" onclick="doRejectRequest('${id}')">${t("pendingRejectYes")}</button>
-     <button class="modal-cancel" onclick="closeModal()">BEKOR QILISH</button>`;
+     <button class="modal-cancel" onclick="closeModal()">${t("cancelRejectBtn")}</button>`;
   document.getElementById("modalBg").style.display = "flex";
 }
 
@@ -4198,7 +4373,7 @@ function doRejectRequest(id){
 
   if(!res.ok){
     beep("error");
-    showModal("⚠️", "Xatolik", res.error || "Xatolik yuz berdi");
+    showModal("⚠️", t("errorTitle"), res.error || t("errorOccurred"));
     return;
   }
 
@@ -4213,7 +4388,7 @@ function doRejectRequest(id){
 }
 
 /* ================================================================
-   BOOKING
+   BOOKING + CUSTOM DROPDOWN
    ================================================================ */
 function toggleBookingFilter(){
   bookingFilterToday = !bookingFilterToday;
@@ -4224,15 +4399,92 @@ function toggleBookingFilter(){
 
 function renderBookingTableOptions(){
   const user = getCurrentUser();
-  if(!user || !user.tablesCount) return;
-  const select = document.getElementById("bookingTable");
-  if(!select) return;
-  select.innerHTML = "";
+  const menu = document.getElementById("bookingTableMenu");
+  if(!menu) return;
+
+  if(!user || !user.tablesCount){
+    menu.innerHTML = '<div class="custom-select-option"><div class="custom-select-option-info"><div class="custom-select-option-name">' + t("tablesNotConfigured") + '</div></div></div>';
+    return;
+  }
+
+  menu.innerHTML = "";
   for(let i = 1; i <= user.tablesCount; i++){
-    select.insertAdjacentHTML("beforeend", 
-      `<option value="${i}">Stol ${i} (${money(getTablePrice(i))})</option>`);
+    const price = getTablePrice(i);
+    const isBusy = games[i] && games[i].start && !games[i].finished;
+
+    const opt = document.createElement("div");
+    opt.className = "custom-select-option";
+    opt.setAttribute("data-value", i);
+    opt.onclick = (e) => selectTable(i, e);
+    opt.innerHTML = `
+      <div class="custom-select-option-icon">${i}</div>
+      <div class="custom-select-option-info">
+        <div class="custom-select-option-name">
+          ${t("table")} ${i}
+          <span style="font-size:9px;color:${isBusy?'#ff6878':'#42e979'};margin-left:6px;font-weight:900">
+            ${isBusy ? '🔴 ' + t("busyShort") : '🟢 ' + t("freeShort")}
+          </span>
+        </div>
+        <div class="custom-select-option-price">💰 1 ${t("hourShort")} — ${money(price)}</div>
+      </div>
+      <div class="custom-select-option-status ${isBusy?'busy':''}"></div>
+      <div class="custom-select-option-check">✓</div>
+    `;
+    menu.appendChild(opt);
+  }
+
+  const currentVal = document.getElementById("bookingTable").value;
+  if(currentVal && Number(currentVal) <= user.tablesCount){
+    const selected = menu.querySelector(`[data-value="${currentVal}"]`);
+    if(selected){
+      selected.classList.add("selected");
+      const txt = document.getElementById("bookingTableText");
+      txt.innerText = t("table") + " " + currentVal;
+      txt.classList.remove("placeholder");
+    }
   }
 }
+
+function toggleTableDropdown(e){
+  if(e) e.stopPropagation();
+  const wrap = document.getElementById("bookingTableWrap");
+  if(!wrap) return;
+  const isOpen = wrap.classList.toggle("open");
+
+  if(isOpen){
+    document.querySelectorAll(".custom-select.open").forEach(el => {
+      if(el !== wrap) el.classList.remove("open");
+    });
+  }
+}
+
+function selectTable(tableNum, e){
+  if(e) e.stopPropagation();
+  const wrap = document.getElementById("bookingTableWrap");
+  const menu = document.getElementById("bookingTableMenu");
+  const text = document.getElementById("bookingTableText");
+  const hidden = document.getElementById("bookingTable");
+
+  if(!wrap || !menu || !text || !hidden) return;
+
+  menu.querySelectorAll(".custom-select-option").forEach(o => o.classList.remove("selected"));
+
+  const selected = menu.querySelector(`[data-value="${tableNum}"]`);
+  if(selected) selected.classList.add("selected");
+
+  hidden.value = tableNum;
+  text.innerText = t("table") + " " + tableNum;
+  text.classList.remove("placeholder");
+
+  wrap.classList.remove("open");
+  beep("money");
+}
+
+document.addEventListener("click", function(e){
+  if(!e.target.closest(".custom-select")){
+    document.querySelectorAll(".custom-select.open").forEach(el => el.classList.remove("open"));
+  }
+});
 
 function saveBooking(){
   const table = Number(document.getElementById("bookingTable").value);
@@ -4241,6 +4493,12 @@ function saveBooking(){
   const date = document.getElementById("bookingDate").value;
   const time = document.getElementById("bookingTime").value;
   const duration = Number(document.getElementById("bookingDuration").value) || 60;
+
+  if(!table || table < 1){
+    beep("error");
+    showModal("🎱", t("bookingTableMissingTitle"), t("bookingTableMissingText"));
+    return;
+  }
 
   if(!name){ beep("error"); showModal("👤", t("nameMissingTitle"), t("nameMissingText")); return; }
   if(!phone){ beep("error"); showModal("📞", t("phoneMissingTitle"), t("phoneMissingText")); return; }
@@ -4302,6 +4560,12 @@ function saveBooking(){
 
   document.getElementById("bookingName").value = "";
   document.getElementById("bookingPhone").value = "";
+
+  document.getElementById("bookingTable").value = "";
+  const txt = document.getElementById("bookingTableText");
+  txt.innerText = t("selectTable");
+  txt.classList.add("placeholder");
+  renderBookingTableOptions();
 
   if(u) logUserAction(u.id, "booking", `Stol ${table} bron — ${name} (${formatTime(bookingStart)})`);
 
@@ -4493,12 +4757,12 @@ function updateAllBookingIndicators(){
 
     if(current){
       indicator.style.display = "block";
-      indicator.innerHTML = "🟢 <b>" + escapeHTML(current.name) + "</b> hozir kutmoqda • " + formatTime(current.endTime) + " gacha";
+      indicator.innerHTML = "🟢 <b>" + escapeHTML(current.name) + "</b> " + t("occupiedLabel") + " • " + formatTime(current.endTime) + " " + t("untilLabel");
     } else if(upcoming){
       const diffMin = Math.round((upcoming.startTime - now) / 60000);
       if(diffMin <= 120){
         indicator.style.display = "block";
-        indicator.innerHTML = "🔔 <b>" + escapeHTML(upcoming.name) + "</b> • " + formatTime(upcoming.startTime) + " (" + diffMin + " " + t("minutes") + "dan keyin)";
+        indicator.innerHTML = "🔔 <b>" + escapeHTML(upcoming.name) + "</b> • " + formatTime(upcoming.startTime) + " (" + diffMin + " " + t("minutes") + " " + t("afterLabel") + ")";
       } else {
         indicator.style.display = "none";
       }
@@ -4537,7 +4801,7 @@ function generateTablePriceInputs(){
   const count = Number(countInput.value) || 3;
   
   if(count < 1 || count > 20){
-    container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ Stol soni 1-20 orasida bo\'lishi kerak</div>';
+    container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ ' + t("tablesCountError") + '</div>';
     return;
   }
 
@@ -4552,7 +4816,7 @@ function generateTablePriceInputs(){
     const val = existingPrices[i] || 40000;
     const div = document.createElement("div");
     div.innerHTML = `
-      <div class="form-title" style="margin-top:0;color:#42e979">🎱 Stol ${i} narxi</div>
+      <div class="form-title" style="margin-top:0;color:#42e979">🎱 ${t("table")} ${i}</div>
       <input type="number" 
              id="tablePrice_${i}" 
              class="login-input table-price-input" 
@@ -4588,7 +4852,7 @@ function handleCreateUser(){
 
   if(!tablesCount || tablesCount < 1 || tablesCount > 20){
     beep("error");
-    showModal("⚠️", "Xatolik", t("tablesCountError"));
+    showModal("⚠️", t("errorTitle"), t("tablesCountError"));
     return;
   }
 
@@ -4597,7 +4861,7 @@ function handleCreateUser(){
     const price = Number(inp.value);
     if(!price || price < 0){
       beep("error");
-      showModal("⚠️", "Xatolik", t("tablePriceError", {n: i}));
+      showModal("⚠️", t("errorTitle"), t("tablePriceError", {n: i}));
       return;
     }
     prices.push(price);
@@ -4610,7 +4874,7 @@ function handleCreateUser(){
 
   if(!res.ok){
     beep("error");
-    showModal("⚠️", "Xatolik", res.error);
+    showModal("⚠️", t("errorTitle"), res.error);
     return;
   }
 
@@ -4626,15 +4890,16 @@ function handleCreateUser(){
 
   beep("money");
   
-  const pricesList = prices.map((p, i) => `   🎱 Stol ${i+1}: ${money(p)}`).join("\n");
+  const pricesList = prices.map((p, i) => `   🎱 ${t("table")} ${i+1}: ${money(p)}`).join("\n");
+  const roleText = role === "admin" ? t("roleAdmin") : t("roleUser");
   
-  showModal("✅", "Foydalanuvchi qo'shildi",
+  showModal("✅", t("userCreatedTitle"),
     `👤 ${fullName}\n` +
-    `🔑 Login: ${username}\n` +
-    `🔒 Parol: ${password}\n` +
-    `🎭 Rol: ${role === "admin" ? "Admin" : "Foydalanuvchi"}\n` +
-    `🎱 Stollar: ${tablesCount} ta\n\n` +
-    `💰 Narxlar:\n${pricesList}`);
+    `🔑 ${t("pwdNewLogin")}: ${username}\n` +
+    `🔒 ${t("pwdNewPassword")}: ${password}\n` +
+    `🎭 ${t("roleLabel")}: ${roleText}\n` +
+    `🎱 ${t("userTablesLabel")}: ${tablesCount} ${t("tablesShort")}\n\n` +
+    `💰 ${t("pricesLabel")}:\n${pricesList}`);
   
   renderUsers();
 }
@@ -4644,7 +4909,7 @@ function renderUsers(){
   if(!box) return;
   const users = getUsers();
   if(!users.length){
-    box.innerHTML = '<div class="empty">Foydalanuvchilar yo\'q</div>';
+    box.innerHTML = '<div class="empty">' + t("noUsers") + '</div>';
     return;
   }
   box.innerHTML = "";
@@ -4656,13 +4921,13 @@ function renderUsers(){
     const isMain = u.role === "main_admin";
     const roleLabel = isMain ? "👑 BOSH ADMIN"
                     : u.role === "admin" ? "🛡️ ADMIN"
-                    : "👤 FOYDALANUVCHI";
+                    : "👤 " + (currentLang === "ru" ? "ПОЛЬЗОВАТЕЛЬ" : "FOYDALANUVCHI");
     const roleColor = isMain ? "#ffd23f"
                     : u.role === "admin" ? "#42e979"
                     : "#35c9ff";
     const status = u.active === false
-      ? '<span style="color:#ff6878;font-weight:900">🚫 BLOKLANGAN</span>'
-      : '<span style="color:#42e979;font-weight:900">✅ FAOL</span>';
+      ? '<span style="color:#ff6878;font-weight:900">' + t("userBlocked") + '</span>'
+      : '<span style="color:#42e979;font-weight:900">' + t("userActive") + '</span>';
 
     const userHistory = allHistory.filter(h => h.userId === u.id);
     const todayItems = userHistory.filter(h => (h.saveDate || h.gameDate) === today);
@@ -4696,14 +4961,14 @@ function renderUsers(){
       ).join(" • ");
       tablesInfo = `
         <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(53,201,255,.08);border:1px dashed rgba(53,201,255,.3)">
-          🎱 <b style="color:#42e979">${u.tablesCount} ta stol</b><br>
+          🎱 <b style="color:#42e979">${u.tablesCount} ${t("tablesShort")}</b><br>
           <span style="font-size:11px;color:#8aa0b8">💰 ${pricesStr}</span>
         </div>
       `;
     } else {
       tablesInfo = `
         <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(136,152,168,.08);border:1px dashed rgba(136,152,168,.3);color:#8aa0b8">
-          🎱 Stollar sozlanmagan
+          🎱 ${t("tablesNotConfigured")}
         </div>
       `;
     }
@@ -4713,38 +4978,38 @@ function renderUsers(){
                   background:linear-gradient(135deg,rgba(13,187,133,.08),rgba(53,201,255,.08));
                   border:1px solid rgba(66,233,121,.3)">
         <div style="font-size:10px;font-weight:900;color:#42e979;letter-spacing:1.5px;margin-bottom:10px">
-          💰 MOLIYAVIY KO'RSATKICHLAR
+          💰 ${t("financialIndicators")}
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px">
           <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
-            <div style="font-size:9px;color:#8aa0b8;font-weight:800">BUGUN</div>
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800">${t("today")}</div>
             <div style="font-size:13px;font-weight:900;color:#42e979;margin-top:3px">${money(todayTotal)}</div>
-            <div style="font-size:9px;color:#5f7691;margin-top:2px">${todayGames} o'yin</div>
+            <div style="font-size:9px;color:#5f7691;margin-top:2px">${todayGames} ${t("gamesShort")}</div>
           </div>
           <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
-            <div style="font-size:9px;color:#8aa0b8;font-weight:800">7 KUN</div>
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800">${t("week7")}</div>
             <div style="font-size:13px;font-weight:900;color:#35c9ff;margin-top:3px">${money(weekTotal)}</div>
-            <div style="font-size:9px;color:#5f7691;margin-top:2px">${weekItems.length} o'yin</div>
+            <div style="font-size:9px;color:#5f7691;margin-top:2px">${weekItems.length} ${t("gamesShort")}</div>
           </div>
           <div style="text-align:center;padding:8px 4px;border-radius:8px;background:rgba(0,0,0,.2)">
-            <div style="font-size:9px;color:#8aa0b8;font-weight:800">UMUMIY</div>
+            <div style="font-size:9px;color:#8aa0b8;font-weight:800">${t("totalLabelShort")}</div>
             <div style="font-size:13px;font-weight:900;color:#ffd23f;margin-top:3px">${money(totalAll)}</div>
-            <div style="font-size:9px;color:#5f7691;margin-top:2px">${totalGames} o'yin</div>
+            <div style="font-size:9px;color:#5f7691;margin-top:2px">${totalGames} ${t("gamesShort")}</div>
           </div>
         </div>
         <div style="display:flex;gap:8px;font-size:11px;font-weight:800">
           <div style="flex:1;padding:6px 10px;border-radius:8px;background:rgba(66,233,121,.12);color:#42e979;text-align:center">
-            🟢 Olindi: ${money(totalPaid)}
+            🟢 ${t("receivedLabel")}: ${money(totalPaid)}
           </div>
           <div style="flex:1;padding:6px 10px;border-radius:8px;background:rgba(224,68,86,.12);color:#ff6878;text-align:center">
-            🔴 Qarz: ${money(totalUnpaid)}
+            🔴 ${t("debtLabel")}: ${money(totalUnpaid)}
           </div>
         </div>
         ${todayUnpaid > 0 ? `
           <div style="margin-top:8px;padding:6px 10px;border-radius:8px;
                       background:rgba(255,210,63,.1);border:1px dashed rgba(255,210,63,.4);
                       color:#ffd23f;font-size:10px;font-weight:800;text-align:center">
-            ⚠️ Bugun qarz: ${money(todayUnpaid)}
+            ⚠️ ${t("todayDebt")}: ${money(todayUnpaid)}
           </div>
         ` : ''}
       </div>
@@ -4759,24 +5024,24 @@ function renderUsers(){
           ${escapeHTML(u.fullName)}
           <span style="font-size:10px;font-weight:900;color:${roleColor};margin-left:8px;letter-spacing:1px">${roleLabel}</span>
         </div>
-        <div>🔑 Login: <b style="color:#35c9ff">${escapeHTML(u.username)}</b> &nbsp;•&nbsp;
-             🔒 Parol: <b style="color:#ffd23f">${escapeHTML(u.password)}</b></div>
-        <div>📅 Yaratilgan: ${new Date(u.createdAt).toLocaleDateString("uz-UZ")} &nbsp;•&nbsp; ${status}</div>
+        <div>🔑 ${t("pwdNewLogin")}: <b style="color:#35c9ff">${escapeHTML(u.username)}</b> &nbsp;•&nbsp;
+             🔒 ${t("pwdNewPassword")}: <b style="color:#ffd23f">${escapeHTML(u.password)}</b></div>
+        <div>📅 ${t("createdLabel")}: ${new Date(u.createdAt).toLocaleDateString(currentLang === "ru" ? "ru-RU" : "uz-UZ")} &nbsp;•&nbsp; ${status}</div>
         ${tablesInfo}
         ${financeBlock}
         <div style="margin-top:8px;color:#8aa0b8;font-size:11px">
-          🎱 Boshlangan: <b>${gamesStarted}</b> •
-          🟢 To'lov: <b>${paidCount}</b> •
-          🔴 Qarz: <b>${debtCount}</b> •
-          🚪 Kirish: <b>${loginCount}</b>
+          🎱 ${t("startedLabel")}: <b>${gamesStarted}</b> •
+          🟢 ${t("paymentLabel")}: <b>${paidCount}</b> •
+          🔴 ${t("debtLabel")}: <b>${debtCount}</b> •
+          🚪 ${t("loginLabelShort")}: <b>${loginCount}</b>
         </div>
       </div>
       <div class="history-item-actions" style="flex-direction:column;gap:6px">
-        ${isMain ? '<div style="color:#ffd23f;font-weight:900;font-size:11px;text-align:center;padding:10px">👑 O\'CHIRILMAYDI</div>' : `
-          <button class="chek-btn" onclick="editUserTables('${u.id}')" style="background:linear-gradient(135deg,#0dbb85,#067858)">🎱 STOLLAR</button>
-          <button class="chek-btn" onclick="changeUserPasswordPrompt('${u.id}')" style="background:linear-gradient(135deg,#0a8ee8,#065a9f)">🔒 PAROL</button>
-          <button class="chek-btn" onclick="toggleUserActiveUI('${u.id}')" style="background:linear-gradient(135deg,#e8a826,#b97300)">${u.active === false ? "✅ FAOLLASHTIRISH" : "🚫 BLOKLASH"}</button>
-          <button class="chek-btn" onclick="confirmDeleteUser('${u.id}')" style="background:linear-gradient(135deg,#e04456,#8f1e2d)">🗑️ O'CHIRISH</button>
+        ${isMain ? '<div style="color:#ffd23f;font-weight:900;font-size:11px;text-align:center;padding:10px">👑 ' + t("cannotDelete") + '</div>' : `
+          <button class="chek-btn" onclick="editUserTables('${u.id}')" style="background:linear-gradient(135deg,#0dbb85,#067858)">🎱 ${t("tablesBtn")}</button>
+          <button class="chek-btn" onclick="changeUserPasswordPrompt('${u.id}')" style="background:linear-gradient(135deg,#0a8ee8,#065a9f)">🔒 ${t("passwordBtn")}</button>
+          <button class="chek-btn" onclick="toggleUserActiveUI('${u.id}')" style="background:linear-gradient(135deg,#e8a826,#b97300)">${u.active === false ? "✅ " + t("activateBtn") : "🚫 " + t("blockBtn")}</button>
+          <button class="chek-btn" onclick="confirmDeleteUser('${u.id}')" style="background:linear-gradient(135deg,#e04456,#8f1e2d)">🗑️ ${t("deleteBtn")}</button>
         `}
       </div>
     `;
@@ -4791,7 +5056,7 @@ function renderUserLogs(){
   if(!box) return;
   const logs = getUserLogs().slice(0, 200);
   if(!logs.length){
-    box.innerHTML = '<div class="empty">Hozircha faoliyat yo\'q</div>';
+    box.innerHTML = '<div class="empty">' + t("noActivity") + '</div>';
     return;
   }
   box.innerHTML = "";
@@ -4859,7 +5124,7 @@ function regenerateEditPrices(existingPrices){
   const count = Number(countInput.value) || 3;
 
   if(count < 1 || count > 20){
-    container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ Stol soni 1-20 orasida bo\'lishi kerak</div>';
+    container.innerHTML = '<div style="color:#ff6878;padding:12px;grid-column:1/-1">⚠️ ' + t("tablesCountError") + '</div>';
     return;
   }
 
@@ -4882,7 +5147,7 @@ function regenerateEditPrices(existingPrices){
 
     const div = document.createElement("div");
     div.innerHTML = `
-      <div class="form-title" style="margin-top:0;color:#42e979">🎱 Stol ${i}</div>
+      <div class="form-title" style="margin-top:0;color:#42e979">🎱 ${t("table")} ${i}</div>
       <input type="number" id="editTablePrice_${i}" class="pwd-field-input" 
              value="${val}" min="0" step="5000">
     `;
@@ -4906,7 +5171,7 @@ function saveUserTables(){
   const count = Number(document.getElementById("editTablesCount").value);
   if(count < 1 || count > 20){
     beep("error");
-    showModal("⚠️", "Xatolik", t("tablesCountError"));
+    showModal("⚠️", t("errorTitle"), t("tablesCountError"));
     return;
   }
 
@@ -4915,7 +5180,7 @@ function saveUserTables(){
     const price = Number(document.getElementById("editTablePrice_" + i).value);
     if(!price || price < 0){
       beep("error");
-      showModal("⚠️", "Xatolik", t("tablePriceError", {n: i}));
+      showModal("⚠️", t("errorTitle"), t("tablePriceError", {n: i}));
       return;
     }
     prices.push(price);
@@ -4958,18 +5223,18 @@ function changeUserPasswordPrompt(id){
 
   const roleLabel = u.role === "main_admin" ? "👑 BOSH ADMIN"
                   : u.role === "admin" ? "🛡️ ADMIN"
-                  : "👤 FOYDALANUVCHI";
+                  : "👤 " + (currentLang === "ru" ? "ПОЛЬЗОВАТЕЛЬ" : "FOYDALANUVCHI");
   const roleColor = u.role === "main_admin" ? "#ffd23f"
                   : u.role === "admin" ? "#42e979"
                   : "#35c9ff";
 
   document.getElementById("pwdModalUserInfo").innerHTML = `
     <div style="color:#8aa0b8;font-size:11px;font-weight:800;letter-spacing:1.5px;margin-bottom:6px">
-      FOYDALANUVCHI
+      ${currentLang === "ru" ? "ПОЛЬЗОВАТЕЛЬ" : "FOYDALANUVCHI"}
     </div>
     <div><b>👤 ${escapeHTML(u.fullName)}</b></div>
     <div style="color:#8aa0b8;font-size:12px;margin-top:4px">
-      Hozirgi login: <b style="color:#35c9ff">${escapeHTML(u.username)}</b>
+      ${currentLang === "ru" ? "Текущий логин" : "Hozirgi login"}: <b style="color:#35c9ff">${escapeHTML(u.username)}</b>
     </div>
     <span class="role-tag" style="color:${roleColor};border:1px solid ${roleColor};background:${roleColor}22">
       ${roleLabel}
@@ -5001,12 +5266,12 @@ function saveUserCredentials(){
 
   if(!newLogin || newLogin.length < 3){
     beep("error");
-    showModal("⚠️", "Login xato", "Login kamida 3 ta belgi bo'lishi kerak.");
+    showModal("⚠️", t("loginErrorTitle"), t("loginMinLength"));
     return;
   }
   if(!newPass || newPass.length < 3){
     beep("error");
-    showModal("⚠️", "Parol xato", "Parol kamida 3 ta belgi bo'lishi kerak.");
+    showModal("⚠️", t("passwordErrorTitle"), t("passwordMinLength"));
     return;
   }
 
@@ -5024,7 +5289,7 @@ function saveUserCredentials(){
   );
   if(duplicate){
     beep("error");
-    showModal("⚠️", "Login band", `"${newLogin}" logini allaqachon ${duplicate.fullName} tomonidan ishlatilmoqda.`);
+    showModal("⚠️", t("loginTakenTitle"), t("loginTakenText", {login: newLogin, name: duplicate.fullName}));
     return;
   }
 
@@ -5045,10 +5310,12 @@ function saveUserCredentials(){
   renderUsers();
 
   setTimeout(()=>{
-    showModal("✅", "Muvaffaqiyatli yangilandi",
-      `👤 ${targetUser.fullName}\n\n` +
-      `🔑 Yangi login: ${newLogin}\n` +
-      `🔒 Yangi parol: ${newPass}`);
+    showModal("✅", t("updatedTitle"),
+      t("updatedText", {
+        name: targetUser.fullName,
+        login: newLogin,
+        password: newPass
+      }));
   }, 300);
 }
 
@@ -5066,12 +5333,11 @@ function confirmDeleteUser(id){
   const u = findUserById(id);
   if(!u) return;
   document.getElementById("modalIcon").innerText = "🗑️";
-  document.getElementById("modalTitle").innerText = "Foydalanuvchini o'chirish";
-  document.getElementById("modalText").innerText =
-    `${u.fullName} (@${u.username}) ni butunlay o'chirishni xohlaysizmi?\n\nBu amalni qaytarib bo'lmaydi.`;
+  document.getElementById("modalTitle").innerText = t("deleteUserTitle");
+  document.getElementById("modalText").innerText = t("deleteUserText", {name: u.fullName, username: u.username});
   document.getElementById("modalButtons").innerHTML =
-    `<button class="modal-danger" onclick="doDeleteUser('${id}')">🗑️ HA, O'CHIRISH</button>
-     <button class="modal-cancel" onclick="closeModal()">❌ BEKOR QILISH</button>`;
+    `<button class="modal-danger" onclick="doDeleteUser('${id}')">${t("deleteYes")}</button>
+     <button class="modal-cancel" onclick="closeModal()">${t("cancelBtn")}</button>`;
   document.getElementById("modalBg").style.display = "flex";
 }
 
@@ -5089,7 +5355,7 @@ function doDeleteUser(id){
 /* CLEAR LOGS */
 function clearUserLogs(){
   const logs = getUserLogs();
-  document.getElementById("clearModalCount").innerText = logs.length + " ta yozuv";
+  document.getElementById("clearModalCount").innerText = logs.length + " " + t("entriesShort");
   document.getElementById("clearModalBg").classList.add("active");
 }
 
@@ -5106,12 +5372,12 @@ function doClearUserLogs(){
   renderUsers();
 
   setTimeout(()=>{
-    showModal("✅", "Loglar tozalandi", `${count} ta yozuv muvaffaqiyatli o'chirildi.`);
+    showModal("✅", t("logsClearedTitle"), t("logsClearedText", {count: count}));
   }, 200);
 }
 
 /* ================================================================
-   PDF FUNKSIYALAR
+   PDF
    ================================================================ */
 function showPdfLoading(show){
   document.getElementById("pdfLoading").style.display = show ? "flex" : "none";
@@ -5406,14 +5672,14 @@ function printDebtorsChek(){
   }));
 
   const totals = [
-    { label: t("totalDebtors"), value: history.length + " ta" },
+    { label: t("totalDebtors"), value: history.length + " " + (currentLang === "ru" ? "шт" : "ta") },
     { label: t("grandDebt"), value: money(total), highlight: true }
   ];
 
   const el = buildChekElement({
     title: t("chekDebtors"),
     subtitle: t("unpaidList"),
-    headerInfo: '<div><span>' + t("totalDebtors") + '</span><span>' + history.length + ' ta</span></div>',
+    headerInfo: '<div><span>' + t("totalDebtors") + '</span><span>' + history.length + ' ' + (currentLang === "ru" ? "шт" : "ta") + '</span></div>',
     items: tableItems, totals: totals, footer: t("payOnTime")
   });
   downloadPDF(el, "BILLIARD_QARZDORLAR_" + fileDate() + ".pdf");
@@ -5472,7 +5738,7 @@ function printReportChek(){
     { label: t("todayUnpaid"), value: money(todayUnpaid) },
     { label: t("todayTotal"), value: money(todayTotal), highlight: true },
     { label: "━━━━━━━━━━━━", value: "" },
-    { label: t("totalDebtorsSmall"), value: allDebtors.length + " ta" },
+    { label: t("totalDebtorsSmall"), value: allDebtors.length + " " + (currentLang === "ru" ? "шт" : "ta") },
     { label: t("totalDebtSmall"), value: money(allDebt) }
   ];
 
@@ -5629,7 +5895,7 @@ function openAdmin(){
 function openAdminPage(page){
   if(page === "users" && !isMainAdmin()){
     beep("error");
-    showModal("🚫", "Ruxsat yo'q", "Bu bo'limga faqat Bosh admin kira oladi.");
+    showModal("🚫", t("noAccessTitle"), t("noAccessText"));
     return;
   }
 
@@ -5708,6 +5974,7 @@ document.addEventListener("keydown", function(e){
     if(pwdModal.classList.contains("active")){ closePwdModal(); return; }
     if(clearModal.classList.contains("active")){ closeClearModal(); return; }
     if(tablesEditModal.classList.contains("active")){ closeEditTablesModal(); return; }
+    document.querySelectorAll(".custom-select.open").forEach(el => el.classList.remove("open"));
     return;
   }
 
@@ -5832,9 +6099,7 @@ setInterval(function(){
   if(changed) saveBookings(bookings);
 }, 30000);
 
-/* ================================================================
-   PENDING REQUESTS POLLING (har 15 sekundda yangilash)
-   ================================================================ */
+/* PENDING REQUESTS POLLING */
 setInterval(function(){
   updatePendingBadge();
   const usersPage = document.getElementById("adminUsers");
@@ -5869,6 +6134,7 @@ setTimeout(()=>{
     initGamesForUser();
     renderTables();
     updatePriceTexts();
+    renderBookingTableOptions();
   }
 }, 100);
 
